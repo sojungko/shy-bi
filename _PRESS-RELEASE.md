@@ -1,6 +1,6 @@
 # ShyBi #
 
-## What We Are ##
+## Who We Are ##
   > A dating app for shy bi-sexuals and bi-curious people.
 
 ## Summary ##
@@ -11,15 +11,14 @@
   > Never quite worked up the courage to swipe right on that cute girl on Tinder? Feel like current dating apps are too hetero-normative for you to find people you truly connect with?
   > ShyBi allows you to cut to the chase and find people just like you in seconds!
 
-## Quote from Spokesperson ##
-  > "Dating for bis should be easier, not harder, than it is for people who only prefer one gender over the other!" -- Sojung Park, ShyBi spokeswoman
+## Quote from Our Spokesperson ##
+  > "Dating for bis should be easier, not harder, than it is for people who prefer one gender over the other." -- Sojung Park, ShyBi spokeswoman
 
 ## How to Get Started ##
-  > Sign up using our simple form or through Facebook, and start exploring curious people in your area!
+  > Sign up using our simple form or through Facebook, and start exploring other curious people in your area!
 
 ## Customer Testimonials ##
-  > ShyBi was the launchpad 
-  Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "ShyBi totally launched my sexual     -- Julia, 27
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
