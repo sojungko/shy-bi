@@ -8,14 +8,14 @@
   > ShyBi is here to provide a safe platform for bi individuals to explore their sexual identity.
 
 ## How We Solve Problem ##
-  > Never quite worked up the courage to swipe right on that cute girl on Tinder? Feel like current dating apps are too hetero-normative for you to find people you truly connect with?
-  > ShyBi allows you to cut to the chase and find people just like you in seconds.
+  > Never quite worked up the courage to swipe right on cute girls on Tinder? Feel current dating apps are too hetero-normative for finding people you truly connect with?
+  > ShyBi allows you to cut to the chase and discover people just like you in seconds.
 
 ## Quote from Our Spokesperson ##
-  > "Dating for bis should be easier, not harder, than it is for people who prefer one gender over the other." -- Sojung Park, ShyBi spokeswoman
+  > "Dating for bis should be easier, not harder, than it is for people who prefer one gender over the other."
 
 ## How to Get Started ##
-  > Sign up using our simple form or through Facebook, and start exploring other curious people in your area!
+  > Sign up using our simple form or through Facebook. Start exploring other curious people in your area!
 
 ## Customer Testimonials ##
   > "ShyBi totally launched my sexual     -- Julia, 27
