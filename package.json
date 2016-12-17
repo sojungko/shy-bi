@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "nodemon": "nodemon server/server.js"
+    "nodemon": "nodemon server/server.js",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -31,8 +32,19 @@
     "path": "^0.12.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-router": "^3.0.0",
+    "react-redux": "^5.0.1",
+    "react-router": "^4.0.0-alpha.5",
+    "redux": "^3.6.0",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0"
+  },
+  "devDependencies": {
+  "commitizen": "^2.8.6",
+  "cz-conventional-changelog": "^1.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
