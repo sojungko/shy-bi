@@ -8,5 +8,6 @@ node_modules
 ### Bower ###
 
 ### API keys ###
+server/database/pw.js
 
 ### WIP ###
