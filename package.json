@@ -1,0 +1,19 @@
+{
+  "name": "shy-bi",
+  "version": "1.0.0",
+  "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Data-driven-Duckies/shy-bi.git"
+  },
+  "author": "So Jung, Justin, Peter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Data-driven-Duckies/shy-bi/issues"
+  },
+  "homepage": "https://github.com/Data-driven-Duckies/shy-bi#readme"
+}
