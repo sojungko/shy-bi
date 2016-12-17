@@ -3,7 +3,7 @@ const app = express();
 
 require('./routes')(app, express);
 
-const port = process.env.PORT || 8888;
+const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
   res.send('DATA STRUCTURE DUCKS');
