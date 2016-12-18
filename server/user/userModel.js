@@ -37,12 +37,12 @@ module.exports = {
     to database`);
 
     return db.run(
-      `MERGE (newUser:User
-        {name: {name},
+      `MERGE (newUser:User {
+        name: {name},
         username: {username},
         email: {email},
-        password: {password}}
-      )
+        password: {password}
+      })
         ON CREATE SET newUser.memberSince = timestamp()
 
        MERGE (userCity: City {name: {city}})
@@ -50,7 +50,7 @@ module.exports = {
 
        MERGE (newUser)-[:LIVES_IN]-(userCity)
        MERGE (newUser)-[:YEARS_OLD]-(userAge)`,
-      { name, username, email, city, age }
+      { name, username, email, password, city, age }
     )
       .then((result) => {
         db.close();
