@@ -8,8 +8,10 @@
 
 const express = require('express');
 const routes = require('./routes');
+const dbinit = require('./database/initialize');
 
 const app = express();
+dbinit();
 
 // Deligates all routing to routes.js
 routes(app, express);
