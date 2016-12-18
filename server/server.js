@@ -1,13 +1,20 @@
+/* ----------------------- * SERVER/SERVER.JS * ---------------------
+ *
+ * This file:
+ *  1) Starts the application Express server, and
+ *  2) Deligates all server-side routing to routes.js
+ *
+ * --------------------------------------------------------------- */
+
 const express = require('express');
+const routes = require('./routes');
+
 const app = express();
 
-require('./routes')(app, express);
+// Deligates all routing to routes.js
+routes(app, express);
 
 const port = process.env.PORT || 8080;
-
-app.get('/', (req, res) => {
-  res.send('DATA STRUCTURE DUCKS');
-});
 
 app.listen(port, (err) => {
   if (err) {
