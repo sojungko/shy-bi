@@ -72,5 +72,5 @@ module.exports = (app, express) => {
   app.get('/api/users/:username', findUser);
 
   // 3-a-i) GET -> file: serach/searchController.js method:
-  app.get('api/search/all', findAll);
+  app.get('/api/search/all', findAll);
 };
