@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
 import Navbar from './Navbar';
 import SearchBar from '../containers/SearchBar';
