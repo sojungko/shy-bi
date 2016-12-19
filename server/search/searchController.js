@@ -8,8 +8,6 @@
  *
  *
  * --------------------------------------------------------------- */
-<<<<<<< HEAD
-=======
 
 module.exports = {
   //
@@ -21,4 +19,3 @@ module.exports = {
     console.log('1) [SearchController.js/findAll]');
   },
 };
->>>>>>> backend/#10-search_getall_01
