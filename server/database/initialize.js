@@ -20,7 +20,9 @@ const initialize = () => {
   console.log('[database/intialize.js]: Creating constraints');
   return db.run(
     `CREATE CONSTRAINT ON (users:User)
-      ASSERT users.username IS UNIQUE`
+      ASSERT users.username IS UNIQUE
+    CREATE CONSTRAINT ON (users:User)
+      ASSERT users.email IS UNIQUE`
   );
 };
 
