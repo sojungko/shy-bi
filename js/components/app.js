@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
-const App = () => <h1>Hello World!</h1>
+class App extends Component {
+  render() {
+    return (
+      <div>Hello Sojung</div>
+    )
+  }
+}
 
 export default App
