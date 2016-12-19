@@ -12,7 +12,7 @@ const path = require('path');
 const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
-const { signUp } = require('./user/userController');
+const { signUp, findUser } = require('./user/userController');
 
 module.exports = (app, express) => {
   //
@@ -38,7 +38,7 @@ module.exports = (app, express) => {
   /* ---------------------------- Router ----------------------------
    * Use Command/Ctrl + F to search for a route
    *
-   * Format: Controller(Int, eg: 1)-Method(string, eg: a)-HTTP Method Type(roman numeral, eg: i)
+   * Format: End Point(Int, eg: 1)-Method(string, eg: a)-HTTP Method(roman numeral, eg: i)
    * example: Search for 2-a-i to look for  "2) User a) Sign Up i) POST"
    *
    * 1) Root
@@ -48,7 +48,10 @@ module.exports = (app, express) => {
    * 2) Users
    *  a) Sign Up
    *    i) POST request to: '/api/users/signup'
-   *     - Calls signup function in the user/userController.js
+   *     - Calls signUp function in the user/userController.js
+   *  b) Get User
+   *    i) GET request to: 'api/users:username'
+   *     - Calls getUser function in the user/userController.js
    * ------------------------------------------------------------- */
 
   // 1-i) GET
@@ -56,6 +59,9 @@ module.exports = (app, express) => {
     res.send('<h1>DATA STRUCTURE DUCKS!<h1>');
   });
 
-  // 2-a-i) POST -> file: user/userController.js, method: signup
+  // 2-a-i) POST -> file: user/userController.js, method: signUp
   app.post('/api/users/signup', signUp);
+
+  // 2-b-i) GET -> file: user/userController.js, method: getUser
+  app.get('/api/users/:username', findUser);
 };

@@ -11,14 +11,14 @@
  * --------------------------------------------------------------- */
 
 // Plucks addUser methods from user/userModel.js
-const { addUser } = require('./userModel');
+const { addUser, getUser } = require('./userModel');
 
 module.exports = {
   //
   /* -------------------------- * SIGN UP * -------------------------
    *
    * Calls addUser method. (see user/userModel.js)
-   * Sends 201 status as response.
+   * Sends 201 status as a response.
    *
    *  Parameters:
    *    • req | Object | request object
@@ -36,6 +36,61 @@ module.exports = {
     addUser(name, username, email, password, city, age, () => {
       console.log('4) [UserController.js/singup] Success, sending back 201 status');
       res.sendStatus(201);
+    });
+  },
+
+  /* ------------------------- * FIND USER * -------------------------
+   *
+   * Calls getUser method. (see user/userModel.js)
+   * Once it receives user data,
+   *  chunks the data and build a result object for FE to use.
+   * Sends a JSON stringified result object as a response.
+   *
+   * - Sample response object:
+   *
+   *   {
+   *    "user": {
+   *      "memberSince": {
+   *         "low": 341094756,
+   *        "high": 345
+   *      },
+   *      "password": "sojungsojung",
+   *      "name": "So Jung Park",
+   *      "email": "sojung@gmail.com",
+   *      "username": "sojung"
+   *    },
+   *    "city": "New York",
+   *    "age": 28
+   *  }
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck username, from its params object
+   *    • res | Object | response object
+   *
+   *  Returns:
+   *    • No explicit return
+   *
+   * --------------------------------------------------------------- */
+
+  findUser({ params: { username } }, res) {
+    console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
+
+    getUser(username, (data) => {
+      console.log('4) [UserController.js/getUser] Success');
+
+      const { properties: { memberSince, password, name, email } } = data.get('user');
+      const city = data.get('city');
+      const { properties: { age } } = data.get('age');
+
+      const result = {
+        user: { memberSince, password, name, email, username },
+        city: city.properties.name,
+        age: age.low,
+      };
+
+      console.log('5) [UserController.js/getUser] User info: ', result);
+      res.json(result);
     });
   },
 };
