@@ -96,8 +96,9 @@ module.exports = {
         callback(records[0]);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
+        console.error(`3) [userModel.js/getUser] Could not find ${username} from database`);
         throw error;
       });
   },
+
 };
