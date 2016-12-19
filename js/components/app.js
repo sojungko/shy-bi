@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
-import Navbar from './navbar';
-import UserList from '../containers/user-list';
+import Navbar from './Navbar';
+import SearchBar from '../containers/SearchBar';
+import UserList from '../containers/UserList';
+import UserDetail from '../containers/UserDetail';
 
 class App extends Component {
-  constructor() {
-    super();
-  }
+
 
   render() {
-    const {auth, profile, userList} = this.props;
     return (
       <div>
         <Navbar />
+        <SearchBar />
         <UserList />
+        <UserDetail />
       </div>
     )
   }
