@@ -77,7 +77,7 @@ module.exports = {
     console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
 
     getUser(username, (data) => {
-      console.log('4) [UserController.js/getUser] Success');
+      console.log('4) [UserController.js/getUser] Success! Chucking data & building res object');
 
       const { properties: { memberSince, password, name, email } } = data.get('user');
       const city = data.get('city');
@@ -89,7 +89,7 @@ module.exports = {
         age: age.low,
       };
 
-      console.log('5) [UserController.js/getUser] User info: ', result);
+      console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);
     });
   },
