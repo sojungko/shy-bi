@@ -1,57 +1,27 @@
-const path = require('path')
+var webpack = require('webpack');
+var path = require('path');
 
-module.exports = {
-  context: __dirname,
-  entry: './js/index.js',
-  devtool: 'eval',
+var BUILD_DIR = path.resolve(__dirname, './public');
+var APP_DIR = path.resolve(__dirname, './js');
+
+var config = {
+  entry: APP_DIR + '/index.js',
   output: {
-    path: path.join(__dirname, '/public/'),
-    publicPath: '/public/',
+    path: BUILD_DIR,
     filename: 'bundle.js'
   },
-  resolve: {
-    extensions: ['.js', '.jsx', '.json']
-  },
-  stats: {
-    colors: true,
-    reasons: true,
-    chunks: false
-  },
-  devServer: {
-    publicPath: '/public/',
-    historyApiFallback: true
-  },
-  module: {
-    rules: [
+  module : {
+    loaders : [
       {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "eslint-loader",
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              url: false
-            }
-          }
-        ]
-      },
-      {
-        test: /\.js?$/,
-        loader: 'babel-loader',
-        include: [
-          path.resolve('js')
-        ]
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
+        test : /\.jsx?$/,
+        include : APP_DIR,
+        loader : 'babel-loader',
+        query: {
+          presets: ['react', 'es2015']
+        }
       }
     ]
   }
-}
+};
+
+module.exports = config;
