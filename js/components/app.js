@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router';
 
-export default class App extends Component {
-  render() {
-    return (
-      <div></div>
-    );
-  }
-}
+const App = () => <h1>Hello World!</h1>
+
+export default App
