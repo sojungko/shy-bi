@@ -9,13 +9,11 @@ import UserList from '../containers/UserList';
 import Profile from '../containers/Profile';
 
 export default (
-  <Route>
-    <Route path='/' component={App}>
-      <IndexRoute component={Login} />
-      <Route component={Navbar} />
-        <Route path='signup' component={SignUp} />
-        <Route path='search' component={UserList} />
-        <Route path='profile' component={Profile} />
-    </Route>
+  <Route path='/' component={App}>
+    <IndexRoute component={SignUp} />
+    <Route component={Navbar} />
+      <Route path='signup' component={SignUp} />
+      <Route path='search' component={UserList} />
+      <Route path='profile' component={Profile} />
   </Route>
 )

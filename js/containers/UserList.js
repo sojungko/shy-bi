@@ -24,7 +24,7 @@ class UserList extends Component {
   }
 
   render() {
-    console.log('USERLIST THIS.PROPS.USERS:', this.props.users);
+    console.log('USERLIST PROPS.USERS:', this.props.users);
     return (
       <ul className="list-group col-sm-4">
         {this.renderList()}
