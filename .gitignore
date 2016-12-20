@@ -1,5 +1,6 @@
 ### OSX ###
 public
+js/actions_test
 
 ### Node ###
 node_modules

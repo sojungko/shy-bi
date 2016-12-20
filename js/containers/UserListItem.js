@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class UserListItem extends Component {
+class UserListItem extends Component {
   constructor(props) {
     super();
   }
 
   render() {
     console.log('USERLISTITEM PROPS: ', this.props);
+    if (!this.props.user) {
+      return <div>Select user to see profile</div>
+    }
     return (
       <li className="list-group-item">
         <div className="details">
@@ -19,3 +23,11 @@ export default class UserListItem extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.selectedUser
+  }
+}
+
+export default connect(mapStateToProps)(UserListItem);
