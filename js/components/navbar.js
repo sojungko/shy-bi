@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class Navbar extends Component {
   render() {
     return (
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/search">Search</a></li>
-        <li><a href="/profile">My Profile</a></li>
-      </ul>
+      <div className="navbar">
+        <Link to="/">Home</Link>
+        <Link to="search">Search</Link>
+      </div>
     );
   }
 }
