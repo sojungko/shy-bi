@@ -31,12 +31,15 @@ export function fetchData(url) {
   }
 }
 
+
+
+
 // getUsers :: () -> json
-const getUsers = () => {
-  axios.get('http://localhost:8080/api/search/all')
+const getUsers = (url) => {
+  fetchData('http://localhost:8080/api/search/all')
   console.log(request)
   return {
-    type: REQ_DATA,
+    type: types.REQ_DATA,
     payload: request
   };
 }
