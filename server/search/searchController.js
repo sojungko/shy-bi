@@ -25,32 +25,30 @@ module.exports = {
    *
       [
        {
-         "user": {
-           "memberSince": {
-             "low": 392509149,
-             "high": 345
-           },
-           "password": "adamadam",
-           "name": "Adam Wang",
-           "email": "adam@gmail.com",
-           "username": "adam"
+         "memberSince": {
+           "low": 436259579,
+           "high": 345
          },
+         "password": "adamadam",
+         "name": "Adam Wang",
+         "email": "adam@gmail.com",
+         "username": "adam",
          "city": "New York",
-         "age": "25"
+         "age": "25",
+         "sex": "Male"
        },
        {
-         "user": {
-           "memberSince": {
-             "low": 392509026,
-             "high": 345
-           },
-           "password": "timtim",
-           "name": "Tim Yin",
-           "email": "timyin@gmail.com",
-           "username": "Tim"
+         "memberSince": {
+           "low": 436259472,
+           "high": 345
          },
+         "password": "timtim",
+         "name": "Tim Yin",
+         "email": "timyin@gmail.com",
+         "username": "tim",
          "city": "New York",
-         "age": "24"
+         "age": "24",
+         "sex": "Male"
        },
       ]
    *
@@ -71,18 +69,18 @@ module.exports = {
         const { properties: { memberSince, password, name, email, username } }
           = userData.get('user');
 
+
         // Getting User location data
         const { properties: { name: city } } = userData.get('city');
 
         // Getting User age data
         const { properties: { age } } = userData.get('age');
 
+        // Getting User sex data
+        const { properties: { sex } } = userData.get('sex');
+
         // Putting together a user data object.
-        const user = {
-          user: { memberSince, password, name, email, username },
-          city,
-          age,
-        };
+        const user = { memberSince, password, name, email, username, city, age, sex };
 
         return user;
       });
@@ -104,20 +102,19 @@ module.exports = {
    * -Sample response object:
 
       [
-        {
-          "user": {
-            "memberSince": {
-              "low": 392508732,
-              "high": 345
-            },
-            "password": "justinjustin",
-            "name": "JW Garrison",
-            "email": "jwolfgarrison@gmail.com",
-            "username": "jwgarrison"
-          },
-          "city": "New York",
-          "age": "29"
-        }
+       {
+         "memberSince": {
+           "low": 436259579,
+           "high": 345
+         },
+         "password": "adamadam",
+         "name": "Adam Wang",
+         "email": "adam@gmail.com",
+         "username": "adam",
+         "city": "New York",
+         "age": "25",
+         "sex": "Male"
+       }
       ]
 
    *
@@ -126,11 +123,11 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  filterUsers({ query: { age, city } }, res) {
+  filterUsers({ query: { age, city, sex } }, res) {
     console.log(`1) [SearchController.js/filterUsers] Filtering users by
       age: ${age}, city: ${city}`);
 
-    getMatches(age, city, (filteredUserData) => {
+    getMatches(age, city, sex, (filteredUserData) => {
       console.log(`4) [SearchController.js/filterUsers] Success!
         Chunking data & building res object`);
 
@@ -142,11 +139,7 @@ module.exports = {
           = userData.get('user');
 
         // Putting together a user data object.
-        const user = {
-          user: { memberSince, password, name, email, username },
-          city,
-          age,
-        };
+        const user = { memberSince, password, name, email, username, city, age, sex };
 
         return user;
       });

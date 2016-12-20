@@ -27,8 +27,11 @@ module.exports = {
 
     return db
       .run(
-        `MATCH (age:Age)<-[:YEARS_OLD]-(user:User)-[:LIVES_IN]->(city:City)
-        RETURN age, user, city LIMIT 10`
+        `MATCH (user:User)
+        MATCH (user)-[]->(city:City)
+        MATCH (user)-[]->(age:Age)
+        MATCH (user)-[]->(sex:Sex)
+        RETURN age, user, city, sex LIMIT 10`
       )
       .then(({ records }) => {
         db.close();
@@ -36,7 +39,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
+        console.error('3) [userModel.js/addUser] Could not execute the query to the database');
         throw error;
       });
   },
@@ -57,14 +60,17 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches(age, city, callback) {
+  getMatches(age, city, sex, callback) {
     console.log('2) [searchModel.js/getMatches] Accessing user database');
 
     return db
       .run(
-        `MATCH (Age {age: {age}})<-[:YEARS_OLD]-(user:User)-[:LIVES_IN]->(City {name: {city}})
+        `MATCH (user:User)
+        MATCH (user)-[:YEARS_OLD]->(Age {age: {age}})
+        MATCH (user)-[:LIVES_IN]->(City {name: {city}})
+        MATCH (user)-[:MEMBER_OF]->(Sex {sex: {sex}})
         RETURN user LIMIT 10`,
-        { age, city }
+        { age, city, sex }
       )
       .then(({ records }) => {
         db.close();

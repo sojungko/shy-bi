@@ -22,7 +22,7 @@ module.exports = {
    *
    *  Parameters:
    *    • req | Object | request object
-   *        - destuctured to pluck name, username, and email from its body
+   *        - destuctured to pluck name, username, email, password, city, age, sex from its body
    *    • res | Object | response object
    *
    *  Returns:
@@ -30,10 +30,10 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  signUp({ body: { name, username, email, password, city, age } }, res) {
+  signUp({ body: { name, username, email, password, city, age, sex } }, res) {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
 
-    addUser(name, username, email, password, city, age, () => {
+    addUser(name, username, email, password, city, age, sex, () => {
       console.log('4) [UserController.js/singup] Success, sending back 201 status');
       res.sendStatus(201);
     });
@@ -51,18 +51,17 @@ module.exports = {
    * -Sample response object:
    *
       {
-       "user": {
-         "memberSince": {
-           "low": 392508474,
-           "high": 345
-         },
-         "password": "sojungsojung",
-         "name": "So Jung Park",
-         "email": "sojung@gmail.com",
-         "username": "sojungko"
+       "memberSince": {
+         "low": 436259139,
+         "high": 345
        },
-       "city": "New York",
-       "age": "28"
+       "password": "justinjustin",
+       "name": "JW Garrison",
+       "email": "jwolfgarrison@gmail.com",
+       "username": "jwgarrison",
+       "city": "JW Garrison",
+       "age": "29",
+       "sex": "Male"
       }
    *
    *  Parameters:
@@ -82,14 +81,11 @@ module.exports = {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
 
       const { properties: { memberSince, password, name, email } } = data.get('user');
-      const city = data.get('city');
+      const { properties: { city = name } } = data.get('city');
       const { properties: { age } } = data.get('age');
+      const { properties: { sex } } = data.get('sex');
 
-      const result = {
-        user: { memberSince, password, name, email, username },
-        city: city.properties.name,
-        age,
-      };
+      const result = { memberSince, password, name, email, username, city, age, sex };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);
