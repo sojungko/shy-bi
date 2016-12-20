@@ -46,22 +46,24 @@ module.exports = {
    *  chunks the data and build a result object for FE to use.
    * Sends a JSON stringified result object as a response.
    *
-   * - Sample response object:
+   * -Sample API Route: /api/users/sojung
+   * -Sample req.params.username = 'sojung'
+   * -Sample response object:
    *
-   *   {
-   *    "user": {
-   *      "memberSince": {
-   *         "low": 341094756,
-   *        "high": 345
-   *      },
-   *      "password": "sojungsojung",
-   *      "name": "So Jung Park",
-   *      "email": "sojung@gmail.com",
-   *      "username": "sojung"
-   *    },
-   *    "city": "New York",
-   *    "age": 28
-   *  }
+      {
+       "user": {
+         "memberSince": {
+           "low": 392508474,
+           "high": 345
+         },
+         "password": "sojungsojung",
+         "name": "So Jung Park",
+         "email": "sojung@gmail.com",
+         "username": "sojungko"
+       },
+       "city": "New York",
+       "age": "28"
+      }
    *
    *  Parameters:
    *    • req | Object | request object
@@ -77,7 +79,7 @@ module.exports = {
     console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
 
     getUser(username, (data) => {
-      console.log('4) [UserController.js/getUser] Success! Chucking data & building res object');
+      console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
 
       const { properties: { memberSince, password, name, email } } = data.get('user');
       const city = data.get('city');
@@ -86,7 +88,7 @@ module.exports = {
       const result = {
         user: { memberSince, password, name, email, username },
         city: city.properties.name,
-        age: age.low,
+        age,
       };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
