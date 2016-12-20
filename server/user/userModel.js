@@ -21,6 +21,10 @@ module.exports = {
    *    • name | String
    *    • username | String
    *    • email | String
+   *    • password | String
+   *    • city | String
+   *    • age | Interger
+   *    • sex | String
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:
@@ -29,13 +33,14 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  addUser(name, username, email, password, city, age, callback) {
+  addUser(name, username, email, password, city, age, sex, callback) {
     console.log(`2) [userModel.js/addUser] Adding user ${name}
       username: ${username}
       email: ${email}
       password: ${password}
       city: ${city}
       age: ${age}
+      sex: ${sex}
       to database`
     );
 
@@ -51,10 +56,12 @@ module.exports = {
 
         MERGE (userCity: City {name: {city}})
         MERGE (userAge: Age {age: {age}})
+        MERGE (userSex: Sex {sex: {sex}})
 
         MERGE (newUser)-[:LIVES_IN]->(userCity)
-        MERGE (newUser)-[:YEARS_OLD]->(userAge)`,
-        { name, username, email, password, city, age }
+        MERGE (newUser)-[:YEARS_OLD]->(userAge)
+        MERGE (newUser)-[:MEMBER_OF]->(userSex)`,
+        { name, username, email, password, city, age, sex }
     )
       .then(() => {
         db.close();
@@ -86,8 +93,11 @@ module.exports = {
 
     return db
       .run(
-        `MATCH (age:Age)<-[:YEARS_OLD]-(user:User{username: {username}})-[:LIVES_IN]->(city:City)
-        RETURN age, user, city`,
+        `MATCH (user:User{username: {username}})
+        MATCH (user)-[]->(city:City)
+        MATCH (user)-[]->(age:Age)
+        MATCH (user)-[]->(sex:Sex)
+        RETURN age, user, city, sex`,
       { username }
     )
       .then(({ records }) => {
