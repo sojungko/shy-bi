@@ -4,7 +4,7 @@ export default class SignUp extends Component {
   render() {
     return (
       <form className="input-group">
-        <input />
+        Signup <input />
       </form>
     );
   }

@@ -1,6 +1,8 @@
+import { USER_SELECTED } from '../actions_test/index';
+
 export default function(state = null, action) {
   switch(action.type) {
-    case 'USER_SELECTED':
+    case USER_SELECTED:
       return action.payload;
   }
   return state;
