@@ -14,15 +14,12 @@ class App extends Component {
     };
   }
 
+
   render() {
     console.log('USERS: ', this.state.users);
     return (
       <div>
-        <Navbar />
-        <SearchBar />
-        <UserList
-          onUserSelect={selectedUser => this.setState({selectedUser})}
-          users={this.state.users} />
+        {this.props.children}
       </div>
     )
   }
