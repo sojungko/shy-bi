@@ -37,8 +37,4 @@ function mapStateToProps({ users }) {
   return { users };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getAllUsers }, dispatch);
-}
-
 export default connect(mapStateToProps, { getAllUsers })(UserList);

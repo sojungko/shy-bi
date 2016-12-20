@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { FILL_ME_IN } from '../actions/index';
+import { getUser } from '../actions/index';
 
 
 class Profile extends Component {
@@ -27,7 +27,7 @@ function mapStateToProps({ profile }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { FILL_ME_IN }, dispatch);
+  return bindActionCreators( { getUser }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
