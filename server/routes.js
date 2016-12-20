@@ -59,15 +59,8 @@ module.exports = (app, express) => {
    *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   // 1-a-i) POST -> file: user/userController.js, method: signUp
-=======
-  // 2-a-i) POST -> file: user/userController.js, method: signUp
->>>>>>> fix(server.js):
-=======
-  // 1-a-i) POST -> file: user/userController.js, method: signUp
->>>>>>> fix(server.js):
+
   app.post('/api/users/signup', signUp);
 
   // 1-b-i) GET -> file: user/userController.js, method: getUser
