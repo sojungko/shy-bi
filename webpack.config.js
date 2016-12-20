@@ -5,8 +5,10 @@ var BUILD_DIR = path.resolve(__dirname, './public');
 var APP_DIR = path.resolve(__dirname, './js');
 
 var config = {
+  devtool: 'cheap-module-eval-source-map',
   entry: APP_DIR + '/index.js',
   output: {
+    devtoolLineToLine: true,
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
