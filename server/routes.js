@@ -63,11 +63,6 @@ module.exports = (app, express) => {
    *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
 
-  // 1-i) GET
-  app.get('/', (req, res) => {
-    res.send('<h1>DATA STRUCTURE DUCKS!<h1>');
-  });
-
   // 2-a-i) POST -> file: user/userController.js, method: signUp
   app.post('/api/users/signup', signUp);
 
