@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 
-const UserListItem = ({user, onUserSelect}) => {
-  const imageUrl = '';
-  return (
-    <li onClick={() => onUserSelect(user)} className="list-group-item">
-      <img className="user-object" src={imageUrl} />
-      <div className="details">
-        <div>{user.name}</div>
-        <div>{user.sex}</div>
-        <div>{user.age}</div>
-        <div>{user.city}</div>
-      </div>
-    </li>
-  )
+export default class UserListItem extends Component {
+  constructor(props) {
+    super();
+  }
+
+  render() {
+    console.log('USERLISTITEM PROPS: ', this.props);
+    return (
+      <li className="list-group-item">
+        <div className="details">
+          <div>{this.props.user.user.name}</div>
+        </div>
+      </li>
+    );
+  }
 }
-
-export default UserListItem;
