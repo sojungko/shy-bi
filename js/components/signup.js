@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
+import { Link } from 'react-router';
+// import { signupUser } from '../actions/index';
 
 class SignUp extends Component {
   render() {
@@ -44,4 +46,4 @@ class SignUp extends Component {
 export default reduxForm({
   signup: 'SignupForm',
   fields: ['username', 'password', 'email', 'name', 'age', 'sex', 'city']
-})(SignUp);
+}, null, null)(SignUp); //TODO fill in action function

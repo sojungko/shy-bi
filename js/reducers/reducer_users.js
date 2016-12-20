@@ -1,11 +1,10 @@
-import { REQ_DATA } from '../actions/index';
+import { REQ_DATA } from '../actions/actionTypes';
 
-const test = { user: 'Justin Garrison' }
-
-export default function(state = [test], action) {
+export default function(state = [], action) {
+  console.log('ACTION PAYLOAD : ', action.payload);
   switch(action.type) {
     case REQ_DATA:
-      return [ action.payload.data, ...state ];
+      return [ action.payload, ...state ];
   }
   return state;
 }
