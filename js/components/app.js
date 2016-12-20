@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Navbar from './navbar';
+import Navbar from './Navbar';
 import SearchBar from '../containers/SearchBar';
 import UserList from '../containers/UserList';
 import UserListItem from '../containers/UserListItem';
