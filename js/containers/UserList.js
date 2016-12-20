@@ -17,7 +17,7 @@ class UserList extends Component {
     console.log('USERLIST PROPS:', this.props);
     return this.props.users.map((user, index) => {
       return(
-        <li key={index}>{user.name}</li>
+        <li key={index} user={user}>{user.name}</li>
       )
     });
   }
@@ -31,8 +31,10 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps({ users }) {
-  return { users };
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
 }
 
 export default connect(mapStateToProps, { getAllUsers })(UserList);
