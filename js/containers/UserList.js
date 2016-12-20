@@ -25,10 +25,8 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    users: state.users
-  }
+function mapStateToProps({ users }) {
+  return { users };
 }
 
 function mapDispatchToProps(dispatch) {
