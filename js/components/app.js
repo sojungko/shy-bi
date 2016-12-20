@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Navbar from './Navbar';
+import SearchBar from './SearchBar';
 import UserList from '../components/UserList';
 const sampleData = require('../sampleData.js');
 
@@ -16,6 +18,8 @@ class App extends Component {
     console.log('USERS: ', this.state.users);
     return (
       <div>
+        <Navbar />
+        <SearchBar />
         <UserList
           onUserSelect={selectedUser => this.setState({selectedUser})}
           users={this.state.users} />
