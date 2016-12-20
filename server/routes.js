@@ -60,9 +60,13 @@ module.exports = (app, express) => {
    * ------------------------------------------------------------- */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // 1-a-i) POST -> file: user/userController.js, method: signUp
 =======
   // 2-a-i) POST -> file: user/userController.js, method: signUp
+>>>>>>> fix(server.js):
+=======
+  // 1-a-i) POST -> file: user/userController.js, method: signUp
 >>>>>>> fix(server.js):
   app.post('/api/users/signup', signUp);
 
