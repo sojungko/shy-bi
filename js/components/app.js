@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-
-import Navbar from './Navbar';
-import SearchBar from '../containers/SearchBar';
 import UserList from '../containers/UserList';
-import UserDetail from '../containers/UserDetail';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      users: [],
+      selectedUser: null
+    };
+  }
 
   render() {
     return (
       <div>
-        <Navbar />
-        <SearchBar />
-        <UserList />
-        <UserDetail />
+        <UserList
+          onUserSelect={selectedUser => this.setState({selectedUser})}
+          users={this.state.users} />
       </div>
     )
   }
