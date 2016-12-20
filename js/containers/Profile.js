@@ -9,14 +9,19 @@ class Profile extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.props.getUser();
+  }
+
+
   render() {
     console.log('PROFILE PROPS: ', this.props);
     return (
       <div className="details">
-        <div>Name: {this.props.user.user.name}</div>
-        <div>Sex: {this.props.user.sex}</div>
-        <div>Age: {this.props.user.age}</div>
-        <div>City: {this.props.user.city}</div>
+        <div>Name: {this.props.profile.name}</div>
+        <div>Sex: {this.props.profile.sex}</div>
+        <div>Age: {this.props.profile.age}</div>
+        <div>City: {this.props.profile.city}</div>
       </div>
     );
   }
