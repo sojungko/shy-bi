@@ -45,14 +45,16 @@ import { pushState } from 'react-router-redux';
 export function getAllUsers() {
   const request = axios.get('http://localhost:8080/api/search/all');
 
+  console.log('SEARCH ALL : ', request);
+
   return {
     type: GET_ALL_USERS,
     payload: request
   }
 }
 
-export function getUser(username) {
-  const request = axios.get('http://localhost:8080/api/users/:username');
+export function getUser() {
+  const request = axios.get('http://localhost:8080/api/users/:adam');
 
   return {
     type: GET_USER,
