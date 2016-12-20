@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Navbar';
 import SearchBar from './SearchBar';
 import UserList from '../containers/UserList';
+import UserListItem from '../containers/UserListItem';
 const sampleData = require('../sampleData.js');
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <div>
         <UserList />
+        <UserListItem />
       </div>
     )
   }
