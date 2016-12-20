@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Navbar from './Navbar';
 import SearchBar from './SearchBar';
-import UserList from '../components/UserList';
+import UserList from '../containers/UserList';
 const sampleData = require('../sampleData.js');
 
 class App extends Component {
@@ -16,10 +16,9 @@ class App extends Component {
 
 
   render() {
-    console.log('USERS: ', this.state.users);
     return (
       <div>
-        {this.props.children}
+        <UserList />
       </div>
     )
   }
