@@ -30,7 +30,7 @@ export function fetchData(url) {
 }
 
 // getAllUsers :: () -> json
-const getAllUsers = (url) => {
+export function getAllUsers (url) {
   fetchData('http://localhost:8080/api/search/all')
   console.log(request)
   return {

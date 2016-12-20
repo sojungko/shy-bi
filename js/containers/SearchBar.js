@@ -42,7 +42,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { fetchAllUsers }, dispatch);
+  return bindActionCreators( { getAllUsers }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);

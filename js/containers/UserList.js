@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectUser } from '../actions/index';
+import { getAllUsers } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import UserListItem from '../containers/UserListItem';
 
@@ -10,7 +10,7 @@ class UserList extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchAllUsers();
+    this.props.getAllUsers();
   }
 
   renderList() {
@@ -38,7 +38,7 @@ function mapStateToProps({ users }) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectUser: selectUser }, dispatch);
+  return bindActionCreators({ getAllUsers: getAllUsers }, dispatch);
 }
 
-export default connect(mapStateToProps, { selectUser, fetchAllUsers })(UserList);
+export default connect(mapStateToProps, { getAllUsers })(UserList);
