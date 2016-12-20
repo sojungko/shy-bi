@@ -17,10 +17,10 @@ export default class SearchBar extends Component {
       <div>
         Search!
         <form className="input-group">
-          Minimum Age : <input />
-          Maximum Age : <input />
+          Minimum Age : <input value={this.state.minAge} onChange={event => this.setState({ minAge: event.target.value })}/>
+          Maximum Age : <input value={this.state.maxAge} onChange={event => this.setState({ maxAge: event.target.value })}/>
           Sex: <input />
-          City: <input />
+          City: <input value={this.state.city} onChange={event => this.setState({ city: event.target.value })} />
         </form>
       </div>
     );
