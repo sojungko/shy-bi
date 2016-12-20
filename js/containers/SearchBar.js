@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchAllUsers } from '../actions_test/index';
+import { getAllUsers } from '../actions/index';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class SearchBar extends Component {
       sex: '',
       city: ''
     }
-
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -23,7 +22,7 @@ class SearchBar extends Component {
 
   onFormSubmit(event)  {
     event.preventDefault();
-    this.props.fetchAllUsers();
+    this.props.getAllUsers();
     this.setState({ city: '' });
   }
 

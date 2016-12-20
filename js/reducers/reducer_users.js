@@ -1,4 +1,4 @@
-import { FETCH_ALL_USERS } from '../actions_test/index';
+import { FETCH_ALL_USERS } from '../actions/index';
 
 const test = { user: 'Justin Garrison' }
 

@@ -1,8 +1,6 @@
 import * as types from './actionTypes';
 import axios from 'axios';
-import {
-  pushState
-} from 'redux-react-router';
+import { pushState } from 'react-router-redux';
 
 const requestData = () => ({
   type: types.REQ_DATA
@@ -31,11 +29,8 @@ export function fetchData(url) {
   }
 }
 
-
-
-
-// getUsers :: () -> json
-const getUsers = (url) => {
+// getAllUsers :: () -> json
+const getAllUsers = (url) => {
   fetchData('http://localhost:8080/api/search/all')
   console.log(request)
   return {
