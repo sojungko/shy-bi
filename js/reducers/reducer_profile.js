@@ -1,9 +1,9 @@
-import { GET_ALL_USERS } from '../actions/actionTypes';
+import { GET_USER } from '../actions/actionTypes';
 
 export default function(state = [], action) {
   console.log('ACTION PAYLOAD : ', action.payload);
   switch(action.type) {
-    case GET_ALL_USERS:
+    case GET_USER:
       return [ action.payload, ...state ];
   }
   return state;
