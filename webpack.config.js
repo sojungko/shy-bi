@@ -23,7 +23,12 @@ var config = {
         }
       }
     ]
-  }
+  },
+  devServer: {
+    historyApiFallback: true,
+    contentBase: BUILD_DIR,
+    inline: true,
+  },
 };
 
 module.exports = config;
