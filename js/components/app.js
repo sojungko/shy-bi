@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import UserList from '../containers/UserList';
+import UserList from '../components/UserList';
 
 class App extends Component {
   constructor(props) {
