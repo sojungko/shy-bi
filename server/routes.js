@@ -34,7 +34,7 @@ module.exports = (app, express) => {
    * ------------------------------------------------------------- */
 
   app.use(express.static(path.join(__dirname, '/../node_modules')));
-  app.use(express.static(path.join(__dirname, '/../')));
+  app.use(express.static(path.join(__dirname, '/../build')));
 
   /* ---------------------------- Router ----------------------------
    * Use Command/Ctrl + F to search for a route
@@ -62,8 +62,6 @@ module.exports = (app, express) => {
    *    i) GET request to: 'api/search/filter?sex={sex}&age={age}&city={city}'
    *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
-
-  // 1-i) GET
 
   // 2-a-i) POST -> file: user/userController.js, method: signUp
   app.post('/api/users/signup', signUp);
