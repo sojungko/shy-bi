@@ -6,6 +6,8 @@ const GET_USER = 'GET_USER';
 export function getAllUsers() {
   const request = axios.get('http://localhost:8080/api/search/all');
 
+  console.log('SEARCH ALL : ', request);
+
   return {
     type: GET_ALL_USERS,
     payload: request
