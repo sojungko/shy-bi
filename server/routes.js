@@ -34,7 +34,7 @@ module.exports = (app, express) => {
    * ------------------------------------------------------------- */
 
   app.use(express.static(path.join(__dirname, '/../node_modules')));
-  app.use(express.static(path.join(__dirname, '/../build')));
+  app.use(express.static(path.join(__dirname, '/../')));
 
   /* ---------------------------- Router ----------------------------
    * Use Command/Ctrl + F to search for a route
@@ -60,7 +60,6 @@ module.exports = (app, express) => {
    * ------------------------------------------------------------- */
 
   // 1-a-i) POST -> file: user/userController.js, method: signUp
-
   app.post('/api/users/signup', signUp);
 
   // 1-b-i) GET -> file: user/userController.js, method: getUser
