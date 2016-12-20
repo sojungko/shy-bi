@@ -14,17 +14,15 @@ class UserList extends Component {
   }
 
   renderList() {
+    console.log('USERLIST PROPS:', this.props);
     return this.props.users.map((user, index) => {
       return(
-        <li
-          key={index}
-          onClick={() => this.props.selectUser(user)}>{user.user.name}</li>
+        <li key={index} user={user}>{user.name}</li>
       )
     });
   }
 
   render() {
-    console.log('USERLIST PROPS.USERS:', this.props.users);
     return (
       <ul className="list-group col-sm-4">
         {this.renderList()}
@@ -33,8 +31,10 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps({ users }) {
-  return { users };
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
 }
 
 export default connect(mapStateToProps, { getAllUsers })(UserList);
