@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 import UserList from '../containers/UserList';
+import Profile from '../containers/Profile';
 
 const Greeting = () => {
   return <div>Hey there!</div>;
@@ -19,6 +20,7 @@ export default (
       <Route component={Navbar} />
         <Route path='signup' component={Signup} />
         <Route path='search' component={UserList} />
+        <Route path='profile' component={Profile} />
     </Route>
   </Route>
 )
