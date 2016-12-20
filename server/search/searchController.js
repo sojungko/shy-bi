@@ -125,7 +125,7 @@ module.exports = {
 
   filterUsers({ query: { age, city, sex } }, res) {
     console.log(`1) [SearchController.js/filterUsers] Filtering users by
-      age: ${age}, city: ${city}`);
+      age: ${age}, city: ${city}, sex: ${sex}`);
 
     getMatches(age, city, sex, (filteredUserData) => {
       console.log(`4) [SearchController.js/filterUsers] Success!
@@ -137,6 +137,15 @@ module.exports = {
         // Getting User data
         const { properties: { memberSince, password, name, email, username } }
           = userData.get('user');
+
+        // Getting User location data
+        const { properties: { name: city } } = userData.get('city');
+
+        // Getting User age data
+        const { properties: { age } } = userData.get('age');
+
+        // Getting User sex data
+        const { properties: { sex } } = userData.get('sex');
 
         // Putting together a user data object.
         const user = { memberSince, password, name, email, username, city, age, sex };

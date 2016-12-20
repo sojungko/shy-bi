@@ -50,8 +50,9 @@ module.exports = {
    * Find all user with matching relation
    *
    *  Parameters:
-   *    • age | String
-   *    • city | String
+   *    • age | String | Default: regEx pattern
+   *    • city | String |
+   *    • sex | String |
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:
@@ -60,26 +61,29 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches(age, city, sex, callback) {
+  getMatches(age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*', callback) {
     console.log('2) [searchModel.js/getMatches] Accessing user database');
-
+    console.log(`age: ${age}, city: ${city}, sex: ${sex}`);
     return db
       .run(
         `MATCH (user:User)
-        MATCH (user)-[:YEARS_OLD]->(Age {age: {age}})
-        MATCH (user)-[:LIVES_IN]->(City {name: {city}})
-        MATCH (user)-[:MEMBER_OF]->(Sex {sex: {sex}})
-        RETURN user LIMIT 10`,
+        MATCH (user)-[:YEARS_OLD]->(age:Age)
+        	WHERE age.age =~ {age}
+        MATCH (user)-[:LIVES_IN]->(city: City)
+          WHERE city.name =~ {city}
+        MATCH (user)-[:MEMBER_OF]->(sex: Sex)
+          WHERE sex.sex =~ {sex}
+        RETURN user, age, city, sex LIMIT 10`,
         { age, city, sex }
       )
       .then(({ records }) => {
         db.close();
 
-        console.log('3) [searchModel.js/getAll] Reteriving first 10 user data that matches query');
+        console.log('3) [searchModel.js/getMatches] Reteriving first 10 user data that matches query');
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/addUser] Could not user with ${age}, ${city} in database`);
+        console.error(`3) [userModel.js/getMatches] Could not user with ${age}, ${city}, ${sex} in database`);
         throw error;
       });
   },
