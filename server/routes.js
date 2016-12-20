@@ -42,11 +42,7 @@ module.exports = (app, express) => {
    * Format: End Point(Int, eg: 1)-Method(string, eg: a)-HTTP Method(roman numeral, eg: i)
    * example: Search for 2-a-i to look for  "2) User a) Sign Up i) POST"
    *
-   * 1) Root
-   *  i) GET request to: '/'
-   *   - Returns a string to render
-   *
-   * 2) Users
+   * 1) Users
    *  a) Sign Up
    *    i) POST request to: '/api/users/signup'
    *     - Calls signUp function in the user/userController.js
@@ -54,7 +50,7 @@ module.exports = (app, express) => {
    *    i) GET request to: 'api/users:username'
    *     - Calls findUser function in the user/userController.js
    *
-   * 3) Search
+   * 2) Search
    *  a) All Users
    *    i) GET request to: 'api/search/all'
    *      - Calls findAll in search/searchController.js
@@ -63,17 +59,15 @@ module.exports = (app, express) => {
    *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
 
-  // 1-i) GET
-
-  // 2-a-i) POST -> file: user/userController.js, method: signUp
+  // 1-a-i) POST -> file: user/userController.js, method: signUp
   app.post('/api/users/signup', signUp);
 
-  // 2-b-i) GET -> file: user/userController.js, method: getUser
+  // 1-b-i) GET -> file: user/userController.js, method: getUser
   app.get('/api/users/:username', findUser);
 
-  // 3-a-i) GET -> file: search/searchController.js method: findAll
+  // 2-a-i) GET -> file: search/searchController.js method: findAll
   app.get('/api/search/all', findAll);
 
-  // 3-b-i) GET -> file: search/searchController.js method:
+  // 2-b-i) GET -> file: search/searchController.js method:
   app.get('/api/search/filter', filterUsers);
 };
