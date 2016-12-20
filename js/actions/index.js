@@ -46,7 +46,16 @@ export function getAllUsers() {
   const request = axios.get('http://localhost:8080/api/search/all');
 
   return {
-    type: REQ_DATA,
+    type: GET_ALL_USERS,
+    payload: request
+  }
+}
+
+export function getUser(username) {
+  const request = axios.get('http://localhost:8080/api/users/:username');
+
+  return {
+    type: GET_USER,
     payload: request
   }
 }
