@@ -34,7 +34,7 @@ module.exports = (app, express) => {
    * ------------------------------------------------------------- */
 
   app.use(express.static(path.join(__dirname, '/../node_modules')));
-  app.use(express.static(path.join(__dirname, '/../')));
+  app.use(express.static(path.join(__dirname, '/../build')));
 
   /* ---------------------------- Router ----------------------------
    * Use Command/Ctrl + F to search for a route
@@ -59,7 +59,11 @@ module.exports = (app, express) => {
    *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
 
+<<<<<<< HEAD
   // 1-a-i) POST -> file: user/userController.js, method: signUp
+=======
+  // 2-a-i) POST -> file: user/userController.js, method: signUp
+>>>>>>> fix(server.js):
   app.post('/api/users/signup', signUp);
 
   // 1-b-i) GET -> file: user/userController.js, method: getUser
