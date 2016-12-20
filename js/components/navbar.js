@@ -4,10 +4,11 @@ import { Link } from 'react-router';
 export default class Navbar extends Component {
   render() {
     return (
-      <div className="navbar">
-        <Link to="/">Home</Link>
-        <Link to="search">Search</Link>
-      </div>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/search">Search</Link></li>
+        <li><Link to="/profile">Profile</Link></li>
+      </ul>
     );
   }
 }
