@@ -11,12 +11,9 @@ module.exports = {
   //
   /* ------------------------- * GET ALL * -------------------------
    *
-   * creates a new User node with name, username, email as its property
+   * Get all users from the database
    *
    *  Parameters:
-   *    • name | String
-   *    • username | String
-   *    • email | String
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:
@@ -40,6 +37,43 @@ module.exports = {
       })
       .catch((error) => {
         console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
+        throw error;
+      });
+  },
+
+  //
+  /* ------------------------- * GET MATCHES * -------------------------
+   *
+   * Find all user with matching relation
+   *
+   *  Parameters:
+   *    • age | String
+   *    • city | String
+   *    • callback | Function | Exectued on the result of db query.
+   *
+   *  Returns:
+   *    • the result db query which resolves into a promise that
+   *        executes the callback.
+   *
+   * --------------------------------------------------------------- */
+
+  getMatches(age, city, callback) {
+    console.log('2) [searchModel.js/getMatches] Accessing user database');
+
+    return db
+      .run(
+        `MATCH (Age {age: {age}})<-[:YEARS_OLD]-(user:User)-[:LIVES_IN]->(City {name: {city}})
+        RETURN user LIMIT 10`,
+        { age, city }
+      )
+      .then(({ records }) => {
+        db.close();
+
+        console.log('3) [searchModel.js/getAll] Reteriving first 10 user data that matches query');
+        return callback(records);
+      })
+      .catch((error) => {
+        console.error(`3) [userModel.js/addUser] Could not user with ${age}, ${city} in database`);
         throw error;
       });
   },

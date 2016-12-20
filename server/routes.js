@@ -13,7 +13,7 @@ const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
 const { signUp, findUser } = require('./user/userController');
-const { findAll } = require('./search/searchController');
+const { findAll, filterUsers } = require('./search/searchController');
 
 module.exports = (app, express) => {
   //
@@ -58,6 +58,9 @@ module.exports = (app, express) => {
    *  a) All Users
    *    i) GET request to: 'api/search/all'
    *      - Calls findAll in search/searchController.js
+   *  b) Filter User
+   *    i) GET request to: 'api/search/filter?sex={sex}&age={age}&city={city}'
+   *      - Calls filterUsers in search/searchController.js
    * ------------------------------------------------------------- */
 
   // 1-i) GET
@@ -71,6 +74,9 @@ module.exports = (app, express) => {
   // 2-b-i) GET -> file: user/userController.js, method: getUser
   app.get('/api/users/:username', findUser);
 
-  // 3-a-i) GET -> file: serach/searchController.js method:
+  // 3-a-i) GET -> file: search/searchController.js method: findAll
   app.get('/api/search/all', findAll);
+
+  // 3-b-i) GET -> file: search/searchController.js method:
+  app.get('/api/search/filter', filterUsers);
 };
