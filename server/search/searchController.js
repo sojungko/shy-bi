@@ -123,11 +123,11 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  filterUsers({ query: { age, city, sex } }, res) {
+  filterUsers({ query }, res) {
     console.log(`1) [SearchController.js/filterUsers] Filtering users by
-      age: ${age}, city: ${city}, sex: ${sex}`);
+      age: ${query.age}, city: ${query.city}, sex: ${query.sex}`);
 
-    getMatches(age, city, sex, (filteredUserData) => {
+    getMatches(query, (filteredUserData) => {
       console.log(`4) [SearchController.js/filterUsers] Success!
         Chunking data & building res object`);
 

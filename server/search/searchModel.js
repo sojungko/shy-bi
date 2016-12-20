@@ -61,9 +61,9 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches(age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*', callback) {
+  getMatches({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback) {
     console.log('2) [searchModel.js/getMatches] Accessing user database');
-    console.log(`age: ${age}, city: ${city}, sex: ${sex}`);
+
     return db
       .run(
         `MATCH (user:User)
@@ -79,11 +79,13 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log('3) [searchModel.js/getMatches] Reteriving first 10 user data that matches query');
+        console.log(`3) [searchModel.js/getMatches] Reteriving first 10 user data that matches
+          age: ${age}, city: ${city}, sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getMatches] Could not user with ${age}, ${city}, ${sex} in database`);
+        console.error(`3) [userModel.js/getMatches] Could not user with
+          ${age}, ${city}, ${sex} in database`);
         throw error;
       });
   },
