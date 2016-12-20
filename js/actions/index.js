@@ -32,11 +32,11 @@ export function fetchData(url) {
 // getAllUsers :: () -> json
 export function getAllUsers (url) {
   fetchData('http://localhost:8080/api/search/all')
-  console.log(request)
-  return {
-    type: types.REQ_DATA,
-    payload: request
-  };
+    .then((request) => {
+      console.log(request)
+      return {
+        type: types.REQ_DATA,
+        payload: request
+      };
+    })
 }
-
-
