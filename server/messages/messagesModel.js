@@ -32,7 +32,7 @@ module.exports = {
       .run(
         `MATCH
           (user:User {username: {username}})-[:RECEIVES]->(msgs:Messages)<-[:SENDS]-(sender:User)
-        RETURN user, sender, msgs LIMIT 10`,
+        RETURN user, sender, msgs ORDER BY msgs.created DESC LIMIT 10`,
         { username }
       )
       .then(({ records }) => {
@@ -51,9 +51,11 @@ module.exports = {
    *
    * Store a message sent by user to the database
    *
-   *  Parameters:
-   *    • params | Object | request.params object
-   *        - destuctured to pluck username.
+   *  Parameters: body | Object | req.body destructured to pluck:
+   *    • senderID | String | sender's username
+   *    • receiverId | String | receiver's username
+   *    • title | String | title of the message
+   *    • body | String | body of the message
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:
@@ -62,13 +64,13 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  postMessage(senderID, receiverId, title, body, callback) {
+  postMessage({ senderID, receiverId, title, body }, callback) {
     console.log('2) [messagesModel.js/postMessage] Accessing message database');
 
     return db
      .run(
-      `MATCH(receiver:User {username:{senderID}})
-      MATCH(sender:User {username:{receiverId}})
+      `MATCH(receiver:User {username:{receiverId}})
+      MATCH(sender:User {username:{senderID}})
       MERGE(msg:Messages {title:{title}, body:{body}})
       	ON CREATE SET msg.created=timestamp()
       MERGE(sender)-[:SENDS]->(msg)<-[:RECEIVES]-(receiver)
