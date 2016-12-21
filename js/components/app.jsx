@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import Navbar from './Navbar';
+import React, { Component } from 'react';
+import Navbar from './navbar.jsx';
 import SearchBar from '../containers/SearchBar';
-import UserList from '../containers/UserList';
-import UserListItem from '../containers/UserListItem';
+import UserList from '../containers/UserList.jsx';
+import UserListItem from '../containers/UserListItem.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -10,10 +10,9 @@ class App extends Component {
 
     this.state = {
       users: [],
-      selectedUser: null
+      selectedUser: null,
     };
   }
-
 
   render() {
     return (
@@ -21,8 +20,12 @@ class App extends Component {
         <Navbar />
         {this.props.children}
       </div>
-    )
+    );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.object.isRequired,
+};
 
 export default App;
