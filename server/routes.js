@@ -14,7 +14,7 @@ const morgan = require('morgan');
 // Plucks signup method from user/userController.js
 const { signUp, signIn, findUser } = require('./user/userController');
 const { findAllUsers, filterUsers } = require('./search/searchController');
-const { findAllMessages } = require('./messages/messagesController');
+const { findAllMessages, sendMessage } = require('./messages/messagesController');
 
 module.exports = (app, express) => {
   //
@@ -66,6 +66,9 @@ module.exports = (app, express) => {
    *  a) Find All Messsages
    *    i) GET request to: '/api/messages/all:username'
    *      - Calls getAllMessages in the messages/messagesController.js
+   *  b) Send Message
+   *    ii) POST request to: '/api/messages/sendmsg'
+   *      - Calls sendMessage in the messages/messagesController.js
    *
    * ------------------------------------------------------------- */
 
@@ -86,4 +89,7 @@ module.exports = (app, express) => {
 
   // 3-a-i) GET -> file: messages/messagesController.js method:
   app.get('/api/messages/all/:username', findAllMessages);
+
+  // 3-a-ii) POST -> file: messages/messagesController.js method:
+  app.get('/api/messages/sendmsg', sendMessage);
 };

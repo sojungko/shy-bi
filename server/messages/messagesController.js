@@ -6,7 +6,8 @@
  *
  * Methods in this file are:
  *
- *  1) FIND ALL MESSAGES : findAllMessages({ body: { name, username, email } }, res)
+ *  1) FIND ALL MESSAGES : findAllMessages({ params }, res)
+ *  2) SEND MESSAGE
  *
  * --------------------------------------------------------------- */
 
@@ -21,8 +22,31 @@ module.exports = {
    *
    *  Parameters:
    *    • req | Object | request object
-   *        - destuctured to pluck name, username, email, password, city, age, sex from its body
+   *        - destuctured to pluck params object
    *    • res | Object | response object
+   *
+   * -Sample API Route: /api/messages/all/sojung
+   * -Sample req.param = {username: 'sojung'}
+   * -Sample response object:
+
+       [
+         {
+           "name": "So Jung Park",
+           "username": "sojung",
+           "senderName": "Adam Wang",
+           "senderUsername": "adam",
+           "title": "Lunch",
+           "body": "What are you having for lunch"
+         },
+         {
+           "name": "So Jung Park",
+           "username": "sojung",
+           "senderName": "Tim Yin",
+           "senderUsername": "tim",
+           "title": "Savage",
+           "body": "So jung, you are a savage"
+         }
+       ]
    *
    *  Returns:
    *    • No explicit return
@@ -30,7 +54,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   findAllMessages({ params }, res) {
-    console.log(`1) [MessagesController.js/findAllMessages] Searching for ${params.username} messages`);
+    console.log(`1) [MessagesController.js/findAllMessages] Searching for
+      ${params.username} messages`);
 
     getAll(params, (messagesData) => {
       console.log(`4) [MessagesController.js/findAllMessages] Success!
@@ -56,4 +81,10 @@ module.exports = {
       res.json(messages);
     });
   },
+
+  sendMessage({ params }, res) {
+    console.log(`1) [MessagesController.js/findAllMessages] Searching for
+      ${params.username} messages`);
+  },
+
 };
