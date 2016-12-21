@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router';
 import { signupUser } from '../actions/index';
 
 class SignUp extends Component {
@@ -49,5 +48,5 @@ class SignUp extends Component {
 }
 
 export default reduxForm({
-  form: 'SignupForm'
+  form: 'SignupForm',
 }, null, { signupUser })(SignUp);

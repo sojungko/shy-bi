@@ -3,6 +3,7 @@ import axios from 'axios';
 const GET_ALL_USERS = 'GET_ALL_USERS';
 const GET_USER = 'GET_USER';
 const SIGN_UP_USER = 'SIGN_UP_USER';
+const LOG_IN_USER = 'LOG_IN_USER';
 
 export function getAllUsers() {
   return function(dispatch) {
@@ -34,6 +35,15 @@ export function signupUser(props) {
 
   return {
     type: SIGN_UP_USER,
-    payload: request
-  }
+    payload: request,
+  };
+}
+
+export function logIn(props) {
+  const request = axios.post('http://localhost:8080/api/users/signin', props);
+
+  return {
+    type: LOG_IN_USER,
+    payload: request,
+  };
 }
