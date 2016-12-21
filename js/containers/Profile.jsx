@@ -13,7 +13,6 @@ class Profile extends Component {
     this.props.getUser();
   }
 
-
   render() {
     console.log('PROFILE PROPS: ', this.props);
     return (

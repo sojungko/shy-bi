@@ -8,8 +8,8 @@ export function getAllUsers() {
 
   return {
     type: GET_ALL_USERS,
-    payload: request
-  }
+    payload: request,
+  };
 }
 
 export function getUser() {
@@ -17,6 +17,6 @@ export function getUser() {
 
   return {
     type: GET_USER,
-    payload: request
-  }
+    payload: request,
+  };
 }

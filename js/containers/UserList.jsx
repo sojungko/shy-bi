@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import UserListItem from '../containers/UserListItem';
+import UserListItem from '../containers/UserListItem.jsx';
 
 class UserList extends Component {
   constructor(props) {
@@ -16,9 +16,9 @@ class UserList extends Component {
   renderList() {
     console.log('USERLIST PROPS:', this.props);
     return this.props.users.map((user, index) => {
-      return(
+      return (
         <li key={index} user={user}>{user.name}</li>
-      )
+      );
     });
   }
 
@@ -27,14 +27,14 @@ class UserList extends Component {
       <ul className="list-group col-sm-4">
         {this.renderList()}
       </ul>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     users: state.users
-  }
+  };
 }
 
 export default connect(mapStateToProps, { getAllUsers })(UserList);

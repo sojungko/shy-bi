@@ -11,8 +11,9 @@ class SearchBar extends Component {
       minAge: '',
       maxAge: '',
       sex: '',
-      city: ''
-    }
+      city: '',
+    };
+
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -32,9 +33,9 @@ class SearchBar extends Component {
         Search!
         <form onSubmit={this.onFormSubmit} className="input-group">
           City: <input value={this.state.city} onChange={this.onInputChange} />
-        <span>
-          <button type="submit">Submit</button>
-        </span>
+          <span>
+            <button type="submit">Submit</button>
+          </span>
         </form>
       </div>
     );
@@ -42,7 +43,7 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getAllUsers }, dispatch);
+  return bindActionCreators({ getAllUsers }, dispatch);
 }
 
 export default connect(null, mapDispatchToProps)(SearchBar);

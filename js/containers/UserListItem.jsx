@@ -9,8 +9,9 @@ class UserListItem extends Component {
   render() {
     console.log('USERLISTITEM PROPS: ', this.props);
     if (!this.props.user) {
-      return <div>Select user to see profile</div>
+      return <div>Select user to see profile</div>;
     }
+
     return (
       <li className="list-group-item">
         <div className="details">
@@ -27,7 +28,7 @@ class UserListItem extends Component {
 function mapStateToProps(state) {
   return {
     user: state.selectedUser
-  }
+  };
 }
 
 export default connect(mapStateToProps)(UserListItem);
