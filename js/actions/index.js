@@ -5,12 +5,18 @@ const GET_USER = 'GET_USER';
 const SIGN_UP_USER = 'SIGN_UP_USER';
 
 export function getAllUsers() {
-  const request = axios.get('http://localhost:8080/api/search/all');
-
-  return {
-    type: GET_ALL_USERS,
-    payload: request,
-  };
+  return function(dispatch) {
+    axios.get('http://localhost:8080/api/search/all')
+    .then(response => {
+      dispatch({
+        type: GET_ALL_USERS,
+        payload: response.data
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 }
 
 export function getUser() {
@@ -23,6 +29,7 @@ export function getUser() {
 }
 
 export function signupUser(props) {
+
   const request = axios.post('http://localhost:8080/api/users/signup', props);
 
   return {
