@@ -6,7 +6,7 @@
  *
  * Methods in this file are:
  *
- *  1) FIND ALL : findAll(req, res)
+ *  1) FIND ALL USERS : findAll(req, res)
  *  2) FILTER USERS : getMatches( { query: { sex, age, city } }, res)
  * --------------------------------------------------------------- */
 
@@ -14,7 +14,7 @@ const { getAll, getMatches } = require('./searchModel');
 
 module.exports = {
   //
-  /* -------------------------- * FIND ALL * -------------------------
+  /* -------------------------- * FIND ALL USERS* -------------------------
    *
    * Calls getAll method (see serach/searchModel.js)
    * Once it receives all users data,
@@ -56,7 +56,7 @@ module.exports = {
    *    • No explicit return
    *
    * --------------------------------------------------------------- */
-  findAll(req, res) {
+  findAllUsers(req, res) {
     console.log('1) [SearchController.js/findAll] Searching all user');
 
     getAll((allUserData) => {

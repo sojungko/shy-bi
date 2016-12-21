@@ -13,7 +13,8 @@ const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
 const { signUp, signIn, findUser } = require('./user/userController');
-const { findAll, filterUsers } = require('./search/searchController');
+const { findAllUsers, filterUsers } = require('./search/searchController');
+const { findAllMessages } = require('./messages/messagesController');
 
 module.exports = (app, express) => {
   //
@@ -49,17 +50,23 @@ module.exports = (app, express) => {
    *  b) Log In
    *    i) POST request to: 'api/users/signin'
    *     - Calls signIn function in the user/userController.js
-   *  c) Get User
+   *  c) Find User
    *    i) GET request to: 'api/users:username'
    *     - Calls findUser function in the user/userController.js
    *
    * 2) Search
    *  a) All Users
    *    i) GET request to: 'api/search/all'
-   *      - Calls findAll in search/searchController.js
+   *      - Calls findAllUsers in search/searchController.js
    *  b) Filter User
    *    i) GET request to: 'api/search/filter?sex={sex}&age={age}&city={city}'
    *      - Calls filterUsers in search/searchController.js
+   *
+   * 3) Messages
+   *  a) Find All Messsages
+   *    i) GET request to: '/api/messages/all:username'
+   *      - Calls getAllMessages in the messages/messagesController.js
+   *
    * ------------------------------------------------------------- */
 
   // 1-a-i) POST -> file: user/userController.js, method: signUp
@@ -71,9 +78,12 @@ module.exports = (app, express) => {
   // 1-c-i) GET -> file: user/userController.js, method: getUser
   app.get('/api/users/:username', findUser);
 
-  // 2-a-i) GET -> file: search/searchController.js method: findAll
-  app.get('/api/search/all', findAll);
+  // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
+  app.get('/api/search/all', findAllUsers);
 
   // 2-b-i) GET -> file: search/searchController.js method:
   app.get('/api/search/filter', filterUsers);
+
+  // 3-a-i) GET -> file: messages/messagesController.js method:
+  app.get('/api/messages/all/:username', findAllMessages);
 };

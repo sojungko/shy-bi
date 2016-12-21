@@ -4,8 +4,8 @@
  *
  * Methods in this file are:
  *
- *  1) ADD USER : addUser
- *  2) GET USER : getUser
+ *  1) ADD USER : addUser(name, username, email, password, city, age, sex, callback)
+ *  2) GET USER : getUser({ username }, callback)
  *
  * --------------------------------------------------------------- */
 
@@ -88,7 +88,7 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getUser({ username }, callback) {
+  getUser(username, callback) {
     console.log(`2) [userModel.js/getUser] Finding ${username} from database`);
 
     return db

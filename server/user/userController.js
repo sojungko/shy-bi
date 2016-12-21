@@ -7,6 +7,8 @@
  * Methods in this file are:
  *
  *  1) SIGN UP : signUp({ body: { name, username, email } }, res)
+ *  2) SIGN IN : singIn({ body }, res)
+ *  3) FIND USER : findUser({ params: { username } }, res)
  *
  * --------------------------------------------------------------- */
 
@@ -75,10 +77,13 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   signIn({ body }, res) {
-    console.log(`1) [UserController.js/getUser] Authenticating for user with
-      username: ${body.username}, password: ${body.password}`);
+    const attemptedPassword = body.password;
+    const attemptedUsername = body.username;
 
-    getUser(body, (data) => {
+    console.log(`1) [UserController.js/getUser] Authenticating for user with
+    username: ${attemptedUsername}, password: ${attemptedPassword}`);
+
+    getUser(attemptedUsername, (data) => {
       console.log(`4) [UserController.js/getUser] Success!
         Checking attempted password: ${body.password} against database`);
 
