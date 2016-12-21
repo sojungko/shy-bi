@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_ALL_USERS = 'GET_ALL_USERS';
 const GET_USER = 'GET_USER';
+const SIGN_UP_USER = 'SIGN_UP_USER';
 
 export function getAllUsers() {
   const request = axios.get('http://localhost:8080/api/search/all');
@@ -19,4 +20,13 @@ export function getUser() {
     type: GET_USER,
     payload: request,
   };
+}
+
+export function signupUser() {
+  const request = axios.post('http://localhost:8080/api/users/signup');
+
+  return {
+    type: SIGN_UP_USER,
+    payload: request
+  });
 }
