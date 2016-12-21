@@ -10,7 +10,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    this.props.getUser();
+    this.props.getUser(); // TODO this is being run before reducers get filled with data. need to fix with thunk
   }
 
   render() {

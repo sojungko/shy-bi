@@ -13,7 +13,7 @@ export function getAllUsers() {
 }
 
 export function getUser() {
-  const request = axios.get('http://localhost:8080/api/users/:adam');
+  const request = axios.get('http://localhost:8080/api/users/:adam'); // TODO need to be able to take in username and fetch data based on that
 
   return {
     type: GET_USER,
