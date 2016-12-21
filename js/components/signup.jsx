@@ -1,54 +1,53 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { signupUser } from '../actions/index';
 
 class SignUp extends Component {
 
-  onInputChange(event) {
-    console.log(event.target.value);
-  }
-
   render() {
-    const { fields: { username, password, email, name, age, sex, city }, handleSubmit } = this.props;
+    const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit} className="input-group">
+      <form onSubmit={handleSubmit(signupUser)} className="input-group">
         <h3>Sign up!</h3>
         <div>
           <label>Username</label>
-          <input type="text" {...username} />
+          <Field name="username" component="input" type="text"/>
         </div>
         <div>
           <label>Password</label>
-          <input type="password" {...password} />
+          <Field name="password" component="input" type="password"/>
         </div>
         <div>
           <label>Email</label>
-          <input type="email" {...email} />
+          <Field name="email" component="input" type="text" />
         </div>
         <div>
           <label>Name</label>
-          <input type="text" {...name} />
+          <Field name="name" component="input" type="text" />
         </div>
         <div>
           <label>Age</label>
-          <input type="number" {...age} />
+          <Field name="name" component="input" type="number" />
         </div>
         <div>
           <label>Sex</label>
-          <input type="text" {...sex} />
+          <div>
+            <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
+            <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
+          </div>
         </div>
         <div>
           <label>City</label>
-          <input type="text" {...city} />
+          <Field name="city" component="input" type="text" />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={pristine || submitting}>Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Undo Changes</button>
       </form>
     );
   }
 }
 
 export default reduxForm({
-  signup: 'SignupForm',
-  fields: ['username', 'password', 'email', 'name', 'age', 'sex', 'city']
+  form: 'SignupForm'
 }, null, { signupUser })(SignUp);
