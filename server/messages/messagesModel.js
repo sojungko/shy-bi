@@ -4,6 +4,7 @@
  *
  * Methods in this file are:
  *
+ *  1) GET ALL : getAll({ username }, callback)
  * --------------------------------------------------------------- */
 const db = require('../database/config');
 
@@ -14,6 +15,8 @@ module.exports = {
    * Get all users from the database
    *
    *  Parameters:
+   *    • params | Object | request.params object
+   *        - destuctured to pluck username.
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:
