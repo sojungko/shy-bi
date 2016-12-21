@@ -12,7 +12,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks getAll methods from messagesModel.js
-const { getAll } = require('./messagesModel');
+const { getAll, postMessage} = require('./messagesModel');
 
 module.exports = {
   //
@@ -65,26 +65,79 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/findAll] parsing message ${index} data: `,
           message);
 
-        const { properties: { name, username } } = message.get('user');
+        const { properties: { name: receivedBy, username: receiverID } }
+          = message.get('user');
 
         // Getting User location data
-        const { properties: { name: senderName, username: senderUsername } }
+        const { properties: { name: sentBy, username: senderID } }
           = message.get('sender');
 
         // Getting User age data
-        const { properties: { title, body } } = message.get('msgs');
+        const { properties: { title, body, created } } = message.get('msgs');
 
         // Putting together a user data object.
-        return { name, username, senderName, senderUsername, title, body };
+        return { receivedBy, receiverID, sentBy, senderID, title, body, created };
       });
 
       res.json(messages);
     });
   },
 
-  sendMessage({ params }, res) {
-    console.log(`1) [MessagesController.js/findAllMessages] Searching for
-      ${params.username} messages`);
-  },
+  //
+  /* -------------------------- * SEND MESSAGES * -------------------------
+   *
+   * Calls getAll method. (see messagesModel.js)
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck params object
+   *    • res | Object | response object
+   *
+   * -Sample API Route: /api/messages/all/sojung
+   * -Sample req.param = {username: 'sojung'}
+   * -Sample response object:
 
+      [
+       {
+         "receivedBy": "So Jung Park",
+         "receiverID": "sojung",
+         "sentBy": "Peter Schussheim",
+         "senderID": "peter",
+         "title": "interview",
+         "body": "good luck!"
+         "created": {
+           "low": 590319644,
+           "high": 345
+         }
+       },
+       {
+         "receivedBy": "So Jung Park",
+         "receiverID": "sojung",
+         "sentBy": "Adam Wang",
+         "senderID": "adam",
+         "title": "Lunch",
+         "body": "What are you having for lunch"
+         "created": {
+           "low": 581568470,
+           "high": 345
+         }
+       },
+      ]
+   *
+   *
+   *  Returns:
+   *    • No explicit return
+   *
+   * --------------------------------------------------------------- */
+  sendMessage({ body: { senderID, receiverID, title, body } }, res) {
+    console.log(`1) [MessagesController.js/sendMessage] ${senderID} is sending message
+      title: ${title}
+      body: ${body}
+      to ${receiverID}`);
+
+    postMessage(senderID, receiverID, title, body, () => {
+      console.log('4) [MessagesController.js/sendMessage] Success, sending back 201 status');
+      res.sendStatus(201);
+    });
+  },
 };

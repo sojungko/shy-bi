@@ -91,5 +91,5 @@ module.exports = (app, express) => {
   app.get('/api/messages/all/:username', findAllMessages);
 
   // 3-a-ii) POST -> file: messages/messagesController.js method:
-  app.get('/api/messages/sendmsg', sendMessage);
+  app.post('/api/messages/sendmsg', sendMessage);
 };
