@@ -28,7 +28,7 @@ class SignUp extends Component {
         </div>
         <div>
           <label>Age</label>
-          <Field name="name" component="input" type="number" />
+          <Field name="age" component="input" type="number" />
         </div>
         <div>
           <label>Sex</label>
