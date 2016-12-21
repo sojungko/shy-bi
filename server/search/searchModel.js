@@ -4,6 +4,9 @@
  *
  * Methods in this file are:
  *
+ *  1) GET ALL : getAll(callback)
+ *  2) GET MATCHES : getMatches({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback)
+ *
  * --------------------------------------------------------------- */
 const db = require('../database/config');
 
@@ -51,8 +54,8 @@ module.exports = {
    *
    *  Parameters:
    *    • age | String | Default: regEx pattern
-   *    • city | String |
-   *    • sex | String |
+   *    • city | String | Default: regEx pattern
+   *    • sex | String | Default: regEx pattern
    *    • callback | Function | Exectued on the result of db query.
    *
    *  Returns:

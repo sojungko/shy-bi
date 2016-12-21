@@ -7,7 +7,8 @@
  * Methods in this file are:
  *
  *  1) FIND ALL USERS : findAll(req, res)
- *  2) FILTER USERS : getMatches( { query: { sex, age, city } }, res)
+ *  2) FILTER USERS : getMatches({ query }, res)
+ *
  * --------------------------------------------------------------- */
 
 const { getAll, getMatches } = require('./searchModel');
@@ -20,6 +21,10 @@ module.exports = {
    * Once it receives all users data,
    *  chunks the data for each users to build a all users object for FE to use.
    * Sends a JSON stringified all users object as a response.
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *    • res | Object | response object
    *
    * -Sample response object:
    *
@@ -96,6 +101,11 @@ module.exports = {
    * Once it receives all users data,
    *  chunks the data for each users to build a all users object for FE to use.
    * Sends a JSON stringified all users object as a response.
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck query object
+   *    • res | Object | response object
    *
    * -Sample API Route: /api/search/filter?age=29&city=New York
    * -Sample req.query = {age: '29', city: 'New York'}
