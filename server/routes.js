@@ -12,7 +12,7 @@ const path = require('path');
 const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
-const { signUp, findUser } = require('./user/userController');
+const { signUp, signIn, findUser } = require('./user/userController');
 const { findAll, filterUsers } = require('./search/searchController');
 
 module.exports = (app, express) => {
@@ -46,7 +46,10 @@ module.exports = (app, express) => {
    *  a) Sign Up
    *    i) POST request to: '/api/users/signup'
    *     - Calls signUp function in the user/userController.js
-   *  b) Get User
+   *  b) Log In
+   *    i) POST request to: 'api/users/signin'
+   *     - Calls signIn function in the user/userController.js
+   *  c) Get User
    *    i) GET request to: 'api/users:username'
    *     - Calls findUser function in the user/userController.js
    *
@@ -62,7 +65,10 @@ module.exports = (app, express) => {
   // 1-a-i) POST -> file: user/userController.js, method: signUp
   app.post('/api/users/signup', signUp);
 
-  // 1-b-i) GET -> file: user/userController.js, method: getUser
+  // 1-b-i) POST -> file: user/userController.js, method: signUp
+  app.post('/api/users/signin', signIn);
+
+  // 1-c-i) GET -> file: user/userController.js, method: getUser
   app.get('/api/users/:username', findUser);
 
   // 2-a-i) GET -> file: search/searchController.js method: findAll

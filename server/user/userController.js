@@ -39,6 +39,67 @@ module.exports = {
     });
   },
 
+  //
+  /* -------------------------- * SIGN IN * -------------------------
+   *
+   * Calls getUser method. (see user/userModel.js)
+   * If user is authenticated: send user data as a JSON object
+   * If user is not authenticated: send 401 status
+   *
+   * -Sample API Route: /api/users/signin
+   * -Sample req.body: {username: peter, password: peterpeter}
+   * -Sample response object:
+   *
+      {
+       "memberSince": {
+         "low": 436259304,
+         "high": 345
+       },
+       "password": "peterpeter",
+       "name": "Peter Schussheim",
+       "email": "peter@gmail.com",
+       "username": "peter",
+       "city": "Peter Schussheim",
+       "age": "31",
+       "sex": "Male"
+      }
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck request body
+   *    • res | Object | response object
+   *
+   *  Returns:
+   *    • No explicit return
+   *
+   * --------------------------------------------------------------- */
+
+  signIn({ body }, res) {
+    console.log(`1) [UserController.js/getUser] Authenticating for user with
+      username: ${body.username}, password: ${body.password}`);
+
+    getUser(body, (data) => {
+      console.log(`4) [UserController.js/getUser] Success!
+        Checking attempted password: ${body.password} against database`);
+
+      const { properties: { username, memberSince, password, name, email } } = data.get('user');
+
+      if (body.password !== password) {
+        console.log('5) [UserController.js/getUser] Wrong password!');
+        res.sendStatus(401);
+      } else {
+        const { properties: { city = name } } = data.get('city');
+        const { properties: { age } } = data.get('age');
+        const { properties: { sex } } = data.get('sex');
+
+        const result = { memberSince, password, name, email, username, city, age, sex };
+
+        console.log('5) [UserController.js/getUser] Sending User data: ', result);
+        res.json(result);
+      }
+    });
+  },
+
   /* ------------------------- * FIND USER * -------------------------
    *
    * Calls getUser method. (see user/userModel.js)

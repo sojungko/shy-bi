@@ -88,7 +88,7 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getUser(username, callback) {
+  getUser({ username }, callback) {
     console.log(`2) [userModel.js/getUser] Finding ${username} from database`);
 
     return db
