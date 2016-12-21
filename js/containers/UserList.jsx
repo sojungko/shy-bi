@@ -9,12 +9,15 @@ class UserList extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+  }
+
+  componentWillReceiveProps() {
     this.props.getAllUsers();
   }
 
   renderList() {
-    console.log('USERLIST PROPS:', this.props);
+    console.log('UserList.jsx this.props.users : ', this.props.users)
     return this.props.users.map((user, index) => {
       return (
         <li key={index} user={user}>{user.name}</li>
@@ -31,10 +34,8 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    users: state.users
-  };
+function mapStateToProps({ users }) {
+  return { users };
 }
 
 export default connect(mapStateToProps, { getAllUsers })(UserList);
