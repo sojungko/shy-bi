@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Router, browserHistory } from 'react-router';
 import ReduxThunk from 'redux-thunk';
-import ReduxLogger from 'redux-logger';
 import routes from './routes/Routes.jsx';
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const createStoreWithMiddleware = composeEnhancers(applyMiddleware(ReduxThunk))(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
