@@ -12,7 +12,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks getAll methods from messagesModel.js
-const { getAll, postMessage} = require('./messagesModel');
+const { getAll, postMessage } = require('./messagesModel');
 
 module.exports = {
   //
@@ -87,55 +87,24 @@ module.exports = {
   /* -------------------------- * SEND MESSAGES * -------------------------
    *
    * Calls getAll method. (see messagesModel.js)
+   * Sends 201 status as a response.
    *
    *  Parameters:
    *    • req | Object | request object
-   *        - destuctured to pluck params object
+   *        - destuctured to pluck senderID, receiverID, title, body from body object
    *    • res | Object | response object
-   *
-   * -Sample API Route: /api/messages/all/sojung
-   * -Sample req.param = {username: 'sojung'}
-   * -Sample response object:
-
-      [
-       {
-         "receivedBy": "So Jung Park",
-         "receiverID": "sojung",
-         "sentBy": "Peter Schussheim",
-         "senderID": "peter",
-         "title": "interview",
-         "body": "good luck!"
-         "created": {
-           "low": 590319644,
-           "high": 345
-         }
-       },
-       {
-         "receivedBy": "So Jung Park",
-         "receiverID": "sojung",
-         "sentBy": "Adam Wang",
-         "senderID": "adam",
-         "title": "Lunch",
-         "body": "What are you having for lunch"
-         "created": {
-           "low": 581568470,
-           "high": 345
-         }
-       },
-      ]
-   *
    *
    *  Returns:
    *    • No explicit return
    *
    * --------------------------------------------------------------- */
-  sendMessage({ body: { senderID, receiverID, title, body } }, res) {
-    console.log(`1) [MessagesController.js/sendMessage] ${senderID} is sending message
-      title: ${title}
-      body: ${body}
-      to ${receiverID}`);
+  sendMessage({ body }, res) {
+    console.log(`1) [MessagesController.js/sendMessage] ${body.senderID} is sending message
+      title: ${body.title}
+      body: ${body.body}
+      to ${body.receiverID}`);
 
-    postMessage(senderID, receiverID, title, body, () => {
+    postMessage(body, () => {
       console.log('4) [MessagesController.js/sendMessage] Success, sending back 201 status');
       res.sendStatus(201);
     });
