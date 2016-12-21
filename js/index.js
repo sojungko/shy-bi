@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
-import ReduxPromise from 'redux-promise';
 import ReduxThunk from 'redux-thunk';
+import ReduxLogger from 'redux-logger';
 import routes from './routes/Routes.jsx';
 import reducers from './reducers';
 
