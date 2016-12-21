@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router';
+import { logIn } from '../actions/index';
 
-export default class LogIn extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
-
+class LogIn extends Component {
   render() {
+    const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <div>
+      <form onSubmit={handleSubmit(logIn)} className="input-group">
         <h1> Login </h1>
-        <form className="input-group">
-          Username: <input />
-          Password: <input />
-        </form>
-      </div>
+        <div>
+          <label>Username: </label>
+          <Field name="username" component="input" type="text" />
+        </div>
+        <div>
+          <label>Password: </label>
+          <Field name="password" component="input" type="password" />
+        </div>
+        <button type="submit" disabled={pristine || submitting}>Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Reset Form</button>
+      </form>
     );
   }
 }
+
+
+export default reduxForm({
+  form: 'LogIn',
+}, null, { logIn })(LogIn);
