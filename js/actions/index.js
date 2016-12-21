@@ -22,11 +22,11 @@ export function getUser() {
   };
 }
 
-export function signupUser() {
-  const request = axios.post('http://localhost:8080/api/users/signup');
+export function signupUser(props) {
+  const request = axios.post('http://localhost:8080/api/users/signup', props);
 
   return {
     type: SIGN_UP_USER,
     payload: request
-  });
+  }
 }

@@ -8,6 +8,7 @@ import ProfileReducer from './reducer_profile';
 
 const rootReducer = combineReducers({
   profile: ProfileReducer,
+  form: SignupReducer,
   users: UsersReducer,
   selectedUser: SelectedUser
 });
