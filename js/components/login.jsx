@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router';
-import { logIn } from '../actions/index';
+import { loginUser } from '../actions/index';
 
+/* -- Authentication currently not working. Needs major work! -- */
 class LogIn extends Component {
 
-  componentWillMount(props) {
+  componentWillMount() {
+    this.props.loginUser();
   }
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(logIn)} className="input-group">
+      <form onSubmit={handleSubmit(loginUser)} className="input-group">
         <h1> Login </h1>
         <div>
           <label>Username: </label>
@@ -28,5 +30,8 @@ class LogIn extends Component {
   }
 }
 
+function mapStateToProps({ login }) {
+  return { login };
+}
 
-export default reduxForm({ form: 'LoginForm' }, null, { logIn })(LogIn);
+export default reduxForm({ form: 'LoginForm' }, mapStateToProps, { loginUser })(LogIn);
