@@ -4,6 +4,7 @@ export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOG_IN_USER = 'LOG_IN_USER';
+export const SEARCH_USERS = 'SEARCH_USERS';
 
 export function getAllUsers() {
   return dispatch => {
@@ -48,4 +49,10 @@ export function logIn(props) {
   const request = axios.post('http://localhost:8080/api/users/signin', props);
 
   return { type: LOG_IN_USER, payload: request };
+}
+
+export function searchUsers(props) {
+  const request = axios.post('/api/search/filter', props);
+
+  return { type: SEARCH_USERS, payload: request };
 }

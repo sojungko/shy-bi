@@ -47,6 +47,4 @@ class SignUp extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'SignupForm',
-}, null, { signupUser })(SignUp);
+export default reduxForm({ form: 'SignupForm' }, null, { signupUser })(SignUp);
