@@ -1,43 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/index';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { bindActionCreators } from 'redux';
 import SearchBar from './SearchBar';
 // import UserListItem from '../containers/UserListItem.jsx';
 
 class UserList extends Component {
-  componentWillMount() {
-=======
-=======
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
-// import { bindActionCreators } from 'redux';
-import UserListItem from '../containers/UserListItem.jsx';
-
-class UserList extends Component {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
-  constructor(props) {
-    super(props);
-  }
-
-<<<<<<< HEAD
-=======
->>>>>>> display-profile-1
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
   componentWillReceiveProps() {
->>>>>>> style: fix style issues
     this.props.getAllUsers();
   }
 
   renderList() {
+    console.log('UserList.jsx this.props.users : ', this.props.users)
     return this.props.users.map((user, index) => {
       return (
-        <li key={index}>{user.name}</li>
+        <li key={index} user={user}>{user.name}</li>
       );
     });
   }
@@ -45,13 +22,7 @@ class UserList extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <SearchBar></SearchBar>
-=======
->>>>>>> style: fix style issues
-=======
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
         <ul className="list-group col-sm-4">
           {this.renderList()}
         </ul>

@@ -7,15 +7,9 @@ export const LOG_IN_USER = 'LOG_IN_USER';
 export const SEARCH_USERS = 'SEARCH_USERS';
 
 export function getAllUsers() {
-<<<<<<< HEAD
   return dispatch => {
     axios.get('/api/search/all')
     .then(response => {
-=======
-  return function (dispatch) {
-    axios.get('http://localhost:8080/api/search/all')
-    .then((response) => {
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
       dispatch({
         type: GET_ALL_USERS,
         payload: response.data,
@@ -26,7 +20,6 @@ export function getAllUsers() {
     });
   };
 }
-export function getUser(user) {
 
 export function getUser(username) {
   return dispatch => {
@@ -44,18 +37,9 @@ export function getUser(username) {
 }
 
 export function signupUser(props) {
-<<<<<<< HEAD
   const request = axios.post('/api/users/signup', props);
 
   return { type: SIGN_UP_USER, payload: request };
-=======
-  const request = axios.post('http://localhost:8080/api/users/signup', props);
-
-  return {
-    type: SIGN_UP_USER,
-    payload: request,
-  };
->>>>>>> 696bfd3b1930af53f13b636b40048877bea8281f
 }
 
 export function logIn(props) {
