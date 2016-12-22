@@ -87,14 +87,20 @@ module.exports = {
       console.log(`4) [UserController.js/getUser] Success!
         Checking attempted password: ${body.password} against database`);
 
+      // Getting User data
       const { properties: { username, memberSince, password, name, email } } = data.get('user');
 
       if (body.password !== password) {
         console.log('5) [UserController.js/getUser] Wrong password!');
         res.sendStatus(401);
       } else {
+        // Getting User location data
         const { properties: { city = name } } = data.get('city');
+
+        // Getting User age data
         const { properties: { age } } = data.get('age');
+
+        // Getting User age data
         const { properties: { sex } } = data.get('sex');
 
         const result = { memberSince, password, name, email, username, city, age, sex };
@@ -121,9 +127,7 @@ module.exports = {
          "low": 436259139,
          "high": 345
        },
-       "password": "justinjustin",
        "name": "JW Garrison",
-       "email": "jwolfgarrison@gmail.com",
        "username": "jwgarrison",
        "city": "JW Garrison",
        "age": "29",
@@ -146,12 +150,19 @@ module.exports = {
     getUser(username, (data) => {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
 
+      // Getting User data
       const { properties: { memberSince, password, name, email } } = data.get('user');
+
+      // Getting User location data
       const { properties: { city = name } } = data.get('city');
+
+      // Getting User age data
       const { properties: { age } } = data.get('age');
+
+      // Getting User sex data
       const { properties: { sex } } = data.get('sex');
 
-      const result = { memberSince, password, name, email, username, city, age, sex };
+      const result = { memberSince, name, username, city, age, sex };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);
