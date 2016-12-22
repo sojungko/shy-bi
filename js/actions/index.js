@@ -6,7 +6,7 @@ export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOG_IN_USER = 'LOG_IN_USER';
 
 export function getAllUsers() {
-  return function(dispatch) {
+  return dispatch => {
     axios.get('http://localhost:8080/api/search/all')
     .then(response => {
       dispatch({
@@ -20,9 +20,9 @@ export function getAllUsers() {
   }
 }
 
-export function getUser() {
-  return function(dispatch) {
-    axios.get('http://localhost:8080/api/users/adam')
+export function getUser(username) {
+  return dispatch => {
+    axios.get(`http://localhost:8080/api/users/${username}`)
     .then(response => {
       dispatch({
         type: GET_USER,
@@ -36,7 +36,6 @@ export function getUser() {
 }
 
 export function signupUser(props) {
-
   const request = axios.post('http://localhost:8080/api/users/signup', props);
 
   return {
@@ -48,8 +47,5 @@ export function signupUser(props) {
 export function logIn(props) {
   const request = axios.post('http://localhost:8080/api/users/signin', props);
 
-  return {
-    type: LOG_IN_USER,
-    payload: request,
-  };
+  return { type: LOG_IN_USER, payload: request };
 }
