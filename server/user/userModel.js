@@ -104,7 +104,7 @@ module.exports = {
         db.close();
 
         console.log(`3) [userModel.js/getUser] ${username} has been found`);
-        callback(records[0]);
+        callback(null, records[0]);
       })
       .catch((error) => {
         console.error(`3) [userModel.js/getUser] Could not find ${username} from database`);
@@ -112,9 +112,9 @@ module.exports = {
       });
   },
 
-  /* ------------------------- * GET USER * -------------------------
+  /* ------------------------- * LIKE * -------------------------
    *
-   * Find a User with matching username
+   * Like another user
    *
    *  Parameters:
    *    • username | String

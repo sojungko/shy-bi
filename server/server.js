@@ -7,14 +7,35 @@
  * --------------------------------------------------------------- */
 
 const express = require('express');
+const passport = require('passport');
+const path = require('path');
+const configPassport = require('./auth/passport');
+const flash = require('connect-flash');
+const session = require('express-session');
 const routes = require('./routes');
 const dbinit = require('./database/initialize');
 
 const app = express();
+configPassport(passport);
 dbinit();
 
+app.use(session({ secret: 'imshy' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash());
+
 // Deligates all routing to routes.js
-routes(app, express);
+routes(app, passport);
+
+/* ------------------- * Serving Static Files * -------------------
+ * Files in:
+ *
+ *  1) Node Modules Directory, and
+ *  2) Build Directory
+ * ------------------------------------------------------------- */
+
+app.use(express.static(path.join(__dirname, '/../node_modules')));
+app.use(express.static(path.join(__dirname, '/../')));
 
 const port = process.env.PORT || 8080;
 

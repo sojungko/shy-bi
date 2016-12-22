@@ -80,19 +80,19 @@ module.exports = {
     const attemptedPassword = body.password;
     const attemptedUsername = body.username;
 
-    console.log(`1) [UserController.js/getUser] Authenticating for user with
+    console.log(`1) [UserController.js/signIn] Authenticating for user with
     username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
     getUser(attemptedUsername, (data) => {
-      console.log(`4) [UserController.js/getUser] Success!
+      console.log(`4) [UserController.js/signIn] Success!
         Checking attempted password: ${body.password} against database`);
 
       // Getting User data
       const { properties: { username, memberSince, password, name, email } } = data.get('user');
 
       if (body.password !== password) {
-        console.log('5) [UserController.js/getUser] Wrong password!');
-        res.sendStatus(401);
+        console.log('5) [UserController.js/signIn] Wrong password!', res.json);
+        res.json(data);
       } else {
         // Getting User location data
         const city = data.get('city').properties.name;
@@ -105,7 +105,7 @@ module.exports = {
 
         const result = { memberSince, password, name, email, username, city, age, sex };
 
-        console.log('5) [UserController.js/getUser] Sending User data: ', result);
+        console.log('5) [UserController.js/signIn] Sending User data: ', result);
         res.json(result);
       }
     });

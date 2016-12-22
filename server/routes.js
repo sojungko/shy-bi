@@ -6,7 +6,7 @@
  *    • path
  *    • morgan (Logger)
  *    • passport (Authentication)
- *    • flash
+ *    • flash (Creates req.flash(), display flash error message)
  *    • cookieParser
  *  2) Serves static files, and
  *  3) Handles all server-side routing
@@ -14,18 +14,15 @@
  * --------------------------------------------------------------- */
 
 const bodyParser = require('body-parser');
-const path = require('path');
-const morgan = require('morgan');
-const passport = require('passport');
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
 const { signUp, signIn, findUser, likeUser } = require('./user/userController');
 const { findAllUsers, filterUsers } = require('./search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('./messages/messagesController');
 
-module.exports = (app, express) => {
+module.exports = (app, passport) => {
   //
   /* ----------- * Binding Application Level Middlewears * ----------
    * 1) bodyParser, and
@@ -35,16 +32,18 @@ module.exports = (app, express) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(morgan('dev'));
+  app.use(cookieParser());
 
-  /* ------------------- * Serving Static Files * -------------------
-   * Files in:
-   *
-   *  1) Node Modules Directory, and
-   *  2) Build Directory
-   * ------------------------------------------------------------- */
+  // route middleware to make sure a user is logged in
+  const isLoggedIn = (req, res, next) => {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+      return next();
+    }
 
-  app.use(express.static(path.join(__dirname, '/../node_modules')));
-  app.use(express.static(path.join(__dirname, '/../')));
+    // if they aren't send 401 status
+    return res.sendStatus(401);
+  };
 
   /* ---------------------------- Router ----------------------------
    * Use Command/Ctrl + F to search for a route
@@ -90,26 +89,30 @@ module.exports = (app, express) => {
   app.post('/api/users/signup', signUp);
 
   // 1-b-i) POST -> file: user/userController.js, method: signUp
-  app.post('/api/users/signin', signIn);
+  app.post('/api/users/signin', passport.authenticate('local-login', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true,
+  }));
 
   // 1-c-i) GET -> file: user/userController.js, method: getUser
-  app.get('/api/users/:username', findUser);
+  app.get('/api/users/:username', isLoggedIn, findUser);
 
   // 1-d-i) POST -> file: user/userController.js, method: likeUser
-  app.post('/api/users/like', likeUser);
+  app.post('/api/users/like', isLoggedIn, likeUser);
 
   // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
-  app.get('/api/search/all', findAllUsers);
+  app.get('/api/search/all', isLoggedIn, findAllUsers);
 
   // 2-b-i) GET -> file: search/searchController.js method:
-  app.get('/api/search/filter', filterUsers);
+  app.get('/api/search/filter', isLoggedIn, filterUsers);
 
   // 3-a-i) GET -> file: messages/messagesController.js method:
-  app.get('/api/messages/all/:username', findAllMessages);
+  app.get('/api/messages/all/:username', isLoggedIn, findAllMessages);
 
   // 3-a-ii) POST -> file: messages/messagesController.js method:
-  app.post('/api/messages/send', sendMessage);
+  app.post('/api/messages/send', isLoggedIn, sendMessage);
 
   // 3-a-iii) GET -> file: messages/messagesController.js method:
-  app.get('/api/messages/sent/:username', sentMessages);
+  app.get('/api/messages/sent/:username', isLoggedIn, sentMessages);
 };
