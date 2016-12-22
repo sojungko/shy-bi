@@ -6,22 +6,22 @@ const SIGN_UP_USER = 'SIGN_UP_USER';
 const LOG_IN_USER = 'LOG_IN_USER';
 
 export function getAllUsers() {
-  return function(dispatch) {
+  return function (dispatch) {
     axios.get('http://localhost:8080/api/search/all')
-    .then(response => {
+    .then((response) => {
       dispatch({
         type: GET_ALL_USERS,
-        payload: response.data
+        payload: response.data,
       });
     })
     .catch((error) => {
-      console.log(error);
-    })
-  }
+      console.error(error);
+    });
+  };
 }
 
-export function getUser() {
-  const request = axios.get('http://localhost:8080/api/users/:adam'); // TODO need to be able to take in username and fetch data based on that
+export function getUser(user) {
+  const request = axios.get(`http://localhost:8080/api/users/:${user}`); // TODO need to be able to take in username and fetch data based on that
 
   return {
     type: GET_USER,
@@ -30,7 +30,6 @@ export function getUser() {
 }
 
 export function signupUser(props) {
-
   const request = axios.post('http://localhost:8080/api/users/signup', props);
 
   return {

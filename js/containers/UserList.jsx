@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/index';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import UserListItem from '../containers/UserListItem.jsx';
 
 class UserList extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
   }
 
   componentWillReceiveProps() {
@@ -27,9 +24,11 @@ class UserList extends Component {
 
   render() {
     return (
-      <ul className="list-group col-sm-4">
-        {this.renderList()}
-      </ul>
+      <div>
+        <ul className="list-group col-sm-4">
+          {this.renderList()}
+        </ul>
+      </div>
     );
   }
 }
