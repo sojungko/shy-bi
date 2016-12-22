@@ -6,10 +6,6 @@ import { loginUser } from '../actions/index';
 /* -- Authentication currently not working. Needs major work! -- */
 class LogIn extends Component {
 
-  componentWillMount() {
-    this.props.loginUser();
-  }
-
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
