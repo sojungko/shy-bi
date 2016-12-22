@@ -71,13 +71,13 @@ module.exports = {
           = userData.get('user');
 
         // Getting User location data
-        const { properties: { name: city } } = userData.get('city');
+        const city = userData.get('city').properties.name;
 
         // Getting User age data
-        const { properties: { age } } = userData.get('age');
+        const age = userData.get('age').properties.age;
 
         // Getting User sex data
-        const { properties: { sex } } = userData.get('sex');
+        const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
         const user = { memberSince, name, username, city, age, sex };
@@ -142,13 +142,13 @@ module.exports = {
           = userData.get('user');
 
         // Getting User location data
-        const { properties: { name: city } } = userData.get('city');
+        const city = userData.get('city').properties.name;
 
         // Getting User age data
-        const { properties: { age } } = userData.get('age');
+        const age = userData.get('age').properties.age;
 
         // Getting User sex data
-        const { properties: { sex } } = userData.get('sex');
+        const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
         const user = { memberSince, name, username, city, age, sex };

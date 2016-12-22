@@ -13,7 +13,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks addUser methods from user/userModel.js
-const { addUser, getUser } = require('./userModel');
+const { addUser, getUser, like } = require('./userModel');
 
 module.exports = {
   //
@@ -61,7 +61,7 @@ module.exports = {
        "name": "Peter Schussheim",
        "email": "peter@gmail.com",
        "username": "peter",
-       "city": "Peter Schussheim",
+       "city": "New York",
        "age": "31",
        "sex": "Male"
       }
@@ -95,13 +95,13 @@ module.exports = {
         res.sendStatus(401);
       } else {
         // Getting User location data
-        const { properties: { city = name } } = data.get('city');
+        const city = data.get('city').properties.name;
 
         // Getting User age data
-        const { properties: { age } } = data.get('age');
+        const age = data.get('age').properties.age;
 
-        // Getting User age data
-        const { properties: { sex } } = data.get('sex');
+        // Getting User sex data
+        const sex = data.get('sex').properties.sex;
 
         const result = { memberSince, password, name, email, username, city, age, sex };
 
@@ -112,6 +112,64 @@ module.exports = {
   },
 
   /* ------------------------- * FIND USER * -------------------------
+   *
+   * Calls getUser method. (see user/userModel.js)
+   * Once it receives user data,
+   *  chunks the data and build a result object for FE to use.
+   * Sends a JSON stringified result object as a response.
+   *
+   * -Sample API Route: /api/users/sojung
+   * -Sample req.params.username = 'sojung'
+   * -Sample response object:
+   *
+      {
+       "memberSince": {
+         "low": 436259139,
+         "high": 345
+       },
+       "name": "JW Garrison",
+       "username": "jwgarrison",
+       "city": "New York",
+       "age": "29",
+       "sex": "Male"
+      }
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck username, from its params object
+   *    • res | Object | response object
+   *
+   *  Returns:
+   *    • No explicit return
+   *
+   * --------------------------------------------------------------- */
+
+  findUser({ params: { username } }, res) {
+    console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
+
+    getUser(username, (data) => {
+      console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
+
+      // Getting User data
+      const { properties: { memberSince, name } } = data.get('user');
+
+      // Getting User location data
+      const city = data.get('city').properties.name;
+
+      // Getting User age data
+      const age = data.get('age').properties.age;
+
+      // Getting User sex data
+      const sex = data.get('sex').properties.sex;
+
+      const result = { memberSince, name, username, city, age, sex };
+
+      console.log('5) [UserController.js/getUser] Sending User data: ', result);
+      res.json(result);
+    });
+  },
+
+  /* ------------------------- * LIKE USER * -------------------------
    *
    * Calls getUser method. (see user/userModel.js)
    * Once it receives user data,
@@ -144,28 +202,11 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  findUser({ params: { username } }, res) {
-    console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
-
-    getUser(username, (data) => {
-      console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
-
-      // Getting User data
-      const { properties: { memberSince, password, name, email } } = data.get('user');
-
-      // Getting User location data
-      const { properties: { city = name } } = data.get('city');
-
-      // Getting User age data
-      const { properties: { age } } = data.get('age');
-
-      // Getting User sex data
-      const { properties: { sex } } = data.get('sex');
-
-      const result = { memberSince, name, username, city, age, sex };
-
-      console.log('5) [UserController.js/getUser] Sending User data: ', result);
-      res.json(result);
+  likeUser({ body }, res) {
+    console.log(`1) [UserController.js/likeUser] ${body.username} is liking ${body.likedUser}`);
+    like(body, () => {
+      console.log('4) [UserController.js/likeUser] Success! Sending back 201 status');
+      res.sendStatus(201);
     });
   },
 };

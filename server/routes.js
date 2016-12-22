@@ -2,6 +2,12 @@
  *
  * This file:
  *  1) Loads Express middlewears,
+ *    • bodyParser (Creates body object)
+ *    • path
+ *    • morgan (Logger)
+ *    • passport (Authentication)
+ *    • flash
+ *    • cookieParser
  *  2) Serves static files, and
  *  3) Handles all server-side routing
  *
@@ -10,11 +16,14 @@
 const bodyParser = require('body-parser');
 const path = require('path');
 const morgan = require('morgan');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 // Plucks signup method from user/userController.js
-const { signUp, signIn, findUser } = require('./user/userController');
+const { signUp, signIn, findUser, likeUser } = require('./user/userController');
 const { findAllUsers, filterUsers } = require('./search/searchController');
-const { findAllMessages, sendMessage } = require('./messages/messagesController');
+const { findAllMessages, sendMessage, sentMessages } = require('./messages/messagesController');
 
 module.exports = (app, express) => {
   //
@@ -53,6 +62,8 @@ module.exports = (app, express) => {
    *  c) Find User
    *    i) GET request to: 'api/users:username'
    *     - Calls findUser function in the user/userController.js
+   *  d) Like User
+   *    i) POST request to: '/api/users/like'
    *
    * 2) Search
    *  a) All Users
@@ -70,7 +81,7 @@ module.exports = (app, express) => {
    *    ii) POST request to: '/api/messages/send'
    *      - Calls sendMessage in the messages/messagesController.js
    *  C) Find Sent Messages
-   *    ii) POST request to: '/api/messages/sent'
+   *    iii) GET request to: '/api/messages/sent'
    *      - Calls sendMessage in the messages/messagesController.js
    *
    * ------------------------------------------------------------- */
@@ -84,6 +95,9 @@ module.exports = (app, express) => {
   // 1-c-i) GET -> file: user/userController.js, method: getUser
   app.get('/api/users/:username', findUser);
 
+  // 1-d-i) POST -> file: user/userController.js, method: likeUser
+  app.post('/api/users/like', likeUser);
+
   // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
   app.get('/api/search/all', findAllUsers);
 
@@ -95,4 +109,7 @@ module.exports = (app, express) => {
 
   // 3-a-ii) POST -> file: messages/messagesController.js method:
   app.post('/api/messages/send', sendMessage);
+
+  // 3-a-iii) GET -> file: messages/messagesController.js method:
+  app.get('/api/messages/sent/:username', sentMessages);
 };

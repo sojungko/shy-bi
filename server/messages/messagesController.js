@@ -8,11 +8,12 @@
  *
  *  1) FIND ALL MESSAGES : findAllMessages({ params }, res)
  *  2) SEND MESSAGE
+ *  3) SENT MESSAGES
  *
  * --------------------------------------------------------------- */
 
 // Plucks getAll methods from messagesModel.js
-const { getAll, postMessage } = require('./messagesModel');
+const { getAll, postMessage, getOutbox } = require('./messagesModel');
 
 module.exports = {
   //
@@ -107,6 +108,70 @@ module.exports = {
     postMessage(body, () => {
       console.log('4) [MessagesController.js/sendMessage] Success, sending back 201 status');
       res.sendStatus(201);
+    });
+  },
+
+  //
+  /* -------------------------- * FIND SENT MESSAGES * -------------------------
+   *
+   * Calls getAllSent method. (see messagesModel.js)
+   * Sends 201 status as a response.
+   *
+   * -Sample API Route: api/messages/sent/tim
+   * -Sample req.param = {username: 'tim'}
+   * -Sample response object:
+   *
+      [
+       {
+         "sentBy": "Tim Yin",
+         "senderID": "tim",
+         "receivedBy": "So Jung Park",
+         "receiverID": "sojung",
+         "title": "Savage",
+         "body": "So jung, you are a savage",
+         "created": {
+           "low": 581830138,
+           "high": 345
+         }
+       }
+      ]
+   *
+   *  Parameters:
+   *    • req | Object | request object
+   *        - destuctured to pluck params object
+   *    • res | Object | response object
+   *
+   *  Returns:
+   *    • No explicit return
+   *
+   * --------------------------------------------------------------- */
+  sentMessages({ params }, res) {
+    console.log(`1) [MessagesController.js/sentMessages]
+      searching for messages sent by ${params.username} `);
+
+    getOutbox(params, (sentMessagesData) => {
+      console.log(`4) [MessagesController.js/sentMessages] Success!
+        Parsing messages & building res object`);
+
+      const sentMessages = sentMessagesData.map((message, index) => {
+        console.log(`4-${index}) [SearchController.js/sentMessages] parsing message
+          ${index} data:`, message);
+
+        const { properties: { name: sentBy, username: senderID } }
+          = message.get('user');
+
+        // Getting User location data
+        const { properties: { name: receivedBy, username: receiverID } }
+          = message.get('receiver');
+
+        // Getting User age data
+        const { properties: { title, body, created } } = message.get('msgs');
+
+        // Putting together a user data object.
+        return { sentBy, senderID, receivedBy, receiverID, title, body, created };
+      });
+
+      res.json(sentMessages);
     });
   },
 };
