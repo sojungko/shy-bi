@@ -112,4 +112,40 @@ module.exports = {
       });
   },
 
+  /* ------------------------- * GET USER * -------------------------
+   *
+   * Find a User with matching username
+   *
+   *  Parameters:
+   *    • username | String
+   *    • callback | Function | Exectued on the result of db query.
+   *
+   *  Returns:
+   *    • the result db query which resolves into a promise that
+   *        executes the callback.
+   *
+   * --------------------------------------------------------------- */
+
+  like({ username, likedUser }, callback) {
+    console.log(`2) [userModel.js/like] Finding ${username} and ${likedUser} from database`);
+
+    return db
+      .run(
+        `MATCH (user:User{username: {username}})
+        MATCH (liked:User{username: {likedUser}})
+        MERGE (user)-[:LIKES]->(liked)
+        RETURN user, liked`,
+      { username, likedUser }
+    )
+      .then(({ records }) => {
+        db.close();
+
+        console.log(`3) [userModel.js/like] ${username} liked ${likedUser} <3`);
+        callback(records);
+      })
+      .catch((error) => {
+        console.error(`3) [userModel.js/like] Could not make ${username} to like ${likedUser}`);
+        throw error;
+      });
+  },
 };
