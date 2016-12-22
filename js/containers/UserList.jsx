@@ -5,13 +5,6 @@ import { bindActionCreators } from 'redux';
 import UserListItem from '../containers/UserListItem.jsx';
 
 class UserList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-  }
-
   componentWillReceiveProps() {
     this.props.getAllUsers();
   }
