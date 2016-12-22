@@ -64,22 +64,27 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  postMessage({ senderID, receiverId, title, body }, callback) {
-    console.log('2) [messagesModel.js/postMessage] Accessing message database');
+  postMessage({ senderID, receiverID, title, body }, callback) {
+    console.log(`2) [messagesModel.js/postMessage] Accessing message database with
+      senderID: ${senderID}
+      receiverID: ${receiverID}
+      title: ${title}
+      body: ${body}`
+    );
 
     return db
      .run(
-      `MATCH(receiver:User {username:{receiverId}})
-      MATCH(sender:User {username:{senderID}})
+      `MATCH(sender:User {username:{senderID}})
+      MATCH(receiver:User {username:{receiverID}})
       MERGE(msg:Messages {title:{title}, body:{body}})
-      	ON CREATE SET msg.created=timestamp()
+        ON CREATE SET msg.created=timestamp()
       MERGE(sender)-[:SENDS]->(msg)<-[:RECEIVES]-(receiver)
       RETURN receiver, sender, msg`,
-       { senderID, receiverId, title, body }
+       { senderID, receiverID, title, body }
      )
      .then((data) => {
         db.close();
-        console.log('3) [messagesModel.js/postMessage] Writing message to database: ', data);
+        console.log('3) [messagesModel.js/postMessage] Writing message to database:');
         return callback(data);
       })
      .catch((error) => {
