@@ -12,13 +12,13 @@ export function getAllUsers() {
     .then(response => {
       dispatch({
         type: GET_ALL_USERS,
-        payload: response.data
+        payload: response.data,
       });
     })
     .catch((error) => {
-      console.log(error);
-    })
-  }
+      console.error(error);
+    });
+  };
 }
 
 export function getUser(username) {
