@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 
 class UserListItem extends Component {
   constructor(props) {
-    super();
+    super(props);
   }
 
   render() {
-    console.log('USERLISTITEM PROPS: ', this.props);
     if (!this.props.user) {
       return <div>Select user to see profile</div>;
     }
