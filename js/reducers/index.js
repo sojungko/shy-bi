@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { reducer as FormReducer } from 'redux-form';
-import UsersReducer from './reducer_users';
-import ProfileReducer from './reducer_profile';
-import LogInReducer from './reducer_login.jsx';
+import UsersReducer from './users';
+import ProfileReducer from './profile';
+import LogInReducer from './login';
 
 
 const rootReducer = combineReducers({
