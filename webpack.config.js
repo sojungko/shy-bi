@@ -1,27 +1,27 @@
-var webpack = require('webpack');
-var path = require('path');
+const webpack = require('webpack');
+const path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, './public');
-var APP_DIR = path.resolve(__dirname, './js');
+const BUILD_DIR = path.resolve(__dirname, './public');
+const APP_DIR = path.resolve(__dirname, './js');
 
-var config = {
+const config = {
   entry: APP_DIR + '/index.js',
   output: {
     devtoolLineToLine: true,
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
-  module : {
-    loaders : [
+  module: {
+    loaders: [
       {
-        test : /\.jsx?$/,
-        include : APP_DIR,
-        loader : 'babel-loader',
+        test: /\.jsx?$/,
+        include: APP_DIR,
+        loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
-      }
-    ]
+          presets: ['react', 'es2015'],
+        },
+      },
+    ],
   },
   devServer: {
     historyApiFallback: true,
