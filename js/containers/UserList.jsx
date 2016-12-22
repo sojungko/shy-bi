@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 // import UserListItem from '../containers/UserListItem.jsx';
 
 class UserList extends Component {
-  componentWillReceiveProps() {
+  componentWillMount() {
     this.props.getAllUsers();
   }
 
