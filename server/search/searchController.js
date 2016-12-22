@@ -34,9 +34,7 @@ module.exports = {
            "low": 436259579,
            "high": 345
          },
-         "password": "adamadam",
          "name": "Adam Wang",
-         "email": "adam@gmail.com",
          "username": "adam",
          "city": "New York",
          "age": "25",
@@ -47,9 +45,7 @@ module.exports = {
            "low": 436259472,
            "high": 345
          },
-         "password": "timtim",
          "name": "Tim Yin",
-         "email": "timyin@gmail.com",
          "username": "tim",
          "city": "New York",
          "age": "24",
@@ -71,9 +67,8 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/findAll] parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, password, name, email, username } }
+        const { properties: { memberSince, name, username } }
           = userData.get('user');
-
 
         // Getting User location data
         const { properties: { name: city } } = userData.get('city');
@@ -85,7 +80,7 @@ module.exports = {
         const { properties: { sex } } = userData.get('sex');
 
         // Putting together a user data object.
-        const user = { memberSince, password, name, email, username, city, age, sex };
+        const user = { memberSince, name, username, city, age, sex };
 
         return user;
       });
@@ -117,9 +112,7 @@ module.exports = {
            "low": 436259579,
            "high": 345
          },
-         "password": "adamadam",
          "name": "Adam Wang",
-         "email": "adam@gmail.com",
          "username": "adam",
          "city": "New York",
          "age": "25",
@@ -145,7 +138,7 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/filterUsers] parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, password, name, email, username } }
+        const { properties: { memberSince, name, username } }
           = userData.get('user');
 
         // Getting User location data
@@ -158,7 +151,7 @@ module.exports = {
         const { properties: { sex } } = userData.get('sex');
 
         // Putting together a user data object.
-        const user = { memberSince, password, name, email, username, city, age, sex };
+        const user = { memberSince, name, username, city, age, sex };
 
         return user;
       });
