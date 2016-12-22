@@ -4,6 +4,10 @@ import { Link } from 'react-router';
 import { logIn } from '../actions/index';
 
 class LogIn extends Component {
+
+  componentWillMount(props) {
+  }
+
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
@@ -25,6 +29,4 @@ class LogIn extends Component {
 }
 
 
-export default reduxForm({
-  form: 'LogIn',
-}, null, { logIn })(LogIn);
+export default reduxForm({ form: 'LoginForm' }, null, { logIn })(LogIn);
