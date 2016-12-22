@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GET_ALL_USERS = 'GET_ALL_USERS';
-const GET_USER = 'GET_USER';
-const SIGN_UP_USER = 'SIGN_UP_USER';
-const LOG_IN_USER = 'LOG_IN_USER';
+export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_USER = 'GET_USER';
+export const SIGN_UP_USER = 'SIGN_UP_USER';
+export const LOG_IN_USER = 'LOG_IN_USER';
 
 export function getAllUsers() {
   return function(dispatch) {
@@ -21,12 +21,18 @@ export function getAllUsers() {
 }
 
 export function getUser() {
-  const request = axios.get('http://localhost:8080/api/users/:adam'); // TODO need to be able to take in username and fetch data based on that
-
-  return {
-    type: GET_USER,
-    payload: request,
-  };
+  return function(dispatch) {
+    axios.get('http://localhost:8080/api/users/adam')
+    .then(response => {
+      dispatch({
+        type: GET_USER,
+        payload: response.data
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 }
 
 export function signupUser(props) {

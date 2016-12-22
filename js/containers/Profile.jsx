@@ -30,8 +30,4 @@ function mapStateToProps({ profile }) {
   return { profile };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getUser }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, { getUser })(Profile);
