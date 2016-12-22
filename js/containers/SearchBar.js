@@ -2,18 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
-import Slider from 'material-ui/Slider';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import TextField from 'material-ui/TextField';
+import { RadioButtonGroup, RadioButton, TextField } from 'redux-form-material-ui'
 
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  radioButton: {
-    marginBottom: 16,
-  },
-};
 
 class SearchBar extends Component {
 
@@ -23,28 +13,20 @@ class SearchBar extends Component {
       <form onSubmit={handleSubmit} className="input-group">
         <h3>Search</h3>
         <div>
-          <label>Age</label>
-          <Slider></Slider>
-
+          <label>Age</label> <br/>
+          <Field name="minAge" component={TextField} type="number"/>
+          <Field name="maxAge" component={TextField} type="number"/>
         </div>
         <div>
           <label>Sex</label>
-          <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-            <RadioButton
-              value="not_light"
-              label="Male"
-              style={styles.radioButton}
-            />
-            <RadioButton
-              value="light"
-              label="Female"
-              style={styles.radioButton}
-            />
-          </RadioButtonGroup>
+          <Field name="sex" component={RadioButtonGroup}>
+            <RadioButton value="male" label="Male"/>
+            <RadioButton value="female" label="Female"/>
+          </Field>
         </div>
         <div>
           <label>City</label>
-          <TextField /><br />
+          <Field name="city" component={TextField} type="text"/>
         </div>
         <button type="submit" disabled={pristine || submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>Undo Changes</button>
@@ -53,4 +35,6 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export default reduxForm({
+  search: 'SearchForm',
+}, null, null)(SearchBar);
