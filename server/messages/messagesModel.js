@@ -37,7 +37,7 @@ module.exports = {
       )
       .then(({ records }) => {
         db.close();
-        console.log('3) [messagesModel.js/getAll] Reteriving first 10 messsages: ', records);
+        console.log('3) [messagesModel.js/getAll] Reteriving first 10 messsages: ');
         return callback(records);
       })
       .catch((error) => {
@@ -89,6 +89,45 @@ module.exports = {
       })
      .catch((error) => {
         console.error('3) [messagesModel.js/postMessage] Could not writing message to database');
+        throw error;
+      });
+  },
+
+  //
+  /* ------------------------- * GET OUTBOX * -------------------------
+   *
+   * Get all messages sent by the user
+   *
+   *  Parameters:
+   *    • params | Object | request.params object
+   *        - destuctured to pluck username.
+   *    • callback | Function | Exectued on the result of db query.
+   *
+   *  Returns:
+   *    • the result db query which resolves into a promise that
+   *        executes the callback.
+   *
+   * --------------------------------------------------------------- */
+
+  getOutbox({ username }, callback) {
+    console.log('2) [messagesModel.js/getOutbox] Accessing message database');
+
+    return db
+      .run(
+        `MATCH
+          (user:User {username: {username}})-[:SENDS]->(msgs:Messages)<-[:RECEIVES]-(receiver:User)
+        RETURN user, receiver, msgs ORDER BY msgs.created DESC LIMIT 10`,
+        { username }
+      )
+      .then(({ records }) => {
+        db.close();
+        console.log(`3) [messagesModel.js/getOutbox] Reteriving first 10 messsages
+          sent by ${username}`);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.error(`3) [messagesModel.js/getOutbox]
+          Could not execute the query to the database`);
         throw error;
       });
   },
