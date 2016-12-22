@@ -67,7 +67,10 @@ module.exports = (app, express) => {
    *    i) GET request to: '/api/messages/all:username'
    *      - Calls getAllMessages in the messages/messagesController.js
    *  b) Send Message
-   *    ii) POST request to: '/api/messages/sendmsg'
+   *    ii) POST request to: '/api/messages/send'
+   *      - Calls sendMessage in the messages/messagesController.js
+   *  C) Find Sent Messages
+   *    ii) POST request to: '/api/messages/sent'
    *      - Calls sendMessage in the messages/messagesController.js
    *
    * ------------------------------------------------------------- */
@@ -91,5 +94,5 @@ module.exports = (app, express) => {
   app.get('/api/messages/all/:username', findAllMessages);
 
   // 3-a-ii) POST -> file: messages/messagesController.js method:
-  app.post('/api/messages/sendmsg', sendMessage);
+  app.post('/api/messages/send', sendMessage);
 };
