@@ -1,8 +1,6 @@
-import { GET_ALL_USERS } from '../actions/index';
-
 export default function(state = [], action) {
   switch(action.type) {
-    case GET_ALL_USERS:
+    case 'GET_USER':
       return action.payload;
   }
   return state;
