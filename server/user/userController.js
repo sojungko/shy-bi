@@ -13,7 +13,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks addUser methods from user/userModel.js
-const { addUser, getUser, like } = require('./userModel');
+const { addUser, getUser, like, unlike } = require('./userModel');
 
 module.exports = {
   //
@@ -206,6 +206,14 @@ module.exports = {
     console.log(`1) [UserController.js/likeUser] ${body.username} is liking ${body.likedUser}`);
     like(body, () => {
       console.log('4) [UserController.js/likeUser] Success! Sending back 201 status');
+      res.sendStatus(201);
+    });
+  },
+
+  unlikeUser({ body }, res) {
+    console.log(`1) [UserController.js/unlikeUser] ${body.username} is unliking ${body.unlikedUser}`);
+    unlike(body, (data) => {
+      console.log(`4) [UserController.js/unlikeUser] ${data}`);
       res.sendStatus(201);
     });
   },

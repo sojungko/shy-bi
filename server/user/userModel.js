@@ -112,9 +112,9 @@ module.exports = {
       });
   },
 
-  /* ------------------------- * LIKE * -------------------------
+  /* ------------------------- * GET USER * -------------------------
    *
-   * Like another user
+   * Find a User with matching username
    *
    *  Parameters:
    *    • username | String
@@ -146,6 +146,27 @@ module.exports = {
       .catch((error) => {
         console.error(`3) [userModel.js/like] Could not make ${username} to like ${likedUser}`);
         throw error;
+      });
+  },
+  unlike({ username, unlikedUser }, callback) {
+    console.log(`2) [userModel.js/unlike] Finding ${username} and ${unlikedUser} from database`);
+
+    return db
+      .run(
+        `MATCH (user:User{username: {username}})
+        MATCH (unliked:User{username: {unlikedUser}})
+        MATCH (user)-[likes:LIKES]->(unliked)
+        DELETE likes`,
+        { username, unlikedUser }
+      )
+      .then((results) => {
+        db.close();
+        console.log(`3) [userModel.js/unlike] ${username} unliked ${unlikedUser} <3`, results);
+        callback(results);
+      })
+      .catch((error) => {
+        console.error(`3) [userModel.js/unlike] Could not make ${username} to unlike ${unlikedUser}`);
+        callback(error);
       });
   },
 };
