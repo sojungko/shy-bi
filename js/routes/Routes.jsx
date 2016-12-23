@@ -12,9 +12,9 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={LogIn} />
     <Route component={Navbar} />
-      <Route path="signup" component={SignUp} />
-      <Route path="search" component={UserList} />
-      <Route path="profile" component={Profile} />
-      <Route path="login" component={LogIn} />
+    <Route path="signup" component={SignUp} />
+    <Route path="search" component={UserList} />
+    <Route path="profile" component={Profile} />
+    <Route path="login" component={LogIn} />
   </Route>
 );

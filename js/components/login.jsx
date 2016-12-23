@@ -1,49 +1,106 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
-import { loginUser } from '../actions/index';
+import React, { Component, PropTypes } from 'react';
+import Auth from '../modules/Auth';
+import { loginUser } from '../actions/index'
+import { connect } from 'react-redux';
+import { Link, browserHistory } from 'react-router';
 
-/* -- Authentication currently not working. Needs major work! -- */
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 class LogIn extends Component {
+  constructor(props) {
+    super(props);
 
-  handleFormSubmit({ username, password }) {
-    loginUser({ username, password });
+    const storedMessage = localStorage.getItem('successMessage');
+    let successMessage = '';
+
+    if (storedMessage) {
+      successMessage = storedMessage;
+      localStorage.removeItem('successMessage');
+    }
+
+    this.state = {
+      errors: {},
+      successMessage,
+      username: '',
+      password: '',
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onUsernameChange = this.onUsernameChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
-  renderAlert() {
-    console.log('components/login renderAlert this.props : ', this.props)
-    if (this.props.errorMessage) {
-      return (
-        <div>
-          <strong>Oops! </strong>{this.props.errorMessage}
-        </div>
-      )
+  onSubmit(event) {
+    let resultObj = {
+      username: this.state.username,
+      password: this.state.password,
     }
+    event.preventDefault();
+    this.props.loginUser(resultObj)
+    browserHistory.push('/');
+  }
+
+  onUsernameChange(event) {
+    this.setState({username: event.target.value})
+    console.log('THIS IS THE USERNAME: ', this.state.user, "VALUE: ", event.target.value);
+  }
+
+  onPasswordChange(event) {
+    this.setState({password: event.target.value})
+    console.log('THIS IS THE PASSWORD: ', this.state.user, "VALUE: ", event.target.value);
   }
 
   render() {
-
-    const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="input-group">
-        <h1> Login </h1>
+      <MuiThemeProvider>
         <div>
-          <label>Username: </label>
-          <Field name="username" component="input" type="text" />
-        </div>
-        <div>
-          <label>Password: </label>
-          <Field name="password" component="input" type="password" />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+          <Card className="container">
+            <form action="/" onSubmit={this.onSubmit}>
+              <h2 className="card-heading">Login</h2>
+
+              {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
+              {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="Username"
+                  name="username"
+                  errorText={this.state.errors.username}
+                  onChange={this.onUsernameChange}
+                  value={this.state.username}
+                />
+              </div>
+
+              <div className="field-line">
+                <TextField
+                  floatingLabelText="Password"
+                  type="password"
+                  name="password"
+                  onChange={this.onPasswordChange}
+                  errorText={this.state.errors.password}
+                  value={this.state.password}
+                />
+              </div>
+
+              <div className="button-line">
+                <RaisedButton type="submit" label="Log in" primary />
+              </div>
+
+              <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+            </form>
+          </Card>
+      </div>
+    </MuiThemeProvider>
     );
   }
+
 }
 
-function mapStateToProps(state) {
-  console.log('components/login mapStateToProps state : ', state);
-  return { errorMessage: state.auth.error };
-}
+LogIn.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
-export default reduxForm({ form: 'LoginForm' }, mapStateToProps, { loginUser })(LogIn);
+
+export default connect(null, { loginUser })(LogIn);

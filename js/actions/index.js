@@ -58,7 +58,7 @@ function loginUser(props) {
   // axios.post('/api/users/signin', props)
   //   .then(response => {
   //     // localStorage.setItem('token', response.data.token);
-  //     console.log('actions/index loginUser response.data : ', response.data);
+  //     console.log('actions/index loginUser response.status : ', response.status);
   //     browserHistory.push('/profile');
   //     return {
   //       type: 'LOGIN_USER_SUCCESS',
@@ -80,10 +80,12 @@ function loginUser(props) {
 
   /* V.3 -- does not reach reducer */
   return dispatch => {
+    console.log('actions/index loginUser props : ', props);
     axios.post('/api/users/signin', props)
       .then(response => {
-        browserHistory.push('/profile');
-        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data} );
+        console.log('actions/index loginUser response.data : ', response.data);
+        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data});
+        browserHistory.push('/search');
       })
       .catch(error => {
         console.log('actions/index loginUser error : ', error);

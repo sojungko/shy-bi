@@ -7,6 +7,7 @@ console.log('containers/Profile getUser : ', getUser)
 
 class Profile extends Component {
   componentWillMount() {
+    console.log('containers/Profile componentWillMount this.props : ', this.props);
     console.log('containers/Profile componentWillMount this.props.profile : ', this.props.profile);
     console.log('containers/Profile componentWillMount this.props.auth : ', this.props.auth);
     if (!this.props.auth) {
