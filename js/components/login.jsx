@@ -6,10 +6,25 @@ import { loginUser } from '../actions/index';
 /* -- Authentication currently not working. Needs major work! -- */
 class LogIn extends Component {
 
+  handleFormSubmit({ username, password }) {
+    loginUser({ username, password });
+  }
+
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div>
+          <strong>Oops! </strong>{this.props.errorMessage}
+        </div>
+      )
+    }
+  }
+
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+
+    const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(loginUser)} className="input-group">
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="input-group">
         <h1> Login </h1>
         <div>
           <label>Username: </label>
@@ -19,15 +34,16 @@ class LogIn extends Component {
           <label>Password: </label>
           <Field name="password" component="input" type="password" />
         </div>
-        <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Reset Form</button>
+        <button type="submit">Submit</button>
       </form>
     );
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error };
 }
 
-export default reduxForm({ form: 'LoginForm' }, mapStateToProps, { loginUser })(LogIn);
+console.log('loginUser : ', loginUser);
+
+export default reduxForm({ form: 'LoginForm' }, null, { loginUser } )(LogIn);
