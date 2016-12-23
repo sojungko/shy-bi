@@ -21,6 +21,7 @@ function getUser(username) {
   return dispatch => {
     axios.get(`/api/users/${username}`)
     .then(response => {
+      console.log('actions/index getUser response : ', response);
       dispatch({
         type: 'GET_USER',
         payload: response.data,
@@ -52,15 +53,43 @@ function loginUserFailure(error) {
   }
 }
 
-export function loginUser(props) {
-  axios.post('/api/users/signin', props)
-    .then(response => {
-      // localStorage.setItem('token', response.data.token);
-      console.log('actions/index loginUser response : ', response);
-      browserHistory.push('/search');
-      return { type: 'LOGIN_USER_SUCCESS' };
-    });
+function loginUser(props) {
+  /* V.1 -- does not reach reducer */
+  // axios.post('/api/users/signin', props)
+  //   .then(response => {
+  //     // localStorage.setItem('token', response.data.token);
+  //     console.log('actions/index loginUser response.data : ', response.data);
+  //     browserHistory.push('/profile');
+  //     return {
+  //       type: 'LOGIN_USER_SUCCESS',
+  //       payload: response.data,
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.log('action/index loginUser error : ', error);
+  //   })
+
+  /* V.2 -- returns a promise object that is not resolved */
+  // const request = axios.post('/api/users/signin', props);
+  // console.log('actions/index loginUser request : ', request);
+  //
+  // return {
+  //   type: 'LOGIN_USER_SUCCESS',
+  //   payload: request,
+  // }
+
+  /* V.3 -- does not reach reducer */
+  return dispatch => {
+    axios.post('/api/users/signin', props)
+      .then(response => {
+        browserHistory.push('/profile');
+        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data} );
+      })
+      .catch(error => {
+        console.log('actions/index loginUser error : ', error);
+      })
+  }
 }
 
 
-export { getAllUsers, getUser, searchUsers, signupUser, loginUserFailure };
+export { getAllUsers, getUser, searchUsers, signupUser, loginUserFailure, loginUser };

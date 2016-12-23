@@ -11,6 +11,7 @@ class LogIn extends Component {
   }
 
   renderAlert() {
+    console.log('components/login renderAlert this.props : ', this.props)
     if (this.props.errorMessage) {
       return (
         <div>
@@ -41,9 +42,8 @@ class LogIn extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('components/login mapStateToProps state : ', state);
   return { errorMessage: state.auth.error };
 }
 
-console.log('loginUser : ', loginUser);
-
-export default reduxForm({ form: 'LoginForm' }, null, { loginUser } )(LogIn);
+export default reduxForm({ form: 'LoginForm' }, mapStateToProps, { loginUser })(LogIn);
