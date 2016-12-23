@@ -1,33 +1,57 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { loginUser } from '../actions/index';
+import * as actions from '../actions/index';
+
+function signinUser(props) {
+  axios.post('/api/users/signin', props)
+    .then(response => {
+      // localStorage.setItem('token', response.data.token);
+      browserHistory.push('/search');
+      return { type: 'LOGIN_USER_SUCCESS' };
+  })
+}
 
 /* -- Authentication currently not working. Needs major work! -- */
 class LogIn extends Component {
 
+  renderAlert() {
+    if (this.props.errorMessage) {
+      return (
+        <div>
+          <strong>Oops! </strong>{this.props.errorMessage}
+        </div>
+      )
+    }
+  }
+
+  handleFormSubmit ({ username, password }) {
+    console.log(username, password);
+    signinUser({ username, password });
+  }
+
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, fields: { username, password } } = this.props;
     return (
-      <form onSubmit={handleSubmit(loginUser)} className="input-group">
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="input-group">
         <h1> Login </h1>
         <div>
           <label>Username: </label>
-          <Field name="username" component="input" type="text" />
+          <input {...username} type="text" />
         </div>
         <div>
           <label>Password: </label>
-          <Field name="password" component="input" type="password" />
+          <input {...password} type="password" />
         </div>
-        <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Reset Form</button>
+        <button action="submit">Submit</button>
       </form>
     );
   }
 }
 
-function mapStateToProps({ login }) {
-  return { login };
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error };
 }
 
-export default reduxForm({ form: 'LoginForm' }, mapStateToProps, { loginUser })(LogIn);
+export default reduxForm({ form: 'LoginForm', fields: ['username', 'password']}, mapStateToProps, actions)(LogIn);
