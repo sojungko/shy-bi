@@ -89,30 +89,26 @@ module.exports = (app, passport) => {
   app.post('/api/users/signup', signUp);
 
   // 1-b-i) POST -> file: user/userController.js, method: signUp
-  app.post('/api/users/signin', passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true,
-  }));
+  app.post('/api/users/signin', signIn);
 
   // 1-c-i) GET -> file: user/userController.js, method: getUser
-  app.get('/api/users/:username', isLoggedIn, findUser);
+  app.get('/api/users/:username', findUser);
 
   // 1-d-i) POST -> file: user/userController.js, method: likeUser
-  app.post('/api/users/like', isLoggedIn, likeUser);
+  app.post('/api/users/like', likeUser);
 
   // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
-  app.get('/api/search/all', isLoggedIn, findAllUsers);
+  app.get('/api/search/all', findAllUsers);
 
   // 2-b-i) GET -> file: search/searchController.js method:
-  app.get('/api/search/filter', isLoggedIn, filterUsers);
+  app.get('/api/search/filter', filterUsers);
 
   // 3-a-i) GET -> file: messages/messagesController.js method:
-  app.get('/api/messages/all/:username', isLoggedIn, findAllMessages);
+  app.get('/api/messages/all/:username', findAllMessages);
 
   // 3-a-ii) POST -> file: messages/messagesController.js method:
-  app.post('/api/messages/send', isLoggedIn, sendMessage);
+  app.post('/api/messages/send', sendMessage);
 
   // 3-a-iii) GET -> file: messages/messagesController.js method:
-  app.get('/api/messages/sent/:username', isLoggedIn, sentMessages);
+  app.get('/api/messages/sent/:username', sentMessages);
 };

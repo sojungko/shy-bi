@@ -148,7 +148,7 @@ module.exports = {
     console.log(`1) [UserController.js/getUser] Searching for user with username: ${username}`);
 
     getUser(username, (data) => {
-      console.log('4) [UserController.js/getUser] Success! Chunking data & building res object');
+      console.log('4) [UserController.js/getUser] Success! Chunking data & building res object', data);
 
       // Getting User data
       const { properties: { memberSince, name } } = data.get('user');

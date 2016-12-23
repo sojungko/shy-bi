@@ -1,6 +1,4 @@
-import jwt from 'jwt-simple';
 import axios from 'axios';
-
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -24,13 +22,13 @@ export function getUser(username) {
     .then(response => {
       dispatch({
         type: 'GET_USER',
-        payload: response.data
+        payload: response.data,
       });
     })
     .catch((error) => {
       console.log(error);
-    })
-  }
+    });
+  };
 }
 
 export function searchUsers(props) {
@@ -38,13 +36,11 @@ export function searchUsers(props) {
   return { type: 'SEARCH_USERS', payload: request };
 }
 
-
 /* -- Signing in User--*/
 export function signupUser(props) {
   const request = axios.post('/api/users/signup', props);
   return { type: 'SIGN_UP_USER', payload: request };
 }
-
 
 /* -- Logging in User--*/
 
@@ -55,6 +51,6 @@ export function loginUser(props) {
     return {
       type: 'LOGIN_USER_SUCCESS',
       payload: response.username, //TODO replace with response.token when ready
-    }
+    };
   });
-};
+}
