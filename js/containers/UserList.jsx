@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/index';
-import { bindActionCreators } from 'redux';
 import SearchBar from './SearchBar';
 // import UserListItem from '../containers/UserListItem.jsx';
 
@@ -21,7 +20,7 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <SearchBar></SearchBar>
+        <SearchBar />
         <ul className="list-group col-sm-4">
           {this.renderList()}
         </ul>

@@ -1,29 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { getUser } from '../actions/index';
+import { browserHistory } from 'react-router';
 
+console.log('containers/Profile getUser : ', getUser)
 
 class Profile extends Component {
   componentWillMount() {
-    this.props.getUser(); // TODO this is being run before reducers get filled with data. need to fix with thunk
+    console.log('containers/Profile componentWillMount this.props.profile : ', this.props.profile);
+    console.log('containers/Profile componentWillMount this.props.auth : ', this.props.auth);
+    if (!this.props.auth) {
+      browserHistory.push('/login')
+    }
+    getUser(this.props.auth.username);
   }
 
-  render() {
-    console.log('PROFILE PROPS: ', this.props.profile);
+  renderProfile() {
+    console.log('containers/Profile renderProfile this.props.profile : ', this.props.profile);
+    console.log('containers/Profile renderProfile this.props.auth : ', this.props.auth);
     return (
-      <div className="details">
-        <div>Name: {this.props.profile.name}</div>
-        <div>Sex: {this.props.profile.sex}</div>
-        <div>Age: {this.props.profile.age}</div>
-        <div>City: {this.props.profile.city}</div>
+      <ul>
+        <li>Name: {this.props.profile.name}</li>
+        <li>Sex: {this.props.profile.sex}</li>
+        <li>Age: {this.props.profile.age}</li>
+        <li>City: {this.props.profile.city}</li>
+      </ul>
+    )
+  }
+  render() {
+    console.log('containers/Profile render this.props.profile : ', this.props.profile);
+    console.log('containers/Profile render this.props.auth : ', this.props.auth);
+    return (
+      <div>
+        {this.renderProfile()}
       </div>
     );
   }
 }
 
-function mapStateToProps({ profile }) {
-  return { profile };
+function mapStateToProps({ profile, auth }) {
+  return { profile, auth };
 }
 
 export default connect(mapStateToProps, { getUser })(Profile);
