@@ -18,7 +18,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 
 // Plucks signup method from user/userController.js
-const { signUp, signIn, findUser, likeUser } = require('./user/userController');
+const { signUp, signIn, findUser, likeUser, unlikeUser } = require('./user/userController');
 const { findAllUsers, filterUsers } = require('./search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('./messages/messagesController');
 
@@ -96,6 +96,9 @@ module.exports = (app, passport) => {
 
   // 1-d-i) POST -> file: user/userController.js, method: likeUser
   app.post('/api/users/like', likeUser);
+
+  // 1-e-1) POST -> file: user/userController.js, methoq: unlikeUser
+  app.post('/api/users/unlike', unlikeUser);
 
   // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
   app.get('/api/search/all', findAllUsers);
