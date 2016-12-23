@@ -52,14 +52,15 @@ function loginUserFailure(error) {
   }
 }
 
-function signinUser(props) {
+export function loginUser(props) {
   axios.post('/api/users/signin', props)
     .then(response => {
       // localStorage.setItem('token', response.data.token);
+      console.log('actions/index loginUser response : ', response);
       browserHistory.push('/search');
       return { type: 'LOGIN_USER_SUCCESS' };
-  })
+    });
 }
 
 
-export { getAllUsers, getUser, searchUsers, signupUser, loginUserFailure, signinUser };
+export { getAllUsers, getUser, searchUsers, signupUser, loginUserFailure };

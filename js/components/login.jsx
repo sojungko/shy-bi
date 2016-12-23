@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { browserHistory } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import * as actions from '../actions/index';
-
-function signinUser(props) {
-  axios.post('/api/users/signin', props)
-    .then(response => {
-      // localStorage.setItem('token', response.data.token);
-      browserHistory.push('/search');
-      return { type: 'LOGIN_USER_SUCCESS' };
-  })
-}
+import { loginUser } from '../actions/index';
 
 /* -- Authentication currently not working. Needs major work! -- */
 class LogIn extends Component {
+
+  handleFormSubmit({ username, password }) {
+    loginUser({ username, password });
+  }
 
   renderAlert() {
     if (this.props.errorMessage) {
@@ -26,25 +20,21 @@ class LogIn extends Component {
     }
   }
 
-  handleFormSubmit ({ username, password }) {
-    console.log(username, password);
-    signinUser({ username, password });
-  }
-
   render() {
-    const { handleSubmit, fields: { username, password } } = this.props;
+
+    const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} className="input-group">
         <h1> Login </h1>
         <div>
           <label>Username: </label>
-          <input {...username} type="text" />
+          <Field name="username" component="input" type="text" />
         </div>
         <div>
           <label>Password: </label>
-          <input {...password} type="password" />
+          <Field name="password" component="input" type="password" />
         </div>
-        <button action="submit">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     );
   }
@@ -54,4 +44,6 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-export default reduxForm({ form: 'LoginForm', fields: ['username', 'password']}, mapStateToProps, actions)(LogIn);
+console.log('loginUser : ', loginUser);
+
+export default reduxForm({ form: 'LoginForm' }, null, { loginUser } )(LogIn);
