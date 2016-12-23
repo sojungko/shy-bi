@@ -104,7 +104,7 @@ module.exports = {
         db.close();
 
         console.log(`3) [userModel.js/getUser] ${username} has been found`);
-        callback(null, records[0]);
+        callback(records[0]);
       })
       .catch((error) => {
         console.error(`3) [userModel.js/getUser] Could not find ${username} from database`);
