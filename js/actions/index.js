@@ -54,38 +54,13 @@ function loginUserFailure(error) {
 }
 
 function loginUser(props) {
-  /* V.1 -- does not reach reducer */
-  // axios.post('/api/users/signin', props)
-  //   .then(response => {
-  //     // localStorage.setItem('token', response.data.token);
-  //     console.log('actions/index loginUser response.status : ', response.status);
-  //     browserHistory.push('/profile');
-  //     return {
-  //       type: 'LOGIN_USER_SUCCESS',
-  //       payload: response.data,
-  //     }
-  //   })
-  //   .catch(error => {
-  //     console.log('action/index loginUser error : ', error);
-  //   })
-
-  /* V.2 -- returns a promise object that is not resolved */
-  // const request = axios.post('/api/users/signin', props);
-  // console.log('actions/index loginUser request : ', request);
-  //
-  // return {
-  //   type: 'LOGIN_USER_SUCCESS',
-  //   payload: request,
-  // }
-
-  /* V.3 -- does not reach reducer */
   return dispatch => {
     console.log('actions/index loginUser props : ', props);
     axios.post('/api/users/signin', props)
       .then(response => {
         console.log('actions/index loginUser response.data : ', response.data);
         dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data});
-        browserHistory.push('/search');
+        browserHistory.push('/profile');
       })
       .catch(error => {
         console.log('actions/index loginUser error : ', error);
