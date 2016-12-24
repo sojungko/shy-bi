@@ -45,7 +45,6 @@ function signupUser(props) {
 }
 
 /* -- Logging in User--*/
-
 function loginUserFailure(error) {
   return {
     type: 'LOGIN_USER_FAILURE',
