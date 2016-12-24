@@ -21,14 +21,19 @@ class Profile extends Component {
     console.log('containers/Profile renderProfile this.props.auth : ', this.props.auth);
     return (
       <ul>
-        <li>Name: {this.props.profile.name}</li>
-        <li>Sex: {this.props.profile.sex}</li>
-        <li>Age: {this.props.profile.age}</li>
-        <li>City: {this.props.profile.city}</li>
+        <li>Name: {this.props.auth.name}</li>
+        <li>Sex: {this.props.auth.sex}</li>
+        <li>Age: {this.props.auth.age}</li>
+        <li>City: {this.props.auth.city}</li>
       </ul>
     )
   }
   render() {
+    if (!this.props.auth) {
+      return (
+        <div>Loading...</div>
+      )
+    }
     console.log('containers/Profile render this.props.profile : ', this.props.profile);
     console.log('containers/Profile render this.props.auth : ', this.props.auth);
     return (
