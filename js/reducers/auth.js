@@ -1,9 +1,7 @@
-export default function (state = [], action) {
-  console.log('reducers/login action.payload : ', action.payload);
+export default function (state = {}, action) {
   switch (action.type) {
     case 'LOGIN_USER_SUCCESS':
-      console.log('reducers/login LOGIN_USER_SUCCESS action.payload : ', action.payload);
-      return action.payload;
+      return Object.assign({}, ...state, { username: action.payload.username, isAuthenticated: true });
     // case 'UNAUTH_USER':
     //   return { authenticated: false };
     // case 'LOGIN_USER_FAILURE':

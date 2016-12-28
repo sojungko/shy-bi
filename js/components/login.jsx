@@ -44,12 +44,10 @@ class LogIn extends Component {
 
   onUsernameChange(event) {
     this.setState({ username: event.target.value });
-    console.log('components/login username ', this.state.username);
   }
 
   onPasswordChange(event) {
     this.setState({ password: event.target.value });
-    console.log('components/login password: ', this.state.password);
   }
 
   render() {
