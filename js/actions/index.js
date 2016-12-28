@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+const jwt = require('jwt-simple');
 
 /* -- Fetching Users --*/
 function getAllUsers() {
@@ -40,8 +41,16 @@ function searchUsers(props) {
 
 /* -- Signing up User--*/
 function signupUser(props) {
-  const request = axios.post('/api/users/signup', props);
-  return { type: 'SIGN_UP_USER', payload: request };
+  return dispatch => {
+    axios.post('/api/users/signup', props)
+      .then(response => {
+        dispatch({ type: 'SIGN_UP_USER', payload: response.data });
+        browserHistory.push('/search');
+      })
+      .catch(error => {
+        console.log('actions/index signupUser error : ', error);
+      })
+  }
 }
 
 /* -- Logging in User--*/
@@ -53,6 +62,8 @@ function loginUserFailure(error) {
 }
 
 function loginUser(props) {
+  // const request = axios.post('/api/users/signin', props);
+  // return { type: 'LOGIN_USER_SUCCESS', payload: request };
   return dispatch => {
     console.log('actions/index loginUser props : ', props);
     axios.post('/api/users/signin', props)
