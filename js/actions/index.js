@@ -21,7 +21,7 @@ function getUser(username) {
   return dispatch => {
     axios.get(`/api/users/${username}`)
     .then(response => {
-      console.log('actions/index getUser response : ', response);
+      console.log('actions/index getUser response.data : ', response.data);
       dispatch({
         type: 'GET_USER',
         payload: response.data,
@@ -57,8 +57,7 @@ function loginUser(props) {
     console.log('actions/index loginUser props : ', props);
     axios.post('/api/users/signin', props)
       .then(response => {
-        console.log('actions/index loginUser response.data : ', response.data);
-        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data});
+        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data });
         browserHistory.push('/profile');
       })
       .catch(error => {

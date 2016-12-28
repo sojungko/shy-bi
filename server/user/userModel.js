@@ -10,6 +10,7 @@
  * --------------------------------------------------------------- */
 
 const db = require('../database/config');
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
   //
@@ -44,34 +45,43 @@ module.exports = {
       to database`
     );
 
-    return db
-      .run(
-        `MERGE (newUser:User {
-          name: {name},
-          username: {username},
-          email: {email},
-          password: {password}
-        })
+    bcrypt.hash(password, null, null, ((err, hash) => {
+      if (err) {
+        console.log(`2) [userModel.js/addUser] Error hashing ${password}`);
+      } else {
+        console.log(`2) [userModel.js/addUser] Password successfully hashed: ${hash}`)
+        return db
+        .run(
+          `MERGE (newUser:User {
+            name: {name},
+            username: {username},
+            email: {email},
+            password: {hash}
+          })
           ON CREATE SET newUser.memberSince = timestamp()
 
-        MERGE (userCity: City {name: {city}})
-        MERGE (userAge: Age {age: {age}})
-        MERGE (userSex: Sex {sex: {sex}})
+          MERGE (userCity: City {name: {city}})
+          MERGE (userAge: Age {age: {age}})
+          MERGE (userSex: Sex {sex: {sex}})
 
-        MERGE (newUser)-[:LIVES_IN]->(userCity)
-        MERGE (newUser)-[:YEARS_OLD]->(userAge)
-        MERGE (newUser)-[:MEMBER_OF]->(userSex)`,
-        { name, username, email, password, city, age, sex }
-    )
-      .then(() => {
-        db.close();
-        console.log(`3) [userModel.js/addUser] ${username} has been added`);
-        return callback();
-      })
-      .catch((error) => {
-        console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
-        throw error;
-      });
+          MERGE (newUser)-[:LIVES_IN]->(userCity)
+          MERGE (newUser)-[:YEARS_OLD]->(userAge)
+          MERGE (newUser)-[:MEMBER_OF]->(userSex)`,
+          { name, username, email, hash, city, age, sex }
+        )
+        .then(() => {
+          db.close();
+          console.log(`3) [userModel.js/addUser] ${username} has been added`);
+          return callback();
+        })
+        .catch((error) => {
+          console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
+          throw error;
+        });
+
+      }
+    }))
+
   },
 
   /* ------------------------- * GET USER * -------------------------

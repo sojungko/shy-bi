@@ -1,9 +1,13 @@
-export default function(state = [], action) {
+export default function(state = {}, action) {
   console.log('reducers/profile action.payload : ', action.payload);
   switch(action.type) {
     case 'GET_USER':
-      console.log('reducers/profile GET_USER action.payload : ', action.payload);
-      return action.payload;
+      return Object.assign({}, ...state, {
+        name: action.payload.name,
+        sex: action.payload.sex,
+        age: action.payload.age,
+        city: action.payload.city
+      });
     default:
       return state;
   }
