@@ -38,7 +38,7 @@ function searchUsers(props) {
   return { type: 'SEARCH_USERS', payload: request };
 }
 
-/* -- Signing in User--*/
+/* -- Signing up User--*/
 function signupUser(props) {
   const request = axios.post('/api/users/signup', props);
   return { type: 'SIGN_UP_USER', payload: request };

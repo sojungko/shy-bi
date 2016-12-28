@@ -12,6 +12,7 @@
  *
  * --------------------------------------------------------------- */
 
+const jwt = require('jwt-simple');
 // Plucks addUser methods from user/userModel.js
 const { addUser, getUser, like, unlike } = require('./userModel');
 
@@ -36,8 +37,9 @@ module.exports = {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
 
     addUser(name, username, email, password, city, age, sex, () => {
-      console.log('4) [UserController.js/singup] Success, sending back 201 status');
-      res.sendStatus(201);
+      const token = jwt.encode(username, 'secret');
+      console.log('4) [UserController.js/singup] Success, sending back 201 status with token : ', token);
+      res.status(201).send({ token });
     });
   },
 
@@ -103,7 +105,10 @@ module.exports = {
         // Getting User sex data
         const sex = data.get('sex').properties.sex;
 
-        const result = { memberSince, password, name, email, username, city, age, sex };
+        // Setting up token
+        const token = jwt.encode(username, 'secret');
+
+        const result = { memberSince, password, name, email, username, city, age, sex, token };
 
         console.log('5) [UserController.js/signIn] Sending User data: ', result);
         res.json(result);
