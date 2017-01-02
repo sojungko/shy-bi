@@ -21,6 +21,7 @@ const morgan = require('morgan');
 const { signUp, signIn, findUser, likeUser, unlikeUser } = require('./user/userController');
 const { findAllUsers, filterUsers } = require('./search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('./messages/messagesController');
+const { getRecommendedMatches } = require('./recommendations/recommendationsController');
 
 module.exports = (app, passport) => {
   //
@@ -114,4 +115,7 @@ module.exports = (app, passport) => {
 
   // 3-a-iii) GET -> file: messages/messagesController.js method:
   app.get('/api/messages/sent/:username', sentMessages);
+
+  // 3-a-iv) GET -> file: recommendations/recommendationsController.js method:
+  app.get('/api/recommendations/:username', getRecommendedMatches);
 };
