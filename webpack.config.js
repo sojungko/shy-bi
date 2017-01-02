@@ -25,7 +25,7 @@ const nodePaths = (process.env.NODE_PATH || '')
 const config = {
   entry: [
     require.resolve('./polyfills'),
-    APP_DIR + '/index.js'
+    APP_DIR + '/index.jsx'
   ],
   output: {
     devtoolLineToLine: true,
