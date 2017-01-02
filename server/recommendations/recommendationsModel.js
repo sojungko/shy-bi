@@ -1,16 +1,15 @@
 /* ------------* server/recommendations/recommendationsModel.js *-----------
 * methods:
 *
-*  1) GET ALL RECOMMENDED MATCHES: 
+*  1) getRecMatches:
 *
 *
 */
 
 const db = require('../database/config');
 
-
 module.exports = {
-    /* ------------------------- * GET RECOMMENDED MATCHES * ------------
+    /* ------------------------- * getRecMatches * ------------
    *
    * Takes the name of the currently logged in user and fetches
    * all recommended matches from the database.  'Recommended' matches
@@ -26,4 +25,23 @@ module.exports = {
    *        executes the callback.
    *
    * --------------------------------------------------------------- */
-}
+
+  getRecMatches({ username }, callback) {
+    console.log('2) [recommendationsModel.js/getRecMatches] Accessing user database');
+
+    return db
+      .run(
+
+      )
+      .then(({ records }) => {
+        db.close();
+
+        console.log(`3) [recommendationsModel.js/getRecMatches] Fetching the recommended matches for username: ${username}`);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.error(`3) [recommendationsModel.js/getRecMatches] Could not find any recommendations for username: ${username}`);
+        throw error;
+      });
+  },
+};
