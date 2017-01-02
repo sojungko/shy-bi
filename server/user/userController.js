@@ -12,8 +12,7 @@
  *
  * --------------------------------------------------------------- */
 
-const jwt = require('jwt-simple');
-const config = require('../auth/config');
+const bcrypt = require('bcrypt-nodejs');
 // Plucks addUser methods from user/userModel.js
 const { addUser, getUser, like, unlike } = require('./userModel');
 
@@ -34,16 +33,19 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  signUp({ body: { name, username, email, password, city, age, sex } }, res) {
+  signUp({ body: { name, username, email, password, city, age, sex } }, callback) {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
 
-    addUser(name, username, email, password, city, age, sex, () => {
-      const timestamp = new Date().getTime();
-      const token = jwt.encode({ sub: username, iat: timestamp }, config.secret);
-      const result = { name, email, username, city, age, sex, token };
-      console.log('4) [UserController.js/singup] Success, sending back 201 status with token : ', token);
-      res.status(201).send(result);
-    });
+    getUser(username, (user) => {
+      if (user) {
+        callback(null);
+      } else {
+        addUser(name, username, email, password, city, age, sex, () => {
+          const result = { name, email, username, city, age, sex };
+          callback(result);
+        });
+      }
+    })
   },
 
   //
@@ -81,7 +83,7 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  signIn({ body }, res) {
+  signIn({ body }, callback) {
     const attemptedPassword = body.password;
     const attemptedUsername = body.username;
 
@@ -95,28 +97,27 @@ module.exports = {
       // Getting User data
       const { properties: { username, memberSince, password, name, email } } = data.get('user');
 
-      if (body.password !== password) {
-        console.log('5) [UserController.js/signIn] Wrong password!', res.json);
-        res.json(data);
-      } else {
-        // Getting User location data
-        const city = data.get('city').properties.name;
+      bcrypt.compare(body.password, password, (err, isMatch) => {
+        if (err) {
+          console.log('5) [UserController.js/signIn] Wrong password!');
+          callback(err);
+        }
+        else if (isMatch) {
+          // Getting User location data
+          const city = data.get('city').properties.name;
 
-        // Getting User age data
-        const age = data.get('age').properties.age;
+          // Getting User age data
+          const age = data.get('age').properties.age;
 
-        // Getting User sex data
-        const sex = data.get('sex').properties.sex;
+          // Getting User sex data
+          const sex = data.get('sex').properties.sex;
 
-        // Setting up token
-        const timestamp = new Date().getTime();
-        const token = jwt.encode({ sub: username, iat: timestamp }, config.secret);
+          const result = { memberSince, password, name, email, username, city, age, sex };
 
-        const result = { memberSince, password, name, email, username, city, age, sex, token };
-
-        console.log('5) [UserController.js/signIn] Sending User data: ', result);
-        res.json(result);
-      }
+          console.log('5) [UserController.js/signIn] Sending User data: ', result);
+          callback(null, result);
+        }
+      })
     });
   },
 
