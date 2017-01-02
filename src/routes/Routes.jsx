@@ -20,9 +20,9 @@ console.log('REACT-ROUTER | Defining Routes...');
 console.log('REACT-ROUTER | Path: "/" Component: App');
 console.log('REACT-ROUTER | Path: "/" IndexRoute Component: App, Profile');
 console.log('REACT-ROUTER | Path: "/signup" Component: App, SignUp');
-console.log('REACT-ROUTER | Path: "/search" Component: App, Search');
-console.log('REACT-ROUTER | Path: "/" IndexRoute Component: App, Profile');
-console.log('REACT-ROUTER | Path: "/signup" Component: App, SignUp');
+console.log('REACT-ROUTER | Path: "/search" Component: App, UserList');
+console.log('REACT-ROUTER | Path: "/profile" Component: App, Profile');
+console.log('REACT-ROUTER | Path: "/login" Component: App, login');
 
 export default (
   <Route path="/" component={App}>
