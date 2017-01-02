@@ -13,6 +13,7 @@
  * --------------------------------------------------------------- */
 
 const jwt = require('jwt-simple');
+const config = require('../auth/config');
 // Plucks addUser methods from user/userModel.js
 const { addUser, getUser, like, unlike } = require('./userModel');
 
@@ -37,9 +38,11 @@ module.exports = {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
 
     addUser(name, username, email, password, city, age, sex, () => {
-      const token = jwt.encode(username, 'secret');
+      const timestamp = new Date().getTime();
+      const token = jwt.encode({ sub: username, iat: timestamp }, config.secret);
+      const result = { name, email, username, city, age, sex, token };
       console.log('4) [UserController.js/singup] Success, sending back 201 status with token : ', token);
-      res.status(201).send({ token });
+      res.status(201).send(result);
     });
   },
 
@@ -106,7 +109,8 @@ module.exports = {
         const sex = data.get('sex').properties.sex;
 
         // Setting up token
-        const token = jwt.encode(username, 'secret');
+        const timestamp = new Date().getTime();
+        const token = jwt.encode({ sub: username, iat: timestamp }, config.secret);
 
         const result = { memberSince, password, name, email, username, city, age, sex, token };
 
