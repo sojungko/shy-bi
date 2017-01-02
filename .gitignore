@@ -1,4 +1,7 @@
 ### OSX ###
+public
+js/actions_test
+server/passport/config.js
 
 ### dependencies ###
 node_modules

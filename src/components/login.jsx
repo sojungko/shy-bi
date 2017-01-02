@@ -39,7 +39,7 @@ class LogIn extends Component {
     }
     event.preventDefault();
     this.props.loginUser(resultObj)
-    browserHistory.push('/');
+    // browserHistory.push('/');
   }
 
   onUsernameChange(event) {
