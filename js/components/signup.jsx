@@ -58,7 +58,7 @@ class SignUp extends Component {
     }
     event.preventDefault();
     this.props.signupUser(resultObj);
-    browserHistory.push('/login');
+    // browserHistory.push('/login');
   }
 
   onUsernameChange(event) {

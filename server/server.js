@@ -9,23 +9,40 @@
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
-const configPassport = require('./auth/passport');
-const flash = require('connect-flash');
-const session = require('express-session');
-const routes = require('./routes');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const dbinit = require('./database/initialize');
 
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+// const authCheckMiddleware = require('./passport/auth-check');
+const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api');
+
 const app = express();
-configPassport(passport);
 dbinit();
 
-app.use(session({ secret: 'imshy' })); // session secret
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+// pass the passport middleware
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash());
 
-// Deligates all routing to routes.js
-routes(app, passport);
+// load passport strategies
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+// pass the authenticaion checker middleware
+// app.use('/api', authCheckMiddleware);
+
+// routes
+app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
+
+// // Deligates all routing to routes.js
+// routes(app, passport);
 
 /* ------------------- * Serving Static Files * -------------------
  * Files in:

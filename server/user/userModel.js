@@ -78,7 +78,6 @@ module.exports = {
           console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
           throw error;
         });
-
       }
     }))
 
