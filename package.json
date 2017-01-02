@@ -2,7 +2,7 @@
   "name": "shy-bi",
   "version": "1.0.0",
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
-  "main": "js/index.js",
+  "main": "js/index.jsx",
   "scripts": {
     "start": "webpack -w",
     "nodemon": "nodemon server/server.js",
