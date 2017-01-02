@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Auth from '../modules/Auth';
+import Auth from '../modules/auth';
 import { loginUser } from '../actions/index'
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
