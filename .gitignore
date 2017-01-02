@@ -1,8 +1,6 @@
 ### OSX ###
-public
-js/actions_test
 
-### Node ###
+### dependencies ###
 node_modules
 
 ### NPM ###
@@ -10,7 +8,11 @@ npm-debug.log
 
 ### Bower ###
 
+### Production ###
+public
+
 ### API keys ###
 server/database/pw.js
 
 ### WIP ###
+js/actions_test
