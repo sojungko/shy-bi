@@ -8,20 +8,20 @@ console.log('COMPONENT/SEARCH BAR | IMPORTING Action: searchUsers from ACTIONS')
 
 class SearchBar extends Component {
   componentDidMount() {
-    console.log('    COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
+    console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
   }
 
   componentWillReceiveProps(nextProps) {
     // console.log('    COMPONENT/SEARCH BAR | Receiving Props: ', nextProps);
-    console.log('    COMPONENT/SEARCH BAR | Receiving Props');
+    console.log('      COMPONENT/SEARCH BAR | Receiving Props');
   }
 
   componentDidUpdate() {
-    console.log('    COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
+    console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
   }
 
   render() {
-    console.log('    COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
+    console.log('      COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit(searchUsers)} className="input-group">

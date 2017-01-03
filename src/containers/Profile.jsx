@@ -84,13 +84,13 @@ class Profile extends Component {
 }
 
 function mapStateToProps({ auth }) {
-  console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: auth');
   // console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: ', auth);
+  console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: auth');
   return { auth };
 }
 
-console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: getUser, getAllUsers');
 // console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: ', getUser, getAllUsers);
+console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: getUser, getAllUsers');
 console.log('CONTAINER/PROFILE | Connecting PROFILE Container with REDUX STORE');
 export default connect(mapStateToProps, { getUser, getAllUsers })(Profile);
 

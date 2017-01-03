@@ -22,6 +22,8 @@ export function getAllUsers() {
       .then(({ data }) => {
         // console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
         console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE:  All User');
+        console.log('      ACTIONS/GET_ALL_USERS | Dispatching GET_ALL_USERS to reducers');
+
         dispatch({ type: GET_ALL_USERS, payload: data });
       })
       .catch((error) => {
