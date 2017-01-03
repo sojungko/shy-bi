@@ -10,6 +10,7 @@ class UserList extends Component {
   }
 
   renderList() {
+    console.log('containers/UserList renderList this.props.users : ', this.props.users)
     return this.props.users.map((user, index) => {
       return (
         <li key={index}>{user.name}</li>
