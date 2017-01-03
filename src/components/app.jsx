@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import Navbar from './navbar.jsx';
-// import SearchBar from '../containers/SearchBar';
-// import UserList from '../containers/UserList.jsx';
-// import UserListItem from '../containers/UserListItem.jsx';
+import Navbar from './navbar';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+console.log('COMPONENT/APP | Exporting APP...');
 
-    this.state = {
-      users: [],
-      selectedUser: null,
-    };
+export default class App extends Component {
+  componentDidMount() {
+    console.log('COMPONENT/APP | Complete Rendering APP');
+    console.log(' ');
+  }
+
+  componentDidUpdate() {
+    console.log('COMPONENT/APP | Complete Rendering APP');
+    console.log(' ');
   }
 
   render() {
+    console.log('COMPONENT/APP | Rendering APP Component...');
     return (
       <div>
         <Navbar />
@@ -24,4 +25,5 @@ class App extends Component {
   }
 }
 
-export default App;
+console.log('COMPONENT/APP | Exported APP');
+console.log(' ');

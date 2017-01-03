@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { Router, browserHistory } from 'react-router';
+import { Router, hashHistory } from 'react-router';
 import ReduxThunk from 'redux-thunk';
 
 import routes from './routes/Routes.jsx';
@@ -20,7 +20,7 @@ const createStoreWithMiddleware = composeEnhancers(applyMiddleware(ReduxThunk))(
 console.log('INDEX.JSX | Preparing to Render APP Component via React Router');
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <Router history={browserHistory} routes={routes}>
+    <Router history={hashHistory} routes={routes}>
     </Router>
   </Provider>,
   document.getElementById('root')
