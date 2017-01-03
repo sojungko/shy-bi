@@ -1,28 +1,28 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from '../components/app';
-import LogIn from '../components/login';
-import SignUp from '../components/signup';
+import App from '../containers/App';
+import LogIn from '../containers/Login';
+import SignUp from '../containers/Signup';
 import UserList from '../containers/UserList';
 import Profile from '../containers/Profile';
 
 console.log('REACT-ROUTER | Exporting REACT-ROUTER...');
 
-console.log('REACT-ROUTER | Importing APP Component');
-console.log('REACT-ROUTER | Importing LOG IN Component');
-console.log('REACT-ROUTER | Importing SignUp Component');
-console.log('REACT-ROUTER | Importing UserList Component');
-console.log('REACT-ROUTER | Importing Profile Component');
-
+console.log('REACT-ROUTER | Importing APP Container');
+console.log('REACT-ROUTER | Importing LOG IN Container');
+console.log('REACT-ROUTER | Importing SignUp Container');
+console.log('REACT-ROUTER | Importing UserList Container');
+console.log('REACT-ROUTER | Importing Profile Container');
+console.log(' ');
 
 console.log('REACT-ROUTER | Defining Routes...');
-console.log('REACT-ROUTER | Path: "/" Component: App');
-console.log('REACT-ROUTER | Path: "/" IndexRoute Component: App, Profile');
-console.log('REACT-ROUTER | Path: "/signup" Component: App, SignUp');
-console.log('REACT-ROUTER | Path: "/search" Component: App, UserList');
-console.log('REACT-ROUTER | Path: "/profile" Component: App, Profile');
-console.log('REACT-ROUTER | Path: "/login" Component: App, login');
+console.log('REACT-ROUTER | Path: "/" Container: App');
+console.log('REACT-ROUTER | Path: "/" IndexRoute Container: App, Profile');
+console.log('REACT-ROUTER | Path: "/signup" Container: App, SignUp');
+console.log('REACT-ROUTER | Path: "/search" Container: App, UserList');
+console.log('REACT-ROUTER | Path: "/profile" Container: App, Profile');
+console.log('REACT-ROUTER | Path: "/login" Container: App, login');
 
 export default (
   <Route path="/" component={App}>

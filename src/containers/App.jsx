@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Navbar from './navbar';
+import Navbar from '../components/Navbar';
 
-console.log('COMPONENT/APP | Exporting APP...');
+console.log('CONTAINER/APP | Exporting APP...');
 
 export default class App extends Component {
   static propTypes = {
@@ -11,22 +11,23 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    console.log('COMPONENT/APP | Preparing to Render APP');
+    console.log('CONTAINER/APP | Preparing to Render APP');
+    /* If you are using Material-UI, it's import for this to be called here.*/
     injectTapEventPlugin();
   }
 
   componentDidMount() {
-    console.log('COMPONENT/APP | Complete Rendering APP');
+    console.log('CONTAINER/APP | Complete Rendering APP');
     console.log(' ');
   }
 
   componentDidUpdate() {
-    console.log('COMPONENT/APP | Complete Rendering APP');
+    console.log('CONTAINER/APP | Complete Rendering APP');
     console.log(' ');
   }
 
   render() {
-    console.log('COMPONENT/APP | Rendering APP Component...');
+    console.log('CONTAINER/APP | Rendering APP Container...');
     return (
       <div>
         <Navbar />
@@ -36,5 +37,5 @@ export default class App extends Component {
   }
 }
 
-console.log('COMPONENT/APP | Exported APP');
+console.log('CONTAINER/APP | Exported APP');
 console.log(' ');

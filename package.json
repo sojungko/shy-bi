@@ -104,7 +104,11 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "rules": {
-      "strict": 0
+      "strict": 0,
+      "max-len": ["error",  {
+          "code": 125,
+          "comments": 125
+      }]
     },
     "extends": "airbnb",
     "env": {
