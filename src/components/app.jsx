@@ -1,29 +1,24 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import Navbar from './navbar';
 
 console.log('COMPONENT/APP | Exporting APP...');
 
-export default class App extends Component {
-  componentDidMount() {
-    console.log('COMPONENT/APP | Complete Rendering APP');
-    console.log(' ');
-  }
+const App = (props) => {
+  console.log('COMPONENT/APP | Creating/Updating APP instance');
+  console.log('COMPONENT/APP | Rendering APP Component...');
+  return (
+    <div>
+      <Navbar />
+      {props.children}
+    </div>
+  );
+};
 
-  componentDidUpdate() {
-    console.log('COMPONENT/APP | Complete Rendering APP');
-    console.log(' ');
-  }
+App.propTypes = {
+  children: PropTypes.node,
+};
 
-  render() {
-    console.log('COMPONENT/APP | Rendering APP Component...');
-    return (
-      <div>
-        <Navbar />
-        {this.props.children}
-      </div>
-    );
-  }
-}
+export default App;
 
 console.log('COMPONENT/APP | Exported APP');
 console.log(' ');
