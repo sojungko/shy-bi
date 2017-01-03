@@ -10,6 +10,10 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 import { signupUser } from '../actions/index';
 
+console.log('CONTAINER/SIGN UP | Exporting SIGN UP...');
+
+console.log('CONTAINER/SIGN UP | IMPORTING Action: signupUser from ACTIONS');
+
 const styles = {
   block: {
     maxWidth: 250,
@@ -34,18 +38,9 @@ class SignUp extends Component {
       sex: '',
       city: '',
     };
-
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onEmailChange = this.onEmailChange.bind(this);
-    this.onAgeChange = this.onAgeChange.bind(this);
-    this.onSexChange = this.onSexChange.bind(this);
-    this.onCityChange = this.onCityChange.bind(this);
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     const resultObj = {
       username: this.state.username,
       password: this.state.password,
@@ -60,31 +55,31 @@ class SignUp extends Component {
     hashHistory.push('/login');
   }
 
-  onUsernameChange(event) {
+  onUsernameChange = (event) => {
     this.setState({ username: event.target.value });
   }
 
-  onPasswordChange(event) {
+  onPasswordChange = (event) => {
     this.setState({ password: event.target.value });
   }
 
-  onNameChange(event) {
+  onNameChange = (event) => {
     this.setState({ name: event.target.value });
   }
 
-  onEmailChange(event) {
+  onEmailChange = (event) => {
     this.setState({ email: event.target.value });
   }
 
-  onAgeChange(event) {
+  onAgeChange = (event) => {
     this.setState({ age: event.target.value });
   }
 
-  onSexChange(event) {
+  onSexChange = (event) => {
     this.setState({ sex: event.target.value });
   }
 
-  onCityChange(event) {
+  onCityChange = (event) => {
     this.setState({ city: event.target.value });
   }
 
