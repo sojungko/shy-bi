@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUser } from '../actions/index';
+import { getUser, getAllUsers } from '../actions/index';
 import { browserHistory } from 'react-router';
 
 console.log('containers/Profile getUser : ', getUser);
@@ -10,6 +10,7 @@ class Profile extends Component {
     if (!this.props.auth.isAuthenticated) {
       browserHistory.push('/login')
     }
+    this.props.getAllUsers();
   }
 
   renderProfile() {
@@ -40,4 +41,4 @@ function mapStateToProps({ auth }) {
   return { auth };
 }
 
-export default connect(mapStateToProps, { getUser })(Profile);
+export default connect(mapStateToProps, { getUser, getAllUsers })(Profile);
