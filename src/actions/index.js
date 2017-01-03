@@ -5,6 +5,11 @@ import jwt from 'jwt-simple';
 console.log('ACTIONS | Exporting ACTIONS...');
 
 export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_USER = 'GET_USER';
+export const SEARCH_USERS = 'SEARCH_USERS';
+export const SIGN_UP_USER = 'SIGN_UP_USER';
+export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -28,7 +33,7 @@ export function getUser(username) {
       .then((response) => {
         console.log('actions/index getUser response.data : ', response.data);
         dispatch({
-          type: 'GET_USER',
+          type: GET_USER,
           payload: response.data,
         });
       })
@@ -40,7 +45,7 @@ export function getUser(username) {
 
 export function searchUsers(props) {
   const request = axios.post('/api/search/filter', props);
-  return { type: 'SEARCH_USERS', payload: request };
+  return { type: SEARCH_USERS, payload: request };
 }
 
 /* -- Signing up User--*/
@@ -48,7 +53,7 @@ export function signupUser(props) {
   return (dispatch) => {
     axios.post('/auth/signup', props)
       .then((response) => {
-        dispatch({ type: 'SIGN_UP_USER', payload: response.data });
+        dispatch({ type: SIGN_UP_USER, payload: response.data });
         hashHistory.push('/search');
       })
       .catch((error) => {
@@ -60,7 +65,7 @@ export function signupUser(props) {
 /* -- Logging in User--*/
 export function loginUserFailure(error) {
   return {
-    type: 'LOGIN_USER_FAILURE',
+    type: LOGIN_USER_FAILURE,
     payload: error,
   };
 }
@@ -77,7 +82,7 @@ export function loginUser(props) {
       .then((response) => {
         console.log('actions/index loginUser resopnse.data : ', response.data);
         localStorage.setItem('token', response.data.token);
-        dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data });
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
       })
       .then(() => {
         hashHistory.push('/profile');
