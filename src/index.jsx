@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, hashHistory } from 'react-router';
 import ReduxThunk from 'redux-thunk';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import routes from './routes/Routes.jsx';
 import reducers from './reducers';
@@ -13,15 +14,14 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 console.log('INDEX.JSX | Importing REDUCERS');
 console.log('INDEX.JSX | Importing ROUTES');
 
-console.log('INDEX.JSX | Creating Redux Store and Applying Middlewears: Redux-Promise');
-
+console.log('INDEX.JSX | Creating Redux Store and Applying Middlewears: Redux Thunk');
+console.log(' ');
 const createStoreWithMiddleware = composeEnhancers(applyMiddleware(ReduxThunk))(createStore);
 
 console.log('INDEX.JSX | Preparing to Render APP Component via React Router');
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <Router history={hashHistory} routes={routes}>
-    </Router>
+    <Router history={hashHistory} routes={routes} />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
