@@ -7,10 +7,9 @@ console.log('containers/Profile getUser : ', getUser);
 
 class Profile extends Component {
   componentWillMount() {
-    // if (!this.props.auth.success) {
-    //   browserHistory.push('/login')
-    // }
-    console.log('this.props.auth.user : ', this.props.auth.user)
+    if (!this.props.auth.isAuthenticated) {
+      browserHistory.push('/login')
+    }
   }
 
   renderProfile() {
@@ -37,8 +36,8 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps({ profile, auth }) {
-  return { profile, auth };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
 export default connect(mapStateToProps, { getUser })(Profile);
