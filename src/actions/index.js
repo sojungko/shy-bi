@@ -72,8 +72,12 @@ module.exports = {
       console.log('actions/index loginUser props : ', props);
       axios.post('/auth/signin', props)
       .then((response) => {
-        browserHistory.push('/profile');
+        console.log('actions/index loginUser resopnse.data : ', response.data);
+        localStorage.setItem('token', response.data.token);
         dispatch({ type: 'LOGIN_USER_SUCCESS', payload: response.data });
+      })
+      .then(() => {
+        browserHistory.push('/profile');
       })
       .catch((error) => {
         console.log('actions/index loginUser error : ', error);
