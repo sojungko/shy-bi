@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Auth from '../modules/auth';
-import { loginUser } from '../actions/index'
+import { loginUser } from '../actions/index';
 import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardText } from 'material-ui/Card';
@@ -33,12 +33,12 @@ class LogIn extends Component {
   }
 
   onSubmit(event) {
-    let resultObj = {
+    const resultObj = {
       username: this.state.username,
       password: this.state.password,
-    }
+    };
     event.preventDefault();
-    this.props.loginUser(resultObj)
+    this.props.loginUser(resultObj);
     // browserHistory.push('/');
   }
 
@@ -89,15 +89,15 @@ class LogIn extends Component {
               <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
             </form>
           </Card>
-      </div>
-    </MuiThemeProvider>
+        </div>
+      </MuiThemeProvider>
     );
   }
 
 }
 
 LogIn.contextTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
 };
 
 
