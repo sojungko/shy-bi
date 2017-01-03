@@ -4,6 +4,7 @@ import { hashHistory } from 'react-router';
 
 import { getAllUsers } from '../actions/index';
 import SearchBar from '../components/SearchBar';
+import UserListItem from '../components/UserListItem';
 
 console.log('CONTAINER/USERLIST | Exporting USERLIST...');
 console.log('CONTAINER/USERLIST | IMPORTING Action: getAllUsers from ACTIONS');
@@ -46,8 +47,8 @@ class UserList extends Component {
   renderList() {
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
     return this.props.users.map((user, index) => (
-      <li key={index}>{user.name}</li>
-      ));
+      <UserListItem key={index} user={user} />
+    ));
   }
 
   render() {
@@ -55,7 +56,7 @@ class UserList extends Component {
     return (
       <div>
         <SearchBar />
-        <ul className="list-group col-sm-4">
+        <ul>
           {this.renderList()}
         </ul>
       </div>

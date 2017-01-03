@@ -26,7 +26,7 @@ class Profile extends Component {
     console.log('    CONTAINER/PROFILE | Preparing to render PROFILE container');
     console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
 
-    if (!this.props.auth.isAuthenticated) {
+    if (!isUserAuthenticated()) {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
       hashHistory.push('/login');
     }
