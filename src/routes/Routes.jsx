@@ -31,6 +31,7 @@ export default (
     <Route path="search" component={UserList} />
     <Route path="profile" component={Profile} />
     <Route path="login" component={LogIn} />
+    <Route path="logout" component={LogIn} />
   </Route>
 );
 
