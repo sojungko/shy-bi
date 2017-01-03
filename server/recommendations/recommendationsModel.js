@@ -31,7 +31,10 @@ module.exports = {
 
     return db
       .run(
-
+        `MATCH (me:User{username: {username}})
+        MATCH (me)-[:LIKES]->(a:User)<-[:LIKES]-(b:User)-[:LIKES]->(recUsers:User)
+        RETURN recUsers`,
+        { username }
       )
       .then(({ records }) => {
         db.close();
