@@ -26,6 +26,11 @@ export default class App extends Component {
     console.log(' ');
   }
 
+  componentWillReceiveProps(nextProps) {
+    // console.log('COMPONENT/APP | Receiving Props: ', nextProps);
+    console.log('COMPONENT/APP | Receiving Props');
+  }
+
   componentDidUpdate() {
     console.log('CONTAINER/APP | Complete Rendering APP');
     console.log(' ');
