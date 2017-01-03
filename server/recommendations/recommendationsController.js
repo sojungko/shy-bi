@@ -4,18 +4,22 @@ module.exports = {
 
   getRecommendedMatches({ params }, res) {
     console.log(`1) [recommendationsController.js/getRecommendedMatches] Getting recommended matches for ${params.username}`);
-    getRecMatches(params, () => {
-        console.log(`4) [recommendationsController.js/getRecommendedMatches] Success!
-        Chunking data & building res object`);
+    getRecMatches(params, (matches) => {
+      console.log(`4) [recommendationsController.js/getRecommendedMatches] Success! Building res object`);
 
-        // Getting User data
-        const { properties: { memberSince, name, username } } = userData.get('user');
-        const city = userData.get('city').properties.name;
-        const age = userData.get('age').properties.age;
-        const sex = userData.get('sex').properties.sex;
+      const matchedUsers = matches.map((matchedUserData, index) => {
+        console.log(`4-${index}) [recommendationsController.js/getRecommendedMatches] parsing data`);
+          // Getting User data
+        const { properties: { memberSince, name, username } } = matchedUserData.get('recUsers');
+        const city = matchedUserData.get('city').properties.name;
+        const age = matchedUserData.get('age').properties.age;
+        const sex = matchedUserData.get('sex').properties.sex;
         const user = { memberSince, name, username, city, age, sex };
 
         return user;
-    })
-  }
-}
+      });
+      console.log(`5) [recommendationsController.js/getRecommendedMatches] Sending potential matches!`, matchedUsers);
+      res.json(matchedUsers);
+    });
+  },
+};
