@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser, getAllUsers } from '../actions/index';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 console.log('containers/Profile getUser : ', getUser);
 
 class Profile extends Component {
   componentWillMount() {
     if (!this.props.auth.isAuthenticated) {
-      browserHistory.push('/login')
+      hashHistory.push('/login');
     }
   }
 
@@ -16,7 +16,7 @@ class Profile extends Component {
     if (!this.props.auth.user) {
       return (
         <div>Loading...</div>
-      )
+      );
     }
     return (
       <ul>
@@ -25,7 +25,7 @@ class Profile extends Component {
         <li>Age: {this.props.auth.user.age}</li>
         <li>City: {this.props.auth.user.city}</li>
       </ul>
-    )
+    );
   }
   render() {
     return (
