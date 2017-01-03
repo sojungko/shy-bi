@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+
 console.log('COMPONENT/NAV BAR | Exporting NAV BAR...');
 
 const Navbar = () => {
