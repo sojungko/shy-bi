@@ -10,7 +10,6 @@ class Profile extends Component {
     if (!this.props.auth.isAuthenticated) {
       browserHistory.push('/login')
     }
-    this.props.getAllUsers();
   }
 
   renderProfile() {
