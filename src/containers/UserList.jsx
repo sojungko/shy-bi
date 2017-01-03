@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { getAllUsers } from '../actions/index';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 
 class UserList extends Component {
   static propTypes = {

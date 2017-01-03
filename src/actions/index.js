@@ -20,7 +20,8 @@ export function getAllUsers() {
 
     axios.get('/api/search/all')
       .then(({ data }) => {
-        console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
+        // console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
+        console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE:  All User');
         dispatch({ type: GET_ALL_USERS, payload: data });
       })
       .catch((error) => {
@@ -85,25 +86,26 @@ export function loginUserFailure(error) {
 }
 
 export function loginUser(props) {
-  // V.1
-  // const request = axios.post('/api/users/signin', props);
-  // return { type: 'LOGIN_USER_SUCCESS', payload: request };
-
-  // V.2
-  console.log('      ACTIONS/LOGIN_USER_SUCCESS | Logging in : ', props);
+  // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Logging in : ', props);
+  console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Logging in ${props.username}`);
 
   return (dispatch) => {
     console.log('      ACTIONS/LOGIN_USER_SUCCESS | Making POST Request to BE: /auth/signin');
 
     axios.post('/auth/signin', props)
       .then(({ data }) => {
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ', data);
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Setting token to loca storage ', data.token);
+        // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ', data);
+        // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Setting token to loca storage ', data.token);
+        console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ${props.username}'s user data`);
+        console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Setting token to local storage: ${data.token.slice(0, 10)}...`);
         localStorage.setItem('token', data.token);
+
+        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching LOGIN_USER_SUCCESS to reducers');
         dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
       })
       .then(() => {
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Success, Redirecting User to /profile');
+        console.log('    ACTIONS/LOGIN_USER_SUCCESS | Success, Redirecting User to /profile');
+        console.log(' ');
         hashHistory.push('/profile');
       })
       .catch((error) => {

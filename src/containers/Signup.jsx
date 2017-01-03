@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -55,7 +54,7 @@ class SignUp extends Component {
       age: this.state.age,
       sex: this.state.sex,
       city: this.state.city,
-    }
+    };
     event.preventDefault();
     this.props.signupUser(resultObj);
     hashHistory.push('/login');

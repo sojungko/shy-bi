@@ -7,12 +7,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 import { loginUser } from '../actions/index';
-import Auth from '../modules/auth';
 
-console.log('COMPONENT/LOGIN | Exporting LOGIN...');
+console.log('CONTAINER/LOGIN | Exporting LOGIN...');
 
-console.log('COMPONENT/LOGIN | IMPORTING Action: loginUser from ACTIONS');
-console.log('COMPONENT/LOGIN | IMPORTING AUTH MODULES');
+console.log('CONTAINER/LOGIN | IMPORTING Action: loginUser from ACTIONS');
 
 class LogIn extends Component {
   static propTypes = {
@@ -41,19 +39,21 @@ class LogIn extends Component {
       password: '',
     };
 
-    console.log('    COMPONENT/LOGIN | Initializing State...', this.state);
+    // console.log('    CONTAINER/LOGIN | Initializing State...', this.state);
+    console.log('    CONTAINER/LOGIN | Initializing State...');
   }
 
   componentDidMount() {
-    console.log('    COMPONENT/LOGIN | Complete Rendering LOGIN ');
+    console.log('    CONTAINER/LOGIN | Complete Rendering LOGIN ');
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('    COMPONENT/LOGIN | Receiving Props: ', nextProps);
+    // console.log('    CONTAINER/LOGIN | Receiving Props: ', nextProps);
+    console.log('    CONTAINER/LOGIN | Receiving Props');
   }
 
   componentDidUpdate() {
-    console.log('    COMPONENT/LOGIN | Complete Rendering LOGIN ');
+    console.log('    CONTAINER/LOGIN | Complete Rendering LOGIN ');
     console.log(' ');
   }
 
@@ -63,24 +63,25 @@ class LogIn extends Component {
       password: this.state.password,
     };
 
-    console.log('    COMPONENT/LOGIN | Submmiting Log In Form...', resultObj);
+    // console.log('    CONTAINER/LOGIN | Submmiting Log In Form...', resultObj);
+    console.log('    CONTAINER/LOGIN | Submmiting Log In Form...');
 
     event.preventDefault();
     this.props.loginUser(resultObj);
   }
 
   onUsernameChange = (event) => {
-    console.log('    COMPONENT/LOGIN | Username: ', event.target.value);
+    console.log('    CONTAINER/LOGIN | Username: ', event.target.value);
     this.setState({ username: event.target.value });
   }
 
   onPasswordChange = (event) => {
-    console.log('    COMPONENT/LOGIN | Password: ', event.target.value);
+    console.log('    CONTAINER/LOGIN | Password: ', event.target.value);
     this.setState({ password: event.target.value });
   }
 
   render() {
-    console.log('    COMPONENT/LOGIN | Rendering LOGIN... ');
+    console.log('    CONTAINER/LOGIN | Rendering LOGIN Container... ');
     return (
       <MuiThemeProvider>
         <div>
@@ -129,8 +130,9 @@ class LogIn extends Component {
   }
 }
 
-console.log('COMPONENT/LOGIN & REDUX | Mapping actions to props: ', loginUser);
-console.log('COMPONENT/LOGIN | Connecting LOGIN Container with REDUX STORE');
+// console.log('CONTAINER/LOGIN & REDUX | Mapping actions to props: ', loginUser);
+console.log('CONTAINER/LOGIN & REDUX | Mapping actions to props: loginUser');
+console.log('CONTAINER/LOGIN | Connecting LOGIN Container with REDUX STORE');
 export default connect(null, { loginUser })(LogIn);
-console.log('COMPONENT/LOGIN | Exported LOGIN');
+console.log('CONTAINER/LOGIN | Exported LOGIN');
 console.log(' ');
