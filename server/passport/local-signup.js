@@ -1,3 +1,5 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const User = require('../user/userController');
 const PassportLocalStrategy = require('passport-local').Strategy;
 
@@ -13,6 +15,10 @@ module.exports = new PassportLocalStrategy({
       return done('Username already exists');
     }
     console.log('passport/local-signup: User successfully added');
-    return done(null);
+    const payload = {
+      sub: user.username,
+    };
+    const token = jwt.sign(payload, process.env.PASSPORT_SECRET);
+    return done(null, token, user);
   });
 });
