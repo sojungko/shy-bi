@@ -9,7 +9,9 @@ export default class UserListItem extends Component {
       sex: PropTypes.string.isRequired,
       age: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
     }),
+    handleClick: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -25,8 +27,8 @@ export default class UserListItem extends Component {
     console.log('      COMPONENT/USER | Complete Rendering USER ');
   }
 
-  handleClick = (event) => {
-    console.log(`      COMPONENT/USER |  Clicked ${this.prop.user}`);
+  onClick = () => {
+    this.props.handleClick(this.props.user);
   }
 
   render() {
@@ -35,7 +37,7 @@ export default class UserListItem extends Component {
     const { name, sex, age, city } = this.props.user;
 
     return (
-      <li onClick={handleClick}>
+      <li onClick={this.onClick}>
         <h3>Name: {name}</h3>
         <h5>Sex: {sex}</h5>
         <h5>Age: {age}</h5>

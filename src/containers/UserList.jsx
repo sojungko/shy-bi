@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
+import { isUserAuthenticated } from '../modules/auth';
 import { getAllUsers } from '../actions/index';
 import SearchBar from '../components/SearchBar';
 import UserListItem from '../components/UserListItem';
@@ -22,7 +23,7 @@ class UserList extends Component {
     console.log('    CONTAINER/USERLIST | Preparing to render USERLIST container');
     console.log('      CONTAINER/USERLIST | Checking if User is Authenticated');
 
-    if (!this.props.auth.isAuthenticated) {
+    if (!isUserAuthenticated()) {
       console.log('      CONTAINER/USERLIST | User is not authenticated. Redirecting to LogIn');
       hashHistory.push('/login');
     } else {
@@ -44,10 +45,14 @@ class UserList extends Component {
     console.log('    CONTAINER/USERLIST | Complete Rendering USERLIST ');
   }
 
+  handleClick(event) {
+    console.log('      COMPONENT/USER |  Clicked', this.props.user);
+  }
+
   renderList() {
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
     return this.props.users.map((user, index) => (
-      <UserListItem key={index} user={user} />
+      <UserListItem key={index} user={user} handleClick={this.handleClick} />
     ));
   }
 
