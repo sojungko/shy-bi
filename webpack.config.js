@@ -12,6 +12,7 @@ function resolveApp(relativePath) {
 }
 
 const BUILD_DIR = resolveApp('public');
+const APP_JSX = resolveApp('src/index.jsx');
 const APP_HTML = resolveApp('public/index.html');
 const APP_DIR = resolveApp('src');
 const APP_NODE_MODULES = resolveApp('node_modules');
@@ -25,7 +26,7 @@ const nodePaths = (process.env.NODE_PATH || '')
 const config = {
   entry: [
     require.resolve('./polyfills'),
-    APP_DIR + '/index.jsx'
+    APP_JSX
   ],
   output: {
     devtoolLineToLine: true,
@@ -57,6 +58,7 @@ const config = {
         include: APP_DIR,
         loader: 'babel',
         query: {
+          presets: ['react', 'es2015', 'stage-1'],
           cacheDirectory: true
         }
       }, {
