@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
+import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions/index';
 
 console.log('CONTAINER/PROFILE | Exporting PROFILE...');
@@ -22,7 +23,11 @@ class Profile extends Component {
   }
 
   componentWillMount() {
+    console.log('    CONTAINER/PROFILE | Preparing to render PROFILE container');
+    console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
+
     if (!this.props.auth.isAuthenticated) {
+      console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
       hashHistory.push('/login');
     }
   }
@@ -34,6 +39,16 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log('    CONTAINER/PROFILE | Receiving Props: ', nextProps);
     console.log('    CONTAINER/PROFILE | Receiving Props');
+  }
+
+  componentWillUpdate() {
+    console.log('    CONTAINER/PROFILE | PROFILE Component Will Update ');
+    console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
+
+    if (!isUserAuthenticated()) {
+      console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
+      hashHistory.push('/login');
+    }
   }
 
   componentDidUpdate() {
