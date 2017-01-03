@@ -19,13 +19,13 @@ export function getAllUsers() {
     console.log('      ACTIONS/GET_ALL_USERS | Making GET Request to BE: /api/search/all');
 
     axios.get('/api/search/all')
-    .then(({ data }) => {
-      console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
-      dispatch({ type: GET_ALL_USERS, payload: data });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then(({ data }) => {
+        console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
+        dispatch({ type: GET_ALL_USERS, payload: data });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 }
 
@@ -113,4 +113,4 @@ export function loginUser(props) {
 }
 
 console.log('ACTIONS | Exported ACTIONS');
-console.log('');
+console.log(' ');
