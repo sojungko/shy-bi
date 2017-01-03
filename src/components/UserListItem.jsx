@@ -1,35 +1,49 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
 
-class UserListItem extends Component {
-  constructor(props) {
-    super(props);
+console.log('COMPONENT/USER | Exporting USER...');
+
+export default class UserListItem extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      sex: PropTypes.string.isRequired,
+      age: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+    }),
+  }
+
+  componentDidMount() {
+    console.log('      COMPONENT/USER | Complete Rendering USER ');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log('    COMPONENT/USER | Receiving Props: ', nextProps);
+    console.log('      COMPONENT/USER | Receiving Props');
+  }
+
+  componentDidUpdate() {
+    console.log('      COMPONENT/USER | Complete Rendering USER ');
+  }
+
+  handleClick = (event) => {
+    console.log(`      COMPONENT/USER |  Clicked ${this.prop.user}`);
   }
 
   render() {
-    if (!this.props.user) {
-      return <div>Select user to see profile</div>;
-    }
+    console.log('      COMPONENT/USER | Rendering USER Component...');
+
+    const { name, sex, age, city } = this.props.user;
 
     return (
-      <div>
-        <li className="list-group-item">
-          <div className="details">
-            <div>Name: {this.props.user.name}</div>
-            <div>Sex: {this.props.user.sex}</div>
-            <div>Age: {this.props.user.age}</div>
-            <div>City: {this.props.user.city}</div>
-          </div>
-        </li>
-      </div>
+      <li onClick={handleClick}>
+        <h3>Name: {name}</h3>
+        <h5>Sex: {sex}</h5>
+        <h5>Age: {age}</h5>
+        <h5>City: {city}</h5>
+      </li>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.selectedUser
-  };
-}
-
-export default connect(mapStateToProps)(UserListItem);
+console.log('COMPONENT/USER | Exported USER ');
+console.log(' ');
