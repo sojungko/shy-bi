@@ -27,6 +27,7 @@
     "bootstrap": "^3.3.7",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "jsonwebtoken": "^7.2.1",
@@ -105,10 +106,13 @@
     "parser": "babel-eslint",
     "rules": {
       "strict": 0,
-      "max-len": ["error",  {
+      "max-len": [
+        "error",
+        {
           "code": 125,
           "comments": 125
-      }]
+        }
+      ]
     },
     "extends": "airbnb",
     "env": {
