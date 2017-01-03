@@ -1,15 +1,28 @@
 import React, { Component, PropTypes } from 'react';
-import Auth from '../modules/auth';
-import { loginUser } from '../actions/index';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import { loginUser } from '../actions/index';
+import Auth from '../modules/auth';
+
+console.log('COMPONENT/LOGIN | Exporting LOGIN...');
+
+console.log('COMPONENT/LOGIN | IMPORTING Action: loginUser from ACTIONS');
+console.log('COMPONENT/LOGIN | IMPORTING AUTH MODULES');
+
 class LogIn extends Component {
+  static propTypes = {
+    loginUser: PropTypes.func.isRequired,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props);
 
@@ -27,9 +40,24 @@ class LogIn extends Component {
       username: '',
       password: '',
     };
+
+    console.log('    COMPONENT/LOGIN | Initializing State...', this.state);
     this.onSubmit = this.onSubmit.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('    COMPONENT/LOGIN | Complete Rendering LOGIN ');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('    COMPONENT/LOGIN | Receiving Props: ', nextProps);
+  }
+
+  componentDidUpdate() {
+    console.log('    COMPONENT/LOGIN | Complete Rendering LOGIN ');
+    console.log(' ');
   }
 
   onSubmit(event) {
@@ -37,20 +65,25 @@ class LogIn extends Component {
       username: this.state.username,
       password: this.state.password,
     };
+
+    console.log('    COMPONENT/LOGIN | Submmiting Log In Form...', resultObj);
+
     event.preventDefault();
     this.props.loginUser(resultObj);
-    // browserHistory.push('/');
   }
 
   onUsernameChange(event) {
+    console.log('    COMPONENT/LOGIN | Username: ', event.target.value);
     this.setState({ username: event.target.value });
   }
 
   onPasswordChange(event) {
+    console.log('    COMPONENT/LOGIN | Password: ', event.target.value);
     this.setState({ password: event.target.value });
   }
 
   render() {
+    console.log('    COMPONENT/LOGIN | Rendering LOGIN... ');
     return (
       <MuiThemeProvider>
         <div>
@@ -58,8 +91,10 @@ class LogIn extends Component {
             <form action="/" onSubmit={this.onSubmit}>
               <h2 className="card-heading">Login</h2>
 
-              {this.state.successMessage && <p className="success-message">{this.state.successMessage}</p>}
-              {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
+              {this.state.successMessage &&
+                <p className="success-message">{this.state.successMessage}</p>}
+              {this.state.errors.summary &&
+                <p className="error-message">{this.state.errors.summary}</p>}
 
               <div className="field-line">
                 <TextField
@@ -86,19 +121,19 @@ class LogIn extends Component {
                 <RaisedButton type="submit" label="Log in" primary />
               </div>
 
-              <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+              <CardText>
+                Don&apos;t have an account?<Link to={'/signup'}>Create one</Link>.
+              </CardText>
             </form>
           </Card>
         </div>
       </MuiThemeProvider>
     );
   }
-
 }
 
-LogIn.contextTypes = {
-  router: PropTypes.object.isRequired,
-};
-
-
+console.log('COMPONENT/LOGIN & REDUX | Mapping actions to props: ', loginUser);
+console.log('COMPONENT/LOGIN | Connecting LOGIN Container with REDUX STORE');
 export default connect(null, { loginUser })(LogIn);
+console.log('COMPONENT/LOGIN | Exported LOGIN');
+console.log(' ');
