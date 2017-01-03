@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const User = require('../user/userModel');
-const config = require('./config');
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -8,7 +7,7 @@ module.exports = (req, res, next) => {
   }
 
   const token = req.headers.authorization.split(' ')[1];
-  return jwt.verify(token, config.secret, (err, decoded) => {
+  return jwt.verify(token, process.env.PASSPORT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).end;
     }
