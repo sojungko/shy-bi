@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -24,9 +23,16 @@ const styles = {
 };
 
 class SignUp extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+    signupUser: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
+
+    // console.log('    CONTAINER/SIGN UP | Initializing State...', this.state);
+    console.log('    CONTAINER/SIGN UP | Initializing State... ');
 
     this.state = {
       errors: {},
@@ -40,6 +46,21 @@ class SignUp extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log('    CONTAINER/SIGN UP | Complete Rendering SIGN UP ');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log('    CONTAINER/SIGN UP | Receiving Props: ', nextProps);
+    console.log('    CONTAINER/SIGN UP | Receiving Props');
+  }
+
+  componentDidUpdate() {
+    console.log('    CONTAINER/SIGN UP | Complete Rendering SIGN UP ');
+    console.log(' ');
+  }
+
+
   onSubmit = (event) => {
     const resultObj = {
       username: this.state.username,
@@ -50,40 +71,52 @@ class SignUp extends Component {
       sex: this.state.sex,
       city: this.state.city,
     };
+
+    // console.log('    CONTAINER/SIGN UP | Submmiting Sing Up Form...', resultObj);
+    console.log('    CONTAINER/SIGN UP | Submmiting Sing Up Form...');
+
     event.preventDefault();
     this.props.signupUser(resultObj);
-    hashHistory.push('/login');
   }
 
   onUsernameChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Username: ', event.target.value);
     this.setState({ username: event.target.value });
   }
 
   onPasswordChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Password: ', event.target.value);
     this.setState({ password: event.target.value });
   }
 
   onNameChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Name: ', event.target.value);
     this.setState({ name: event.target.value });
   }
 
   onEmailChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Email: ', event.target.value);
     this.setState({ email: event.target.value });
   }
 
   onAgeChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Age: ', event.target.value);
     this.setState({ age: event.target.value });
   }
 
   onSexChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | Sex: ', event.target.value);
     this.setState({ sex: event.target.value });
   }
 
   onCityChange = (event) => {
+    console.log('    CONTAINER/SIGN UP | City: ', event.target.value);
     this.setState({ city: event.target.value });
   }
 
   render() {
+    console.log('    CONTAINER/SIGN UP | Rendering SIGN UP Container... ');
+
     return (
       <MuiThemeProvider>
         <div>
@@ -187,13 +220,9 @@ class SignUp extends Component {
 
 }
 
-SignUp.contextTypes = {
-  router: PropTypes.object.isRequired,
-  signupUser: PropTypes.func,
-};
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signupUser }, dispatch);
-}
-
-export default connect(null, mapDispatchToProps)(SignUp);
+// console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: ', SignUp);
+console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: SignUp');
+console.log('CONTAINER/SIGN UP | Connecting SIGN UP Container with REDUX STORE');
+export default connect(null, { signupUser })(SignUp);
+console.log('CONTAINER/SIGN UP | Exported SIGN UP');
+console.log(' ');

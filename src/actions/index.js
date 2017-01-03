@@ -55,19 +55,26 @@ export function searchUsers(props) {
 
 /* -- Signing up User--*/
 export function signupUser(props) {
-  console.log('      ACTIONS/SIGN_UP_USER | Signing Up: ', props);
+  // console.log('      ACTIONS/SIGN_UP_USER | Signing Up: ', props);
+  console.log(`      ACTIONS/SIGN_UP_USER | Signing Up: ${props.username}`);
 
   return (dispatch) => {
     console.log('      ACTIONS/SIGN_UP_USER | Making POST Request to BE: /auth/signup');
 
     axios.post('/auth/signup', props)
       .then(({ data }) => {
-        console.log('      ACTIONS/SIGN_UP_USER | Recevied Data from BE: ', data);
+        // console.log('      ACTIONS/SIGN_UP_USER | Recevied Data from BE: ', data);
+        console.log(`      ACTIONS/SIGN_UP_USER | Received Data from BE ${props.username}`);
 
+        console.log(`      ACTIONS/SIGN_UP_USER | Setting token to local storage: ${data.token.slice(0, 10)}...`);
+        localStorage.setItem('token', data.token);
+
+        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching SIGN_UP_USER to reducers');
         dispatch({ type: SIGN_UP_USER, payload: data });
       })
       .then(() => {
-        console.log('      ACTIONS/SIGN_UP_USER | Success, Redirecting User to /profile');
+        console.log('    ACTIONS/SIGN_UP_USER | Success, Redirecting User to /profile');
+        console.log(' ');
         hashHistory.push('/profile');
       })
       .catch((error) => {
@@ -98,6 +105,7 @@ export function loginUser(props) {
         // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Setting token to loca storage ', data.token);
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ${props.username}'s user data`);
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Setting token to local storage: ${data.token.slice(0, 10)}...`);
+
         localStorage.setItem('token', data.token);
 
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching LOGIN_USER_SUCCESS to reducers');
