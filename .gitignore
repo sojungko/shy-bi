@@ -19,3 +19,6 @@ server/database/pw.js
 
 ### WIP ###
 js/actions_test
+
+### .env ###
+.env
