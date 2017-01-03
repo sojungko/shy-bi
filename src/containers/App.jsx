@@ -1,8 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import Navbar from '../components/Navbar';
 
 console.log('CONTAINER/APP | Exporting APP...');
@@ -41,15 +37,6 @@ export default class App extends Component {
     console.log('CONTAINER/APP | Rendering APP Container...');
     return (
       <div>
-        <AppBar
-          title="Menu"
-          onLeftIconButtonTouchTap={this.handleToggle}
-        />
-        <Drawer open={this.state.open}>
-          <MenuItem onTouchTap={this.handleToggle}>Back</MenuItem>
-          <MenuItem>Login</MenuItem>
-          <MenuItem>Signup</MenuItem>
-        </Drawer>
         <Navbar />
         {this.props.children}
       </div>

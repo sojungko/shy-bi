@@ -1,38 +1,24 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 
 console.log('COMPONENT/NAV BAR | Exporting NAV BAR...');
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
 
 const Navbar = () => {
   return (
     <Tabs>
-      <Tab label="Search">
-        <div>
-          <h2 style={styles.headline}>Search</h2>
-        </div>
-      </Tab>
-      <Tab label="Recommended For You">
-        <div>
-          <h2 style={styles.headine}>Recommended For You</h2>
-        </div>
-      </Tab>
-      <Tab label="My Profile">
-        <div>
-          <h2 style={styles.headline}>My Profile</h2>
-        </div>
-      </Tab>
+      <Tab label="Home" containerElement={<Link to="/" />} />
+      <Tab label="Search" containerElement={<Link to="/search" />} />
+      <Tab label="Recommended For You" containerElement={<Link to="/recommended" />} />
+      <Tab label="Login" containerElement={<Link to="/login" />} />
+      <Tab label="Signup" containerElement={<Link to="/signup" />} />
     </Tabs>
   );
-};
+}
 
 
 export default Navbar;
