@@ -42,9 +42,6 @@ class LogIn extends Component {
     };
 
     console.log('    COMPONENT/LOGIN | Initializing State...', this.state);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +57,7 @@ class LogIn extends Component {
     console.log(' ');
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     const resultObj = {
       username: this.state.username,
       password: this.state.password,
@@ -72,12 +69,12 @@ class LogIn extends Component {
     this.props.loginUser(resultObj);
   }
 
-  onUsernameChange(event) {
+  onUsernameChange = (event) => {
     console.log('    COMPONENT/LOGIN | Username: ', event.target.value);
     this.setState({ username: event.target.value });
   }
 
-  onPasswordChange(event) {
+  onPasswordChange = (event) => {
     console.log('    COMPONENT/LOGIN | Password: ', event.target.value);
     this.setState({ password: event.target.value });
   }
