@@ -1,21 +1,41 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 console.log('COMPONENT/NAV BAR | Exporting NAV BAR...');
 
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
+
 const Navbar = () => {
-  console.log('    COMPONENT/NAV BAR | Rendering NAV BAR Component...');
   return (
-    <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/search">Search</Link></li>
-      <li><Link to="/profile">Profile</Link></li>
-      <li><Link to="/signup">Signup</Link></li>
-      <li><Link to="/login">Login</Link></li>
-    </ul>
+    <Tabs>
+      <Tab label="Search">
+        <div>
+          <h2 style={styles.headline}>Search</h2>
+        </div>
+      </Tab>
+      <Tab label="Recommended For You">
+        <div>
+          <h2 style={styles.headine}>Recommended For You</h2>
+        </div>
+      </Tab>
+      <Tab label="My Profile">
+        <div>
+          <h2 style={styles.headline}>My Profile</h2>
+        </div>
+      </Tab>
+    </Tabs>
   );
 };
 
+
 export default Navbar;
+console.log('    COMPONENT/NAV BAR | Rendering NAV BAR Component...');
 console.log('COMPONENT/NAV BAR | Exported APP');
 console.log(' ');
