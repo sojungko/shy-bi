@@ -19,4 +19,3 @@ const Navbar = () => {
 export default Navbar;
 console.log('COMPONENT/NAV BAR | Exported APP');
 console.log(' ');
-console.log(' ');
