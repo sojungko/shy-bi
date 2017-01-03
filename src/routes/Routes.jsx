@@ -6,6 +6,7 @@ import LogIn from '../containers/Login';
 import SignUp from '../containers/Signup';
 import UserList from '../containers/UserList';
 import Profile from '../containers/Profile';
+import Recommended from '../containers/Recommended';
 
 console.log('REACT-ROUTER | Exporting REACT-ROUTER...');
 
@@ -30,6 +31,7 @@ export default (
     <Route path="signup" component={SignUp} />
     <Route path="search" component={UserList} />
     <Route path="profile" component={Profile} />
+    <Route path="recommended" component={Recommended} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />
   </Route>
