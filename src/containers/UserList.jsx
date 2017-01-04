@@ -14,8 +14,8 @@ class UserList extends Component {
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
     filter: PropTypes.shape({
       sex: PropTypes.string,
-      minAge: PropTypes.number,
-      maxAge: PropTypes.number,
+      minAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      maxAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       city: PropTypes.string,
     }),
     getAllUsers: PropTypes.func.isRequired,
@@ -59,21 +59,27 @@ class UserList extends Component {
 
   renderList() {
     const { sex, minAge, maxAge, city } = this.props.filter;
-    let users = this.props.users.filter((user) => {
-      return user.sex === sex;
-    });
-
-    users = this.props.users.filter((user) => {
-      return user.age >= minAge;
-    });
-
-    users = this.props.users.filter((user) => {
-      return user.age <= maxAge;
-    });
-
-    users = this.props.users.filter((user) => {
-      return user.city === city;
-    });
+    let users = [];
+    if (sex) {
+      users = this.props.users.filter((user) => {
+        return user.sex === sex;
+      });
+    }
+    if (minAge) {
+      users = this.props.users.filter((user) => {
+        return user.age >= minAge;
+      });
+    }
+    if (maxAge) {
+      users = this.props.users.filter((user) => {
+        return user.age <= maxAge;
+      });
+    }
+    if (city) {
+      users = this.props.users.filter((user) => {
+        return user.city === city;
+      });
+    }
 
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
     return users.map((user, index) => (

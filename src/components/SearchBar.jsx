@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity } from '../actions/index';
 
 console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
@@ -15,6 +17,7 @@ const styles = {
   radioButton: {
     marginBottom: 16,
   },
+  margin: 12,
 };
 
 class SearchBar extends Component {
@@ -29,8 +32,8 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       sex: '',
-      minAge: null,
-      maxAge: null,
+      minAge: '',
+      maxAge: '',
       city: '',
     };
   }
@@ -71,6 +74,15 @@ class SearchBar extends Component {
   onCityChange = (e) => {
     console.log('    CONTAINER/SIGN UP | City: ', e.target.value);
     this.setState({ city: e.target.value });
+  }
+
+  handleClick = () => {
+    this.setState({
+      sex: '',
+      minAge: '',
+      maxAge: '',
+      city: '',
+    });
   }
 
   render() {
@@ -127,6 +139,7 @@ class SearchBar extends Component {
               />
             </div>
           </form>
+          <RaisedButton label="Clear Fields" style={styles} onClick={this.handleClick} />
         </Card>
       </div>
     );
