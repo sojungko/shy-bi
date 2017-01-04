@@ -11,7 +11,17 @@ console.log('CONTAINER/PROFILE | IMPORTING Action: getUser, getAllUsers from ACT
 class Profile extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
+    params: PropTypes.shape({
+      username: PropTypes.string,
+    }),
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      age: PropTypes.string,
+      sex: PropTypes.string,
+      city: PropTypes.string,
+    }),
   }
+
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
@@ -25,7 +35,9 @@ class Profile extends Component {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
       this.context.router.push('/login');
     } else {
-      console.log('      CONTAINER/PROFILE | User is authenticated. Fetching User data: ', this.props.params.username);
+      const username = this.props.params.username;
+      console.log(`      CONTAINER/PROFILE | User is authenticated. Fetching User data: ${username}`);
+      this.props.getUser(username);
     }
   }
 
@@ -53,12 +65,14 @@ class Profile extends Component {
   }
 
   renderProfile() {
+    console.log('    CONTAINER/PROFILE | Generating User Profile Detail List ', this.props.profile);
+    const { name, sex, age, city } = this.props.profile;
     return (
       <ul>
-        <li>Name: name</li>
-        <li>Sex: sex</li>
-        <li>Age: age</li>
-        <li>City: city</li>
+        <li>Name: {name}</li>
+        <li>Sex: {sex}</li>
+        <li>Age: {age}</li>
+        <li>City: {city}</li>
       </ul>
     );
   }
@@ -73,10 +87,10 @@ class Profile extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  // console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: ', auth);
-  console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: auth');
-  return { auth };
+function mapStateToProps({ profile }) {
+  // console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: ', profile);
+  console.log('    CONTAINER/PROFILE & REDUX | Mapping State to props: profile');
+  return { profile };
 }
 
 // console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: ', getUser, getAllUsers);

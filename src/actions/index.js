@@ -42,7 +42,7 @@ export function getUser(username) {
   return (dispatch) => {
     console.log(`      ACTIONS/GET_USER | Making GET Request to BE: /api/users/${username}`);
 
-    axios.get(`/api/users/${username}`)
+    return axios.get(`/api/users/${username}`)
       .then(({ data }) => {
         console.log('      ACTIONS/GET_USER | Recevied Data from BE: ', data);
         // console.log('      ACTIONS/GET_USER | Recevied User Data from BE');
