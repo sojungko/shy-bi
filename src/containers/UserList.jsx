@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions/index';
@@ -17,13 +16,17 @@ class UserList extends Component {
     getUser: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   componentWillMount() {
     console.log('    CONTAINER/USERLIST | Preparing to render USERLIST container');
     console.log('      CONTAINER/USERLIST | Checking if User is Authenticated');
 
     if (!isUserAuthenticated()) {
       console.log('      CONTAINER/USERLIST | User is not authenticated. Redirecting to LogIn');
-      hashHistory.push('/login');
+      this.context.router.push('/login');
     } else {
       console.log('      CONTAINER/USERLIST | User is authenticated. Populating page with user data');
       this.props.getAllUsers();
