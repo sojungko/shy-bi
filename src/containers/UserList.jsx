@@ -15,6 +15,8 @@ class UserList extends Component {
     filter: PropTypes.shape({
       sex: PropTypes.string,
       minAge: PropTypes.number,
+      maxAge: PropTypes.number,
+      city: PropTypes.string,
     }),
     getAllUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
@@ -45,7 +47,7 @@ class UserList extends Component {
     // console.log('    CONTAINER/USERLIST | Receiving Props: ', nextProps);
     console.log('    CONTAINER/USERLIST | Receiving Props');
   }
-  
+
   componentDidUpdate() {
     console.log('    CONTAINER/USERLIST | Complete Rendering USERLIST ');
   }
@@ -56,14 +58,22 @@ class UserList extends Component {
   }
 
   renderList() {
-    const { sex, minAge } = this.props.filter;
+    const { sex, minAge, maxAge, city } = this.props.filter;
     let users = this.props.users.filter((user) => {
       return user.sex === sex;
     });
 
-    // users = this.props.users.filter((user) => {
-    //   return user.age >= minAge;
-    // });
+    users = this.props.users.filter((user) => {
+      return user.age >= minAge;
+    });
+
+    users = this.props.users.filter((user) => {
+      return user.age <= maxAge;
+    });
+
+    users = this.props.users.filter((user) => {
+      return user.city === city;
+    });
 
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
     return users.map((user, index) => (
