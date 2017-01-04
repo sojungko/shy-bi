@@ -27,7 +27,6 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    console.log(this.state);
     console.log('    CONTAINER/PROFILE | Preparing to render PROFILE container');
     console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
 

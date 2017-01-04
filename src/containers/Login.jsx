@@ -97,7 +97,7 @@ const validate = (values) => {
 };
 
 // console.log('CONTAINER/LOGIN & REDUX | Mapping actions to props: loginUser');
-console.log('CONTAINER/LOGIN & REDUX | Mapping actions to props: ', loginUser);
+console.log('CONTAINER/LOGIN & REDUX | Mapping actions to props: loginUser');
 console.log('CONTAINER/LOGIN | Connecting LOGIN Container with REDUX STORE');
 
 LogIn = reduxForm({
