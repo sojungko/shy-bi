@@ -12,12 +12,6 @@ console.log('CONTAINER/USERLIST | IMPORTING Action: getAllUsers from ACTIONS');
 class UserList extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
-    filter: PropTypes.shape({
-      sex: PropTypes.string,
-      minAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      maxAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      city: PropTypes.string,
-    }),
     getAllUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
   }
@@ -44,13 +38,18 @@ class UserList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('    CONTAINER/USERLIST | Receiving Props: ', nextProps);
+    console.log('    CONTAINER/USERLIST | Receiving Props: ', this.props.users, nextProps.users);
     console.log('    CONTAINER/USERLIST | Receiving Props');
   }
 
-  componentDidUpdate() {
-    console.log('    CONTAINER/USERLIST | Complete Rendering USERLIST ');
+  componentWillUpdate() {
+    console.log('   CONTAINER/USERLIST | componentWillUpdate this.props.users : ', this.props.users);
   }
+
+  componentDidUpdate() {
+    console.log('    CONTAINER/USERLIST | Complete Rendering USERLIST this.props.users : ', this.props.users);
+  }
+
 
   handleClick = (userName) => {
     console.log('      COMPONENT/USER | Clicked', userName);
@@ -58,31 +57,9 @@ class UserList extends Component {
   }
 
   renderList() {
-    const { sex, minAge, maxAge, city } = this.props.filter;
-    let users = [];
-    if (sex) {
-      users = this.props.users.filter((user) => {
-        return user.sex === sex;
-      });
-    }
-    if (minAge) {
-      users = this.props.users.filter((user) => {
-        return user.age >= minAge;
-      });
-    }
-    if (maxAge) {
-      users = this.props.users.filter((user) => {
-        return user.age <= maxAge;
-      });
-    }
-    if (city) {
-      users = this.props.users.filter((user) => {
-        return user.city === city;
-      });
-    }
-
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
-    return users.map((user, index) => (
+    console.log('   CONTAINER/USERLIST | this.props.users : ', this.props.users);
+    return this.props.users.map((user, index) => (
       <UserListItem key={index} user={user} handleClick={this.handleClick} />
     ));
   }
@@ -99,11 +76,10 @@ class UserList extends Component {
     );
   }
 }
-
-function mapStateToProps({ users, filter }) {
+function mapStateToProps({ users }) {
   // console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: ', auth, users);
-  console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: users');
-  return { users, filter };
+  console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: users, this.props : ', this.props);
+  return { users };
 }
 
 // console.log('CONTAINER/USERLIST & REDUX | Mapping actions to props: ', getAllUsers);
