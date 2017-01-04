@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import { searchUsers } from '../actions/index';
+import { filterUsers } from '../actions/index';
 
 console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
-console.log('COMPONENT/SEARCH BAR | IMPORTING Action: searchUsers from ACTIONS');
+console.log('COMPONENT/SEARCH BAR | IMPORTING Action: filterUsers from ACTIONS');
 
+console.log('COMPONENT/SEARCH BAR | filterUsers : ', filterUsers);
 class SearchBar extends Component {
   componentDidMount() {
     console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
@@ -24,7 +25,7 @@ class SearchBar extends Component {
     console.log('      COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
     const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(searchUsers)} className="input-group">
+      <form onSubmit={handleSubmit(filterUsers)} className="input-group">
         <h3>Search</h3>
         <div>
           <label>Age</label>
@@ -53,7 +54,7 @@ class SearchBar extends Component {
 console.log('COMPONENT/SEARCH BAR | Connecting SEARCH BAR with Redux Form');
 console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  searchUsers');
 
-export default reduxForm({ form: 'SearchForm' }, null, { searchUsers })(SearchBar);
+export default reduxForm({ form: 'SearchForm' }, null, { filterUsers })(SearchBar);
 
 console.log('COMPONENT/SEARCH BAR | Exported SEARCH BAR ');
 console.log(' ');
