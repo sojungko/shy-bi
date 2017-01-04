@@ -10,17 +10,8 @@ console.log('CONTAINER/PROFILE | IMPORTING Action: getUser, getAllUsers from ACT
 
 class Profile extends Component {
   static propTypes = {
-    auth: PropTypes.shape({
-      isAuthenticated: PropTypes.number.boolean,
-      user: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        sex: PropTypes.string.isRequired,
-        age: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-      }),
-    }).isRequired,
+    getUser: PropTypes.func.isRequired,
   }
-
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
@@ -33,6 +24,8 @@ class Profile extends Component {
     if (!isUserAuthenticated()) {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
       this.context.router.push('/login');
+    } else {
+      console.log('      CONTAINER/PROFILE | User is authenticated. Fetching User data: ', this.props.params.username);
     }
   }
 
@@ -59,20 +52,13 @@ class Profile extends Component {
     console.log('    CONTAINER/PROFILE | Complete Rendering PROFILE ');
   }
 
-
   renderProfile() {
-    if (!this.props.auth.user) {
-      return (
-        <div>Loading...</div>
-      );
-    }
-
     return (
       <ul>
-        <li>Name: {this.props.auth.user.name}</li>
-        <li>Sex: {this.props.auth.user.sex}</li>
-        <li>Age: {this.props.auth.user.age}</li>
-        <li>City: {this.props.auth.user.city}</li>
+        <li>Name: name</li>
+        <li>Sex: sex</li>
+        <li>Age: age</li>
+        <li>City: city</li>
       </ul>
     );
   }

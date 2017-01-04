@@ -30,7 +30,7 @@ export default (
     <IndexRoute component={Profile} />
     <Route path="signup" component={SignUp} />
     <Route path="search" component={UserList} />
-    <Route path="profile" component={Profile} />
+    <Route path="profile/:username" component={Profile} />
     <Route path="recommended" component={Recommended} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />

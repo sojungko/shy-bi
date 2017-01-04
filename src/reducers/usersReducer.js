@@ -3,15 +3,16 @@ import { GET_ALL_USERS, SIGN_UP_USER, FILTER_USERS_BY_SEX, FILTER_USERS_BY_MIN_A
 console.log('REDUCER/USERS | Exporting USERS Reducer...');
 
 export default function (state = [], action) {
-  // console.log(`    REDUCER/USERS | Received Action type: ${action.type} data: `, action.payload);
-  console.log(`    REDUCER/USERS | Received Action type: ${action.type}`);
-
   switch (action.type) {
     case GET_ALL_USERS:
-      console.log('      REDUCER/USERS | Creating a new Auth State');
+      // console.log(`    REDUCER/USERS | Received Action type: ${action.type}`, action);
+      console.log(`    REDUCER/USERS | Received Action type: ${action.type}`);
+      console.log('      REDUCER/USERS | Creating a new USER State');
       return action.payload;
     case SIGN_UP_USER:
-      console.log('      REDUCER/USERS | Creating a new Auth State');
+      // console.log(`    REDUCER/USERS | Received Action type: ${action.type}`, action);
+      console.log(`    REDUCER/USERS | Received Action type: ${action.type}`);
+      console.log('      REDUCER/USERS | Creating a new USER State');
       return action.payload;
     case FILTER_USERS_BY_SEX:
       console.log('     REDUCER/USERS | FILTER_USERS_BY_SEX existing state : ', [...state]);
@@ -28,7 +29,6 @@ export default function (state = [], action) {
     case FILTER_USERS_BY_CITY:
       return [...state].filter(element => element.city === action.payload); // action.payload returns string
     default:
-      console.log('      REDUCER/USERS | Unknown Action type, no change has been made');
       return state;
   }
 }
