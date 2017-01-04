@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 
 import { isUserAuthenticated } from '../modules/auth';
-import { getAllUsers } from '../actions/index';
+import { getUser, getAllUsers } from '../actions/index';
 import SearchBar from '../components/SearchBar';
 import UserListItem from '../components/UserListItem';
 
@@ -12,11 +12,9 @@ console.log('CONTAINER/USERLIST | IMPORTING Action: getAllUsers from ACTIONS');
 
 class UserList extends Component {
   static propTypes = {
-    auth: PropTypes.shape({
-      isAuthenticated: PropTypes.number.boolean,
-    }),
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
     getAllUsers: PropTypes.func.isRequired,
+    getUser: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -45,8 +43,9 @@ class UserList extends Component {
     console.log('    CONTAINER/USERLIST | Complete Rendering USERLIST ');
   }
 
-  handleClick(event) {
-    console.log('      COMPONENT/USER |  Clicked', this.props.user);
+  handleClick = (userName) => {
+    console.log('      COMPONENT/USER | Clicked', userName);
+    this.props.getUser(userName);
   }
 
   renderList() {
@@ -69,16 +68,16 @@ class UserList extends Component {
   }
 }
 
-function mapStateToProps({ auth, users }) {
+function mapStateToProps({ users }) {
   // console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: ', auth, users);
-  console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: auth, users');
-  return { auth, users };
+  console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: users');
+  return { users };
 }
 
 // console.log('CONTAINER/USERLIST & REDUX | Mapping actions to props: ', getAllUsers);
-console.log('CONTAINER/USERLIST & REDUX | Mapping actions to props: getAllUsers');
+console.log('CONTAINER/USERLIST & REDUX | Mapping actions to props: getUser, getAllUsers');
 console.log('CONTAINER/USERLIST | Connecting USERLIST Container with REDUX STORE');
-export default connect(mapStateToProps, { getAllUsers })(UserList);
+export default connect(mapStateToProps, { getUser, getAllUsers })(UserList);
 
 console.log('CONTAINER/USERLIST | Exported USERLIST');
 console.log(' ');

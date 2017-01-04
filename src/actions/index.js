@@ -39,7 +39,8 @@ export function getUser(username) {
 
     axios.get(`/api/users/${username}`)
       .then(({ data }) => {
-        console.log(`      ACTIONS/GET_USER | Recevied Data from BE: ${data}`);
+        console.log('      ACTIONS/GET_USER | Recevied Data from BE: ', data);
+        // console.log('      ACTIONS/GET_USER | Recevied User Data from BE');
         dispatch({ type: GET_USER, payload: data });
       })
       .catch((error) => {
