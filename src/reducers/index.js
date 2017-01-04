@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import { reducer as FormReducer } from 'redux-form';
-import UsersReducer from './users';
-import ProfileReducer from './profile';
-import AuthReducer from './auth';
+import UsersReducer from './usersReducer';
+import ProfileReducer from './profileReducer';
+import AuthReducer from './authReducer';
 import { FILTER_USERS } from '../actions/index';
 
 console.log('REDUCERS/ROOT | Exporting ROOT Reducer...');
