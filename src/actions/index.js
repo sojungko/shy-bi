@@ -23,7 +23,7 @@ export function getAllUsers() {
         console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE:  All User');
         console.log('      ACTIONS/GET_ALL_USERS | Dispatching GET_ALL_USERS to reducers');
 
-        dispatch({ type: GET_ALL_USERS, payload: data });
+        return dispatch({ type: GET_ALL_USERS, payload: data });
       })
       .catch((error) => {
         console.error(error);
@@ -41,7 +41,7 @@ export function getUser(username) {
       .then(({ data }) => {
         console.log('      ACTIONS/GET_USER | Recevied Data from BE: ', data);
         // console.log('      ACTIONS/GET_USER | Recevied User Data from BE');
-        dispatch({ type: GET_USER, payload: data });
+        return dispatch({ type: GET_USER, payload: data });
       })
       .catch((error) => {
         console.log(error);

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 
 import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions/index';
@@ -22,13 +21,18 @@ class Profile extends Component {
     }).isRequired,
   }
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   componentWillMount() {
+    console.log(this.state);
     console.log('    CONTAINER/PROFILE | Preparing to render PROFILE container');
     console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
 
     if (!isUserAuthenticated()) {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
-      hashHistory.push('/login');
+      this.context.router.push('/login');
     }
   }
 
@@ -47,7 +51,7 @@ class Profile extends Component {
 
     if (!isUserAuthenticated()) {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
-      hashHistory.push('/login');
+      this.context.router.push('/login');
     }
   }
 
