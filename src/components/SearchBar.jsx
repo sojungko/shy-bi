@@ -1,13 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { filterUsers } from '../actions/index';
+import { connect } from 'react-redux';
+import { Card } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { filterUsersBySex, filterUsersByMinAge } from '../actions/index';
 
 console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
 console.log('COMPONENT/SEARCH BAR | IMPORTING Action: filterUsers from ACTIONS');
 
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  radioButton: {
+    marginBottom: 16,
+  },
+};
+
 class SearchBar extends Component {
   static propTypes = {
-    filterUsers: PropTypes.func.isRequired,
+    filterUsersBySex: PropTypes.func.isRequired,
+    filterUsersByMinAge: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      sex: '',
+    };
   }
 
   componentDidMount() {
@@ -22,33 +42,95 @@ class SearchBar extends Component {
 
   componentDidUpdate() {
     console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
+    console.log('      COMPONENT/SEARCH BAR | State updating : ', this.state);
+    this.props.filterUsersBySex(this.state);
+    // this.props.filterUsersByMinAge(this.state);
+  }
+
+  onMinAgeChange = (e) => {
+    console.log('    CONTAINER/LOGIN | Username: ', event.target.value);
+    this.setState({ minAge: e.target.value });
+  }
+
+  onMaxAgeChange = (e) => {
+    this.setState({ maxAge: e.target.value });
+  }
+
+  onSexChange = (e) => {
+    console.log('    CONTAINER/SIGN UP | Sex: ', e.target.value);
+    this.setState({ sex: e.target.value });
+  }
+
+  onCityChange = (e) => {
+    console.log('    CONTAINER/SIGN UP | City: ', e.target.value);
+    this.setState({ city: e.target.value });
   }
 
   render() {
     console.log('      COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
-    const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.props.filterUsers)}>
-        <h3>Search</h3>
-        <div>
-          <label>Age</label>
-          <Field name="minAge" component="input" type="number" />
-          <Field name="maxAge" component="input" type="number" />
-        </div>
-        <div>
-          <label>Sex</label>
-          <div>
-            <label><Field name="sex" component="input" type="radio" value="male" /> Male</label>
-            <label><Field name="sex" component="input" type="radio" value="female" /> Female</label>
-          </div>
-        </div>
-        <div>
-          <label>City</label>
-          <Field name="city" component="input" type="text" />
-        </div>
-        <button type="submit" disabled={pristine || submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Undo Changes</button>
-      </form>
+      <div>
+        <Card>
+          <form>
+            <h2 className="card-heading">Search</h2>
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Minimum Age"
+                name="minAge"
+                type="number"
+                onChange={this.onMinAgeChange}
+                value={this.state.minAge}
+              />
+            </div>
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Maximum Age"
+                name="maxAge"
+                type="number"
+                onChange={this.onMaxAgeChange}
+                value={this.state.maxAge}
+              />
+            </div>
+            <div className="field-line">
+              <TextField
+                floatingLabelText="Maximum Age"
+                name="maxAge"
+                type="number"
+                onChange={this.onMaxAgeChange}
+                value={this.state.maxAge}
+              />
+            </div>
+            <div className="field-line">
+              <RadioButtonGroup
+                name="sex"
+                defaultSelected="male"
+                onChange={this.onSexChange}
+                valueSelected={this.state.sex}
+              >
+                <RadioButton
+                  value="male"
+                  label="Male"
+                  style={styles.radioButton}
+                />
+                <RadioButton
+                  value="female"
+                  label="Female"
+                  style={styles.radioButton}
+                />
+              </RadioButtonGroup>
+            </div>
+            <div className="field-line">
+              <TextField
+                floatingLabelText="City"
+                type="text"
+                name="city"
+                onChange={this.onCityChange}
+                value={this.state.city}
+              />
+            </div>
+          </form>
+        </Card>
+      </div>
     );
   }
 }
@@ -57,7 +139,9 @@ class SearchBar extends Component {
 console.log('COMPONENT/SEARCH BAR | Connecting SEARCH BAR with Redux Form');
 console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  searchUsers');
 
-export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
+
+// export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
+export default connect(null, { filterUsersBySex, filterUsersByMinAge })(SearchBar);
 
 console.log('COMPONENT/SEARCH BAR | Exported SEARCH BAR ');
 console.log(' ');

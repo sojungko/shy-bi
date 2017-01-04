@@ -114,7 +114,7 @@ class LogIn extends Component {
             </div>
 
             <div className="button-line">
-              <RaisedButton type="submit" label="Log in" primary />
+              <RaisedButton type="submit" label="Log in" secondary />
             </div>
 
             <CardText>
