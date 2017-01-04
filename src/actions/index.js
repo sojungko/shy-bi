@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { hashHistory } from 'react-router';
+import { authenticateUser } from '../modules/auth';
 
 console.log('ACTIONS | Exporting ACTIONS...');
 
@@ -119,22 +120,17 @@ export function loginUser(props) {
   return (dispatch) => {
     console.log('      ACTIONS/LOGIN_USER_SUCCESS | Making POST Request to BE: /auth/signin');
 
-    axios.post('/auth/signin', props)
+    return axios.post('/auth/signin', props)
       .then(({ data }) => {
         // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ', data);
         // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Setting token to loca storage ', data.token);
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ${props.username}'s user data`);
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Setting token to local storage: ${data.token.slice(0, 10)}...`);
 
-        localStorage.setItem('token', data.token);
+        authenticateUser(data.token, data.username);
 
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching LOGIN_USER_SUCCESS to reducers');
-        dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
-      })
-      .then(() => {
-        console.log('    ACTIONS/LOGIN_USER_SUCCESS | Success, Redirecting User to /profile');
-        console.log(' ');
-        hashHistory.push('/profile');
+        return dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
       })
       .catch((error) => {
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);

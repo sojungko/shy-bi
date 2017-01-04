@@ -13,6 +13,10 @@ console.log('CONTAINER/LOGIN | Exporting LOGIN...');
 console.log('CONTAINER/LOGIN | IMPORTING Action: loginUser from ACTIONS');
 
 class LogIn extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     loginUser: PropTypes.func.isRequired,
@@ -38,7 +42,12 @@ class LogIn extends Component {
     console.log(`    CONTAINER/LOGIN | Submitting Log In Form
       User: ${inputs.username}
       Password: ${inputs.password}`);
-    this.props.loginUser(inputs);
+    this.props.loginUser(inputs)
+      .then(() => {
+        console.log(`    CONTAINER/LOGIN  | Success, Redirecting User to /profile/${inputs.username}`);
+        console.log(' ');
+        this.context.router.push(`/profile/${inputs.username}`);
+      });
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
