@@ -12,7 +12,7 @@ class Profile extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
     params: PropTypes.shape({
-      username: PropTypes.string.isRequired,
+      username: PropTypes.string,
     }),
     profile: PropTypes.shape({
       name: PropTypes.string,
