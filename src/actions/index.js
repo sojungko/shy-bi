@@ -11,6 +11,8 @@ export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';
 export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
+export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
+export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -59,9 +61,17 @@ export function filterUsersBySex(props) {
 }
 
 export function filterUsersByMinAge(props) {
-  console.log('');
   return { type: FILTER_USERS_BY_MIN_AGE, payload: props };
 }
+
+export function filterUsersByMaxAge(props) {
+  return { type: FILTER_USERS_BY_MAX_AGE, payload: props };
+}
+
+export function filterUsersByCity(props) {
+  return { type: FILTER_USERS_BY_CITY, payload: props };
+}
+
 
 /* -- Signing up User--*/
 export function signupUser(props) {
