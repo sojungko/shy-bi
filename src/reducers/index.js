@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { reducer as FormReducer } from 'redux-form';
+import { reducer as form } from 'redux-form';
 import UsersReducer from './users';
 import ProfileReducer from './profile';
 import AuthReducer from './auth';
@@ -14,7 +14,7 @@ console.log('REDUCERS/ROOT | Cominbing all reducers');
 console.log('REDUCERS/ROOT | Creating a new Application State');
 
 const RootReducer = combineReducers({
-  fomr: FormReducer,
+  form,
   users: UsersReducer,
   profile: ProfileReducer,
   auth: AuthReducer,
