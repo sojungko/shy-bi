@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import Navbar from '../components/Navbar';
 
 console.log('CONTAINER/APP | Exporting APP...');
@@ -19,6 +21,7 @@ export default class App extends Component {
   componentWillMount() {
     console.log('CONTAINER/APP | Preparing to Render APP');
     /* If you are using Material-UI, it's import for this to be called here.*/
+    injectTapEventPlugin();
   }
 
   componentDidMount() {
