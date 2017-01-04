@@ -53,7 +53,11 @@ class UserList extends Component {
 
   handleClick = (userName) => {
     console.log('      COMPONENT/USER | Clicked', userName);
-    this.props.getUser(userName);
+    this.props.getUser(userName)
+      .then(() => {
+        console.log('      COMPONENT/USER | Fetched User rerouting...', userName);
+        this.context.router.push(`/profile/${userName}`);
+      });
   }
 
   renderList() {
