@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { filterUsersBySex, filterUsersByMinAge } from '../actions/index';
+import { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity } from '../actions/index';
 
 console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
 console.log('COMPONENT/SEARCH BAR | IMPORTING Action: filterUsers from ACTIONS');
@@ -21,12 +21,17 @@ class SearchBar extends Component {
   static propTypes = {
     filterUsersBySex: PropTypes.func.isRequired,
     filterUsersByMinAge: PropTypes.func.isRequired,
+    filterUsersByMaxAge: PropTypes.func.isRequired,
+    filterUsersByCity: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
     this.state = {
       sex: '',
+      minAge: null,
+      maxAge: null,
+      city: '',
     };
   }
 
@@ -44,7 +49,9 @@ class SearchBar extends Component {
     console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
     console.log('      COMPONENT/SEARCH BAR | State updating : ', this.state);
     this.props.filterUsersBySex(this.state);
-    // this.props.filterUsersByMinAge(this.state);
+    this.props.filterUsersByMinAge(this.state);
+    this.props.filterUsersByMaxAge(this.state);
+    this.props.filterUsersByCity(this.state);
   }
 
   onMinAgeChange = (e) => {
@@ -80,15 +87,6 @@ class SearchBar extends Component {
                 type="number"
                 onChange={this.onMinAgeChange}
                 value={this.state.minAge}
-              />
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Maximum Age"
-                name="maxAge"
-                type="number"
-                onChange={this.onMaxAgeChange}
-                value={this.state.maxAge}
               />
             </div>
             <div className="field-line">
@@ -141,7 +139,7 @@ console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  sear
 
 
 // export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
-export default connect(null, { filterUsersBySex, filterUsersByMinAge })(SearchBar);
+export default connect(null, { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity })(SearchBar);
 
 console.log('COMPONENT/SEARCH BAR | Exported SEARCH BAR ');
 console.log(' ');
