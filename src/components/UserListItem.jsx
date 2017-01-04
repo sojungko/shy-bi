@@ -28,7 +28,8 @@ export default class UserListItem extends Component {
   }
 
   onClick = () => {
-    this.props.handleClick(this.props.user);
+    const { user, handleClick } = this.props;
+    handleClick(user.username);
   }
 
   render() {
