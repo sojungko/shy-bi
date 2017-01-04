@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { hashHistory } from 'react-router';
-import jwt from 'jwt-simple';
 
 console.log('ACTIONS | Exporting ACTIONS...');
 
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
-export const SEARCH_USERS = 'SEARCH_USERS';
+export const FILTER_USERS = 'FILTER_USERS';
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
@@ -49,10 +48,9 @@ export function getUser(username) {
   };
 }
 
-export function searchUsers(props) {
-  console.log('      ACTIONS/SEARCH_USERS | Searching Users', props);
-  const request = axios.post('/api/search/filter', props);
-  return { type: SEARCH_USERS, payload: request };
+export function filterUsers(props) {
+  console.log('      ACTIONS/FILTER_USERS | Filtering Users', props);
+  return { type: FILTER_USERS, payload: props };
 }
 
 /* -- Signing up User--*/
