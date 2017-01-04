@@ -31,10 +31,10 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sex: '',
-      minAge: '',
-      maxAge: '',
-      city: '',
+      filter_sex: '',
+      filter_minAge: '',
+      filter_maxAge: '',
+      filter_city: '',
     };
   }
 
@@ -50,38 +50,30 @@ class SearchBar extends Component {
 
   componentDidUpdate() {
     console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
-    console.log('      COMPONENT/SEARCH BAR | State updating : ', this.state);
-    this.props.filterUsersBySex(this.state);
-    this.props.filterUsersByMinAge(this.state);
-    this.props.filterUsersByMaxAge(this.state);
-    this.props.filterUsersByCity(this.state);
   }
 
   onMinAgeChange = (e) => {
-    console.log('    CONTAINER/LOGIN | Username: ', event.target.value);
-    this.setState({ minAge: e.target.value });
+    this.props.filterUsersByMinAge(e.target.value);
   }
 
   onMaxAgeChange = (e) => {
-    this.setState({ maxAge: e.target.value });
+    this.props.filterUsersByMaxAge(e.target.value);
   }
 
   onSexChange = (e) => {
-    console.log('    CONTAINER/SIGN UP | Sex: ', e.target.value);
-    this.setState({ sex: e.target.value });
+    this.props.filterUsersBySex(e.target.value);
   }
 
   onCityChange = (e) => {
-    console.log('    CONTAINER/SIGN UP | City: ', e.target.value);
-    this.setState({ city: e.target.value });
+    this.props.filterUsersByCity(e.target.value);
   }
 
   handleClick = () => {
     this.setState({
-      sex: '',
-      minAge: '',
-      maxAge: '',
-      city: '',
+      filter_sex: '',
+      filter_minAge: '',
+      filter_maxAge: '',
+      filter_city: '',
     });
   }
 
@@ -98,7 +90,7 @@ class SearchBar extends Component {
                 name="minAge"
                 type="number"
                 onChange={this.onMinAgeChange}
-                value={this.state.minAge}
+                value={this.state.filter_minAge}
               />
             </div>
             <div className="field-line">
@@ -107,7 +99,7 @@ class SearchBar extends Component {
                 name="maxAge"
                 type="number"
                 onChange={this.onMaxAgeChange}
-                value={this.state.maxAge}
+                value={this.state.filter_maxAge}
               />
             </div>
             <div className="field-line">
@@ -115,7 +107,7 @@ class SearchBar extends Component {
                 name="sex"
                 defaultSelected="male"
                 onChange={this.onSexChange}
-                valueSelected={this.state.sex}
+                valueSelected={this.state.filter_sex}
               >
                 <RadioButton
                   value="male"
@@ -135,7 +127,7 @@ class SearchBar extends Component {
                 type="text"
                 name="city"
                 onChange={this.onCityChange}
-                value={this.state.city}
+                value={this.state.filter_city}
               />
             </div>
           </form>
