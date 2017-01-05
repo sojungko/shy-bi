@@ -34,7 +34,6 @@ class RecommendedUsers extends Component {
     ));
   }
 
-
   render() {
     console.log('RENDERING Recommended users.....');
     return (
