@@ -60,7 +60,7 @@ class SignUp extends Component {
       .then(() => {
         console.log('    CONTAINER/LOGIN  | Success, Redirecting User to /profile');
         console.log(' ');
-        this.context.router.push(`/profile/${inputs.username}`);
+        this.context.router.push('/');
       });
   }
 
