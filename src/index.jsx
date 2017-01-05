@@ -12,12 +12,6 @@ import RootReducer from './reducers/index';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-console.log('INDEX.JSX | Importing REDUCERS');
-console.log('INDEX.JSX | Importing ROUTES');
-
-console.log('INDEX.JSX | Creating Redux Store and Applying Middlewears: Redux Thunk');
-console.log(' ');
-
 const logger = createLogger();
 const store = createStore(
   RootReducer,
@@ -26,7 +20,6 @@ const store = createStore(
   ),
 );
 
-console.log('INDEX.JSX | Preparing to Render APP Component via React Router');
 ReactDOM.render(
   <MuiThemeProvider>
     <Provider store={store}>

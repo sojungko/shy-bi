@@ -10,23 +10,6 @@ import Likes from '../containers/Likes';
 import Profile from '../containers/Profile';
 import RecommendedUsers from '../containers/RecommendedUsers';
 
-console.log('REACT-ROUTER | Exporting REACT-ROUTER...');
-
-console.log('REACT-ROUTER | Importing APP Container');
-console.log('REACT-ROUTER | Importing LOG IN Container');
-console.log('REACT-ROUTER | Importing SignUp Container');
-console.log('REACT-ROUTER | Importing UserList Container');
-console.log('REACT-ROUTER | Importing Profile Container');
-console.log(' ');
-
-console.log('REACT-ROUTER | Defining Routes...');
-console.log('REACT-ROUTER | Path: "/" Container: App');
-console.log('REACT-ROUTER | Path: "/" IndexRoute Container: App, Profile');
-console.log('REACT-ROUTER | Path: "/signup" Container: App, SignUp');
-console.log('REACT-ROUTER | Path: "/search" Container: App, UserList');
-console.log('REACT-ROUTER | Path: "/profile" Container: App, Profile');
-console.log('REACT-ROUTER | Path: "/login" Container: App, login');
-
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Profile} />
@@ -40,6 +23,3 @@ export default (
     <Route path="logout" component={LogIn} />
   </Route>
 );
-
-console.log('REACT-ROUTER | Exported REACT-ROUTER as ROUTES');
-console.log(' ');
