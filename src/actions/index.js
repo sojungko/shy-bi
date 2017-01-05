@@ -14,6 +14,7 @@ export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
 export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
 export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
 export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
+export const EDIT_BIO_SUCCESS = 'EDIT_BIO_SUCCESS';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -57,7 +58,7 @@ export function likeUser(username, likedUser) {
 //   }
 // }
 
-/* -- Filter users -- */
+/* -- Filter Users -- */
 // Sends filter information to filter reducer
 
 export const filterUsersBySex = filter => ({ type: FILTER_USERS_BY_SEX, payload: filter });
@@ -91,4 +92,16 @@ export function loginUser(props) {
 export function getAllMessages(username) {
   return dispatch => axios.get(`api/messages/all/${username}`)
     .then(({ data }) => dispatch({ type: GET_ALL_MESSAGES, payload: data }));
+}
+
+
+/* -- Editing Bio -- */
+export function editBio(props) {
+  return dispatch => axios.post('/api/myaccount/edit_bio', props)
+    .then(({ data }) => {
+      return dispatch({ type: EDIT_BIO_SUCCESS, payload: data })
+    })
+    .catch((error) => {
+      console.log('     ACTIONS/EDIT_BIO_SUCCESS | ', error);
+    })
 }
