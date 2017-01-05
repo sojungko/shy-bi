@@ -108,21 +108,16 @@ export function signupUser(props) {
   return (dispatch) => {
     console.log('      ACTIONS/SIGN_UP_USER | Making POST Request to BE: /auth/signup');
 
-    axios.post('/auth/signup', props)
+    return axios.post('/auth/signup', props)
       .then(({ data }) => {
         // console.log('      ACTIONS/SIGN_UP_USER | Recevied Data from BE: ', data);
         console.log(`      ACTIONS/SIGN_UP_USER | Received Data from BE ${props.username}`);
 
         console.log(`      ACTIONS/SIGN_UP_USER | Setting token to local storage: ${data.token.slice(0, 10)}...`);
-        localStorage.setItem('token', data.token);
+        authenticateUser(data.token, data.user.username);
 
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching SIGN_UP_USER to reducers');
-        dispatch({ type: SIGN_UP_USER, payload: data });
-      })
-      .then(() => {
-        console.log('    ACTIONS/SIGN_UP_USER | Success, Redirecting User to /profile');
-        console.log(' ');
-        hashHistory.push('/profile');
+        return dispatch({ type: SIGN_UP_USER, payload: data });
       })
       .catch((error) => {
         console.log('actions/index signupUser error : ', error);

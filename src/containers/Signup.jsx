@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 import { signupUser } from '../actions/index';
@@ -24,25 +25,10 @@ const styles = {
 class SignUp extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
-    signupUser: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
-
-    // console.log('    CONTAINER/SIGN UP | Initializing State...', this.state);
-    console.log('    CONTAINER/SIGN UP | Initializing State... ');
-
-    this.state = {
-      errors: {},
-      username: '',
-      password: '',
-      name: '',
-      email: '',
-      age: '',
-      sex: '',
-      city: '',
-    };
+  static propTypes = {
+    signupUser: PropTypes.func,
   }
 
   componentDidMount() {
@@ -60,166 +46,109 @@ class SignUp extends Component {
   }
 
 
-  onSubmit = (event) => {
-    const resultObj = {
-      username: this.state.username,
-      password: this.state.password,
-      name: this.state.name,
-      email: this.state.email,
-      age: this.state.age,
-      sex: this.state.sex,
-      city: this.state.city,
-    };
+  onSubmit = (inputs) => {
+    console.log(`    CONTAINER/LOGIN | Submitting Sign Up Form
+      User: ${inputs.username}
+      Password: ${inputs.password}
+      Name: ${inputs.name}
+      Email: ${inputs.email}
+      Age: ${inputs.age}
+      Sex ${inputs.sex}
+      City ${inputs.city}`);
 
-    // console.log('    CONTAINER/SIGN UP | Submmiting Sing Up Form...', resultObj);
-    console.log('    CONTAINER/SIGN UP | Submmiting Sing Up Form...');
-
-    event.preventDefault();
-    this.props.signupUser(resultObj);
+    this.props.signupUser(inputs)
+      .then(() => {
+        console.log('    CONTAINER/LOGIN  | Success, Redirecting User to /profile');
+        console.log(' ');
+        this.context.router.push(`/profile/${inputs.username}`);
+      });
   }
 
-  onUsernameChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Username: ', event.target.value);
-    this.setState({ username: event.target.value });
-  }
+  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
 
-  onPasswordChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Password: ', event.target.value);
-    this.setState({ password: event.target.value });
-  }
+  renderRadioGroup = ({ input, ...rest }) => (
+    <RadioButtonGroup
+      {...input} {...rest}
+      valueSelected={input.value}
+      onChange={(event, value) => input.onChange(value)}
+    />
+  )
 
-  onNameChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Name: ', event.target.value);
-    this.setState({ name: event.target.value });
-  }
-
-  onEmailChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Email: ', event.target.value);
-    this.setState({ email: event.target.value });
-  }
-
-  onAgeChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Age: ', event.target.value);
-    this.setState({ age: event.target.value });
-  }
-
-  onSexChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | Sex: ', event.target.value);
-    this.setState({ sex: event.target.value });
-  }
-
-  onCityChange = (event) => {
-    console.log('    CONTAINER/SIGN UP | City: ', event.target.value);
-    this.setState({ city: event.target.value });
-  }
 
   render() {
     console.log('    CONTAINER/SIGN UP | Rendering SIGN UP Container... ');
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <div>
-        <Card className="container">
-          <form onSubmit={this.onSubmit}>
-            <h2 className="card-heading">Sign Up</h2>
+      <Card className="container">
+        <form onSubmit={handleSubmit(this.onSubmit)}>
+          <h2 className="card-heading">Sign Up</h2>
+          <div className="field-line">
+            <Field name="username" type="text" component={this.renderTextField} label="Username" />
+          </div>
+          <div className="field-line">
+            <Field name="password" type="password" component={this.renderTextField} label="Password" />
+          </div>
+          <div className="field-line">
+            <Field name="name" type="text" component={this.renderTextField} label="Name" />
+          </div>
+          <div className="field-line">
+            <Field name="email" type="email" component={this.renderTextField} label="Email" />
+          </div>
+          <div className="field-line">
+            <Field name="age" type="number" component={this.renderTextField} label="Age" />
+          </div>
+          <div className="field-line">
+            <div>
+              <Field name="sex" component={this.renderRadioGroup}>
+                <RadioButton value="male" label="male" style={styles.RadioButton} />
+                <RadioButton value="female" label="female" style={styles.RadioButton} />
+              </Field>
+            </div>
+          </div>
+          <div className="field-line">
+            <Field name="city" type="text" component={this.renderTextField} label="City" />
+          </div>
+          <div className="button-line">
+            <RaisedButton type="submit" label="Create New Account" primary />
+          </div>
 
-            {this.state.errors.summary && <p className="error-message">{this.state.errors.summary}</p>}
-
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Username"
-                name="username"
-                type="text"
-                errorText={this.state.errors.username}
-                onChange={this.onUsernameChange}
-                value={this.state.username}
-              />
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Password"
-                type="password"
-                name="password"
-                onChange={this.onPasswordChange}
-                errorText={this.state.errors.password}
-                value={this.state.password}
-              />
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Name"
-                name="name"
-                type="text"
-                errorText={this.state.errors.name}
-                onChange={this.onNameChange}
-                value={this.state.name}
-              />
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Email"
-                type="email"
-                name="email"
-                errorText={this.state.errors.email}
-                onChange={this.onEmailChange}
-                value={this.state.email}
-              />
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="Age"
-                type="number"
-                name="age"
-                errorText={this.state.errors.age}
-                onChange={this.onAgeChange}
-                value={this.state.age}
-              />
-            </div>
-            <div className="field-line">
-              <RadioButtonGroup
-                name="sex"
-                defaultSelected="male"
-                errorText={this.state.errors.sex}
-                onChange={this.onSexChange}
-                valueSelected={this.state.sex}
-              >
-                <RadioButton
-                  value="male"
-                  label="Male"
-                  style={styles.radioButton}
-                />
-                <RadioButton
-                  value="female"
-                  label="Female"
-                  style={styles.radioButton}
-                />
-              </RadioButtonGroup>
-            </div>
-            <div className="field-line">
-              <TextField
-                floatingLabelText="City"
-                type="text"
-                name="city"
-                errorText={this.state.errors.city}
-                onChange={this.onCityChange}
-                value={this.state.city}
-              />
-            </div>
-            <div className="button-line">
-              <RaisedButton type="submit" label="Create New Account" primary />
-            </div>
-
-            <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-          </form>
-        </Card>
-      </div>
+          <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+        </form>
+      </Card>
     );
   }
-
 }
+
+const validate = (values) => {
+  const errors = {};
+  const requiredFields = ['username', 'password', 'name', 'email', 'age', 'sex', 'city'];
+  requiredFields.forEach((field) => {
+    if (!values[field]) {
+      errors[field] = 'Required';
+    }
+  });
+
+  return errors;
+};
 
 // console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: ', SignUp);
 console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: SignUp');
 console.log('CONTAINER/SIGN UP | Connecting SIGN UP Container with REDUX STORE');
+
+SignUp = reduxForm({
+  form: 'SignUp',
+  validate,
+})(SignUp);
+
 export default connect(null, { signupUser })(SignUp);
 console.log('CONTAINER/SIGN UP | Exported SIGN UP');
 console.log(' ');
