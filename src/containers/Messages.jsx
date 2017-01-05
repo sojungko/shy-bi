@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages } from '../actions/index';
+import Message from '../components/Message';
 
 class Messages extends Component {
   static contextTypes = {
@@ -22,20 +23,15 @@ class Messages extends Component {
     }
   }
 
-  renderList() {
+  renderMessages() {
     return this.props.messages.map((message, index) => (
-      <div key={index}>
-        <h4>Sent By: {message.sentBy}</h4>
-        <h5>Title: {message.title}</h5>
-        <p>Body: {message.body}</p>
-      </div>
-      ),
-    );
+      <Message key={index} message={message} />
+    ));
   }
 
   render() {
     return (
-      <div>{this.renderList()}</div>
+      <div>{this.renderMessages()}</div>
     );
   }
 }
