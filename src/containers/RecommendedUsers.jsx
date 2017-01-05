@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { isUserAuthenticated } from '../modules/auth';
+import { getUsername, isUserAuthenticated } from '../modules/auth';
 import UserListItem from '../components/UserListItem';
 import { getRecommendedUsers, getUser } from '../actions';
 
@@ -19,7 +19,7 @@ class RecommendedUsers extends Component {
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
     } else {
-      this.props.getRecommendedUsers();
+      this.props.getRecommendedUsers(getUsername());
     }
   }
 
@@ -28,18 +28,18 @@ class RecommendedUsers extends Component {
       .then(() => this.context.router.push(`/profile/${userName}`));
   }
 
-  renderList() {
-    return this.props.visibleUsers.map((user, index) => (
-      <UserListItem key={index} user={user} handleClick={this.handleClick} />
-    ));
-  }
+  // renderList() {
+  //   return this.props.visibleUsers.map((user, index) => (
+  //     <UserListItem key={index} user={user} handleClick={this.handleClick} />
+  //   ));
+  // }
 
   render() {
     console.log('RENDERING Recommended users.....');
     return (
       <div>
         <ul>
-          {this.renderList()}
+          RECOMMENDED USER
         </ul>
       </div>
     );
