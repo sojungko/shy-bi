@@ -1,4 +1,4 @@
-import { GET_ALL_USERS, SIGN_UP_USER, FILTER_USERS_BY_SEX, FILTER_USERS_BY_MIN_AGE, FILTER_USERS_BY_MAX_AGE, FILTER_USERS_BY_CITY } from '../actions';
+import { GET_ALL_USERS, SIGN_UP_USER } from '../actions';
 
 console.log('REDUCER/USERS | Exporting USERS Reducer...');
 

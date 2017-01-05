@@ -6,6 +6,7 @@ import ProfileReducer from './profileReducer';
 import AuthReducer from './authReducer';
 import FilterReducer from './filterReducer';
 import VisibleUsersReducer from './visibleUsersReducer';
+import ActionsReducer from './actionsReducer';
 
 console.log('REDUCERS/ROOT | Exporting ROOT Reducer...');
 console.log('REDUCERS/ROOT | Importing FormReducer');
@@ -21,7 +22,8 @@ const RootReducer = combineReducers({
   profile: ProfileReducer,
   auth: AuthReducer,
   filter: FilterReducer,
-  visibleUsers: VisibleUsersReducer(UsersReducer, FilterReducer),
+  visibleUsers: VisibleUsersReducer,
+  actions: ActionsReducer,
 });
 
 export default RootReducer;

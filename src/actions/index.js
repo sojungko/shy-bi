@@ -16,7 +16,6 @@ export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';
 export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
 export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
 export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
