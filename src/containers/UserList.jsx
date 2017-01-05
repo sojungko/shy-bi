@@ -12,6 +12,7 @@ console.log('CONTAINER/USERLIST | IMPORTING Action: getAllUsers from ACTIONS');
 class UserList extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
+    visibleUsers: PropTypes.arrayOf(PropTypes.object),
     getAllUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
   }
@@ -63,7 +64,7 @@ class UserList extends Component {
   renderList() {
     console.log('    CONTAINER/USERLIST | Mapping through User Data. Creating List...');
     console.log('   CONTAINER/USERLIST | this.props.users : ', this.props.users);
-    return this.props.users.map((user, index) => (
+    return this.props.visibleUsers.map((user, index) => (
       <UserListItem key={index} user={user} handleClick={this.handleClick} />
     ));
   }
@@ -80,10 +81,10 @@ class UserList extends Component {
     );
   }
 }
-function mapStateToProps({ users }) {
+function mapStateToProps({ visibleUsers }) {
   // console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: ', auth, users);
   console.log('    CONTAINER/USERLIST & REDUX | Mapping State to props: users, this.props : ', this.props);
-  return { users };
+  return { visibleUsers };
 }
 
 // console.log('CONTAINER/USERLIST & REDUX | Mapping actions to props: ', getAllUsers);
