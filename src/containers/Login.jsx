@@ -69,10 +69,10 @@ class LogIn extends Component {
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">LogIn</h2>
           <div className="field-line">
-            <Field name="username" type="text" component={renderTextField} label="Username" />
+            <Field name="username" type="text" component={this.renderTextField} label="Username" />
           </div>
           <div className="field-line">
-            <Field name="password" type="password" component={renderTextField} label="Password" />
+            <Field name="password" type="password" component={this.renderTextField} label="Password" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
