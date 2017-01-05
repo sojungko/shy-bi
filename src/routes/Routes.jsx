@@ -9,6 +9,7 @@ import UserList from '../containers/UserList';
 import Likes from '../containers/Likes';
 import Profile from '../containers/Profile';
 import RecommendedUsers from '../containers/RecommendedUsers';
+import MyAccount from '../containers/MyAccount';
 
 export default (
   <Route path="/" component={App}>
@@ -19,6 +20,7 @@ export default (
     <Route path="messages" component={Messages} />
     <Route path="likes/:username" component={Likes} />
     <Route path="recommended" component={RecommendedUsers} />
+    <Route path="myaccount" component={MyAccount} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />
   </Route>
