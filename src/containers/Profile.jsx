@@ -33,6 +33,9 @@ class Profile extends Component {
     if (!isUserAuthenticated()) {
       console.log('      CONTAINER/PROFILE | User is not authenticated. Redirecting to LogIn');
       this.context.router.push('/login');
+    } else if (!this.props.params.username) {
+      console.log(`     CONTAINER/PROFILE | User is Authenticated. Fetching User data: ${localStorage.getItem('username')}`);
+      this.props.getUser(localStorage.getItem('username'));
     } else {
       const username = this.props.params.username;
       console.log(`      CONTAINER/PROFILE | User is authenticated. Fetching User data: ${username}`);

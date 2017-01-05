@@ -10,14 +10,6 @@ export default class App extends Component {
     children: PropTypes.node,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-      open: false,
-    };
-  }
-
   componentWillMount() {
     console.log('CONTAINER/APP | Preparing to Render APP');
     /* If you are using Material-UI, it's import for this to be called here.*/
@@ -38,8 +30,6 @@ export default class App extends Component {
     console.log('CONTAINER/APP | Complete Rendering APP');
     console.log(' ');
   }
-
-  handleToggle = () => this.setState({ open: !this.state.open });
 
   render() {
     console.log('CONTAINER/APP | Rendering APP Container...');
