@@ -53,18 +53,22 @@ class SearchBar extends Component {
   }
 
   onMinAgeChange = (e) => {
+    this.setState({ filter_minAge: e.target.value });
     this.props.filterUsersByMinAge(e.target.value);
   }
 
   onMaxAgeChange = (e) => {
+    this.setState({ filter_maxAge: e.target.value });
     this.props.filterUsersByMaxAge(e.target.value);
   }
 
   onSexChange = (e) => {
+    this.setState({ filter_sex: e.target.value });
     this.props.filterUsersBySex(e.target.value);
   }
 
   onCityChange = (e) => {
+    this.setState({ filter_city: e.target.value });
     this.props.filterUsersByCity(e.target.value);
   }
 
