@@ -8,9 +8,6 @@ import { renderTextField, renderRadioGroup } from './Presentational';
 
 import { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity } from '../actions/index';
 
-console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
-console.log('COMPONENT/SEARCH BAR | IMPORTING Action: filterUsers from ACTIONS');
-
 class SearchBar extends Component {
   static propTypes = {
     filterUsersBySex: PropTypes.func.isRequired,
@@ -93,10 +90,6 @@ class SearchBar extends Component {
   }
 }
 
-// console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props: ', searchUsers);
-console.log('COMPONENT/SEARCH BAR | Connecting SEARCH BAR with Redux Form');
-console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  searchUsers');
-
 SearchBar = reduxForm({
   form: 'SearchBarForm',
 })(SearchBar);
@@ -111,6 +104,3 @@ SearchBar = reduxForm({
 
 // export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
 export default connect(null, { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity })(SearchBar);
-
-console.log('COMPONENT/SEARCH BAR | Exported SEARCH BAR ');
-console.log(' ');

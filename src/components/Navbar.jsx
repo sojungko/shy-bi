@@ -3,8 +3,6 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import { Link } from 'react-router';
 import { getUsername, isUserAuthenticated, deauthenticateUser } from '../modules/auth';
 
-console.log('COMPONENT/NAV BAR | Exporting NAV BAR...');
-
 class Navbar extends Component {
   handleLogout = () => {
     console.log('COMPONENT/NAV BAR | Logging Out User...');
@@ -36,8 +34,4 @@ class Navbar extends Component {
   }
 }
 
-
 export default Navbar;
-console.log('    COMPONENT/NAV BAR | Rendering NAV BAR Component...');
-console.log('COMPONENT/NAV BAR | Exported APP');
-console.log(' ');

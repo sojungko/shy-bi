@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-console.log('COMPONENT/USER | Exporting USER...');
-
 export default class UserListItem extends Component {
   static propTypes = {
     user: PropTypes.shape({
@@ -14,27 +12,12 @@ export default class UserListItem extends Component {
     handleClick: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    console.log('      COMPONENT/USER | Complete Rendering USER ');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // console.log('    COMPONENT/USER | Receiving Props: ', nextProps);
-    console.log('      COMPONENT/USER | Receiving Props');
-  }
-
-  componentDidUpdate() {
-    console.log('      COMPONENT/USER | Complete Rendering USER ');
-  }
-
   onClick = () => {
     const { user, handleClick } = this.props;
     handleClick(user.username);
   }
 
   render() {
-    console.log('      COMPONENT/USER | Rendering USER Component...');
-
     const { name, sex, age, city } = this.props.user;
 
     return (
@@ -47,6 +30,3 @@ export default class UserListItem extends Component {
     );
   }
 }
-
-console.log('COMPONENT/USER | Exported USER ');
-console.log(' ');

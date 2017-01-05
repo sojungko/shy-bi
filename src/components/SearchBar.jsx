@@ -7,9 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity } from '../actions/index';
 
-console.log('COMPONENT/SEARCH BAR | Exporting SEARCH BAR...');
-console.log('COMPONENT/SEARCH BAR | IMPORTING Action: filterUsers from ACTIONS');
-
 const styles = {
   block: {
     maxWidth: 250,
@@ -36,20 +33,6 @@ class SearchBar extends Component {
       filter_maxAge: '',
       filter_city: '',
     };
-  }
-
-  componentDidMount() {
-    console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
-    console.log('      COMPONENT/SEARCH BAR | this.props : ', this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // console.log('    COMPONENT/SEARCH BAR | Receiving Props: ', nextProps);
-    console.log('      COMPONENT/SEARCH BAR | Receiving Props');
-  }
-
-  componentDidUpdate() {
-    console.log('      COMPONENT/SEARCH BAR | Complete Rendering SEARCH BAR ');
   }
 
   onMinAgeChange = (e) => {
@@ -82,7 +65,6 @@ class SearchBar extends Component {
   }
 
   render() {
-    console.log('      COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
     return (
       <div>
         <Card>
@@ -142,13 +124,4 @@ class SearchBar extends Component {
   }
 }
 
-// console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props: ', searchUsers);
-console.log('COMPONENT/SEARCH BAR | Connecting SEARCH BAR with Redux Form');
-console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  searchUsers');
-
-
-// export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
 export default connect(null, { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity })(SearchBar);
-
-console.log('COMPONENT/SEARCH BAR | Exported SEARCH BAR ');
-console.log(' ');
