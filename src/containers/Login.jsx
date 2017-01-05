@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -105,8 +105,6 @@ LogIn = reduxForm({
   form: 'LogIn',
   validate,
 })(LogIn);
-
-const selector = formValueSelector('myFormName');
 
 export default connect(null, { loginUser })(LogIn);
 
