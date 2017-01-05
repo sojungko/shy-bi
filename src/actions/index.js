@@ -6,6 +6,8 @@ console.log('ACTIONS | Exporting ACTIONS...');
 
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
+export const LIKE_USER = 'LIKE_USER';
+export const LIKED_USERS = 'LIKED_USERS';
 export const FILTER_USERS = 'FILTER_USERS';
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
@@ -53,6 +55,30 @@ export function getUser(username) {
       });
   };
 }
+
+export function likeUser(username, likedUser) {
+  console.log(`      ACTIONS/LIKE_USER | ${username} is liking ${likedUser}`);
+
+  return (dispatch) => {
+    console.log('      ACTIONS/LIKE_USER | Making POST Request to BE: //users/like');
+
+    return axios.post('/api/users/like', { username, likedUser })
+      .then(({ data }) => {
+        console.log('      ACTIONS/LIKE_USER | Recevied Data from BE: ', data);
+        // console.log('      ACTIONS/LIKE_USER | Recevied User Data from BE');
+        // return dispatch({ type: LIKE_USER, payload: data });
+      });
+  };
+}
+
+/* Fetch Liked Users */
+// export function likedUsers(username) {
+//   console.log(`      ACTIONS/Liked_USERS | Fetching User: ${username}`))
+//
+//   return (dispatch) => {
+//     return axios.get(``)
+//   }
+// }
 
 /* -- Filter users -- */
 
