@@ -28,7 +28,7 @@ class RecommendedUsers extends Component {
       .then(() => this.context.router.push(`/profile/${userName}`));
   }
 
-  renderList() {
+  renderRecommendedUsersList() {
     return this.props.users.map((user, index) => (
       <UserListItem key={index} user={user} handleClick={this.handleClick} />
     ));
@@ -39,15 +39,13 @@ class RecommendedUsers extends Component {
     return (
       <div>
         <ul>
-          {this.renderList()}
+          {this.renderRecommendedUsersList()}
         </ul>
       </div>
     );
   }
 }
 
-function mapStateToProps({ users, actions }) {
-  return { users: getRecommendedUsers(users, actions) };
-}
+const mapStateToProps = ({ users }) => ({ users });
 
-export default connect(mapStateToProps, { getUser, getRecommendedUsers, RecommendedUsers })(RecommendedUsers);
+export default connect(mapStateToProps, { getUser, getRecommendedUsers })(RecommendedUsers);
