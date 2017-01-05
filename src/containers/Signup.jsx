@@ -92,30 +92,30 @@ class SignUp extends Component {
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">Sign Up</h2>
           <div className="field-line">
-            <Field name="username" type="text" component={renderTextField} label="Username" />
+            <Field name="username" type="text" component={this.renderTextField} label="Username" />
           </div>
           <div className="field-line">
-            <Field name="password" type="password" component={renderTextField} label="Password" />
+            <Field name="password" type="password" component={this.renderTextField} label="Password" />
           </div>
           <div className="field-line">
-            <Field name="name" type="text" component={renderTextField} label="Name" />
+            <Field name="name" type="text" component={this.renderTextField} label="Name" />
           </div>
           <div className="field-line">
-            <Field name="email" type="email" component={renderTextField} label="Email" />
+            <Field name="email" type="email" component={this.renderTextField} label="Email" />
           </div>
           <div className="field-line">
-            <Field name="age" type="number" component={renderTextField} label="Age" />
+            <Field name="age" type="number" component={this.renderTextField} label="Age" />
           </div>
           <div className="field-line">
             <div>
-              <Field name="sex" component={renderRadioGroup}>
+              <Field name="sex" component={this.renderRadioGroup}>
                 <RadioButton value="male" label="male" style={styles.RadioButton} />
                 <RadioButton value="female" label="female" style={styles.RadioButton} />
               </Field>
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={renderTextField} label="City" />
+            <Field name="city" type="text" component={this.renderTextField} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" primary />
