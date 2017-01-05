@@ -8,7 +8,7 @@ import Messages from '../containers/Messages';
 import UserList from '../containers/UserList';
 import Likes from '../containers/Likes';
 import Profile from '../containers/Profile';
-import Recommended from '../containers/Recommended';
+import RecommendedUsers from '../containers/RecommendedUsers';
 
 console.log('REACT-ROUTER | Exporting REACT-ROUTER...');
 
@@ -35,7 +35,7 @@ export default (
     <Route path="profile/:username" component={Profile} />
     <Route path="messages" component={Messages} />
     <Route path="likes/:username" component={Likes} />
-    <Route path="recommended" component={Recommended} />
+    <Route path="recommended" component={RecommendedUsers} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />
   </Route>

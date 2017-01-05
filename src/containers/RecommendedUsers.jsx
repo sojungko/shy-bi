@@ -46,8 +46,8 @@ class RecommendedUsers extends Component {
   }
 }
 
-function mapStateToProps({ visibleUsers, actions }) {
-  return { visibleUsers: getRecommendedUsers(actions) };
-}
+// function mapStateToProps({ actions }) {
+//   return { visibleUsers: getRecommendedUsers(actions) };
+// }
 
-export default connect(mapStateToProps, { getUser, getRecommendedUsers, RecommendedUsers })(RecommendedUsers);
+export default connect(null, { getUser, getRecommendedUsers, RecommendedUsers })(RecommendedUsers);
