@@ -44,9 +44,9 @@ class LogIn extends Component {
       Password: ${inputs.password}`);
     this.props.loginUser(inputs)
       .then(() => {
-        console.log(`    CONTAINER/LOGIN  | Success, Redirecting User to /profile/${inputs.username}`);
+        console.log('    CONTAINER/LOGIN  | Success, Redirecting User to /profile/');
         console.log(' ');
-        this.context.router.push(`/profile/${inputs.username}`);
+        this.context.router.push('/');
       });
   }
 
