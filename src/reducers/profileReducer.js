@@ -1,7 +1,5 @@
 import { GET_USER } from '../actions';
 
-console.log('REDUCER/PROFILE | Exporting PROFILE Reducer...');
-
 export default function (state = {}, action) {
   switch (action.type) {
     case GET_USER:
@@ -13,6 +11,3 @@ export default function (state = {}, action) {
       return state;
   }
 }
-
-console.log('REDUCER/PROFILE | Exported PROFILE Reducer');
-console.log(' ');
