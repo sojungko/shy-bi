@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import ImageUpload from '../components/ImageUpload';
 
-const MyAccount = () => {
+export default function MyAccount() {
   return (
     <ImageUpload />
   );
