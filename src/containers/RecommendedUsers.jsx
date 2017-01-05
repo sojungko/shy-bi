@@ -6,7 +6,7 @@ import { getRecommendedUsers, getUser } from '../actions';
 
 class RecommendedUsers extends Component {
   static propTypes = {
-    visibleUsers: PropTypes.arrayOf(PropTypes.object),
+    users: PropTypes.arrayOf(PropTypes.object.isRequired),
     getRecommendedUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
   }
@@ -28,26 +28,24 @@ class RecommendedUsers extends Component {
       .then(() => this.context.router.push(`/profile/${userName}`));
   }
 
-  // renderList() {
-  //   return this.props.visibleUsers.map((user, index) => (
-  //     <UserListItem key={index} user={user} handleClick={this.handleClick} />
-  //   ));
-  // }
+  renderRecommendedUsersList() {
+    return this.props.users.map((user, index) => (
+      <UserListItem key={index} user={user} handleClick={this.handleClick} />
+    ));
+  }
 
   render() {
     console.log('RENDERING Recommended users.....');
     return (
       <div>
         <ul>
-          RECOMMENDED USER
+          {this.renderRecommendedUsersList()}
         </ul>
       </div>
     );
   }
 }
 
-// function mapStateToProps({ actions }) {
-//   return { visibleUsers: getRecommendedUsers(actions) };
-// }
+const mapStateToProps = ({ users }) => ({ users });
 
-export default connect(null, { getUser, getRecommendedUsers, RecommendedUsers })(RecommendedUsers);
+export default connect(mapStateToProps, { getUser, getRecommendedUsers })(RecommendedUsers);
