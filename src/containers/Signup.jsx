@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { RadioButton } from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import TextField from 'material-ui/TextField';
+
 
 import { signupUser } from '../actions/index';
 import { renderTextField, renderRadioGroup } from '../components/Presentational';
@@ -63,6 +65,23 @@ class SignUp extends Component {
         this.context.router.push('/');
       });
   }
+  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  );
+
+  renderRadioGroup = ({ input, ...rest }) => (
+    <RadioButtonGroup
+      {...input} {...rest}
+      valueSelected={input.value}
+      onChange={(event, value) => input.onChange(value)}
+    />
+  );
 
   render() {
     console.log('    CONTAINER/SIGN UP | Rendering SIGN UP Container... ');

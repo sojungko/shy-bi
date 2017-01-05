@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import { renderTextField } from '../components/Presentational';
 
 import { loginUser } from '../actions/index';
@@ -49,6 +50,16 @@ class LogIn extends Component {
         this.context.router.push('/');
       });
   }
+
+  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
 
   render() {
     console.log('    CONTAINER/PROFILE | Rendering LOGIN Container...');
