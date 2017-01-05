@@ -6,6 +6,7 @@ console.log('ACTIONS | Exporting ACTIONS...');
 
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
+export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 export const LIKE_USER = 'LIKE_USER';
 export const LIKED_USERS = 'LIKED_USERS';
 export const FILTER_USERS = 'FILTER_USERS';
@@ -52,6 +53,19 @@ export function getUser(username) {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+}
+
+export function getRecommendedUsers(username) {
+  return (dispatch) => {
+    return axios.get(`/api/recommendations/${username}`)
+      .then(({ data }) => {
+        console.log('      ACTIONS/GET_RECOMMENDED_USERS | Recevied Data from BE: ', data);
+        return dispatch({ type: GET_RECOMMENDED_USERS, payload: data });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 }
