@@ -10,6 +10,7 @@ class Messages extends Component {
 
   static propTypes = {
     getAllMessages: PropTypes.func.isRequired,
+    messages: PropTypes.arrayOf(PropTypes.object.isRequired),
   }
 
   componentWillMount() {
@@ -21,11 +22,23 @@ class Messages extends Component {
     }
   }
 
+  renderList() {
+    return this.props.messages.map((message, index) => (
+      <div key={index}>
+        <h4>Sent By: {message.sentBy}</h4>
+        <h5>Title: {message.title}</h5>
+        <p>Body: {message.body}</p>
+      </div>
+      ),
+    );
+  }
+
   render() {
     return (
-      <div>Messages</div>
+      <div>{this.renderList()}</div>
     );
   }
 }
 
-export default connect(null, { getAllMessages })(Messages);
+const mapStateToProps = ({ messages }) => ({ messages });
+export default connect(mapStateToProps, { getAllMessages })(Messages);

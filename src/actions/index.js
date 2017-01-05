@@ -90,5 +90,5 @@ export function loginUser(props) {
 
 export function getAllMessages(username) {
   return dispatch => axios.get(`api/messages/all/${username}`)
-    .then(messages => dispatch({ type: GET_ALL_MESSAGES, payload: messages }));
+    .then(({ data }) => dispatch({ type: GET_ALL_MESSAGES, payload: data }));
 }
