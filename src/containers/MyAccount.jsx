@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import ImageUpload from '../components/ImageUpload';
+import EditBio from '../components/EditBio';
 
-export default function MyAccount() {
-  return (
-    <ImageUpload />
-  );
+class MyAccount extends Component {
+
+  render() {
+    return (
+      <div>
+        <EditBio />
+      </div>
+    );
+  }
 }
+
+export default MyAccount;
