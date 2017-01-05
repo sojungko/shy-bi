@@ -15,6 +15,7 @@ export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
 export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
 export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
 export const EDIT_BIO_SUCCESS = 'EDIT_BIO_SUCCESS';
+export const IMAGE_UPLOAD_SUCCESS = 'IMAGE_UPLOAD_SUCCESS';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -97,11 +98,22 @@ export function getAllMessages(username) {
 
 /* -- Editing Bio -- */
 export function editBio(props) {
-  return dispatch => axios.post('/api/myaccount/edit_bio', props)
+  return dispatch => axios.post('/api/bio/edit_bio', props)
     .then(({ data }) => {
-      return dispatch({ type: EDIT_BIO_SUCCESS, payload: data })
+      return dispatch({ type: EDIT_BIO_SUCCESS, payload: data });
     })
     .catch((error) => {
       console.log('     ACTIONS/EDIT_BIO_SUCCESS | ', error);
+    });
+}
+
+export function uploadImage(props) {
+  console.log('     ACTIONS/UPLOAD IMAGE props | ', props);
+  return dispatch => axios.post('/api/bio/upload_image', props)
+    .then(({ data }) => {
+      return dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: data });
     })
+    .catch((error) => {
+      console.log('     ACTIONS/IMAGE_UPLOAD_SUCCESS | ', error);
+    });
 }
