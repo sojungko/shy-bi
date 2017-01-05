@@ -21,6 +21,7 @@ class Navbar extends Component {
           <Tab label="Likes" containerElement={<Link to={`/likes/${username}`} />} />
           <Tab label="Messages" containerElement={<Link to={'messages'} />} />
           <Tab label="Recommended For You" containerElement={<Link to="/recommended" />} />
+          <Tab label="My Account" containerElement={<Link to="/myaccount" />} />
           <Tab label="Logout" containerElement={<Link to="/" />} onClick={this.handleLogout} />
         </Tabs>
       );
