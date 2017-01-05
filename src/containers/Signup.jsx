@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { RadioButton } from 'material-ui/RadioButton';
 
 import { signupUser } from '../actions/index';
+import { renderTextField, renderRadioGroup } from '../components/Presentational';
 
 console.log('CONTAINER/SIGN UP | Exporting SIGN UP...');
 
@@ -64,25 +64,6 @@ class SignUp extends Component {
       });
   }
 
-  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField
-      hintText={label}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom}
-    />
-  )
-
-  renderRadioGroup = ({ input, ...rest }) => (
-    <RadioButtonGroup
-      {...input} {...rest}
-      valueSelected={input.value}
-      onChange={(event, value) => input.onChange(value)}
-    />
-  )
-
-
   render() {
     console.log('    CONTAINER/SIGN UP | Rendering SIGN UP Container... ');
     const { handleSubmit, pristine, submitting } = this.props;
@@ -92,30 +73,30 @@ class SignUp extends Component {
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">Sign Up</h2>
           <div className="field-line">
-            <Field name="username" type="text" component={this.renderTextField} label="Username" />
+            <Field name="username" type="text" component={renderTextField} label="Username" />
           </div>
           <div className="field-line">
-            <Field name="password" type="password" component={this.renderTextField} label="Password" />
+            <Field name="password" type="password" component={renderTextField} label="Password" />
           </div>
           <div className="field-line">
-            <Field name="name" type="text" component={this.renderTextField} label="Name" />
+            <Field name="name" type="text" component={renderTextField} label="Name" />
           </div>
           <div className="field-line">
-            <Field name="email" type="email" component={this.renderTextField} label="Email" />
+            <Field name="email" type="email" component={renderTextField} label="Email" />
           </div>
           <div className="field-line">
-            <Field name="age" type="number" component={this.renderTextField} label="Age" />
+            <Field name="age" type="number" component={renderTextField} label="Age" />
           </div>
           <div className="field-line">
             <div>
-              <Field name="sex" component={this.renderRadioGroup}>
+              <Field name="sex" component={renderRadioGroup}>
                 <RadioButton value="male" label="male" style={styles.RadioButton} />
                 <RadioButton value="female" label="female" style={styles.RadioButton} />
               </Field>
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={this.renderTextField} label="City" />
+            <Field name="city" type="text" component={renderTextField} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" primary />

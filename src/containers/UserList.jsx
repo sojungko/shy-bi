@@ -7,7 +7,8 @@ import { getUser,
         FILTER_USERS_BY_MIN_AGE,
         FILTER_USERS_BY_MAX_AGE,
         FILTER_USERS_BY_CITY } from '../actions';
-import SearchBar from '../components/SearchBar';
+// import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/SearchBar_redux_form';
 import UserListItem from '../components/UserListItem';
 
 console.log('CONTAINER/USERLIST | Exporting USERLIST...');
