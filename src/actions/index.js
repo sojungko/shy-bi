@@ -14,6 +14,7 @@ export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';
 export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
 export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
 export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
+export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -55,22 +56,22 @@ export function getUser(username) {
 }
 
 /* -- Filter users -- */
-
-export function filterUsersBySex(props) {
-  console.log('      ACTIONS/FILTER_USERS_BY_SEX | Filtering Users by Sex', props);
-  return { type: FILTER_USERS_BY_SEX, payload: props };
+// Sends filter information to filter reducer
+export function filterUsersBySex(filter) {
+  console.log('      ACTIONS/FILTER_USERS_BY_SEX | Filtering Users by Sex', filter);
+  return { type: FILTER_USERS_BY_SEX, payload: filter };
 }
 
-export function filterUsersByMinAge(props) {
-  return { type: FILTER_USERS_BY_MIN_AGE, payload: props };
+export function filterUsersByMinAge(filter) {
+  return { type: FILTER_USERS_BY_MIN_AGE, payload: filter };
 }
 
-export function filterUsersByMaxAge(props) {
-  return { type: FILTER_USERS_BY_MAX_AGE, payload: props };
+export function filterUsersByMaxAge(filter) {
+  return { type: FILTER_USERS_BY_MAX_AGE, payload: filter };
 }
 
-export function filterUsersByCity(props) {
-  return { type: FILTER_USERS_BY_CITY, payload: props };
+export function filterUsersByCity(filter) {
+  return { type: FILTER_USERS_BY_CITY, payload: filter };
 }
 
 

@@ -4,6 +4,8 @@ import { reducer as FormReducer } from 'redux-form';
 import UsersReducer from './usersReducer';
 import ProfileReducer from './profileReducer';
 import AuthReducer from './authReducer';
+import FilterReducer from './filterReducer';
+import VisibleUsersReducer from './visibleUsersReducer';
 
 console.log('REDUCERS/ROOT | Exporting ROOT Reducer...');
 console.log('REDUCERS/ROOT | Importing FormReducer');
@@ -18,6 +20,8 @@ const RootReducer = combineReducers({
   users: UsersReducer,
   profile: ProfileReducer,
   auth: AuthReducer,
+  filter: FilterReducer,
+  visibleUsers: VisibleUsersReducer(UsersReducer, FilterReducer),
 });
 
 export default RootReducer;
