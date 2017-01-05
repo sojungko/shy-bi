@@ -1,8 +1,5 @@
 import axios from 'axios';
-import { hashHistory } from 'react-router';
 import { authenticateUser } from '../modules/auth';
-
-console.log('ACTIONS | Exporting ACTIONS...');
 
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
@@ -11,7 +8,6 @@ export const LIKE_USER = 'LIKE_USER';
 export const LIKED_USERS = 'LIKED_USERS';
 export const FILTER_USERS = 'FILTER_USERS';
 export const SIGN_UP_USER = 'SIGN_UP_USER';
-export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';
 export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
@@ -21,19 +17,9 @@ export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
-  console.log('      ACTIONS/GET_ALL_USERS | Fetching All Users');
-
   return (dispatch) => {
-    console.log('      ACTIONS/GET_ALL_USERS | Making GET Request to BE: /api/search/all');
-
     axios.get('/api/search/all')
-      .then(({ data }) => {
-        // console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE: ', data);
-        console.log('      ACTIONS/GET_ALL_USERS | Recevied Data from BE:  All User');
-        console.log('      ACTIONS/GET_ALL_USERS | Dispatching GET_ALL_USERS to reducers');
-
-        return dispatch({ type: GET_ALL_USERS, payload: data });
-      })
+      .then(({ data }) => dispatch({ type: GET_ALL_USERS, payload: data }))
       .catch((error) => {
         console.error(error);
       });
@@ -41,47 +27,27 @@ export function getAllUsers() {
 }
 
 export function getUser(username) {
-  console.log(`      ACTIONS/GET_USER | Fetching User: ${username}`);
-
-  return (dispatch) => {
-    console.log(`      ACTIONS/GET_USER | Making GET Request to BE: /api/users/${username}`);
-
-    return axios.get(`/api/users/${username}`)
-      .then(({ data }) => {
-        console.log('      ACTIONS/GET_USER | Recevied Data from BE: ', data);
-        // console.log('      ACTIONS/GET_USER | Recevied User Data from BE');
-        return dispatch({ type: GET_USER, payload: data });
-      })
+  return dispatch => axios.get(`/api/users/${username}`)
+      .then(({ data }) => dispatch({ type: GET_USER, payload: data }))
       .catch((error) => {
         console.log(error);
       });
-  };
 }
 
 export function getRecommendedUsers(username) {
   return dispatch => axios.get(`/api/recommendations/${username}`)
-      .then(({ data }) => {
-        console.log('      ACTIONS/GET_RECOMMENDED_USERS | Recevied Data from BE: ', data);
-        return dispatch({ type: GET_RECOMMENDED_USERS, payload: data });
-      })
+      .then(({ data }) => dispatch({ type: GET_RECOMMENDED_USERS, payload: data }))
       .catch((error) => {
         console.error(error);
       });
 }
 
 export function likeUser(username, likedUser) {
-  console.log(`      ACTIONS/LIKE_USER | ${username} is liking ${likedUser}`);
-
-  return (dispatch) => {
-    console.log('      ACTIONS/LIKE_USER | Making POST Request to BE: //users/like');
-
-    return axios.post('/api/users/like', { username, likedUser })
+  return dispatch => axios.post('/api/users/like', { username, likedUser })
       .then(({ data }) => {
-        console.log('      ACTIONS/LIKE_USER | Recevied Data from BE: ', data);
-        // console.log('      ACTIONS/LIKE_USER | Recevied User Data from BE');
-        // return dispatch({ type: LIKE_USER, payload: data });
+        console.log(data);
+        // TODO: DISPATCH ACTION TO REDUCER
       });
-  };
 }
 
 /* Fetch Liked Users */
@@ -95,94 +61,36 @@ export function likeUser(username, likedUser) {
 
 /* -- Filter users -- */
 // Sends filter information to filter reducer
-export function filterUsersBySex(filter) {
-  console.log('      ACTIONS/FILTER_USERS_BY_SEX | Filtering Users by Sex', filter);
-  return { type: FILTER_USERS_BY_SEX, payload: filter };
-}
 
-export function filterUsersByMinAge(filter) {
-  return { type: FILTER_USERS_BY_MIN_AGE, payload: filter };
-}
-
-export function filterUsersByMaxAge(filter) {
-  return { type: FILTER_USERS_BY_MAX_AGE, payload: filter };
-}
-
-export function filterUsersByCity(filter) {
-  return { type: FILTER_USERS_BY_CITY, payload: filter };
-}
-
+export const filterUsersBySex = filter => ({ type: FILTER_USERS_BY_SEX, payload: filter });
+export const filterUsersByMinAge = filter => ({ type: FILTER_USERS_BY_MIN_AGE, payload: filter });
+export const filterUsersByMaxAge = filter => ({ type: FILTER_USERS_BY_MAX_AGE, payload: filter });
+export const filterUsersByCity = filter => ({ type: FILTER_USERS_BY_CITY, payload: filter });
 
 /* -- Signing up User--*/
 export function signupUser(props) {
-  // console.log('      ACTIONS/SIGN_UP_USER | Signing Up: ', props);
-  console.log(`      ACTIONS/SIGN_UP_USER | Signing Up: ${props.username}`);
-
-  return (dispatch) => {
-    console.log('      ACTIONS/SIGN_UP_USER | Making POST Request to BE: /auth/signup');
-
-    return axios.post('/auth/signup', props)
+  return dispatch => axios.post('/auth/signup', props)
       .then(({ data }) => {
-        // console.log('      ACTIONS/SIGN_UP_USER | Recevied Data from BE: ', data);
-        console.log(`      ACTIONS/SIGN_UP_USER | Received Data from BE ${props.username}`);
-
-        console.log(`      ACTIONS/SIGN_UP_USER | Setting token to local storage: ${data.token.slice(0, 10)}...`);
         authenticateUser(data.token, data.user.username);
-
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching SIGN_UP_USER to reducers');
         return dispatch({ type: SIGN_UP_USER, payload: data });
       })
       .catch((error) => {
         console.log('actions/index signupUser error : ', error);
       });
-  };
-}
-
-/* -- Logging in User--*/
-export function loginUserFailure(error) {
-  console.log('      ACTIONS/LOGIN_USER_FAILURE | Could not log in : ', error);
-  return {
-    type: LOGIN_USER_FAILURE,
-    payload: error,
-  };
 }
 
 export function loginUser(props) {
-  // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Logging in : ', props);
-  console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Logging in ${props.username}`);
-
-  return (dispatch) => {
-    console.log('      ACTIONS/LOGIN_USER_SUCCESS | Making POST Request to BE: /auth/signin');
-
-    return axios.post('/auth/signin', props)
+  return dispatch => axios.post('/auth/signin', props)
       .then(({ data }) => {
-        // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ', data);
-        // console.log('      ACTIONS/LOGIN_USER_SUCCESS | Setting token to loca storage ', data.token);
-        console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ${props.username}'s user data`);
-        console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Setting token to local storage: ${data.token.slice(0, 10)}...`);
-
         authenticateUser(data.token, data.user.username);
-
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching LOGIN_USER_SUCCESS to reducers');
         return dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
       })
       .catch((error) => {
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
       });
-  };
 }
 
 export function getAllMessages(username) {
-  console.log(`      ACTIONS/GET_ALL_MESSAGES | Fetching Message received by ${username}`);
-  return (dispatch) => {
-    console.log('      ACTIONS/GET_ALL_MESSAGES | Making GET Request to BE: messages/all/:username');
-    return axios.get(`api/messages/all/${username}`)
-      .then((messages) => {
-        console.log('      ACTIONS/GET_ALL_MESSAGES | Recevied Messages from BE', messages);
-        return dispatch({ type: GET_ALL_MESSAGES, payload: messages });
-      });
-  };
+  return dispatch => axios.get(`api/messages/all/${username}`)
+      .then(messages => dispatch({ type: GET_ALL_MESSAGES, payload: messages }));
 }
-
-console.log('ACTIONS | Exported ACTIONS');
-console.log(' ');
