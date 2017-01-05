@@ -17,6 +17,7 @@ export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';
 export const FILTER_USERS_BY_MIN_AGE = 'FILTER_USERS_BY_MIN_AGE';
 export const FILTER_USERS_BY_MAX_AGE = 'FILTER_USERS_BY_MAX_AGE';
 export const FILTER_USERS_BY_CITY = 'FILTER_USERS_BY_CITY';
+export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
@@ -58,8 +59,7 @@ export function getUser(username) {
 }
 
 export function getRecommendedUsers(username) {
-  return (dispatch) => {
-    return axios.get(`/api/recommendations/${username}`)
+  return dispatch => axios.get(`/api/recommendations/${username}`)
       .then(({ data }) => {
         console.log('      ACTIONS/GET_RECOMMENDED_USERS | Recevied Data from BE: ', data);
         return dispatch({ type: GET_RECOMMENDED_USERS, payload: data });
@@ -67,7 +67,6 @@ export function getRecommendedUsers(username) {
       .catch((error) => {
         console.error(error);
       });
-  };
 }
 
 export function likeUser(username, likedUser) {
@@ -169,6 +168,18 @@ export function loginUser(props) {
       })
       .catch((error) => {
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
+      });
+  };
+}
+
+export function getAllMessages(username) {
+  console.log(`      ACTIONS/GET_ALL_MESSAGES | Fetching Message received by ${username}`);
+  return (dispatch) => {
+    console.log('      ACTIONS/GET_ALL_MESSAGES | Making GET Request to BE: messages/all/:username');
+    return axios.get(`api/messages/all/${username}`)
+      .then((messages) => {
+        console.log('      ACTIONS/GET_ALL_MESSAGES | Recevied Messages from BE', messages);
+        return dispatch({ type: GET_ALL_MESSAGES, payload: messages });
       });
   };
 }

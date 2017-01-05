@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { isUserAuthenticated } from '../modules/auth';
+import { connect } from 'react-redux';
+import { isUserAuthenticated, getUsername } from '../modules/auth';
+import { getAllMessages } from '../actions/index';
 
 console.log('CONTAINER/MESSSAGES | Exporting MESSSAGES...');
 
@@ -17,6 +19,8 @@ class Messages extends Component {
       this.context.router.push('/login');
     } else {
       console.log('      CONTAINER/MESSSAGES | User is authenticated. Populating page with Messages data');
+      const username = getUsername();
+      this.props.getAllMessages(username);
     }
   }
 
@@ -41,4 +45,4 @@ class Messages extends Component {
   }
 }
 
-export default Messages;
+export default connect(null, { getAllMessages })(Messages);
