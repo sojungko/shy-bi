@@ -17,37 +17,35 @@ export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
 
 /* -- Fetching Users --*/
 export function getAllUsers() {
-  return (dispatch) => {
-    axios.get('/api/search/all')
-      .then(({ data }) => dispatch({ type: GET_ALL_USERS, payload: data }))
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  return dispatch => axios.get('/api/search/all')
+    .then(({ data }) => dispatch({ type: GET_ALL_USERS, payload: data }))
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export function getUser(username) {
   return dispatch => axios.get(`/api/users/${username}`)
-      .then(({ data }) => dispatch({ type: GET_USER, payload: data }))
-      .catch((error) => {
-        console.log(error);
-      });
+    .then(({ data }) => dispatch({ type: GET_USER, payload: data }))
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 export function getRecommendedUsers(username) {
   return dispatch => axios.get(`/api/recommendations/${username}`)
-      .then(({ data }) => dispatch({ type: GET_RECOMMENDED_USERS, payload: data }))
-      .catch((error) => {
-        console.error(error);
-      });
+    .then(({ data }) => dispatch({ type: GET_RECOMMENDED_USERS, payload: data }))
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export function likeUser(username, likedUser) {
   return dispatch => axios.post('/api/users/like', { username, likedUser })
-      .then(({ data }) => {
-        console.log(data);
-        // TODO: DISPATCH ACTION TO REDUCER
-      });
+    .then(({ data }) => {
+      console.log(data);
+      // TODO: DISPATCH ACTION TO REDUCER
+    });
 }
 
 /* Fetch Liked Users */
@@ -70,27 +68,27 @@ export const filterUsersByCity = filter => ({ type: FILTER_USERS_BY_CITY, payloa
 /* -- Signing up User--*/
 export function signupUser(props) {
   return dispatch => axios.post('/auth/signup', props)
-      .then(({ data }) => {
-        authenticateUser(data.token, data.user.username);
-        return dispatch({ type: SIGN_UP_USER, payload: data });
-      })
-      .catch((error) => {
-        console.log('actions/index signupUser error : ', error);
-      });
+    .then(({ data }) => {
+      authenticateUser(data.token, data.user.username);
+      return dispatch({ type: SIGN_UP_USER, payload: data });
+    })
+    .catch((error) => {
+      console.log('actions/index signupUser error : ', error);
+    });
 }
 
 export function loginUser(props) {
   return dispatch => axios.post('/auth/signin', props)
-      .then(({ data }) => {
-        authenticateUser(data.token, data.user.username);
-        return dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
-      })
-      .catch((error) => {
-        console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
-      });
+    .then(({ data }) => {
+      authenticateUser(data.token, data.user.username);
+      return dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
+    })
+    .catch((error) => {
+      console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
+    });
 }
 
 export function getAllMessages(username) {
   return dispatch => axios.get(`api/messages/all/${username}`)
-      .then(messages => dispatch({ type: GET_ALL_MESSAGES, payload: messages }));
+    .then(messages => dispatch({ type: GET_ALL_MESSAGES, payload: messages }));
 }

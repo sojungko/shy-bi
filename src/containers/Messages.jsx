@@ -8,6 +8,10 @@ class Messages extends Component {
     router: PropTypes.object.isRequired,
   }
 
+  static propTypes = {
+    getAllMessages: PropTypes.func.isRequired,
+  }
+
   componentWillMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
