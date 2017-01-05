@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated } from '../modules/auth';
-import { getUser, getAllUsers } from '../actions/index';
+import { getUser, likeUser } from '../actions/index';
 
 console.log('CONTAINER/PROFILE | Exporting PROFILE...');
 
@@ -26,6 +26,12 @@ class Profile extends Component {
     router: PropTypes.object.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.currentUser = localStorage.getItem('username');
+    this.profilePageUser = this.props.params.username;
+  }
+
   componentWillMount() {
     console.log('    CONTAINER/PROFILE | Preparing to render PROFILE container');
     console.log('      CONTAINER/PROFILE | Checking if User is Authenticated');
@@ -35,7 +41,7 @@ class Profile extends Component {
       this.context.router.push('/login');
     } else if (!this.props.params.username) {
       console.log(`     CONTAINER/PROFILE | User is Authenticated. Fetching User data: ${localStorage.getItem('username')}`);
-      this.props.getUser(localStorage.getItem('username'));
+      this.props.getUser(this.currentUser);
     } else {
       const username = this.props.params.username;
       console.log(`      CONTAINER/PROFILE | User is authenticated. Fetching User data: ${username}`);
@@ -66,6 +72,11 @@ class Profile extends Component {
     console.log('    CONTAINER/PROFILE | Complete Rendering PROFILE ');
   }
 
+  handleLikeButton = () => {
+    console.log(`    CONTAINER/PROFILE | ${this.currentUser} is liking ${this.profilePageUser}`);
+    this.props.likeUser(this.currentUser, this.profilePageUser);
+  }
+
   renderProfile() {
     console.log('    CONTAINER/PROFILE | Generating User Profile Detail List ', this.props.profile);
     const { name, sex, age, city } = this.props.profile;
@@ -79,11 +90,20 @@ class Profile extends Component {
     );
   }
 
+  renderLikeButton() {
+    if (this.profilePageUser) {
+      return (
+        <button onClick={this.handleLikeButton}>Like</button>
+      );
+    }
+  }
+
   render() {
     console.log('    CONTAINER/PROFILE | Rendering PROFILE Container...');
     return (
       <div>
         {this.renderProfile()}
+        {this.renderLikeButton()}
       </div>
     );
   }
@@ -98,7 +118,7 @@ function mapStateToProps({ profile }) {
 // console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: ', getUser, getAllUsers);
 console.log('CONTAINER/PROFILE & REDUX | Mapping actions to props: getUser, getAllUsers');
 console.log('CONTAINER/PROFILE | Connecting PROFILE Container with REDUX STORE');
-export default connect(mapStateToProps, { getUser, getAllUsers })(Profile);
+export default connect(mapStateToProps, { getUser, likeUser })(Profile);
 
 console.log('CONTAINER/PROFILE | Exported PROFILE');
 console.log(' ');
