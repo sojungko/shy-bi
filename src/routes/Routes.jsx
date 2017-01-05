@@ -5,6 +5,7 @@ import App from '../containers/App';
 import LogIn from '../containers/Login';
 import SignUp from '../containers/Signup';
 import UserList from '../containers/UserList';
+import Likes from '../containers/Likes';
 import Profile from '../containers/Profile';
 import Recommended from '../containers/Recommended';
 
@@ -31,6 +32,7 @@ export default (
     <Route path="signup" component={SignUp} />
     <Route path="search" component={UserList} />
     <Route path="profile/:username" component={Profile} />
+    <Route path="likes/:username" component={Likes} />
     <Route path="recommended" component={Recommended} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />

@@ -127,7 +127,7 @@ export function loginUser(props) {
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Recevied Data from BE: ${props.username}'s user data`);
         console.log(`      ACTIONS/LOGIN_USER_SUCCESS | Setting token to local storage: ${data.token.slice(0, 10)}...`);
 
-        authenticateUser(data.token, data.username);
+        authenticateUser(data.token, data.user.username);
 
         console.log('      ACTIONS/LOGIN_USER_SUCCESS | Dispatching LOGIN_USER_SUCCESS to reducers');
         return dispatch({ type: LOGIN_USER_SUCCESS, payload: data });

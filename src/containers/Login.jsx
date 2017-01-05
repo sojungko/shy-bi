@@ -61,6 +61,7 @@ class LogIn extends Component {
   )
 
   render() {
+    console.log('    CONTAINER/PROFILE | Rendering LOGIN Container...');
     const { handleSubmit, pristine, submitting } = this.props;
     return (
       <Card className="container">
