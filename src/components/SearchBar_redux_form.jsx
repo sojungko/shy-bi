@@ -17,32 +17,73 @@ class SearchBar extends Component {
     filterUsersByMinAge: PropTypes.func.isRequired,
     filterUsersByMaxAge: PropTypes.func.isRequired,
     filterUsersByCity: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
     pristine: PropTypes.boolean,
     reset: PropTypes.func,
   }
 
+  onMinAgeChange = (event, value) => {
+    console.log('MIN AGE CHANGE event: ', event);
+    console.log('MIN AGE CHANGE value : ', value);
+    // this.props.filterUsersByMinAge(input);
+  }
+
+  onMaxAgeChange = (input) => {
+    console.log('MAX AGE CHANGE input : ', input);
+    // this.props.filterUsersByMaxAge(input);
+  }
+
+  onSexChange = (input) => {
+    console.log('SEX CHANGE input : ', input);
+    // this.props.filterUsersBySex(input);
+  }
+
+  onCityChange = (input) => {
+    console.log('CITY CHANGE input : ', input);
+    // this.props.filterUsersByCity(input);
+  }
+
   render() {
     console.log('      COMPONENT/SEARCH BAR | Rendering SEARCH BAR Component...');
-    const { pristine, reset } = this.props;
+    const { handleSubmit, pristine, reset } = this.props;
+    console.log('     COMPONENT/SEARCH BAR | handleSubmit : ', handleSubmit);
     return (
       <div>
         <Card>
           <form>
             <h2 className="card-heading">Search</h2>
             <div className="field-line">
-              <Field name="minAge" type="number" component={renderTextField} label="Minimum Age" />
+              <Field
+                name="filter_minAge"
+                type="number"
+                component={renderTextField}
+                listener={handleSubmit(this.onMinAgeChange)}
+                label="Minimum Age"
+              />
             </div>
             <div className="field-line">
-              <Field name="maxAge" type="number" component={renderTextField} label="Maximum Age" />
+              <Field
+                name="filter_maxAge"
+                type="number"
+                component={renderTextField}
+                onChange={this.onMaxAgeChange}
+                label="Maximum Age"
+              />
             </div>
             <div className="field-line">
-              <Field name="sex" component={renderRadioGroup}>
+              <Field name="filter_sex" component={renderRadioGroup}>
                 <RadioButton value="male" label="male" />
                 <RadioButton value="female" label="female" />
               </Field>
             </div>
             <div className="field-line">
-              <Field name="city" type="text" component={renderTextField} label="City" />
+              <Field
+                name="filter_city"
+                type="text"
+                component={renderTextField}
+                onChange={this.onCityChange}
+                label="City"
+              />
             </div>
           </form>
           <RaisedButton label="Clear Fields" disabled={pristine} onClick={reset} />
@@ -59,22 +100,14 @@ console.log('COMPONENT/SEARCH BAR & REDUX FORM | Mapping actions to props:  sear
 SearchBar = reduxForm({
   form: 'SearchBarForm',
 })(SearchBar);
-
-const selector = formValueSelector('SearchBarForm')
-SearchBar = connect(
-  state => {
-    // can select values individually
-    const hasEmailValue = selector(state, 'hasEmail')
-    const favoriteColorValue = selector(state, 'favoriteColor')
-    // or together as a group
-    const { firstName, lastName } = selector(state, 'firstName', 'lastName')
-    return {
-      hasEmailValue,
-      favoriteColorValue,
-      fullName: `${firstName || ''} ${lastName || ''}`
-    };
-  },
-)(SearchBar);
+//
+// const selector = formValueSelector('SearchBarForm');
+// SearchBar = connect(
+//   (state) => {
+//     const values = selector(state, 'filter_minAge', 'filter_maxAge', 'filter_sex', 'filter_city');
+//     return values;
+//   },
+// )(SearchBar);
 
 // export default reduxForm({ form: 'search' }, null, { filterUsers })(SearchBar);
 export default connect(null, { filterUsersBySex, filterUsersByMinAge, filterUsersByMaxAge, filterUsersByCity })(SearchBar);
