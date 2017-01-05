@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, hashHistory } from 'react-router';
 import thunk from 'redux-thunk';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import createLogger from 'redux-logger';
 
 import routes from './routes/Routes';
 import RootReducer from './reducers/index';
@@ -17,10 +18,11 @@ console.log('INDEX.JSX | Importing ROUTES');
 console.log('INDEX.JSX | Creating Redux Store and Applying Middlewears: Redux Thunk');
 console.log(' ');
 
+const logger = createLogger();
 const store = createStore(
   RootReducer,
   composeEnhancers(
-    applyMiddleware(thunk),
+    applyMiddleware(thunk, logger),
   ),
 );
 
