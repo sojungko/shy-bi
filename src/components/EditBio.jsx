@@ -1,11 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
 import { Card } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
+import SelectField from 'material-ui/SelectField';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 import ImageUpload from './ImageUpload';
-import { editBio } from '../actions';
+import { getUser, editBio } from '../actions';
+import { getUsername } from '../modules/auth';
 
 class EditBio extends Component {
   static contextTypes = {
@@ -13,17 +18,35 @@ class EditBio extends Component {
   };
 
   static propTypes = {
+    profile: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string,
+      sex: PropTypes.string,
+      city: PropTypes.string,
+      job: PropTypes.string,
+      edLevel: PropTypes.string,
+      aboutMe: PropTypes.string,
+      image_url: PropTypes.string,
+    }),
     handleSubmit: PropTypes.func.isRequired,
     editBio: PropTypes.func.isRequired,
+    getUser: PropTypes.func.isRequired,
     pristine: PropTypes.bool,
     submitting: PropTypes.func,
     reset: PropTypes.func,
   }
 
   onSubmit = (inputs) => {
-    this.props.editBio(inputs)
+    this.props.getUser(getUsername())
       .then(() => {
-        this.context.router.push('/profile');
+        const props = Object.assign({}, this.props.profile, inputs);
+        console.log(' 1) EDIT BIO/COMPONENT successfully repackaged user data : ', props);
+        return props;
+      })
+      .then((props) => {
+        console.log('  2) EDIT BIO/COMPONENT preparing to fire EDIT_BIO action...', props);
+        console.log('  EDIT BIO/COMPONENT editBio : ', this.props.editBio);
+        this.props.editBio(props);
       });
   }
 
@@ -36,6 +59,33 @@ class EditBio extends Component {
       {...custom}
     />
   )
+
+  renderCheckbox = ({ input, label }) => (
+    <Checkbox
+      label={label}
+      checked={input.value ? true : false}
+      onCheck={input.onChange}
+    />
+  )
+
+  renderRadioGroup = ({ input, ...rest }) => (
+    <RadioButtonGroup
+      {...input} {...rest}
+      valueSelected={input.value}
+      onChange={(event, value) => input.onChange(value)}
+    />
+  )
+
+  renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
+    <SelectField
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      onChange={(event, index, value) => input.onChange(value)}
+      children={children}
+      {...custom}
+    />
+)
 
   render() {
     const { handleSubmit, pristine, submitting, reset } = this.props;
@@ -53,11 +103,55 @@ class EditBio extends Component {
           </div>
           <div>
             <Field
+              name="password"
+              type="password"
+              component={this.renderTextField}
+              label="Password"
+            />
+          </div>
+          <div>
+            <Field
+              name="email"
+              type="email"
+              component={this.renderTextField}
+              label="Email"
+            />
+          </div>
+          <div className="field-line">
+            <div>
+              <Field name="sex" component={this.renderRadioGroup}>
+                <RadioButton value="male" label="male" />
+                <RadioButton value="female" label="female" />
+              </Field>
+            </div>
+          </div>
+          <div>
+            <Field
               name="city"
               type="text"
               component={this.renderTextField}
               label="City"
             />
+          </div>
+          <div>
+            <Field
+              name="job"
+              type="text"
+              component={this.renderTextField}
+              label="Job"
+            />
+          </div>
+          <div>
+            <Field
+              name="edLevel"
+              type="text"
+              component={this.renderSelectField}
+              label="Education Level"
+            >
+              <MenuItem value={'highSchool'} primaryText="High School" />
+              <MenuItem value={'college'} primaryText="College" />
+              <MenuItem value={'graduate'} primaryText="Graduate" />
+            </Field>
           </div>
           <div>
             <Field
@@ -89,4 +183,5 @@ EditBio = reduxForm({
   form: 'EditBioForm',
 })(EditBio);
 
-export default connect(null, { editBio })(EditBio);
+const mapStateToProps = ({ profile }) => ({ profile });
+export default connect(mapStateToProps, { getUser, editBio })(EditBio);
