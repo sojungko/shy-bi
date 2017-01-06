@@ -67,7 +67,7 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/findAll] parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, name, username } }
+        const { properties: { memberSince, name, username, image_url } }
           = userData.get('user');
 
         // Getting User location data
@@ -80,7 +80,7 @@ module.exports = {
         const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, city, age, sex };
+        const user = { memberSince, name, username, city, age, sex, image_url };
 
         return user;
       });

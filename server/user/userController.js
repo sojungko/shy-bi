@@ -95,7 +95,7 @@ module.exports = {
         Checking attempted password: ${body.password} against database`);
 
       // Getting User data
-      const { properties: { username, memberSince, password, name, email } } = data.get('user');
+      const { properties: { username, memberSince, password, name, email, image_url } } = data.get('user');
 
       bcrypt.compare(body.password, password, (err, isMatch) => {
         if (err) {
@@ -112,7 +112,7 @@ module.exports = {
           // Getting User sex data
           const sex = data.get('sex').properties.sex;
 
-          const result = { memberSince, password, name, email, username, city, age, sex };
+          const result = { memberSince, password, name, email, username, city, age, sex, image_url };
 
           console.log('5) [UserController.js/signIn] Sending User data: ', result);
           callback(null, result);
@@ -161,7 +161,7 @@ module.exports = {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object', data);
 
       // Getting User data
-      const { properties: { memberSince, name } } = data.get('user');
+      const { properties: { memberSince, name, image_url } } = data.get('user');
 
       // Getting User location data
       const city = data.get('city').properties.name;
@@ -172,7 +172,8 @@ module.exports = {
       // Getting User sex data
       const sex = data.get('sex').properties.sex;
 
-      const result = { memberSince, name, username, city, age, sex };
+
+      const result = { memberSince, name, username, city, age, sex, image_url };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);

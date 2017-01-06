@@ -8,12 +8,23 @@ import ImageUpload from './ImageUpload';
 import { editBio } from '../actions';
 
 class EditBio extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
 
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
+    editBio: PropTypes.func.isRequired,
     pristine: PropTypes.boolean,
     submitting: PropTypes.func,
     reset: PropTypes.func,
+  }
+
+  onSubmit = (inputs) => {
+    this.props.editBio(inputs)
+      .then(() => {
+        this.context.router.push('/profile');
+      });
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -30,7 +41,7 @@ class EditBio extends Component {
     const { handleSubmit, pristine, submitting, reset } = this.props;
     return (
       <Card className="container">
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit(this.onSubmit)} >
           <h2>Edit Profile</h2>
           <div>
             <Field

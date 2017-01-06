@@ -2,6 +2,10 @@ const db = require('../database/config');
 
 module.exports = {
 
+  postBio() {
+
+  },
+
   postImage(username, url, callback) {
     console.log(`2) [bioModel.js/postImage] Accessing user database with url: ${url}`);
     return db
