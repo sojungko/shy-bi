@@ -15,6 +15,7 @@ class Profile extends Component {
       age: PropTypes.string,
       sex: PropTypes.string,
       city: PropTypes.string,
+      image_url: PropTypes.string,
     }),
     likeUser: PropTypes.func.isRequired,
   }
@@ -51,13 +52,14 @@ class Profile extends Component {
   }
 
   renderProfile() {
-    const { name, sex, age, city } = this.props.profile;
+    const { name, sex, age, city, image_url } = this.props.profile;
     return (
       <ul>
         <li>Name: {name}</li>
         <li>Sex: {sex}</li>
         <li>Age: {age}</li>
         <li>City: {city}</li>
+        <img role="presentation" src={image_url} />
       </ul>
     );
   }

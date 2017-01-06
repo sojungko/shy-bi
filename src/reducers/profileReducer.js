@@ -6,7 +6,7 @@ export default function (state = {}, action) {
       // console.log(`    REDUCER/PROFILE | Received Action type: ${action.type}`, action);
       console.log(`    REDUCER/PROFILE | Received Action type: ${action.type}`);
       console.log('      REDUCER/PROFILE | Creating a new PROFILE State');
-      return { ...state, ...action.payload };
+      return action.payload;
     default:
       return state;
   }

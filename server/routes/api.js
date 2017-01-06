@@ -5,7 +5,7 @@ const { findUser, likeUser, unlikeUser } = require('../user/userController');
 const { findAllUsers, filterUsers } = require('../search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
-const { uploadImage } = require('../bio/bioController');
+const { editBio, uploadImage } = require('../bio/bioController');
 
 const router = new express.Router();
 
@@ -77,6 +77,7 @@ router.get('/messages/sent/:username', sentMessages);
 // 4-a-i) GET -> file: recommendations/recommendationsController.js method:
 router.get('/recommendations/:username', getRecommendedMatches);
 
+router.post('/bio/edit_bio', editBio);
 router.post('/bio/upload_image', uploadImage);
 
 module.exports = router;

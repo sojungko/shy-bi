@@ -8,6 +8,7 @@ export default class UserListItem extends Component {
       age: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
+      image_url: PropTypes.string,
     }),
     handleClick: PropTypes.func.isRequired,
   }
@@ -18,15 +19,18 @@ export default class UserListItem extends Component {
   }
 
   render() {
-    const { name, sex, age, city } = this.props.user;
+    const { name, sex, age, city, image_url } = this.props.user;
 
     return (
-      <li onClick={this.onClick}>
-        <h3>Name: {name}</h3>
-        <h5>Sex: {sex}</h5>
-        <h5>Age: {age}</h5>
-        <h5>City: {city}</h5>
-      </li>
+      <div onClick={this.onClick}>
+        <img role="presentation" src={image_url} />
+        <li>
+          <h3>{name}</h3>
+          <h5>Sex: {sex}</h5>
+          <h5>Age: {age}</h5>
+          <h5>City: {city}</h5>
+        </li>
+      </div>
     );
   }
 }
