@@ -1,9 +1,10 @@
 import { GET_ALL_MESSAGES } from '../constants/ActionTypes';
 
-export default function (state = [], action) {
+const INITIAL_STATE = { received: [], sent: [] };
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_ALL_MESSAGES:
-      return [...action.payload];
+      return { ...state, received: action.payload };
     default:
       return state;
   }
