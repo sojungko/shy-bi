@@ -7,6 +7,7 @@ import SignUp from '../containers/Signup';
 import Messages from '../containers/Messages';
 import ReceivedMessages from '../components/ReceivedMessages';
 import SentMessages from '../components/SentMessages';
+import SendMessages from '../components/SendMessages';
 import UserList from '../containers/UserList';
 import Likes from '../containers/Likes';
 import Profile from '../containers/Profile';
@@ -23,7 +24,7 @@ export default (
       <IndexRoute component={ReceivedMessages} />
       <Route path="received" component={ReceivedMessages} />
       <Route path="sent" component={SentMessages} />
-      <Route path="send" />
+      <Route path="send" component={SendMessages} />
     </Route>
     <Route path="likes/:username" component={Likes} />
     <Route path="recommended" component={RecommendedUsers} />
