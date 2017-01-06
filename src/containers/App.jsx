@@ -9,10 +9,12 @@ import { toggleLeftNav } from '../actions/leftNavToggle';
 
 class App extends Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.node.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
+    open: PropTypes.bool.isRequired,
+    toggleLeftNav: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -23,9 +25,6 @@ class App extends Component {
 
   render() {
     const currentUser = getUsername();
-    console.log('+++++++++', this.props.open);
-
-    console.log('APP/CONTAINERS | THIS.PROPS: ', this.props);
     const auth = isUserAuthenticated();
     return (
       <div>
@@ -35,12 +34,18 @@ class App extends Component {
           logOut={deauthenticateUser}
           handleToggle={this.handleToggle}
         />
-        <LeftNav auth={auth} user={currentUser} open={this.props.open} handleToggle={this.handleToggle} />
+        <LeftNav
+          auth={auth}
+          user={currentUser}
+          open={this.props.open}
+          handleToggle={this.handleToggle}
+        />
         {this.props.children}
       </div>
     );
   }
 }
+
 function mapStateToProps({ leftNavToggle }) {
   return { open: leftNavToggle.open };
 }
