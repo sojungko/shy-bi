@@ -24,7 +24,6 @@ class App extends Component {
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
   render() {
-    console.log(this.props);
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
     return (

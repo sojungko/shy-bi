@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages } from '../actions/index';
-import Message from '../components/Message';
 import Navbar from '../components/Navbar';
 
 class Messages extends Component {
@@ -12,8 +11,10 @@ class Messages extends Component {
   }
 
   static propTypes = {
+    children: PropTypes.node,
     getAllMessages: PropTypes.func.isRequired,
-    messages: PropTypes.arrayOf(PropTypes.object.isRequired),
+    received: PropTypes.arrayOf(PropTypes.object.isRequired),
+    sent: PropTypes.arrayOf(PropTypes.object.isRequired),
   }
 
   componentWillMount() {
@@ -25,22 +26,31 @@ class Messages extends Component {
     }
   }
 
-  renderMessages() {
-    return this.props.messages.map((message, index) => (
-      <Message key={index} message={message} />
-    ));
-  }
-
   render() {
-    const messageMenu = ['received', 'sent', 'send'];
+    const messageMenu = [
+      { label: 'received', path: 'messages/received' },
+      { label: 'sent', path: 'messages/sent' },
+      { label: 'send', path: 'messages/send' },
+    ];
+
+    const children = Children
+      .map(this.props.children, child => React.cloneElement(child, {
+        received: this.props.received,
+        sent: this.props.sent,
+      }));
+
     return (
       <div>
         <Navbar menus={messageMenu} />
-        {this.renderMessages()}
+        {children}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ messages }) => ({ messages });
+const mapStateToProps = ({ messages }) => ({
+  received: messages.received,
+  sent: messages.sent,
+});
+
 export default connect(mapStateToProps, { getAllMessages })(Messages);
