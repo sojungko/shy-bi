@@ -3,15 +3,16 @@ import { Link } from 'react-router';
 
 const Message = (props) => {
   const { title, sentBy, senderID, body } = props.message;
-
   return (
-    <li>
-      <h3>title: {title}</h3>
-      <h5>
-        <Link to={`/profile/${senderID}`}>Sent by: {sentBy}</Link>
-      </h5>
-      <p>body: {body}</p>
-    </li>
+    <div>
+      <li>
+        <h3>title: {title}</h3>
+        <h5>
+          <Link to={`/profile/${senderID}`}>Sent by: {sentBy}</Link>
+        </h5>
+        <p>body: {body}</p>
+      </li>
+    </div>
   );
 };
 

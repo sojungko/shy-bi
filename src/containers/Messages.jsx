@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages } from '../actions/index';
 import Message from '../components/Message';
+import Navbar from '../components/Navbar';
 
 class Messages extends Component {
   static contextTypes = {
@@ -30,8 +32,12 @@ class Messages extends Component {
   }
 
   render() {
+    const messageMenu = ['received', 'sent', 'send'];
     return (
-      <div>{this.renderMessages()}</div>
+      <div>
+        <Navbar menus={messageMenu} />
+        {this.renderMessages()}
+      </div>
     );
   }
 }
