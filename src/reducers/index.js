@@ -8,8 +8,10 @@ import FilterReducer from './filterReducer';
 import VisibleUsersReducer from './visibleUsersReducer';
 import ActionsReducer from './actionsReducer';
 import MessagesReducer from './messagesReducer';
+import LeftNavReducer from './leftNavReducer';
 
 const RootReducer = combineReducers({
+  leftNavToggle: LeftNavReducer,
   form: FormReducer,
   users: UsersReducer,
   profile: ProfileReducer,
