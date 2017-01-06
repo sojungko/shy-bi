@@ -29,10 +29,9 @@ export function getRecommendedUsers(username) {
 
 export function likeUser(username, likedUser) {
   return dispatch => axios.post('/api/users/like', { username, likedUser })
-    .then(({ data }) => {
-      console.log(data);
+    .then(({ data }) => console.log(data),
       // TODO: DISPATCH ACTION TO REDUCER
-    });
+    );
 }
 
 /* Fetch Liked Users */
@@ -85,6 +84,11 @@ export function getSentMessages(username) {
     .then(({ data }) => dispatch({ type: A.GET_SENT_MESSAGES, payload: data }));
 }
 
+export function sendMessage(message) {
+  console.log('      ACTIONS/SEND_MESSAGE | ', message);
+  return dispatch => axios.post('api/messages/send', message)
+    .then(({ data }) => console.log(data));
+}
 
 /* -- Editing Bio -- */
 export function editBio(props) {
