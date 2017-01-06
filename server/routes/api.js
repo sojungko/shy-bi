@@ -66,7 +66,7 @@ router.get('/search/all', findAllUsers);
 router.get('/search/filter', filterUsers);
 
 // 2-c-i) GET -> file: search/searchController.js method:
-router.get('/search/liked', findLikedUsers);
+router.get('/search/liked/:username', findLikedUsers);
 
 // 3-a-i) GET -> file: messages/messagesController.js method:
 router.get('/messages/all/:username', findAllMessages);
