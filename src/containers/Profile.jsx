@@ -17,7 +17,7 @@ class Profile extends Component {
       city: PropTypes.string,
       image_url: PropTypes.string,
     }),
-    likeUser: PropTypes.func.isRequired,
+    likeUser: PropTypes.func,
   }
 
   static contextTypes = {

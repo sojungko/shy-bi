@@ -161,23 +161,15 @@ module.exports = {
     });
   },
 
-/* -------------------------- * FILTER USERS * ------------------------- */
-  findLikedUsers(req, res) {
-    console.log(`1) [SearchController.js/findLikedUsers] Searching ${req.body}'s liked users`);
-    getLikedUsers(req, (likedUsersData) => {
+/* -------------------------- * FIND LIKED USERS * ------------------------- */
+  findLikedUsers({ params }, res) {
+    console.log(`1) [SearchController.js/findLikedUsers] Searching ${params.username}'s liked users`);
+    getLikedUsers(params, (likedUsersData) => {
       const likedUsers = likedUsersData.map((userData) => {
-        const { properties: { memberSince, name, username, image_url } } = userData.get('user');
-
-        // Getting User location data
+        const { properties: { memberSince, name, username, image_url } } = userData.get('liked');
         const city = userData.get('city').properties.name;
-
-        // Getting User age data
         const age = userData.get('age').properties.age;
-
-        // Getting User sex data
         const sex = userData.get('sex').properties.sex;
-
-        // Putting together a user data object.
         const likedUser = { memberSince, name, username, city, age, sex, image_url };
 
         return likedUser;
