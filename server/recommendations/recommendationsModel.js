@@ -36,9 +36,8 @@ module.exports = {
         MATCH (recUsers)-[]->(city:City)
         MATCH (recUsers)-[]->(age:Age)
         MATCH (recUsers)-[]->(sex:Sex)
-        RETURN recUsers, city, age, sex LIMIT 20`,
-        { username }
-      )
+        RETURN DISTINCT recUsers, city, age, sex LIMIT 20`,
+        { username })
       .then(({ records }) => {
         db.close();
 
@@ -46,7 +45,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [recommendationsModel.js/getRecMatches] Could not find any 
+        console.error(`3) [recommendationsModel.js/getRecMatches] Could not find any
         recommendations for username: ${username}`);
         throw error;
       });
