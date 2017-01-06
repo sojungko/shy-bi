@@ -36,13 +36,11 @@ export function likeUser(username, likedUser) {
 }
 
 /* Fetch Liked Users */
-// export function likedUsers(username) {
-//   console.log(`      ACTIONS/Liked_USERS | Fetching User: ${username}`))
-//
-//   return (dispatch) => {
-//     return axios.get(``)
-//   }
-// }
+export function likedUsers(username) {
+  return (dispatch) => axios.get('/api/search/liked', { username })
+    .then(({ data }) => dispatch({ type: A.LIKED_USERS, payload: data }))
+    .catch((error) => console.error(error))
+}
 
 /* -- Filter Users -- */
 // Sends filter information to filter reducer

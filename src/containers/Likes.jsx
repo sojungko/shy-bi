@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import connect from 'react-redux';
 import UserListItem from '../components/UserListItem';
 import { getUser, getLikedUsers } from '../actions';
 
-import { isUserAuthenticated } from '../modules/auth';
+import { isUserAuthenticated, getUsername } from '../modules/auth';
 
 class Likes extends Component {
   static propTypes = {
@@ -19,11 +20,11 @@ class Likes extends Component {
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
     } else {
-      this.props.getLikedUsers();
+      this.props.getLikedUsers(getUsername());
     }
   }
 
-  handleClick = (userName) => this.props.getUser(userName)
+  handleClick = userName => this.props.getUser(userName)
     .then(() => this.context.router.push(`/profile/${userName}`))
 
   renderList() {
