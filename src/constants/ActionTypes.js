@@ -3,7 +3,7 @@ export const GET_USER = 'GET_USER';
 export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 
 export const LIKE_USER = 'LIKE_USER';
-export const LIKED_USERS = 'LIKED_USERS';
+export const GET_LIKED_USERS = 'GET_LIKED_USERS';
 
 export const FILTER_USERS = 'FILTER_USERS';
 export const FILTER_USERS_BY_SEX = 'FILTER_USERS_BY_SEX';

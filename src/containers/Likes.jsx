@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
 import UserListItem from '../components/UserListItem';
 import { getUser, getLikedUsers } from '../actions';
 
@@ -24,8 +24,10 @@ class Likes extends Component {
     }
   }
 
-  handleClick = userName => this.props.getUser(userName)
-    .then(() => this.context.router.push(`/profile/${userName}`))
+  handleClick = (userName) => {
+    this.props.getUser(userName)
+      .then(() => this.context.router.push(`/profile/${userName}`));
+  }
 
   renderList() {
     return this.props.users.map((user, idx) => (

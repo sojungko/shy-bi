@@ -25,7 +25,7 @@ export default (
       <Route path="sent" component={SentMessages} />
       <Route path="send" />
     </Route>
-    <Route path="likes/:username" component={Likes} />
+    <Route path="likes/(:username)" component={Likes} />
     <Route path="recommended" component={RecommendedUsers} />
     <Route path="myaccount" component={MyAccount} />
     <Route path="login" component={LogIn} />
