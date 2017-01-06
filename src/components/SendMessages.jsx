@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardText } from 'material-ui/Card';
+import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-class LogIn extends Component {
+import { getUsername } from '../modules/auth';
+import { sendMessage, getSentMessages } from '../actions/index';
+
+class SendMessages extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
@@ -19,7 +21,21 @@ class LogIn extends Component {
   }
 
   onSubmit = (inputs) => {
-    console.log(inputs);
+    const senderID = getUsername();
+    const request = {
+      senderID,
+      receiverID: inputs.sendTo,
+      title: inputs.title,
+      body: inputs.message,
+    };
+
+    this.props.sendMessage(request)
+      .then(() => {
+        this.props.getSentMessages(senderID);
+      })
+      .then(() => {
+        this.context.router.push('/messages');
+      });
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -68,9 +84,13 @@ const validate = (values) => {
   return errors;
 };
 
-LogIn = reduxForm({
-  form: 'LogIn',
+SendMessages = reduxForm({
+  form: 'SendMessages',
   validate,
-})(LogIn);
+})(SendMessages);
 
-export default connect(null, null)(LogIn);
+const mapStateToProps = ({ messages }) => ({
+  sent: messages.sent,
+});
+
+export default connect(null, { sendMessage, getSentMessages })(SendMessages);

@@ -100,6 +100,7 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   sendMessage({ body }, res) {
+    console.log(body);
     console.log(`1) [MessagesController.js/sendMessage] ${body.senderID} is sending message
       title: ${body.title}
       body: ${body.body}
