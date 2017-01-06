@@ -2,7 +2,7 @@ const express = require('express');
 
 // Plucks signup method from user/userController.js
 const { findUser, likeUser, unlikeUser } = require('../user/userController');
-const { findAllUsers, filterUsers } = require('../search/searchController');
+const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
 const { editBio, uploadImage } = require('../bio/bioController');
@@ -65,6 +65,9 @@ router.get('/search/all', findAllUsers);
 // 2-b-i) GET -> file: search/searchController.js method:
 router.get('/search/filter', filterUsers);
 
+// 2-c-i) GET -> file: search/searchController.js method:
+router.get('/search/liked', findLikedUsers);
+
 // 3-a-i) GET -> file: messages/messagesController.js method:
 router.get('/messages/all/:username', findAllMessages);
 
@@ -77,7 +80,10 @@ router.get('/messages/sent/:username', sentMessages);
 // 4-a-i) GET -> file: recommendations/recommendationsController.js method:
 router.get('/recommendations/:username', getRecommendedMatches);
 
+// 5-a-i) POST -> file: bio/bioController.js
 router.post('/bio/edit_bio', editBio);
+
+// 5-b-i) POST -> file: bio/bioController.js
 router.post('/bio/upload_image', uploadImage);
 
 module.exports = router;
