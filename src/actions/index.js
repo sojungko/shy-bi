@@ -88,11 +88,17 @@ export function getSentMessages(username) {
 
 /* -- Editing Bio -- */
 export function editBio(props) {
-  return dispatch => axios.post('/api/bio/edit_bio', props)
-    .then(({ data }) => dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data }))
+  return dispatch => {
+    console.log('  3) ACTIONS/EDIT_BIO Preparing to send modified user data... ', props);
+    axios.post('/api/bio/edit_bio', props)
+    .then(({ modifiedData }) => {
+      console.log('    4) ACTIONS/EDIT_BIO Received modified data! : ', modifiedData);
+      return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: modifiedData });
+    })
     .catch((error) => {
-      console.log('     ACTIONS/EDIT_BIO_SUCCESS | ', error);
+      console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
     });
+  };
 }
 
 export function uploadImage(props) {

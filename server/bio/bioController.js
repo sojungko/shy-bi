@@ -1,9 +1,13 @@
-const { postImage } = require('./bioModel');
+const { postBio, postImage } = require('./bioModel');
 
 module.exports = {
 
-  editBio(req, res) {
-
+  editBio({ body }, res) {
+    console.log(`1) [bioController.js/editBio] Received request :`, body);
+    postBio(body, () => {
+      console.log()
+      res.end();
+    });
   },
 
   uploadImage({ body: { username, url } }, res) {
