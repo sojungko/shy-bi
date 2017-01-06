@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { getUsername, isUserAuthenticated, deauthenticateUser } from '../modules/auth';
 import Header from '../components/Header';
 import LeftNav from '../components/LeftNav';
-import { toggleLeftNav } from '../actions/leftNavToggle';
+import toggleLeftNav from '../actions/leftNavToggle';
 
 class App extends Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class App extends Component {
       pathname: PropTypes.string,
     }),
     open: PropTypes.bool.isRequired,
-    toggleLeftNav: PropTypes.func.isRequired,
+    toggleLeftNav: PropTypes.func,
   }
 
   componentWillMount() {
@@ -24,6 +24,7 @@ class App extends Component {
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
   render() {
+    console.log(this.props);
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
     return (

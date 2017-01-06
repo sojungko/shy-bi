@@ -1,4 +1,4 @@
-import { GET_ALL_MESSAGES } from '../actions';
+import { GET_ALL_MESSAGES } from '../constants/ActionTypes';
 
 export default function (state = [], action) {
   switch (action.type) {

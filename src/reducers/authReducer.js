@@ -1,4 +1,4 @@
-import { LOGIN_USER_SUCCESS } from '../actions';
+import { LOGIN_USER_SUCCESS } from '../constants/ActionTypes';
 
 console.log('REDUCER/AUTH | Exporting AUTH Reducer...');
 

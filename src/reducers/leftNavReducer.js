@@ -1,4 +1,4 @@
-import { TOGGLE_LEFT_NAV } from '../actions/leftNavToggle';
+import { TOGGLE_LEFT_NAV } from '../constants/ActionTypes';
 
 const INITIAL_STATE = { open: false };
 
