@@ -5,7 +5,6 @@ import { getUsername, isUserAuthenticated, deauthenticateUser } from '../modules
 
 class Navbar extends Component {
   handleLogout = () => {
-    console.log('COMPONENT/NAV BAR | Logging Out User...');
     deauthenticateUser();
   }
 
