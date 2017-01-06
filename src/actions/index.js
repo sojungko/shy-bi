@@ -80,6 +80,11 @@ export function getAllMessages(username) {
     .then(({ data }) => dispatch({ type: A.GET_ALL_MESSAGES, payload: data }));
 }
 
+export function getSentMessages(username) {
+  return dispatch => axios.get(`api/messages/sent/${username}`)
+    .then(({ data }) => dispatch({ type: A.GET_SENT_MESSAGES, payload: data }));
+}
+
 
 /* -- Editing Bio -- */
 export function editBio(props) {
