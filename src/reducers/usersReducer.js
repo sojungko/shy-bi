@@ -1,4 +1,4 @@
-import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER } from '../actions';
+import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER } from '../constants/ActionTypes';
 
 export default function (state = [], action) {
   switch (action.type) {
