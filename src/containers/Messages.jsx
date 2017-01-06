@@ -2,7 +2,7 @@ import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-import { getAllMessages } from '../actions/index';
+import { getAllMessages, getSentMessages } from '../actions/index';
 import Navbar from '../components/Navbar';
 
 class Messages extends Component {
@@ -23,6 +23,7 @@ class Messages extends Component {
     } else {
       const username = getUsername();
       this.props.getAllMessages(username);
+      this.props.getSentMessages(username);
     }
   }
 
@@ -53,4 +54,4 @@ const mapStateToProps = ({ messages }) => ({
   sent: messages.sent,
 });
 
-export default connect(mapStateToProps, { getAllMessages })(Messages);
+export default connect(mapStateToProps, { getAllMessages, getSentMessages })(Messages);
