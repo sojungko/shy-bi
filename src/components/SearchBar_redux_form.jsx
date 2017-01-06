@@ -15,7 +15,7 @@ class SearchBar extends Component {
     filterUsersByMaxAge: PropTypes.func.isRequired,
     filterUsersByCity: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    pristine: PropTypes.boolean,
+    pristine: PropTypes.bool,
     reset: PropTypes.func,
   }
 

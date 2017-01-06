@@ -15,7 +15,7 @@ class EditBio extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     editBio: PropTypes.func.isRequired,
-    pristine: PropTypes.boolean,
+    pristine: PropTypes.bool,
     submitting: PropTypes.func,
     reset: PropTypes.func,
   }

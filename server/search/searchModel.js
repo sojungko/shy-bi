@@ -92,4 +92,29 @@ module.exports = {
         throw error;
       });
   },
+
+  getLikedUsers({ username }, callback) {
+    console.log('2) [searchModel.js/getLikedUsers] Accessing user database');
+
+    return db
+      .run(
+        `MATCH (me:User{username: {username}})
+        MATCH (me)-[:LIKES]->(liked:User)
+        MATCH (liked)-[]->(city:City)
+        MATCH (liked)-[]->(age:Age)
+        MATCH (liked)-[]->(sex:Sex)
+        RETURN liked, age, city, sex`,
+        { username }
+      )
+      .then(({ records }) => {
+        db.close();
+
+        console.log(`3) [searchModel.js/getLikedUsers] Reteriving liked users data`);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.error(`3) [userModel.js/getLikedUsers] Could not find liked users for ${username}`);
+        throw error;
+      });
+  }
 };
