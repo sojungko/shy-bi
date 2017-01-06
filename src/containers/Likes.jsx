@@ -14,14 +14,10 @@ class Likes extends Component {
   }
 
   render() {
-    console.log('    CONTAINER/LIKES | Rendering LIKES...');
+    const likedUsers = 
     return (
       <div>
-        <h3>Liked User 1</h3>
-        <h3>Liked User 2</h3>
-        <h3>Liked User 3</h3>
-        <h3>Liked User 4</h3>
-        <h3>Liked User 5</h3>
+       
       </div>
     );
   }
