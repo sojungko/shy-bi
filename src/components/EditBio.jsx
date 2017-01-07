@@ -37,8 +37,10 @@ class EditBio extends Component {
   }
 
   onSubmit = (inputs) => {
+    console.log('EDIT BIO/COMPONENT User input 1) : ', inputs)
     this.props.getUser(getUsername())
       .then(() => {
+        console.log('EDIT BIO/COMPONENT User input 2) : ', inputs);
         const props = Object.assign({}, this.props.profile, inputs);
         console.log(' 1) EDIT BIO/COMPONENT successfully repackaged user data : ', props);
         return props;
@@ -93,29 +95,35 @@ class EditBio extends Component {
       <Card className="container">
         <form onSubmit={handleSubmit(this.onSubmit)} >
           <h2>Edit Profile</h2>
-          <div>
-            <Field
-              name="name"
-              type="text"
-              component={this.renderTextField}
-              label="Name"
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="name"
+                type="text"
+                component={this.renderTextField}
+                label="Name"
+              />
+            </div>
           </div>
-          <div>
-            <Field
-              name="password"
-              type="password"
-              component={this.renderTextField}
-              label="Password"
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="password"
+                type="password"
+                component={this.renderTextField}
+                label="Password"
+              />
+            </div>
           </div>
-          <div>
-            <Field
-              name="email"
-              type="email"
-              component={this.renderTextField}
-              label="Email"
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="email"
+                type="email"
+                component={this.renderTextField}
+                label="Email"
+              />
+            </div>
           </div>
           <div className="field-line">
             <div>
@@ -125,45 +133,53 @@ class EditBio extends Component {
               </Field>
             </div>
           </div>
-          <div>
-            <Field
-              name="city"
-              type="text"
-              component={this.renderTextField}
-              label="City"
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="city"
+                type="text"
+                component={this.renderTextField}
+                label="City"
+              />
+            </div>
           </div>
-          <div>
-            <Field
-              name="job"
-              type="text"
-              component={this.renderTextField}
-              label="Job"
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="job"
+                type="text"
+                component={this.renderTextField}
+                label="Job"
+              />
+            </div>
           </div>
-          <div>
-            <Field
-              name="edLevel"
-              type="text"
-              component={this.renderSelectField}
-              label="Education Level"
-            >
-              <MenuItem value={'highSchool'} primaryText="High School" />
-              <MenuItem value={'college'} primaryText="College" />
-              <MenuItem value={'graduate'} primaryText="Graduate" />
-            </Field>
+          <div className="field-line">
+            <div>
+              <Field
+                name="edLevel"
+                type="text"
+                component={this.renderSelectField}
+                label="Education Level"
+              >
+                <MenuItem value={'highSchool'} primaryText="High School" />
+                <MenuItem value={'college'} primaryText="College" />
+                <MenuItem value={'graduate'} primaryText="Graduate" />
+              </Field>
+            </div>
           </div>
-          <div>
-            <Field
-              name="aboutMe"
-              type="text"
-              component={this.renderTextField}
-              label="About Me"
-              multiLine={true}
-              fullWidth={true}
-              rows={2}
-              rowsMax={4}
-            />
+          <div className="field-line">
+            <div>
+              <Field
+                name="aboutMe"
+                type="text"
+                component={this.renderTextField}
+                label="About Me"
+                multiLine={true}
+                fullWidth={true}
+                rows={2}
+                rowsMax={4}
+              />
+            </div>
           </div>
           <ImageUpload />
           <div>

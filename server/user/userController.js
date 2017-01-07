@@ -161,7 +161,7 @@ module.exports = {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object', data);
 
       // Getting User data
-      const { properties: { memberSince, name, image_url } } = data.get('user');
+      const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url } } = data.get('user');
 
       // Getting User location data
       const city = data.get('city').properties.name;
@@ -173,7 +173,7 @@ module.exports = {
       const sex = data.get('sex').properties.sex;
 
 
-      const result = { memberSince, name, username, city, age, sex, image_url };
+      const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);
