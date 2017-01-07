@@ -6,6 +6,7 @@ const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchC
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
 const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
+const { getMatches } = require('../matches/matchesController');
 
 const router = new express.Router();
 
@@ -86,7 +87,10 @@ router.post('/bio/edit_bio', editBio);
 // 5-b-i) POST -> file: bio/bioController.js
 router.post('/bio/delete_image', deleteImage);
 
-// 5-b-i) POST -> file: bio/bioController.js
+// 5-c-i) POST -> file: bio/bioController.js
 router.post('/bio/upload_image', uploadImage);
+
+// 6-a-i)
+router.post('/matches', getMatches);
 
 module.exports = router;
