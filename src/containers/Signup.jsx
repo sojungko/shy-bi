@@ -7,13 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 
-
 import { signupUser } from '../actions/index';
-import { renderTextField, renderRadioGroup } from '../components/Presentational';
-
-console.log('CONTAINER/SIGN UP | Exporting SIGN UP...');
-
-console.log('CONTAINER/SIGN UP | IMPORTING Action: signupUser from ACTIONS');
 
 const styles = {
   block: {
@@ -33,38 +27,13 @@ class SignUp extends Component {
     signupUser: PropTypes.func,
   }
 
-  componentDidMount() {
-    console.log('    CONTAINER/SIGN UP | Complete Rendering SIGN UP ');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // console.log('    CONTAINER/SIGN UP | Receiving Props: ', nextProps);
-    console.log('    CONTAINER/SIGN UP | Receiving Props');
-  }
-
-  componentDidUpdate() {
-    console.log('    CONTAINER/SIGN UP | Complete Rendering SIGN UP ');
-    console.log(' ');
-  }
-
-
   onSubmit = (inputs) => {
-    console.log(`    CONTAINER/LOGIN | Submitting Sign Up Form
-      User: ${inputs.username}
-      Password: ${inputs.password}
-      Name: ${inputs.name}
-      Email: ${inputs.email}
-      Age: ${inputs.age}
-      Sex ${inputs.sex}
-      City ${inputs.city}`);
-
     this.props.signupUser(inputs)
       .then(() => {
-        console.log('    CONTAINER/LOGIN  | Success, Redirecting User to /profile');
-        console.log(' ');
         this.context.router.push('/');
       });
   }
+
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <TextField
       hintText={label}
@@ -84,7 +53,6 @@ class SignUp extends Component {
   );
 
   render() {
-    console.log('    CONTAINER/SIGN UP | Rendering SIGN UP Container... ');
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
@@ -140,15 +108,9 @@ const validate = (values) => {
   return errors;
 };
 
-// console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: ', SignUp);
-console.log('CONTAINER/SIGN UP & REDUX | Mapping actions to props: SignUp');
-console.log('CONTAINER/SIGN UP | Connecting SIGN UP Container with REDUX STORE');
-
 SignUp = reduxForm({
   form: 'SignUp',
   validate,
 })(SignUp);
 
 export default connect(null, { signupUser })(SignUp);
-console.log('CONTAINER/SIGN UP | Exported SIGN UP');
-console.log(' ');

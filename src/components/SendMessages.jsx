@@ -18,6 +18,8 @@ class SendMessages extends Component {
     pristine: PropTypes.bool.isRequired,
     submitting: PropTypes.bool.isRequired,
     valid: PropTypes.bool.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    getSentMessages: PropTypes.func.isRequired,
   }
 
   onSubmit = (inputs) => {
@@ -93,4 +95,4 @@ const mapStateToProps = ({ messages }) => ({
   sent: messages.sent,
 });
 
-export default connect(null, { sendMessage, getSentMessages })(SendMessages);
+export default connect(mapStateToProps, { sendMessage, getSentMessages })(SendMessages);
