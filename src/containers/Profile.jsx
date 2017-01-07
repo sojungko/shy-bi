@@ -33,6 +33,7 @@ class Profile extends Component {
     this.profilePageUser = this.props.params.username;
   }
 
+
   componentWillMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
@@ -47,6 +48,15 @@ class Profile extends Component {
   componentWillUpdate() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+  // respond to parameter change when navigating from other profiles to my profile
+    const oldUser = prevProps.params.username;
+    const newUser = this.props.params.username;
+    if (newUser !== oldUser) {
+      this.props.getUser(newUser);
     }
   }
 
@@ -71,7 +81,7 @@ class Profile extends Component {
   }
 
   renderLikeButton() {
-    if (this.profilePageUser) {
+    if (this.profilePageUser !== this.currentUser) {
       return (
         <button onClick={this.handleLikeButton}>Like</button>
       );
