@@ -51,12 +51,10 @@ class Profile extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
   // respond to parameter change when navigating from other profiles to my profile
-    const oldUser = prevProps.params.username;
-    const newUser = this.props.params.username;
-    if (newUser !== oldUser) {
-      this.props.getUser(newUser);
+    if (!this.props.params.username) {
+      this.props.getUser(this.currentUser);
     }
   }
 
@@ -81,7 +79,7 @@ class Profile extends Component {
   }
 
   renderLikeButton() {
-    if (this.username && this.username !== this.currentUser) {
+    if (this.username) {
       return (
         <button onClick={this.handleLikeButton}>Like</button>
       );
