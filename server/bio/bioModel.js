@@ -1,12 +1,12 @@
 const db = require('../database/config');
 
 module.exports = {
-  postBio({ name, email, username, city, age, sex }, callback) {
+  postBio({ name, email, job = '', edLevel = '', aboutMe = '', username, city, age, sex }, callback) {
     console.log(`2) [bioModel.js/postBio] Accessing user database with username: ${username}`);
     return db
       .run(
         `MATCH (user:User {username: {username}})
-        SET user.name = {name}, user.email = {email}
+        SET user.name = {name}, user.email = {email}, user.job={job}, user.edLevel={edLevel}, user.aboutMe={aboutMe}
         WITH user
         MATCH (user)-[cityRel:LIVES_IN]->(city:City) WHERE NOT city.name = {city}
         MERGE (user)-[:LIVES_IN]->(newCity:City {name: {city}})
@@ -19,7 +19,7 @@ module.exports = {
         MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = 'Chicago'
         MERGE (user)-[:MEMBER_OF]->(newSex:Sex {sex: {sex}})
         DETACH DELETE sexRel`,
-        { name, email, username, city, age, sex }
+        { name, email, job, edLevel, aboutMe, username, city, age, sex }
       )
       .then(() => {
         console.log('3) [bioModel.js/postBio] Editing user info in database:');
