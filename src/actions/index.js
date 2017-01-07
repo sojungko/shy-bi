@@ -41,14 +41,6 @@ export function getLikedUsers(username) {
     .catch(error => console.error(error));
 }
 
-/* -- Filter Users -- */
-// Sends filter information to filter reducer
-
-export const filterUsersBySex = filter => ({ type: A.FILTER_USERS_BY_SEX, payload: filter });
-export const filterUsersByMinAge = filter => ({ type: A.FILTER_USERS_BY_MIN_AGE, payload: filter });
-export const filterUsersByMaxAge = filter => ({ type: A.FILTER_USERS_BY_MAX_AGE, payload: filter });
-export const filterUsersByCity = filter => ({ type: A.FILTER_USERS_BY_CITY, payload: filter });
-
 /* -- Signing up User--*/
 export function signupUser(props) {
   return dispatch => axios.post('/auth/signup', props)
@@ -90,7 +82,7 @@ export function sendMessage(message) {
 
 /* -- Editing Bio -- */
 export function editBio(props) {
-  return dispatch => {
+  return (dispatch) => {
     console.log('  3) ACTIONS/EDIT_BIO Preparing to send modified user data... ', props);
     axios.post('/api/bio/edit_bio', props)
     .then(({ modifiedData }) => {

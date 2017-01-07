@@ -1,36 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-export default class UserListItem extends Component {
-  static propTypes = {
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      sex: PropTypes.string.isRequired,
-      age: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      image_url: PropTypes.string,
-    }),
-    handleClick: PropTypes.func.isRequired,
-  }
+const UserListItem = ({ user, handleClick }) => {
+  const { name, sex, age, city, image_url, username } = user;
 
-  onClick = () => {
-    const { user, handleClick } = this.props;
-    handleClick(user.username);
-  }
+  const onClick = () => {
+    handleClick(username);
+  };
 
-  render() {
-    const { name, sex, age, city, image_url } = this.props.user;
+  return (
+    <div onClick={onClick}>
+      <img role="presentation" src={image_url} />
+      <li>
+        <h3>{name}</h3>
+        <h5>Sex: {sex}</h5>
+        <h5>Age: {age}</h5>
+        <h5>City: {city}</h5>
+      </li>
+    </div>
+  );
+};
 
-    return (
-      <div onClick={this.onClick}>
-        <img role="presentation" src={image_url} />
-        <li>
-          <h3>{name}</h3>
-          <h5>Sex: {sex}</h5>
-          <h5>Age: {age}</h5>
-          <h5>City: {city}</h5>
-        </li>
-      </div>
-    );
-  }
-}
+UserListItem.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    sex: PropTypes.string,
+    age: PropTypes.string,
+    city: PropTypes.string,
+    username: PropTypes.string,
+    image_url: PropTypes.string,
+  }),
+  handleClick: PropTypes.func.isRequired,
+};
+
+export default UserListItem;
