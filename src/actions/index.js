@@ -95,11 +95,23 @@ export function editBio(props) {
   };
 }
 
+export function deleteImage(props) {
+  return (dispatch) => {
+    console.log('  3) ACTIONS/DELETE_IMAGE Preparing to send delete image request... ', props);
+    const sending = { username: props };
+    return axios.post('/api/bio/delete_image', sending)
+      .then(({ data }) => dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: data }))
+      .catch((error) => {
+        console.log('     3) ACTIONS/IMAGE_DELETE FAIL', error);
+      });
+  };
+}
+
 export function uploadImage(props) {
   console.log('     ACTIONS/UPLOAD IMAGE props | ', props);
   return dispatch => axios.post('/api/bio/upload_image', props)
     .then(({ data }) => dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data }))
     .catch((error) => {
-      console.log('     ACTIONS/IMAGE_UPLOAD_SUCCESS | ', error);
+      console.log('     ACTIONS/IMAGE_UPLOADS FAIL | ', error);
     });
 }
