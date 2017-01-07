@@ -40,8 +40,8 @@ class Profile extends Component {
     } else if (!this.props.params.username) {
       this.props.getUser(this.currentUser);
     } else {
-      const username = this.props.params.username;
-      this.props.getUser(username);
+      this.username = this.props.params.username;
+      this.props.getUser(this.username);
     }
   }
 
@@ -81,7 +81,7 @@ class Profile extends Component {
   }
 
   renderLikeButton() {
-    if (this.profilePageUser !== this.currentUser) {
+    if (this.username && this.username !== this.currentUser) {
       return (
         <button onClick={this.handleLikeButton}>Like</button>
       );
