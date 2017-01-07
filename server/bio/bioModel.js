@@ -32,6 +32,26 @@ module.exports = {
       });
   },
 
+  removeImage(username, callback) {
+    console.log(`2) [bioModel.js/removeImage] Accessing user database with ${username}`)
+    return db
+      .run(
+        `MATCH (user:User {username: {username}})
+        REMOVE user.image_url
+        RETURN user`,
+        { username }
+      )
+      .then(({ records }) => {
+        db.close();
+        console.log(`3) [bioModel.js/removeImage] Successfully removed image url from database`);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.log('3) [bioModel.js/removeImage] Could not delete image from database');
+        throw error;
+      });
+  },
+
   postImage(username, url, callback) {
     console.log(`2) [bioModel.js/postImage] Accessing user database with url: ${url}`);
     return db

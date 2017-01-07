@@ -5,7 +5,7 @@ const { findUser, likeUser, unlikeUser } = require('../user/userController');
 const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
-const { editBio, uploadImage } = require('../bio/bioController');
+const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
 
 const router = new express.Router();
 
@@ -82,6 +82,9 @@ router.get('/recommendations/:username', getRecommendedMatches);
 
 // 5-a-i) POST -> file: bio/bioController.js
 router.post('/bio/edit_bio', editBio);
+
+// 5-b-i) POST -> file: bio/bioController.js
+router.post('/bio/delete_image', deleteImage);
 
 // 5-b-i) POST -> file: bio/bioController.js
 router.post('/bio/upload_image', uploadImage);

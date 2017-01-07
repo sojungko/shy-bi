@@ -1,4 +1,4 @@
-const { postBio, postImage } = require('./bioModel');
+const { postBio, removeImage, postImage } = require('./bioModel');
 
 module.exports = {
 
@@ -8,6 +8,13 @@ module.exports = {
       console.log('4) [bioController.js/editBio] Completed database query', body);
       res.status(201).json(body);
     });
+  },
+
+  deleteImage(req, res) {
+    console.log(`1) [bioController.js/deleteImage] Received request : `, req.body);
+    removeImage(req.body.username, () => {
+      res.sendStatus(201);
+    })
   },
 
   uploadImage({ body: { username, url } }, res) {

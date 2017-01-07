@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-import { uploadImage } from '../actions';
+import RaisedButton from 'material-ui/RaisedButton';
+import { deleteImage, uploadImage } from '../actions';
 import { getUsername } from '../modules/auth';
 
 const CLOUDINARY_UPLOAD_PRESET = 'yzo22f3q';
@@ -11,6 +12,7 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dm4fqf9nm/image/u
 class ImageUpload extends Component {
 
   static propTypes = {
+    deleteImage: PropTypes.func.isRequired,
     uploadImage: PropTypes.func.isRequired,
   }
 
@@ -28,8 +30,12 @@ class ImageUpload extends Component {
     this.handleImageUpload(files[0]);
   }
 
+  onDelete = () => {
+    this.props.deleteImage(getUsername());
+  }
+
   handleImageUpload(file) {
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+    const upload = request.post(CLOUDINARY_UPLOAD_URL)
                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                         .field('file', file);
 
@@ -64,11 +70,12 @@ class ImageUpload extends Component {
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
         </div>
+        <RaisedButton label="Delete Photo" onClick={this.onDelete} />
         <div>
           {this.state.uploadedFileCloudinaryUrl === '' ? null :
           <div>
             <p>{this.state.uploadedFile.name}</p>
-            <img src={this.state.uploadedFileCloudinaryUrl} />
+            <img role="presentation" src={this.state.uploadedFileCloudinaryUrl} />
           </div>}
         </div>
       </div>
@@ -76,4 +83,4 @@ class ImageUpload extends Component {
   }
 }
 
-export default connect(null, { uploadImage })(ImageUpload);
+export default connect(null, { deleteImage, uploadImage })(ImageUpload);
