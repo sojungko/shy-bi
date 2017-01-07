@@ -7,6 +7,7 @@ import AuthReducer from './authReducer';
 import ActionsReducer from './actionsReducer';
 import MessagesReducer from './messagesReducer';
 import LeftNavReducer from './leftNavReducer';
+import FilterInputsReducer from './filterInputsReducer';
 
 const RootReducer = combineReducers({
   leftNavToggle: LeftNavReducer,
@@ -16,6 +17,7 @@ const RootReducer = combineReducers({
   auth: AuthReducer,
   actions: ActionsReducer,
   messages: MessagesReducer,
+  filterInputs: FilterInputsReducer,
 });
 
 export default RootReducer;

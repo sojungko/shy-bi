@@ -13,6 +13,7 @@ class Messages extends Component {
   static propTypes = {
     children: PropTypes.node,
     getAllMessages: PropTypes.func.isRequired,
+    getSentMessages: PropTypes.func.isRequired,
     received: PropTypes.arrayOf(PropTypes.object.isRequired),
     sent: PropTypes.arrayOf(PropTypes.object.isRequired),
   }
