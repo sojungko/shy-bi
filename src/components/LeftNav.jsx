@@ -23,7 +23,7 @@ const LeftNav = ({ auth, user, open, handleToggle }) => {
   return (
     <Drawer open={open}>
       <Menu onItemTouchTap={handleToggle}>
-        <MenuItem containerElement={<Link to="/" />}>Home</MenuItem>
+        <MenuItem containerElement={<Link to={`/profile/${user}`} />}>Home</MenuItem>
         <Divider />
         <MenuItem containerElement={<Link to="/search" />}>Search</MenuItem>
         <MenuItem containerElement={<Link to={`/likes/${user}`} />}>Likes</MenuItem>
