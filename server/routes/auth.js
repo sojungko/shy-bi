@@ -38,5 +38,19 @@ router.post('/signin', (req, res, next) => {
   })(req, res, next);
 });
 
+router.get('/facebook', passport.authenticate('facebook-login', { scope: 'email' } ));
+
+router.get('/facebook/callback', (req, res, next) => {
+  passport.authenticate('facebook-login', (err, token) => {
+    if (err) {
+      console.log('error authenticating : ', err);
+      return res.status(400).json({
+        message: 'Error with facebook login.',
+      });
+    }
+    res.redirect('/#/');
+  })(req, res, next);
+});
+
 
 module.exports = router;
