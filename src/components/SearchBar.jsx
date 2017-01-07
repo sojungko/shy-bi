@@ -6,7 +6,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import styles from '../styles/SearchBar';
-import { updateMinAge, updateMaxAge, updateCity, clearFields } from '../actions/FilterInputActions';
+import { updateMinAge, updateMaxAge, updateCity, clearFields, filterUser } from '../actions/FilterInputActions';
 
 class SearchBar extends Component {
   static propTypes = {
@@ -18,18 +18,28 @@ class SearchBar extends Component {
     updateMaxAge: PropTypes.func,
     updateCity: PropTypes.func,
     clearFields: PropTypes.func,
+    filterUser: PropTypes.func,
+    inputs: PropTypes.object,
+  }
+
+  componentDidUpdate() {
+    this.props.filterUser(this.props.inputs);
   }
 
   handleChange = ({ target: { name, value } }) => {
     switch (name) {
       case 'minage':
-        return this.props.updateMinAge(value);
+        this.props.updateMinAge(value);
+        break;
       case 'maxage':
-        return this.props.updateMaxAge(value);
+        this.props.updateMaxAge(value);
+        break;
       case 'city':
-        return this.props.updateCity(value);
+        this.props.updateCity(value);
+        break;
       default:
-        return null;
+        null;
+        break;
     }
   }
 
@@ -99,10 +109,11 @@ class SearchBar extends Component {
 }
 
 const mapStateToProps = ({ filterInputs }) => ({
+  inputs: filterInputs,
   minage: filterInputs.minage,
   maxage: filterInputs.maxage,
   sex: filterInputs.sex,
   city: filterInputs.city,
 });
 
-export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, clearFields })(SearchBar);
+export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, clearFields, filterUser })(SearchBar);

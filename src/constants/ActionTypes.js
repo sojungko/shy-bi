@@ -20,3 +20,4 @@ export const UPDATE_MINAGE = 'UPDATE_MINAGE';
 export const UPDATE_MAXAGE = 'UPDATE_MAXAGE';
 export const UPDATE_CITY = 'UPDATE_CITY';
 export const CLEAR_FIELDS = 'CLEAR_FIELDS';
+export const FILTER_USER = 'FILTER_USER';

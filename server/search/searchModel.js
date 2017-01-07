@@ -63,10 +63,9 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches({ minage = '19', maxage = '100', city = '^\\w.*', sex = '^\\w.*' }, callback) {
+  getMatches({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
     console.log(`2) [searchModel.js/getMatches] Accessing user database
-      minage: ${minage},
-      maxage: ${maxage},
+      age: ${minage} < age < ${maxage}
       city: ${city},
       sex: ${sex}
     `);
@@ -75,7 +74,7 @@ module.exports = {
       .run(
         `MATCH (user:User)
         MATCH (user)-[:YEARS_OLD]->(age:Age)
-        	WHERE {minage} < age.age < {maxage}
+        	WHERE toInt({minage}) < toInt(age.age) < toInt({maxage})
         MATCH (user)-[:LIVES_IN]->(city: City)
           WHERE city.name =~ {city}
         MATCH (user)-[:MEMBER_OF]->(sex: Sex)
