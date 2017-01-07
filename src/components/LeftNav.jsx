@@ -26,7 +26,7 @@ const LeftNav = ({ auth, user, open, handleToggle }) => {
         <MenuItem containerElement={<Link to={'/'} />}>Home</MenuItem>
         <Divider />
         <MenuItem containerElement={<Link to="/search" />}>Search</MenuItem>
-        <MenuItem containerElement={<Link to={`/likes/${user}`} />}>Likes</MenuItem>
+        <MenuItem containerElement={<Link to="/matches" />}>Matches</MenuItem>
         <MenuItem containerElement={<Link to="messages" />}>Messages</MenuItem>
         <MenuItem containerElement={<Link to="/recommended" />}>Recommended</MenuItem>
         <MenuItem containerElement={<Link to="/myaccount" />}>My Account</MenuItem>

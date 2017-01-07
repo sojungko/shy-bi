@@ -5,6 +5,8 @@ export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 export const LIKE_USER = 'LIKE_USER';
 export const GET_LIKED_USERS = 'GET_LIKED_USERS';
 
+export const GET_MATCHES = 'GET_MATCHES';
+
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 

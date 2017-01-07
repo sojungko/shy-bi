@@ -1,9 +1,8 @@
-import react from 'react';
-import Likes from '../containers/Likes';
-import UserListI
+import React from 'react';
+import UserListItem from '../components/UserListItem';
 
 export default function renderUsers(users) {
-  return users.map((user, idx) => 
-    <User key={idx} user={user} />,
+  return users.map((user, idx) =>
+    <UserListItem key={idx} user={user} />,
   );
 }

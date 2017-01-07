@@ -9,7 +9,9 @@ import ReceivedMessages from '../components/ReceivedMessages';
 import SentMessages from '../components/SentMessages';
 import SendMessages from '../components/SendMessages';
 import UserList from '../containers/UserList';
-import Likes from '../containers/Likes';
+import Matches from '../containers/Matches';
+import Likes from '../components/Likes';
+import MutualLikes from '../components/MutualLikes';
 import Profile from '../containers/Profile';
 import RecommendedUsers from '../containers/RecommendedUsers';
 import MyAccount from '../containers/MyAccount';
@@ -26,7 +28,10 @@ export default (
       <Route path="sent" component={SentMessages} />
       <Route path="send" component={SendMessages} />
     </Route>
-    <Route path="likes/(:username)" component={Likes} />
+    <Route path="matches" component={Matches}>
+      <IndexRoute component={MutualLikes} />
+      <Route path="likes/:username" component={Likes} />
+    </Route>
     <Route path="recommended" component={RecommendedUsers} />
     <Route path="myaccount" component={MyAccount} />
     <Route path="login" component={LogIn} />

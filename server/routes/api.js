@@ -91,6 +91,6 @@ router.post('/bio/delete_image', deleteImage);
 router.post('/bio/upload_image', uploadImage);
 
 // 6-a-i)
-router.post('/matches', getMatches);
+router.get('/matches/:username', getMatches);
 
 module.exports = router;

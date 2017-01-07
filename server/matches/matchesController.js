@@ -2,10 +2,10 @@ const { getMatchedUsers } = require('./matchesModel');
 
 module.exports = {
 
-  getMatches({ body }, res) {
-    console.log('1) [matchesController.js/getMatches] Received request :', body);
-    getMatchedUsers(body, (matches) => {
-      console.log('4) [matchesController.js/getMatches] Completed database query', body);
+  getMatches({ params }, res) {
+    console.log('1) [matchesController.js/getMatches] Received request for ', params.username);
+    getMatchedUsers(params, (matches) => {
+      console.log('4) [matchesController.js/getMatches] Completed database query for ', params.username);
       const matchedUsers = matches.map((matchedUserData, index) => {
         console.log(`4-${index}) [matchesController.js/getMatches] parsing data`);
         // Getting User data

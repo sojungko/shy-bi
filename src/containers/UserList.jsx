@@ -49,6 +49,8 @@ class UserList extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({ users });
+const mapStateToProps = ({ users }) => ({
+  users: users.users,
+});
 
 export default connect(mapStateToProps, { getUser, getAllUsers })(UserList);

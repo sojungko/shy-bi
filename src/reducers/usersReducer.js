@@ -1,15 +1,18 @@
-import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER, GET_LIKED_USERS } from '../constants/ActionTypes';
+import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER, GET_LIKED_USERS, GET_MATCHES } from '../constants/ActionTypes';
 
-export default function (state = [], action) {
+const INITIAL_STATE = { users: [], recommended: [], liked: [], matches: [] };
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_ALL_USERS:
-      return action.payload;
-    case SIGN_UP_USER:
-      return action.payload;
+      return { ...state, users: action.payload };
+    // case SIGN_UP_USER:
+    //   return action.payload;
     case GET_RECOMMENDED_USERS:
-      return action.payload;
+      return { ...state, recommended: action.payload };
     case GET_LIKED_USERS:
-      return action.payload;
+      return { ...state, liked: action.payload };
+    case GET_MATCHES:
+      return { ...state, matches: action.payload };
     default:
       return state;
   }

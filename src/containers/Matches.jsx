@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import UserListItem from '../components/UserListItem';
-import { getUser, getLikedUsers } from '../actions';
+import { getMatches, getLikedUsers } from '../actions';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 
@@ -14,10 +13,10 @@ class Matches extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    getAllMessages: PropTypes.func.isRequired,
-    getSentMessages: PropTypes.func.isRequired,
-    received: PropTypes.arrayOf(PropTypes.object.isRequired),
-    sent: PropTypes.arrayOf(PropTypes.object.isRequired),
+    getMatches: PropTypes.func,
+    getLikedUsers: PropTypes.func,
+    matches: PropTypes.arrayOf(PropTypes.object),
+    likes: PropTypes.arrayOf(PropTypes.object),
   }
 
   componentWillMount() {
@@ -25,36 +24,35 @@ class Matches extends Component {
       this.context.router.push('/login');
     } else {
       const username = getUsername();
-      this.props.getAllMessages(username);
-      this.props.getSentMessages(username);
+      this.props.getMatches(username);
+      this.props.getLikedUsers(username);
     }
   }
 
   render() {
-    const messageMenu = [
-      { label: 'received', path: 'messages/received' },
-      { label: 'sent', path: 'messages/sent' },
-      { label: 'send', path: 'messages/send' },
+    const matchesMenu = [
+      { label: 'matches', path: '/' },
+      { label: 'likes', path: 'matches/likes' },
     ];
 
     const children = Children
       .map(this.props.children, child => React.cloneElement(child, {
-        received: this.props.received,
-        sent: this.props.sent,
+        mutualLikes: this.props.matches,
+        likes: this.props.likes,
       }));
 
     return (
       <div>
-        <Navbar menus={messageMenu} />
+        <Navbar menus={matchesMenu} />
         {children}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ messages }) => ({
-  received: messages.received,
-  sent: messages.sent,
+const mapStateToProps = ({ users }) => ({
+  matches: users.matches,
+  likes: users.likes,
 });
 
-export default connect(mapStateToProps, { getAllMessages, getSentMessages })(Messages);
+export default connect(mapStateToProps, { getMatches, getLikedUsers })(Matches);
