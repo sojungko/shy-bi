@@ -128,7 +128,7 @@ module.exports = {
 
   filterUsers({ query }, res) {
     console.log(`1) [SearchController.js/filterUsers] Filtering users by
-      age: ${query.age}, city: ${query.city}, sex: ${query.sex}`);
+      minage: ${query.minage}, maxage: ${query.maxage}, city: ${query.city}, sex: ${query.sex}`);
 
     getMatches(query, (filteredUserData) => {
       console.log(`4) [SearchController.js/filterUsers] Success!
