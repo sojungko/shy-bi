@@ -71,7 +71,7 @@ class Profile extends Component {
   }
 
   renderLikeButton() {
-    if (this.profilePageUser) {
+    if (this.profilePageUser !== this.currentUser) {
       return (
         <button onClick={this.handleLikeButton}>Like</button>
       );
