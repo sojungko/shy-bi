@@ -3,10 +3,10 @@ const { postBio, postImage } = require('./bioModel');
 module.exports = {
 
   editBio({ body }, res) {
-    console.log(`1) [bioController.js/editBio] Received request :`, body);
+    console.log('1) [bioController.js/editBio] Received request :', body);
     postBio(body, () => {
-      console.log()
-      res.end();
+      console.log('4) [bioController.js/editBio] Completed database query', body);
+      res.status(201).json(body);
     });
   },
 
@@ -14,7 +14,7 @@ module.exports = {
     console.log(`1) [bioController.js/uploadImage] Sending image url ${url} for ${username}`);
     postImage(username, url, (records) => {
       console.log('Image successfully saved : ', records);
-      res.status(201).end();
+      res.status(201).json(records);
     });
   },
 };
