@@ -6,20 +6,24 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import styles from '../styles/SearchBar';
-import { updateMinAge, updateMaxAge, updateCity, clearFields, filterUser } from '../actions/FilterInputActions';
+import { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser } from '../actions/FilterInputActions';
 
 class SearchBar extends Component {
   static propTypes = {
     minage: PropTypes.string,
     maxage: PropTypes.string,
-    sex: PropTypes.string,
     city: PropTypes.string,
     updateMinAge: PropTypes.func,
     updateMaxAge: PropTypes.func,
     updateCity: PropTypes.func,
     clearFields: PropTypes.func,
     filterUser: PropTypes.func,
-    inputs: PropTypes.object,
+    updateSex: PropTypes.func,
+    inputs: PropTypes.shape({
+      minage: PropTypes.string,
+      maxage: PropTypes.string,
+      city: PropTypes.string,
+    }),
   }
 
   componentDidUpdate() {
@@ -37,10 +41,14 @@ class SearchBar extends Component {
       case 'city':
         this.props.updateCity(value);
         break;
-      default:
-        null;
+      case 'sex':
+        this.props.updateSex(value);
         break;
+      default:
+        return null;
     }
+
+    return null;
   }
 
   handleClick = () => {
@@ -48,7 +56,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { minage, maxage, sex, city } = this.props;
+    const { minage, maxage, city } = this.props;
     return (
       <div>
         <Card>
@@ -76,15 +84,15 @@ class SearchBar extends Component {
               <div className="field-line">
                 <RadioButtonGroup
                   name="sex"
-                  defaultSelected="male"
+                  onChange={this.handleChange}
                 >
                   <RadioButton
-                    value="male"
+                    value="Male"
                     label="Male"
                     style={styles.radioButton}
                   />
                   <RadioButton
-                    value="female"
+                    value="Female"
                     label="Female"
                     style={styles.radioButton}
                   />
@@ -116,4 +124,4 @@ const mapStateToProps = ({ filterInputs }) => ({
   city: filterInputs.city,
 });
 
-export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, clearFields, filterUser })(SearchBar);
+export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser })(SearchBar);
