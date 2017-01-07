@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardText, CardActions } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -52,9 +52,10 @@ class LogIn extends Component {
           <div className="button-line">
             <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
           </div>
-          <CardText>
+          <CardActions>
             Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
-          </CardText>
+            <a href='/auth/facebook'>click to auth with fb</a>
+          </CardActions>
         </form>
       </Card>
     );

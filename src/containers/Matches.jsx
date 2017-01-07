@@ -31,8 +31,8 @@ class Matches extends Component {
 
   render() {
     const matchesMenu = [
-      { label: 'matches', path: '/' },
-      { label: 'likes', path: 'matches/likes' },
+      { label: 'matches', path: 'matches/' },
+      { label: 'likes', path: 'matches/likes/:username' },
     ];
 
     const children = Children
