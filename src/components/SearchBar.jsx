@@ -22,6 +22,7 @@ const styles = {
 class SearchBar extends Component {
 
   render() {
+    const { minage, maxage, sex, city } = this.props;
     return (
       <div>
         <Card>
@@ -33,6 +34,7 @@ class SearchBar extends Component {
                   floatingLabelText="Minimum Age"
                   name="minAge"
                   type="number"
+                  value={minage}
                 />
               </div>
               <div className="field-line">
@@ -40,6 +42,7 @@ class SearchBar extends Component {
                   floatingLabelText="Maximum Age"
                   name="maxAge"
                   type="number"
+                  value={maxage}
                 />
               </div>
               <div className="field-line">
@@ -64,6 +67,7 @@ class SearchBar extends Component {
                   floatingLabelText="City"
                   type="text"
                   name="city"
+                  value={city}
                 />
               </div>
             </div>
@@ -75,5 +79,11 @@ class SearchBar extends Component {
   }
 }
 
-const mapStateToProps = ({ filterInputs }) => ({ filterInputs });
+const mapStateToProps = ({ filterInputs }) => ({
+  minage: filterInputs.minage,
+  maxage: filterInputs.maxage,
+  sex: filterInputs.sex,
+  city: filterInputs.city,
+});
+
 export default connect(mapStateToProps, null)(SearchBar);
