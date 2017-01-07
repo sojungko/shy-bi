@@ -41,6 +41,13 @@ export function getLikedUsers(username) {
     .catch(error => console.error(error));
 }
 
+/* Fetch Matches */
+export function getMatches(username) {
+  return dispatch => axios.get(`/api/matches/${username}`)
+    .then(({ data }) => dispatch({ type: A.GET_MATCHES, payload: data }))
+    .catch(error => console.error(error));
+}
+
 /* -- Signing up User--*/
 export function signupUser(props) {
   return dispatch => axios.post('/auth/signup', props)

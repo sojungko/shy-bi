@@ -7,11 +7,11 @@
  * Methods in this file are:
  *
  *  1) FIND ALL USERS : findAll(req, res)
- *  2) FILTER USERS : getMatches({ query }, res)
+ *  2) FILTER USERS : getFilteredUsers({ query }, res)
  *
  * --------------------------------------------------------------- */
 
-const { getAll, getMatches, getLikedUsers } = require('./searchModel');
+const { getAll, getFilteredUsers, getLikedUsers } = require('./searchModel');
 
 module.exports = {
   //
@@ -92,7 +92,7 @@ module.exports = {
 
   /* -------------------------- * FILTER USERS * -------------------------
    *
-   * Calls getMatches method (see serach/searchModel.js)
+   * Calls getFilteredUsers method (see serach/searchModel.js)
    * Once it receives all users data,
    *  chunks the data for each users to build a all users object for FE to use.
    * Sends a JSON stringified all users object as a response.
@@ -130,7 +130,7 @@ module.exports = {
     console.log(`1) [SearchController.js/filterUsers] Filtering users by
       minage: ${query.minage}, maxage: ${query.maxage}, city: ${query.city}, sex: ${query.sex}`);
 
-    getMatches(query, (filteredUserData) => {
+    getFilteredUsers(query, (filteredUserData) => {
       console.log(`4) [SearchController.js/filterUsers] Success!
         Chunking data & building res object`);
 

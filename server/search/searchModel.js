@@ -5,7 +5,7 @@
  * Methods in this file are:
  *
  *  1) GET ALL : getAll(callback)
- *  2) GET MATCHES : getMatches({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback)
+ *  2) GET MATCHES : getFilteredUsers({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback)
  *
  * --------------------------------------------------------------- */
 const db = require('../database/config');
@@ -63,8 +63,8 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
-    console.log(`2) [searchModel.js/getMatches] Accessing user database
+  getFilteredUsers({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
+    console.log(`2) [searchModel.js/getFilteredUsers] Accessing user database
       age: ${minage} < age < ${maxage}
       city: ${city},
       sex: ${sex}
@@ -84,12 +84,12 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log(`3) [searchModel.js/getMatches] Reteriving first 10 user data that matches
+        console.log(`3) [searchModel.js/getFilteredUsers] Reteriving first 10 user data that matches
           minage: ${minage}, maxage: ${maxage} city: ${city}, sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getMatches] Could not user with
+        console.error(`3) [userModel.js/getFilteredUsers] Could not user with
           ${minage}, ${maxage}, ${city}, ${sex} in database`);
         throw error;
       });
