@@ -15,6 +15,9 @@ class Profile extends Component {
       age: PropTypes.string,
       sex: PropTypes.string,
       city: PropTypes.string,
+      job: PropTypes.string,
+      edLevel: PropTypes.string,
+      aboutMe: PropTypes.string,
       image_url: PropTypes.string,
     }),
     likeUser: PropTypes.func,
@@ -52,13 +55,16 @@ class Profile extends Component {
   }
 
   renderProfile() {
-    const { name, sex, age, city, image_url } = this.props.profile;
+    const { name, sex, age, city, job, edLevel, aboutMe, image_url } = this.props.profile;
     return (
       <ul>
         <li>Name: {name}</li>
         <li>Sex: {sex}</li>
         <li>Age: {age}</li>
         <li>City: {city}</li>
+        <li>Job: {job}</li>
+        <li>Education Level: {edLevel}</li>
+        <li>About Me: {aboutMe}</li>
         <img role="presentation" src={image_url} />
       </ul>
     );
