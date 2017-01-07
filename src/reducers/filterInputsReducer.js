@@ -15,6 +15,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, maxage: action.payload };
     case A.UPDATE_CITY:
       return { ...state, city: action.payload };
+    case A.UPDATE_SEX:
+      return { ...state, sex: action.payload };
     case A.CLEAR_FIELDS:
       return { ...state, minage: '', maxage: '', sex: '', city: '' };
     default:
