@@ -34,8 +34,7 @@ module.exports = {
         MATCH (user)-[]->(city:City)
         MATCH (user)-[]->(age:Age)
         MATCH (user)-[]->(sex:Sex)
-        RETURN age, user, city, sex LIMIT 10`
-      )
+        RETURN age, user, city, sex LIMIT 10`)
       .then(({ records }) => {
         db.close();
         console.log('3) [searchModel.js/getAll] Reteriving first 10 user data');
@@ -64,31 +63,35 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getMatches({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback) {
-    console.log('2) [searchModel.js/getMatches] Accessing user database');
+  getMatches({ minage = '19', maxage = '100', city = '^\\w.*', sex = '^\\w.*' }, callback) {
+    console.log(`2) [searchModel.js/getMatches] Accessing user database
+      minage: ${minage},
+      maxage: ${maxage},
+      city: ${city},
+      sex: ${sex}
+    `);
 
     return db
       .run(
         `MATCH (user:User)
         MATCH (user)-[:YEARS_OLD]->(age:Age)
-        	WHERE age.age =~ {age}
+        	WHERE {minage} < age.age < {maxage}
         MATCH (user)-[:LIVES_IN]->(city: City)
           WHERE city.name =~ {city}
         MATCH (user)-[:MEMBER_OF]->(sex: Sex)
           WHERE sex.sex =~ {sex}
         RETURN user, age, city, sex LIMIT 10`,
-        { age, city, sex }
-      )
+        { minage, maxage, city, sex })
       .then(({ records }) => {
         db.close();
 
         console.log(`3) [searchModel.js/getMatches] Reteriving first 10 user data that matches
-          age: ${age}, city: ${city}, sex: ${sex}`);
+          minage: ${minage}, maxage: ${maxage} city: ${city}, sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
         console.error(`3) [userModel.js/getMatches] Could not user with
-          ${age}, ${city}, ${sex} in database`);
+          ${minage}, ${maxage}, ${city}, ${sex} in database`);
         throw error;
       });
   },
@@ -104,17 +107,16 @@ module.exports = {
         MATCH (liked)-[]->(age:Age)
         MATCH (liked)-[]->(sex:Sex)
         RETURN liked, age, city, sex`,
-        { username }
-      )
+        { username })
       .then(({ records }) => {
         db.close();
 
-        console.log(`3) [searchModel.js/getLikedUsers] Reteriving liked users data`);
+        console.log('3) [searchModel.js/getLikedUsers] Reteriving liked users data');
         return callback(records);
       })
       .catch((error) => {
         console.error(`3) [userModel.js/getLikedUsers] Could not find liked users for ${username}`);
         throw error;
       });
-  }
+  },
 };
