@@ -1,25 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  radioButton: {
-    marginBottom: 16,
-  },
-  margin: 12,
-  cardMargin: {
-    paddingTop: 50,
-    paddingLeft: 100,
-  },
-};
+import styles from '../styles/SearchBar';
+import { updateMinAge, updateMaxAge, updateCity, clearFields } from '../actions/FilterInputActions';
 
 class SearchBar extends Component {
+  static propTypes = {
+    minage: PropTypes.string,
+    maxage: PropTypes.string,
+    sex: PropTypes.string,
+    city: PropTypes.string,
+    updateMinAge: PropTypes.func,
+    updateMaxAge: PropTypes.func,
+    updateCity: PropTypes.func,
+    clearFields: PropTypes.func,
+  }
+
+  handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'minage':
+        return this.props.updateMinAge(value);
+      case 'maxage':
+        return this.props.updateMaxAge(value);
+      case 'city':
+        return this.props.updateCity(value);
+      default:
+        return null;
+    }
+  }
+
+  handleClick = () => {
+    this.props.clearFields();
+  }
 
   render() {
     const { minage, maxage, sex, city } = this.props;
@@ -32,17 +48,19 @@ class SearchBar extends Component {
               <div className="field-line">
                 <TextField
                   floatingLabelText="Minimum Age"
-                  name="minAge"
+                  name="minage"
                   type="number"
                   value={minage}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="field-line">
                 <TextField
                   floatingLabelText="Maximum Age"
-                  name="maxAge"
+                  name="maxage"
                   type="number"
                   value={maxage}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="field-line">
@@ -68,11 +86,12 @@ class SearchBar extends Component {
                   type="text"
                   name="city"
                   value={city}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
           </form>
-          <RaisedButton label="Clear Fields" style={styles} />
+          <RaisedButton label="Clear Fields" style={styles} onClick={this.handleClick} />
         </Card>
       </div>
     );
@@ -86,4 +105,4 @@ const mapStateToProps = ({ filterInputs }) => ({
   city: filterInputs.city,
 });
 
-export default connect(mapStateToProps, null)(SearchBar);
+export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, clearFields })(SearchBar);
