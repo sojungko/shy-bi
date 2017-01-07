@@ -32,7 +32,7 @@ class EditBio extends Component {
     editBio: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
     pristine: PropTypes.bool,
-    submitting: PropTypes.func,
+    submitting: PropTypes.bool,
     reset: PropTypes.func,
   }
 

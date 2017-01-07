@@ -1,20 +1,30 @@
 const db = require('../database/config');
 
 module.exports = {
-
-  postBio({ memberSince, password, name, email, username, city, age, sex, image_url }, callback) {
+  postBio({ name, email, username, city, age, sex }, callback) {
     console.log(`2) [bioModel.js/postBio] Accessing user database with username: ${username}`);
     return db
       .run(
-        `MATCH (n:User{ username: {username}})
-        SET n = {body}
-        RETURN n`,
-        { memberSince, password, name, email, username, city, age, sex, image_url }
+        `MATCH (user:User {username: {username}})
+        SET user.name = {name}, user.email = {email}
+        WITH user
+        MATCH (user)-[cityRel:LIVES_IN]->(city:City) WHERE NOT city.name = {city}
+        MERGE (user)-[:LIVES_IN]->(newCity:City {name: {city}})
+        DETACH DELETE cityRel
+        WITH user
+        MATCH (user)-[ageRel:YEARS_OLD]->(age:Age) WHERE NOT age.age = {age}
+        MERGE (user)-[:YEARS_OLD]->(newAge:Age {age: {age}})
+        DETACH DELETE ageRel
+        WITH user
+        MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = 'Chicago'
+        MERGE (user)-[:MEMBER_OF]->(newSex:Sex {sex: {sex}})
+        DETACH DELETE sexRel`,
+        { name, email, username, city, age, sex }
       )
-      .then(({ records }) => {
-        console.log('3) [bioModel.js/postBio] Editing user info in database:', records);
+      .then(() => {
+        console.log('3) [bioModel.js/postBio] Editing user info in database:');
         db.close();
-        return callback(records);
+        return callback();
       })
       .catch((error) => {
         console.log('3) [bioModel.js/postBio] Could not edit user in database : ', error);
