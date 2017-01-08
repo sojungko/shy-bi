@@ -1,3 +1,4 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const PassportLocalStrategy = require('passport-local').Strategy;
 const User = require('../user/userController');
