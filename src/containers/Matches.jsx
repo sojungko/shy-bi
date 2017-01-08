@@ -1,10 +1,10 @@
 import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getMatches, getLikedUsers } from '../actions';
-
-import { isUserAuthenticated, getUsername } from '../modules/auth';
 
 import Navbar from '../components/Navbar';
+import { getMatches, getLikedUsers } from '../actions';
+import { isUserAuthenticated, getUsername } from '../modules/auth';
+
 
 class Matches extends Component {
   static contextTypes = {
@@ -29,16 +29,27 @@ class Matches extends Component {
     }
   }
 
+  handleClick = (userName) => {
+    this.props.getUser(userName)
+      .then(() => {
+        this.context.router.push(`/profile/${userName}`);
+      });
+  }
+
   render() {
+    const username = getUsername();
     const matchesMenu = [
       { label: 'matches', path: '/' },
-      { label: 'likes', path: 'matches/likes' },
+      { label: 'likes', path: `matches/likes/${username}` },
     ];
+
+    console.log('likes :', this.props.likes);
 
     const children = Children
       .map(this.props.children, child => React.cloneElement(child, {
         mutualLikes: this.props.matches,
         likes: this.props.likes,
+        handleClick: this.handleClick,
       }));
 
     return (

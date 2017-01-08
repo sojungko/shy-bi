@@ -6,7 +6,7 @@ import { getRecommendedUsers, getUser } from '../actions';
 
 class RecommendedUsers extends Component {
   static propTypes = {
-    users: PropTypes.arrayOf(PropTypes.object.isRequired),
+    recommended: PropTypes.arrayOf(PropTypes.object.isRequired),
     getRecommendedUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
   }
@@ -29,7 +29,7 @@ class RecommendedUsers extends Component {
   }
 
   renderRecommendedUsersList() {
-    return this.props.users.map((user, index) => (
+    return this.props.recommended.map((user, index) => (
       <UserListItem key={index} user={user} handleClick={this.handleClick} />
     ));
   }
@@ -46,6 +46,8 @@ class RecommendedUsers extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({ users });
+const mapStateToProps = ({ users }) => ({
+  recommended: users.recommended,
+});
 
 export default connect(mapStateToProps, { getUser, getRecommendedUsers })(RecommendedUsers);
