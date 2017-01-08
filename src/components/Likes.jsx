@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import UserListItem from '../components/UserListItem';
+import renderUsers from '../modules/users';
 
-const Likes = (props) => {
-  const renderList = () => props.likes.map((user, idx) => (
-    <UserListItem key={idx} user={user} handleClick={props.handleClick} />
-  ));
+const Likes = ({ likes, handleClick }) => (
+  <ul>
+    {renderUsers(likes, handleClick)}
+  </ul>
+);
 
-  return (
-    <ul>
-      {renderList()}
-    </ul>
-  );
+Likes.propTypes = {
+  likes: PropTypes.arrayOf(PropTypes.object),
+  handleClick: PropTypes.func,
 };
+
 
 export default Likes;

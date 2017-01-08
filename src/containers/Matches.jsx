@@ -39,7 +39,7 @@ class Matches extends Component {
   render() {
     const username = getUsername();
     const matchesMenu = [
-      { label: 'matches', path: '/' },
+      { label: 'matches', path: `/matches/${username}` },
       { label: 'likes', path: `matches/likes/${username}` },
     ];
 
