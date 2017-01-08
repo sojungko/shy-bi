@@ -5,7 +5,6 @@
  *  2) Deligates all server-side routing to routes.js
  *
  * --------------------------------------------------------------- */
-require('dotenv').config();
 
 const express = require('express');
 const passport = require('passport');
@@ -13,6 +12,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dbinit = require('./database/initialize');
+
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+// const authCheckMiddleware = require('./passport/auth-check');
+const authRoutes = require('./routes/auth');
+const apiRoutes = require('./routes/api');
 
 const app = express();
 dbinit();
@@ -25,23 +30,12 @@ app.use(morgan('dev'));
 // pass the passport middleware
 app.use(passport.initialize());
 
-app.use(express.static(path.join(__dirname, '/../node_modules')));
-app.use(express.static(path.join(__dirname, '/../')));
-
-const localSignupStrategy = require('./passport/local-signup');
-const localLoginStrategy = require('./passport/local-login');
-const facebookLoginStrategy = require('./passport/facebook-login');
 // load passport strategies
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
-passport.use('facebook-login', facebookLoginStrategy);
 
 // pass the authenticaion checker middleware
 // app.use('/api', authCheckMiddleware);
-
-// const authCheckMiddleware = require('./passport/auth-check');
-const authRoutes = require('./routes/auth');
-const apiRoutes = require('./routes/api');
 
 // routes
 app.use('/auth', authRoutes);
@@ -57,6 +51,8 @@ app.use('/api', apiRoutes);
  *  2) Build Directory
  * ------------------------------------------------------------- */
 
+app.use(express.static(path.join(__dirname, '/../node_modules')));
+app.use(express.static(path.join(__dirname, '/../')));
 
 const port = process.env.PORT || 8080;
 
