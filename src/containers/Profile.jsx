@@ -31,14 +31,14 @@ class Profile extends Component {
 
   componentWillMount() {
     const visitedUser = this.props.params.username;
-    const { getUser, profile } = this.props;
+    const { profile } = this.props;
 
     if (!isUserAuthenticated()) {
       return this.context.router.push('/login');
     } else if (!visitedUser) {
-      return getUser(getUsername());
+      return this.props.getUser(getUsername());
     } else if (visitedUser !== profile.username) {
-      return getUser(visitedUser);
+      return this.props.getUser(visitedUser);
     }
 
     return null;

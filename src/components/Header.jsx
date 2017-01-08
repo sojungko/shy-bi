@@ -1,49 +1,28 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, cloneElement } from 'react';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 
-const Header = (props) => {
-  if (!props.auth) {
-    if (props.location === '/login') {
-      return (
-        <AppBar
-          title="ShyBi"
-          onLeftIconButtonTouchTap={props.handleToggle}
-          iconElementRight={
-            <FlatButton
-              label="Sign Up"
-              containerElement={<Link to="/signup" />}
-            />}
-        />
-      );
-    } else {
-      return (
-        <AppBar
-          title="ShyBi"
-          onLeftIconButtonTouchTap={props.handleToggle}
-          iconElementRight={
-            <FlatButton
-              label="Log In"
-              containerElement={<Link to="/login" />}
-            />}
-        />
-      );
-    }
-  }
+const Header = ({ logOut, handleToggle, auth, location }) => {
+  const renderFlatButton = (label, path) => {
+    const flatButton = <FlatButton label={label} containerElement={<Link to={path}>{label}</Link>} />;
+    if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
+    return flatButton;
+  };
 
-  return (
+  const renderAppBar = (label, path) => (
     <AppBar
       title="ShyBi"
-      onLeftIconButtonTouchTap={props.handleToggle}
-      iconElementRight={
-        <FlatButton
-          onTouchTap={props.logOut}
-          label="Log Out"
-          containerElement={<Link to="/" />}
-        />}
+      onLeftIconButtonTouchTap={handleToggle}
+      iconElementRight={renderFlatButton(label, path)}
     />
   );
+
+  if (!auth) {
+    if (location === '/login') return renderAppBar('Sign UP', '/signup');
+    return renderAppBar('Log In', '/login');
+  }
+  return renderAppBar('Log Out', '/');
 };
 
 Header.propTypes = {
