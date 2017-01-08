@@ -5,36 +5,29 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import { Link } from 'react-router';
 
-const LeftNav = ({ auth, user, open, handleToggle }) => {
-  if (!auth) {
-    return (
-      <Drawer open={open}>
-        <Menu onItemTouchTap={handleToggle}>
-          <MenuItem containerElement={<Link to="/" />}>Home</MenuItem>
-          <Divider />
-          <MenuItem containerElement={<Link to="/login" />}>Log In</MenuItem>
-          <MenuItem containerElement={<Link to="/signup" />}>Sign Up</MenuItem>
-          <MenuItem onTouchTap={handleToggle}>Close</MenuItem>
-        </Menu>
-      </Drawer>
-    );
-  }
+import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';
 
-  return (
+const LeftNav = ({ auth, open, handleToggle }) => {
+  const renderMenuItems = menu => menu
+    .map(({ link, label }, index) =>
+      <MenuItem key={index} containerElement={<Link to={link}>{label}</Link>}>{label}</MenuItem>);
+
+  const renderDrawer = menu => (
     <Drawer open={open}>
       <Menu onItemTouchTap={handleToggle}>
-        <MenuItem containerElement={<Link to={'/'} />}>Home</MenuItem>
+        <MenuItem containerElement={<Link to="/"> Home </Link>}>Home</MenuItem>
         <Divider />
-        <MenuItem containerElement={<Link to="/search" />}>Search</MenuItem>
-        <MenuItem containerElement={<Link to="/matches" />}>Matches</MenuItem>
-        <MenuItem containerElement={<Link to="messages" />}>Messages</MenuItem>
-        <MenuItem containerElement={<Link to="/recommended" />}>Recommended</MenuItem>
-        <MenuItem containerElement={<Link to="/myaccount" />}>My Account</MenuItem>
+        {renderMenuItems(menu)}
         <Divider />
         <MenuItem onTouchTap={handleToggle}>Close</MenuItem>
       </Menu>
     </Drawer>
   );
+
+  if (!auth) {
+    return renderDrawer(leftNavUnAuth);
+  }
+  return renderDrawer(leftNavAuth);
 };
 
 LeftNav.propTypes = {
