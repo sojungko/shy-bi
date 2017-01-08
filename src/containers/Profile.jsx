@@ -31,23 +31,22 @@ class Profile extends Component {
 
   componentWillMount() {
     const visitedUser = this.props.params.username;
-    const { profile } = this.props;
+    const username = this.props.profile.username;
 
     if (!isUserAuthenticated()) {
-      return this.context.router.push('/login');
+      this.context.router.push('/login');
     } else if (!visitedUser) {
-      return this.props.getUser(getUsername());
-    } else if (visitedUser !== profile.username) {
-      return this.props.getUser(visitedUser);
+      this.props.getUser(getUsername());
+    } else if (visitedUser !== username) {
+      this.props.getUser(visitedUser);
     }
-
-    return null;
   }
 
   componentWillReceiveProps(nextProps) {
+    const visitedUser = this.props.params.username;
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
-    } else if (!this.props.params.username && getUsername() !== nextProps.profile.username) {
+    } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
       this.props.getUser(getUsername());
     }
   }
