@@ -30,6 +30,7 @@ export default (
     </Route>
     <Route path="matches" component={Matches}>
       <IndexRoute component={MutualLikes} />
+      <Route path=":username" component={MutualLikes} />
       <Route path="likes/:username" component={Likes} />
     </Route>
     <Route path="recommended" component={RecommendedUsers} />
