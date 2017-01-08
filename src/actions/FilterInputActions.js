@@ -10,8 +10,8 @@ const clearFields = () => ({ type: A.CLEAR_FIELDS });
 const filterUser = ({ minage, maxage, sex, city }) => {
   let url = '/api/search/filter?';
 
-  !minage ? minage = 19 : minage < 19 ? minage = '19' : minage;
-  !maxage ? maxage = '100' : maxage < minage ? maxage = minage : maxage;
+  !minage ? minage = 19 : minage < 19 ? minage = 19 : minage;
+  !maxage ? maxage = 100 : maxage < minage ? maxage = minage : maxage;
   url += `minage=${minage}&maxage=${maxage}&`;
 
   if (sex) {

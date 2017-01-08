@@ -37,19 +37,9 @@ class EditBio extends Component {
   }
 
   onSubmit = (inputs) => {
-    console.log('EDIT BIO/COMPONENT User input 1) : ', inputs)
     this.props.getUser(getUsername())
-      .then(() => {
-        console.log('EDIT BIO/COMPONENT User input 2) : ', inputs);
-        const props = Object.assign({}, this.props.profile, inputs);
-        console.log(' 1) EDIT BIO/COMPONENT successfully repackaged user data : ', props);
-        return props;
-      })
-      .then((props) => {
-        console.log('  2) EDIT BIO/COMPONENT preparing to fire EDIT_BIO action...', props);
-        console.log('  EDIT BIO/COMPONENT editBio : ', this.props.editBio);
-        this.props.editBio(props);
-      });
+      .then(() => ({ ...this.props.profile, ...inputs }))
+      .then(props => this.props.editBio(props));
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -174,8 +164,8 @@ class EditBio extends Component {
                 type="text"
                 component={this.renderTextField}
                 label="About Me"
-                multiLine={true}
-                fullWidth={true}
+                multiLine
+                fullWidth
                 rows={2}
                 rowsMax={4}
               />

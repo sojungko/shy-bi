@@ -4,7 +4,12 @@ import { Link } from 'react-router' ;
 
 const Navbar = (props) => {
   const renderMenu = () => props.menus
-    .map((menu, index) => <Tab key={index} label={menu.label} containerElement={<Link to={menu.path} />} />);
+    .map(({ path, label }, index) =>
+      <Tab
+        key={index}
+        label={label}
+        containerElement={<Link to={path}>{label}</Link>}
+      />);
 
   return (
     <Tabs>

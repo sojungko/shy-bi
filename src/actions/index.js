@@ -90,12 +90,8 @@ export function sendMessage(message) {
 /* -- Editing Bio -- */
 export function editBio(props) {
   return (dispatch) => {
-    console.log('  3) ACTIONS/EDIT_BIO Preparing to send modified user data... ', props);
     axios.post('/api/bio/edit_bio', props)
-    .then(({ data }) => {
-      console.log('    4) ACTIONS/EDIT_BIO Received modified data! : ', data);
-      return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data });
-    })
+    .then(({ data }) => dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data }))
     .catch((error) => {
       console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
     });
@@ -104,7 +100,6 @@ export function editBio(props) {
 
 export function deleteImage(props) {
   return (dispatch) => {
-    console.log('  3) ACTIONS/DELETE_IMAGE Preparing to send delete image request... ', props);
     const sending = { username: props };
     return axios.post('/api/bio/delete_image', sending)
       .then(({ data }) => dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: data }))
@@ -115,7 +110,6 @@ export function deleteImage(props) {
 }
 
 export function uploadImage(props) {
-  console.log('     ACTIONS/UPLOAD IMAGE props | ', props);
   return dispatch => axios.post('/api/bio/upload_image', props)
     .then(({ data }) => dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data }))
     .catch((error) => {
