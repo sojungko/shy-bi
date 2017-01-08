@@ -2,7 +2,7 @@ import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Navbar from '../components/Navbar';
-import { getMatches, getLikedUsers } from '../actions';
+import { getMatches, getLikedUsers, getUser } from '../actions';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 
 
@@ -17,6 +17,7 @@ class Matches extends Component {
     getLikedUsers: PropTypes.func,
     matches: PropTypes.arrayOf(PropTypes.object),
     likes: PropTypes.arrayOf(PropTypes.object),
+    getUser: PropTypes.func,
   }
 
   componentWillMount() {
@@ -43,8 +44,6 @@ class Matches extends Component {
       { label: 'likes', path: `matches/likes/${username}` },
     ];
 
-    console.log('likes :', this.props.likes);
-
     const children = Children
       .map(this.props.children, child => React.cloneElement(child, {
         mutualLikes: this.props.matches,
@@ -66,4 +65,4 @@ const mapStateToProps = ({ users }) => ({
   likes: users.likes,
 });
 
-export default connect(mapStateToProps, { getMatches, getLikedUsers })(Matches);
+export default connect(mapStateToProps, { getMatches, getLikedUsers, getUser })(Matches);
