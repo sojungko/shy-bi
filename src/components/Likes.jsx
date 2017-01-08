@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react';
-import { renderUsers } from '../modules/users';
+import UserListItem from '../components/UserListItem';
 
-const MutualLikes = ({ likes }) => (
-  <div>
-  </div>
-);
+const Likes = (props) => {
+  const renderList = () => props.likes.map((user, idx) => (
+    <UserListItem key={idx} user={user} handleClick={props.handleClick} />
+  ));
 
-MutualLikes.propTypes = {
-  likes: PropTypes.arrayOf(PropTypes.object),
+  return (
+    <ul>
+      {renderList()}
+    </ul>
+  );
 };
 
-export default MutualLikes;
+export default Likes;
