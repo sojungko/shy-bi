@@ -7,14 +7,6 @@ const updateCity = input => ({ type: A.UPDATE_CITY, payload: input });
 const updateSex = input => ({ type: A.UPDATE_SEX, payload: input });
 const clearFields = () => ({ type: A.CLEAR_FIELDS });
 
-// export function getAllUsers() {
-//   return dispatch => axios.get('/api/search/all')
-//     .then(({ data }) => dispatch({ type: A.GET_ALL_USERS, payload: data }))
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
 const filterUser = ({ minage, maxage, sex, city }) => {
   let url = '/api/search/filter?';
 
