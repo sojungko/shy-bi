@@ -9,13 +9,23 @@ module.exports = new PassportFacebookStrategy({
   profileFields: ['id', 'first_name', 'email', 'birthday', 'location', 'gender', 'education', 'work'],
 }, (accessToken, refreshToken, profile, done) => {
   console.log('Facebook profile data : ', profile._json);
-  const { id, first_name, email } = profile._json;
+  const { id, first_name, email, birthday = '', location = '', gender = '', education = '', work = '' } = profile._json;
+  console.log('passport/facebook birthday : ', birthday);
+  const userData = {
+    username: id,
+    name: first_name,
+    email,
+    password: email,
+    age: new Date().getFullYear() - Number(birthday.slice(0, 4)),
+    city: location,
+    sex: gender,
+    edLevel: education,
+    job: work,
+  };
   User.getUserByEmail(email, (results) => {
     console.log('results : ', results);
     if (results.length === 0) {
-      // name, username, email, password, city, age, sex,
-      console.log('first_name : ', first_name)
-      User.addUser(first_name, id, email, email, '', '', '', () => {
+      User.addUser(userData, () => {
         const payload = {
           sub: email,
         };

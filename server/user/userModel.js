@@ -34,11 +34,14 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  addUser(name, username, email, password, city, age, sex, callback) {
+  addUser(userData, callback) {
+    const { name, username, email, password, job, edLevel, city, age, sex } = userData;
     console.log(`2) [userModel.js/addUser] Adding user ${name}
       username: ${username}
       email: ${email}
       password: ${password}
+      job: ${job}
+      edLevel: ${edLevel}
       city: ${city}
       age: ${age}
       sex: ${sex}
@@ -57,7 +60,9 @@ module.exports = {
             name: {name},
             username: {username},
             email: {email},
-            password: {hash}
+            password: {hash},
+            job: {job},
+            edLevl: {edLevel}
           })
           ON CREATE SET newUser.memberSince = timestamp()
 
@@ -70,7 +75,7 @@ module.exports = {
           MERGE (newUser)-[:MEMBER_OF]->(userSex)
 
           RETURN newUser`,
-          { name, username, email, hash, city, age, sex }
+          { name, username, email, hash, job, edLevel, city, age, sex }
         )
         .then((user) => {
           db.close();
