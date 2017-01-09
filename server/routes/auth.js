@@ -39,4 +39,14 @@ router.post('/signin', (req, res, next) => {
 });
 
 
+router.get('/facebook', passport.authenticate('facebook-login'));
+
+router.get('/facebook/callback', (req, res, next) => {
+  passport.authenticate('facebook-login', (err, token, userId) => {
+    if (err) {
+      return res.status(400);
+    }
+  })(req, res, next);
+});
+
 module.exports = router;

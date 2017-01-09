@@ -15,6 +15,7 @@ const dbinit = require('./database/initialize');
 
 const localSignupStrategy = require('./passport/local-signup');
 const localLoginStrategy = require('./passport/local-login');
+const facebookLoginStrategy = require('./passport/facebook');
 // const authCheckMiddleware = require('./passport/auth-check');
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
@@ -33,6 +34,7 @@ app.use(passport.initialize());
 // load passport strategies
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
+passport.use('facebook-login', facebookLoginStrategy);
 
 // pass the authenticaion checker middleware
 // app.use('/api', authCheckMiddleware);
