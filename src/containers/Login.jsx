@@ -52,6 +52,9 @@ class LogIn extends Component {
           <div className="button-line">
             <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
           </div>
+          <a href="/auth/facebook">
+            <RaisedButton label="Login with Facebook" primary />
+          </a>
           <CardText>
             Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
           </CardText>
