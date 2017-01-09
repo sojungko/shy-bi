@@ -75,7 +75,7 @@ module.exports = {
           MERGE (newUser)-[:MEMBER_OF]->(userSex)
 
           RETURN newUser`,
-          { name, username, email, hash, job, edLevel, city, birthday, sex }
+          { name, username, email, hash, job, edLevel, city, age, sex }
         )
         .then((user) => {
           db.close();
