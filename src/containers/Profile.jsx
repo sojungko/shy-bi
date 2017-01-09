@@ -52,7 +52,7 @@ class Profile extends Component {
   }
 
   handleLikeButton = () => {
-    this.props.likeUser(getUsername(), this.visitedUser);
+    this.props.likeUser(getUsername(), this.props.params.username);
   }
 
   renderProfile() {
