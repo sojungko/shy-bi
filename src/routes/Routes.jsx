@@ -15,6 +15,7 @@ import MutualLikes from '../components/MutualLikes';
 import Profile from '../containers/Profile';
 import RecommendedUsers from '../containers/RecommendedUsers';
 import MyAccount from '../containers/MyAccount';
+import Token from '../components/Token';
 
 export default (
   <Route path="/" component={App}>
@@ -37,5 +38,6 @@ export default (
     <Route path="myaccount" component={MyAccount} />
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />
+    <Route path="token/:token" component={Token} />
   </Route>
 );

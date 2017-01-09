@@ -50,6 +50,7 @@ module.exports = {
         console.log(`2) [userModel.js/addUser] Error hashing ${password}`);
       } else {
         console.log(`2) [userModel.js/addUser] Password successfully hashed: ${hash}`)
+        console.log(`2) username : `, { username });
         return db
         .run(
           `MERGE (newUser:User {
@@ -66,13 +67,16 @@ module.exports = {
 
           MERGE (newUser)-[:LIVES_IN]->(userCity)
           MERGE (newUser)-[:YEARS_OLD]->(userAge)
-          MERGE (newUser)-[:MEMBER_OF]->(userSex)`,
+          MERGE (newUser)-[:MEMBER_OF]->(userSex)
+
+          RETURN newUser`,
           { name, username, email, hash, city, age, sex }
         )
-        .then(() => {
+        .then((user) => {
           db.close();
-          console.log(`3) [userModel.js/addUser] ${username} has been added`);
-          return callback();
+          console.log(`3) [userModel.js/addUser] user : `, user);
+          console.log(`3) [userModel.js/addUser] user has been added`);
+          return callback(user);
         })
         .catch((error) => {
           console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
@@ -117,6 +121,26 @@ module.exports = {
       })
       .catch((error) => {
         console.error(`3) [userModel.js/getUser] Could not find ${username} from database`);
+        throw error;
+      });
+  },
+
+  getUserByEmail(email, callback) {
+    console.log(`2) [userModel.js/getUserByEmail] Finding ${email} from database`);
+
+    return db
+      .run(
+        `MATCH (user:User{email: {email}})
+        RETURN user`,
+        { email }
+      )
+      .then(({ records }) => {
+        db.close();
+        console.log(`3) [userModel.js/getUserByEmail] ${email} has been found`, records);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.log(`3) [userModel.js/getUserByEmail] Could not find ${email} from database`);
         throw error;
       });
   },
