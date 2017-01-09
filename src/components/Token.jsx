@@ -8,7 +8,7 @@ export default class Token extends Component {
   componentWillMount() {
     const token = window.location.hash.slice(8);
     localStorage.setItem('token', token);
-    this.context.router.push('/');
+    this.context.router.push('/facebook/signup');
   }
 
   render() {

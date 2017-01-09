@@ -16,11 +16,13 @@ import Profile from '../containers/Profile';
 import RecommendedUsers from '../containers/RecommendedUsers';
 import MyAccount from '../containers/MyAccount';
 import Token from '../components/Token';
+import FacebookSignup from '../containers/FacebookSignup';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Profile} />
     <Route path="signup" component={SignUp} />
+    <Route path="facebook/signup" component={FacebookSignup} />
     <Route path="search" component={UserList} />
     <Route path="profile/:username" component={Profile} />
     <Route path="messages" component={Messages}>
