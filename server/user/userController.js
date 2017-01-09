@@ -33,19 +33,19 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  signUp({ body: { name, username, email, password, city, age, sex } }, callback) {
+// Taking in job and education because Facebook provides the info
+  signUp({ body: { name, username, email, password, city, age, sex, job = '', edLevel = '' } }, callback) {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
-
     getUser(username, (user) => {
       if (user) {
         callback(null);
       } else {
-        addUser(name, username, email, password, city, age, sex, () => {
-          const result = { name, email, username, city, age, sex };
-          callback(result);
+        const userData = { name, username, email, password, city, age, sex, job, edLevel };
+        addUser(userData, () => {
+          callback(userData);
         });
       }
-    })
+    });
   },
 
   //
