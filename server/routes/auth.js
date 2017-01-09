@@ -44,8 +44,13 @@ router.get('/facebook', passport.authenticate('facebook-login'));
 router.get('/facebook/callback', (req, res, next) => {
   passport.authenticate('facebook-login', (err, token, userId) => {
     if (err) {
-      return res.status(400);
+      console.log('ROUTES/AUTH Facebook login error : ', err);
+      return res.status(400).json({
+        message: 'Error with Facebook login',
+      });
     }
+    const tokenStr = encodeURIComponent(token + userId);
+    res.redirect(`/#/token/${tokenStr}`);
   })(req, res, next);
 });
 
