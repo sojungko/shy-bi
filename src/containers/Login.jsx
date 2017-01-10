@@ -22,9 +22,7 @@ class LogIn extends Component {
 
   onSubmit = (inputs) => {
     this.props.loginUser(inputs)
-      .then(() => {
-        this.context.router.push('/');
-      });
+      .then(() => this.context.router.push('/'));
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
