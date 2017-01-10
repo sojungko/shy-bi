@@ -71,4 +71,8 @@ function mapStateToProps({ leftNavToggle, messages, users }) {
   };
 }
 
-export default connect(mapStateToProps, { toggleLeftNav, getMatches, getAllMessages })(App);
+export default connect(mapStateToProps, {
+  toggleLeftNav,
+  getMatches,
+  getAllMessages,
+})(App);

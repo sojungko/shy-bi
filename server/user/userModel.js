@@ -45,15 +45,14 @@ module.exports = {
       city: ${city}
       age: ${age}
       sex: ${sex}
-      to database`
-    );
+      to database`);
 
     bcrypt.hash(password, null, null, ((err, hash) => {
       if (err) {
         console.log(`2) [userModel.js/addUser] Error hashing ${password}`);
       } else {
-        console.log(`2) [userModel.js/addUser] Password successfully hashed: ${hash}`)
-        console.log(`2) username : `, { username });
+        console.log(`2) [userModel.js/addUser] Password successfully hashed: ${hash}`);
+        console.log('2) username : ', { username });
         return db
         .run(
           `MERGE (newUser:User {
@@ -75,12 +74,11 @@ module.exports = {
           MERGE (newUser)-[:MEMBER_OF]->(userSex)
 
           RETURN newUser`,
-          { name, username, email, hash, job, edLevel, city, age, sex }
-        )
+          { name, username, email, hash, job, edLevel, city, age, sex })
         .then((user) => {
           db.close();
-          console.log(`3) [userModel.js/addUser] user : `, user);
-          console.log(`3) [userModel.js/addUser] user has been added`);
+          console.log('3) [userModel.js/addUser] user : ', user);
+          console.log('3) [userModel.js/addUser] user has been added');
           return callback(user);
         })
         .catch((error) => {
@@ -88,8 +86,7 @@ module.exports = {
           throw error;
         });
       }
-    }))
-
+    }));
   },
 
   /* ------------------------- * GET USER * -------------------------
@@ -116,8 +113,7 @@ module.exports = {
         MATCH (user)-[]->(age:Age)
         MATCH (user)-[]->(sex:Sex)
         RETURN age, user, city, sex`,
-      { username }
-    )
+      { username })
       .then(({ records }) => {
         db.close();
 
@@ -137,8 +133,7 @@ module.exports = {
       .run(
         `MATCH (user:User{email: {email}})
         RETURN user`,
-        { email }
-      )
+        { email })
       .then(({ records }) => {
         db.close();
         console.log(`3) [userModel.js/getUserByEmail] ${email} has been found`, records);
@@ -147,6 +142,20 @@ module.exports = {
       .catch((error) => {
         console.log(`3) [userModel.js/getUserByEmail] Could not find ${email} from database`);
         throw error;
+      });
+  },
+
+  toggleOnline(username) {
+    console.log(`[userModel.js/toggleOnline] Toggling ${username} online `);
+    return db
+      .run(
+        `MATCH (user: User{username: {username}})
+        SET user.online = 'true'
+        RETURN user`,
+        { username })
+      .then((data) => {
+        db.close();
+        console.log(`[userModel.js/toggleOnline] Toggled ${username} online`, data);
       });
   },
 };

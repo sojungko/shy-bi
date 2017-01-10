@@ -14,7 +14,7 @@
 
 const bcrypt = require('bcrypt-nodejs');
 // Plucks addUser methods from user/userModel.js
-const { addUser, getUser, like, unlike } = require('./userModel');
+const { addUser, getUser, toggleOnline } = require('./userModel');
 
 module.exports = {
   //
@@ -43,6 +43,7 @@ module.exports = {
         const userData = { name, username, email, password, city, age, sex, job, edLevel };
         addUser(userData, () => {
           callback(userData);
+          toggleOnline(username);
         });
       }
     });
@@ -101,23 +102,18 @@ module.exports = {
         if (err) {
           console.log('5) [UserController.js/signIn] Wrong password!');
           callback(err);
-        }
-        else if (isMatch) {
-          // Getting User location data
+        } else if (isMatch) {
           const city = data.get('city').properties.name;
-
-          // Getting User age data
           const age = data.get('age').properties.age;
-
-          // Getting User sex data
           const sex = data.get('sex').properties.sex;
 
           const result = { memberSince, password, name, email, username, city, age, sex, image_url };
 
           console.log('5) [UserController.js/signIn] Sending User data: ', result);
           callback(null, result);
+          toggleOnline(username);
         }
-      })
+      });
     });
   },
 
@@ -159,19 +155,10 @@ module.exports = {
 
     getUser(username, (data) => {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object', data);
-
-      // Getting User data
       const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url } } = data.get('user');
-
-      // Getting User location data
       const city = data.get('city').properties.name;
-
-      // Getting User age data
       const age = data.get('age').properties.age;
-
-      // Getting User sex data
       const sex = data.get('sex').properties.sex;
-
 
       const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url };
 
