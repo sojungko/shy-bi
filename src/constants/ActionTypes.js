@@ -1,5 +1,6 @@
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
+export const IS_MATCH = 'IS_MATCH';
 export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 
 export const LIKE_USER = 'LIKE_USER';

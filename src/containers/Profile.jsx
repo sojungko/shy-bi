@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Snackbar from 'material-ui/Snackbar';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
@@ -22,6 +23,7 @@ class Profile extends Component {
       image_url: PropTypes.string,
     }),
     likeUser: PropTypes.func,
+    open: PropTypes.bool,
   }
 
   static contextTypes = {
@@ -33,6 +35,7 @@ class Profile extends Component {
     const visitedUser = this.props.params.username;
     const username = this.props.profile.username;
 
+    console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
     } else if (!visitedUser) {
@@ -87,10 +90,15 @@ class Profile extends Component {
       <div>
         {this.renderProfile()}
         {this.renderLikeButton()}
+        <Snackbar
+          open={this.props.open || false}
+          message="You guys are a match!"
+          autoHideDuration={4000}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ profile }) => ({ profile });
+const mapStateToProps = ({ profile }) => ({ profile, open: profile.isMatch });
 export default connect(mapStateToProps, { getUser, likeUser })(Profile);
