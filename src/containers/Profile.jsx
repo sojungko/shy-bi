@@ -48,6 +48,8 @@ class Profile extends Component {
       this.context.router.push('/login');
     } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
       this.props.getUser(getUsername());
+    } else if (visitedUser === getUsername()) {
+      this.context.router.push('/');
     }
   }
 
