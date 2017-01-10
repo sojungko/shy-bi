@@ -46,7 +46,7 @@ class Matches extends Component {
 
     const children = Children
       .map(this.props.children, child => React.cloneElement(child, {
-        mutualLikes: this.props.matches,
+        matches: this.props.matches,
         likes: this.props.likes,
         handleClick: this.handleClick,
       }));

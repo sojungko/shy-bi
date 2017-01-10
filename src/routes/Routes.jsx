@@ -9,6 +9,7 @@ import ReceivedMessages from '../components/ReceivedMessages';
 import SentMessages from '../components/SentMessages';
 import SendMessages from '../components/SendMessages';
 import UserList from '../containers/UserList';
+import UserListItem from '../components/UserListItem';
 import Matches from '../containers/Matches';
 import Likes from '../components/Likes';
 import MutualLikes from '../components/MutualLikes';
