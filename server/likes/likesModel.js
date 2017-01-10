@@ -2,29 +2,34 @@ const db = require('../database/config');
 
 module.exports = {
   like({ username, likedUser }, callback) {
-    console.log(`2) [userModel.js/like] Finding ${username} and ${likedUser} from database`);
+    console.log(`2) [likesModel.js/like] Finding ${username} and ${likedUser} from database`);
 
     return db
       .run(
         `MATCH (user:User{username: {username}})
         MATCH (liked:User{username: {likedUser}})
         MERGE (user)-[:LIKES]->(liked)
-        RETURN user, liked`,
+
+        RETURN CASE WHEN (liked)-[:LIKES]->(user) THEN true
+        ELSE false
+        END`,
       { username, likedUser }
     )
       .then(({ records }) => {
         db.close();
+        const isMatch = records[0]._fields[0];
 
-        console.log(`3) [userModel.js/like] ${username} liked ${likedUser} <3`);
-        callback(records);
+        console.log(`3) [likesModel.js/like] ${username} liked ${likedUser} <3 : `, isMatch);
+        callback(isMatch);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/like] Could not make ${username} to like ${likedUser}`);
+        console.error(`3) [likesModel.js/like] Could not make ${username} to like ${likedUser}`);
         throw error;
       });
   },
+
   unlike({ username, unlikedUser }, callback) {
-    console.log(`2) [userModel.js/unlike] Finding ${username} and ${unlikedUser} from database`);
+    console.log(`2) [likesModel.js/unlike] Finding ${username} and ${unlikedUser} from database`);
 
     return db
       .run(
@@ -36,7 +41,7 @@ module.exports = {
       )
       .then((results) => {
         db.close();
-        console.log(`3) [userModel.js/unlike] ${username} unliked ${unlikedUser} <3`, results);
+        console.log(`3) [likesModel.js/unlike] ${username} unliked ${unlikedUser} <3`, results);
         callback(results);
       })
       .catch((error) => {
