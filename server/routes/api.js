@@ -1,12 +1,13 @@
 const express = require('express');
 
 // Plucks signup method from user/userController.js
-const { findUser, likeUser, unlikeUser } = require('../user/userController');
+const { findUser } = require('../user/userController');
 const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
 const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
 const { getMatches } = require('../matches/matchesController');
+const { likeUser, unlikeUser } = require('../likes/likesController');
 
 const router = new express.Router();
 
