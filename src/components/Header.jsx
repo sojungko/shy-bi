@@ -2,8 +2,9 @@ import React, { PropTypes, cloneElement } from 'react';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
+import NotificationBadge from './Badges';
 
-const Header = ({ logOut, handleToggle, auth, location }) => {
+const Header = ({ numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderFlatButton = (label, path) => {
     const flatButton = <FlatButton label={label} containerElement={<Link to={path}>{label}</Link>} />;
     if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
@@ -18,11 +19,24 @@ const Header = ({ logOut, handleToggle, auth, location }) => {
     />
   );
 
+  const loggedInAppBar = (label, path) => (
+    <AppBar
+      title="ShyBi"
+      onLeftIconButtonTouchTap={handleToggle}
+      iconElementRight={renderFlatButton(label, path)}
+    >
+      <NotificationBadge
+        numberOfMatches={numberOfMatches}
+        numberOfMessages={numberOfMessages}
+      />
+    </AppBar>
+  );
+
   if (!auth) {
     if (location === '/login') return renderAppBar('Sign UP', '/signup');
     return renderAppBar('Log In', '/login');
   }
-  return renderAppBar('Log Out', '/');
+  return loggedInAppBar('Log Out', '/');
 };
 
 Header.propTypes = {
