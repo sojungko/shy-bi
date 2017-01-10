@@ -1,5 +1,6 @@
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
+export const IS_MATCH = 'IS_MATCH';
 export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 
 export const LIKE_USER = 'LIKE_USER';
@@ -18,6 +19,7 @@ export const IMAGE_DELETE_SUCCESS = 'IMAGE_DELETE_SUCCESS';
 export const IMAGE_UPLOAD_SUCCESS = 'IMAGE_UPLOAD_SUCCESS';
 
 export const TOGGLE_LEFT_NAV = 'TOGGLE_LEFT_NAV';
+export const TOGGLE_SNACK_BAR = 'TOGGLE_SNACK_BAR';
 
 export const UPDATE_MINAGE = 'UPDATE_MINAGE';
 export const UPDATE_MAXAGE = 'UPDATE_MAXAGE';

@@ -8,9 +8,11 @@ import ActionsReducer from './actionsReducer';
 import MessagesReducer from './messagesReducer';
 import LeftNavReducer from './leftNavReducer';
 import FilterInputsReducer from './filterInputsReducer';
+import SnackbarReducer from './snackbarReducer';
 
 const RootReducer = combineReducers({
   leftNavToggle: LeftNavReducer,
+  snackbarToggle: SnackbarReducer,
   form: FormReducer,
   users: UsersReducer,
   profile: ProfileReducer,

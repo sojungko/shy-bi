@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Snackbar from 'material-ui/Snackbar';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
+import toggleSnackbar from '../actions/snackbarToggle';
 
 class Profile extends Component {
   static propTypes = {
@@ -22,6 +24,8 @@ class Profile extends Component {
       image_url: PropTypes.string,
     }),
     likeUser: PropTypes.func,
+    open: PropTypes.bool,
+    toggleSnackbar: PropTypes.func,
   }
 
   static contextTypes = {
@@ -57,6 +61,8 @@ class Profile extends Component {
     this.props.likeUser(getUsername(), this.props.params.username);
   }
 
+  handleToggle = () => this.props.toggleSnackbar(this.props.open);
+
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url } = this.props.profile;
     return (
@@ -87,10 +93,16 @@ class Profile extends Component {
       <div>
         {this.renderProfile()}
         {this.renderLikeButton()}
+        <Snackbar
+          open={this.props.open}
+          message="You guys are a match!"
+          autoHideDuration={4000}
+          onRequestClose={this.handleToggle}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ profile }) => ({ profile });
+const mapStateToProps = ({ profile }) => ({ profile, open: profile.isMatch });
 export default connect(mapStateToProps, { getUser, likeUser })(Profile);

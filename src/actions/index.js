@@ -27,13 +27,6 @@ export function getRecommendedUsers(username) {
     });
 }
 
-export function likeUser(username, likedUser) {
-  return dispatch => axios.post('/api/users/like', { username, likedUser })
-    .then(({ data }) => console.log(data),
-      // TODO: DISPATCH ACTION TO REDUCER
-    );
-}
-
 /* Fetch Liked Users */
 export function getLikedUsers(username) {
   return dispatch => axios.get(`/api/search/liked/${username}`)
@@ -85,6 +78,23 @@ export function sendMessage(message) {
   console.log('      ACTIONS/SEND_MESSAGE | ', message);
   return dispatch => axios.post('api/messages/send', message)
     .then(({ data }) => console.log(data));
+}
+
+export function likeUser(username, likedUser) {
+  return dispatch => axios.post('/api/users/like', { username, likedUser })
+    .then(({ data }) => {
+      console.log(data);
+      // const isMatch = data;
+      // if (isMatch) {
+      //   const request = {
+      //     senderID: username,
+      //     receiverID: likedUser,
+      //     title: 'You have a match!',
+      //     body: `${username} likes you back! Don't be a flake and send a message.`,
+      //   };
+      //   sendMessage(request);
+      return dispatch({ type: A.IS_MATCH, payload: data });
+    });
 }
 
 /* -- Editing Bio -- */
