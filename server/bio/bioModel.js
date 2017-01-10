@@ -16,7 +16,7 @@ module.exports = {
         MERGE (user)-[:YEARS_OLD]->(newAge:Age {age: {age}})
         DETACH DELETE ageRel
         WITH user
-        MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = 'Chicago'
+        MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = {sex}
         MERGE (user)-[:MEMBER_OF]->(newSex:Sex {sex: {sex}})
         DETACH DELETE sexRel`,
         { name, email, job, edLevel, aboutMe, username, city, age, sex }

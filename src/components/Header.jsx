@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
-const Header = ({ numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
+const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderFlatButton = (label, path) => {
     const flatButton = <FlatButton label={label} containerElement={<Link to={path}>{label}</Link>} />;
     if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
@@ -28,6 +28,7 @@ const Header = ({ numberOfMatches, numberOfMessages, logOut, handleToggle, auth,
       <NotificationBadge
         numberOfMatches={numberOfMatches}
         numberOfMessages={numberOfMessages}
+        handleClick={handleClick}
       />
     </AppBar>
   );
