@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { isUserAuthenticated } from '../modules/auth';
+import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions';
 import SearchBar from '../components/SearchBar';
 import UserListItem from '../components/UserListItem';
@@ -32,9 +32,9 @@ class UserList extends Component {
   }
 
   renderList() {
-    return this.props.users.map((user, index) => (
-      <UserListItem key={index} user={user} handleClick={this.handleClick} />
-    ));
+    return this.props.users
+      .filter(user => user.username !== getUsername())
+      .map((user, index) => <UserListItem key={index} user={user} handleClick={this.handleClick} />);
   }
 
   render() {
