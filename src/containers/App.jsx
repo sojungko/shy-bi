@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated, deauthenticateUser } from '../modules/auth';
+import { getMatches, getAllMessages } from '../actions';
 import Header from '../components/Header';
+
 import LeftNav from '../components/LeftNav';
 import toggleLeftNav from '../actions/leftNavToggle';
 
@@ -14,11 +16,17 @@ class App extends Component {
       pathname: PropTypes.string,
     }),
     open: PropTypes.bool.isRequired,
+    received: PropTypes.arrayOf(PropTypes.object),
+    matches: PropTypes.arrayOf(PropTypes.object),
     toggleLeftNav: PropTypes.func,
+    getMatches: PropTypes.func,
+    getAllMessages: PropTypes.func,
   }
 
   componentWillMount() {
     injectTapEventPlugin();
+    this.props.getMatches(getUsername());
+    this.props.getAllMessages(getUsername());
   }
 
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
@@ -33,6 +41,8 @@ class App extends Component {
           auth={auth}
           logOut={deauthenticateUser}
           handleToggle={this.handleToggle}
+          numberOfMatches={this.props.matches.length}
+          numberOfMessages={this.props.received.length}
         />
         <LeftNav
           auth={auth}
@@ -46,8 +56,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNavToggle }) {
-  return { open: leftNavToggle.open };
+function mapStateToProps({ leftNavToggle, messages, users }) {
+  return {
+    open: leftNavToggle.open,
+    received: messages.received,
+    matches: users.matches,
+  };
 }
 
-export default connect(mapStateToProps, { toggleLeftNav })(App);
+export default connect(mapStateToProps, { toggleLeftNav, getMatches, getAllMessages })(App);
