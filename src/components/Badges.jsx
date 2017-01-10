@@ -1,16 +1,15 @@
 import React, { PropTypes } from 'react';
-import { hashHistory } from 'react-router';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
-const NotificationBadge = ({ numberOfMatches, numberOfMessages }) => (
+const NotificationBadge = ({ handleClick, numberOfMatches, numberOfMessages }) => (
   <div>
     <Badge
       badgeContent={!numberOfMatches ? 0 : numberOfMatches}
       primary={true}
       badgeStyle={{ top: 12, right: 12 }}
-      onClick={() => hashHistory.push('/matches')}
+      onClick={() => handleClick('/matches')}
     >
       <IconButton tooltip="Matches">
         <NotificationsIcon />
@@ -20,7 +19,7 @@ const NotificationBadge = ({ numberOfMatches, numberOfMessages }) => (
       badgeContent={!numberOfMessages ? 0 : numberOfMessages}
       secondary={true}
       badgeStyle={{ top: 12, right: 12 }}
-      onClick={() => hashHistory.push('/messages')}
+      onClick={() => handleClick('/messages')}
     >
       <IconButton tooltip="Messages">
         <NotificationsIcon />
@@ -29,7 +28,9 @@ const NotificationBadge = ({ numberOfMatches, numberOfMessages }) => (
   </div>
 );
 
+
 NotificationBadge.propTypes = {
+  handleClick: PropTypes.func,
   numberOfMatches: PropTypes.number,
   numberOfMessages: PropTypes.number,
 };

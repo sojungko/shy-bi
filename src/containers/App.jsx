@@ -10,6 +10,10 @@ import LeftNav from '../components/LeftNav';
 import toggleLeftNav from '../actions/leftNavToggle';
 
 class App extends Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     location: PropTypes.shape({
@@ -31,6 +35,8 @@ class App extends Component {
 
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
+  handleClick = path => this.context.router.push(path);
+
   render() {
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
@@ -43,6 +49,7 @@ class App extends Component {
           handleToggle={this.handleToggle}
           numberOfMatches={this.props.matches.length}
           numberOfMessages={this.props.received.length}
+          handleClick={this.handleClick}
         />
         <LeftNav
           auth={auth}
