@@ -3,16 +3,16 @@ import { getUsername } from '../modules/auth';
 
 const UserListItem = ({ users, handleClick }) => {
   const renderUserList = () => users
-    .filter(user => user.username !== getUsername())
-    .map((user, index) => (
-      <li key={index} onClick={() => handleClick(user.username)}>
-        <img role="presentation" src={user.image_url} />
-        <h3>{user.name}</h3>
-        <h5>Sex: {user.sex}</h5>
-        <h5>Age: {user.age}</h5>
-        <h5>City: {user.city}</h5>
-      </li>),
-    );
+    .filter(({ username }) => username !== getUsername())
+    .map(({ name, sex, age, city, image_url, username }, index) => (
+      <li key={index} onClick={() => handleClick(username)}>
+        <img role="presentation" src={image_url} />
+        <h3>{name}</h3>
+        <h5>Sex: {sex}</h5>
+        <h5>Age: {age}</h5>
+        <h5>City: {city}</h5>
+      </li>
+    ));
 
   return <ul>{renderUserList()}</ul>;
 };
