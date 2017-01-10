@@ -14,7 +14,7 @@
 
 const bcrypt = require('bcrypt-nodejs');
 // Plucks addUser methods from user/userModel.js
-const { addUser, getUser, toggleOnline } = require('./userModel');
+const { addUser, getUser, toggleOnline, toggleOffline } = require('./userModel');
 
 module.exports = {
   //
@@ -95,7 +95,6 @@ module.exports = {
       console.log(`4) [UserController.js/signIn] Success!
         Checking attempted password: ${body.password} against database`);
 
-      // Getting User data
       const { properties: { username, memberSince, password, name, email, image_url } } = data.get('user');
 
       bcrypt.compare(body.password, password, (err, isMatch) => {
@@ -117,6 +116,13 @@ module.exports = {
     });
   },
 
+  signOut({ body: { username } }, res) {
+    console.log(`1) [UserController.js/singOut] Deauthenticating username: ${username}`);
+    toggleOffline(username, (data) => {
+      console.log('4) [UserController.js/singOut] Success!', data);
+      return res.send(data);
+    });
+  },
   /* ------------------------- * FIND USER * -------------------------
    *
    * Calls getUser method. (see user/userModel.js)

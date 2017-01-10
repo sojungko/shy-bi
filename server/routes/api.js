@@ -1,7 +1,7 @@
 const express = require('express');
 
 // Plucks signup method from user/userController.js
-const { findUser } = require('../user/userController');
+const { findUser, signOut } = require('../user/userController');
 const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
 const { findAllMessages, sendMessage, sentMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
@@ -60,6 +60,9 @@ router.post('/users/like', likeUser);
 
 // 1-e-1) POST -> file: user/userController.js, methoq: unlikeUser
 router.post('/users/unlike', unlikeUser);
+
+// 1-e-1) POST -> file: user/userController.js, methoq: unlikeUser
+router.post('/signout', signOut);
 
 // 2-a-i) GET -> file: search/searchController.js method: findAllUsers
 router.get('/search/all', findAllUsers);
