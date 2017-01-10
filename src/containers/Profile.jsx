@@ -4,7 +4,6 @@ import Snackbar from 'material-ui/Snackbar';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
-import toggleSnackbar from '../actions/snackbarToggle';
 
 class Profile extends Component {
   static propTypes = {
@@ -25,7 +24,6 @@ class Profile extends Component {
     }),
     likeUser: PropTypes.func,
     open: PropTypes.bool,
-    toggleSnackbar: PropTypes.func,
   }
 
   static contextTypes = {
@@ -37,6 +35,7 @@ class Profile extends Component {
     const visitedUser = this.props.params.username;
     const username = this.props.profile.username;
 
+    console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
     if (!isUserAuthenticated()) {
       this.context.router.push('/login');
     } else if (!visitedUser) {
@@ -60,8 +59,6 @@ class Profile extends Component {
   handleLikeButton = () => {
     this.props.likeUser(getUsername(), this.props.params.username);
   }
-
-  handleToggle = () => this.props.toggleSnackbar(this.props.open);
 
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url } = this.props.profile;
@@ -94,10 +91,9 @@ class Profile extends Component {
         {this.renderProfile()}
         {this.renderLikeButton()}
         <Snackbar
-          open={this.props.open}
+          open={this.props.open || false}
           message="You guys are a match!"
           autoHideDuration={4000}
-          onRequestClose={this.handleToggle}
         />
       </div>
     );
