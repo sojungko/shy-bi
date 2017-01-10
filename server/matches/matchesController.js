@@ -9,11 +9,11 @@ module.exports = {
       const matchedUsers = matches.map((matchedUserData, index) => {
         console.log(`4-${index}) [matchesController.js/getMatches] parsing data`);
         // Getting User data
-        const { properties: { memberSince, name, username } } = matchedUserData.get('liked');
+        const { properties: { memberSince, name, username, image_url, online } } = matchedUserData.get('liked');
         const city = matchedUserData.get('city').properties.name;
         const age = matchedUserData.get('age').properties.age;
         const sex = matchedUserData.get('sex').properties.sex;
-        const user = { memberSince, name, username, city, age, sex };
+        const user = { memberSince, name, username, image_url, online, city, age, sex };
 
         return user;
       });

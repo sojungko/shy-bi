@@ -67,7 +67,7 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/findAll] parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, name, username, image_url } }
+        const { properties: { memberSince, name, username, image_url, online } }
           = userData.get('user');
 
         // Getting User location data
@@ -80,7 +80,7 @@ module.exports = {
         const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, city, age, sex, image_url };
+        const user = { memberSince, name, username, city, age, sex, image_url, online };
 
         return user;
       });
@@ -138,7 +138,7 @@ module.exports = {
         console.log(`4-${index}) [SearchController.js/filterUsers] parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, name, username } }
+        const { properties: { memberSince, name, username, image_url, online } }
           = userData.get('user');
 
         // Getting User location data
@@ -151,7 +151,7 @@ module.exports = {
         const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, city, age, sex };
+        const user = { memberSince, name, username, city, age, sex, image_url, online };
 
         return user;
       });
@@ -166,11 +166,11 @@ module.exports = {
     console.log(`1) [SearchController.js/findLikedUsers] Searching ${params.username}'s liked users`);
     getLikedUsers(params, (likedUsersData) => {
       const likedUsers = likedUsersData.map((userData) => {
-        const { properties: { memberSince, name, username, image_url } } = userData.get('liked');
+        const { properties: { memberSince, name, username, image_url, online } } = userData.get('liked');
         const city = userData.get('city').properties.name;
         const age = userData.get('age').properties.age;
         const sex = userData.get('sex').properties.sex;
-        const likedUser = { memberSince, name, username, city, age, sex, image_url };
+        const likedUser = { memberSince, name, username, city, age, sex, image_url, online };
 
         return likedUser;
       });

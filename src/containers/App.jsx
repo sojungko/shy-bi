@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import { getMatches, getAllMessages } from '../actions';
-import { logoutUser } from '../actions/auth';
+import logoutUser from '../actions/auth';
 import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';

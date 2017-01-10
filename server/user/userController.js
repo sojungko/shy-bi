@@ -161,12 +161,12 @@ module.exports = {
 
     getUser(username, (data) => {
       console.log('4) [UserController.js/getUser] Success! Chunking data & building res object', data);
-      const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url } } = data.get('user');
+      const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url, online } } = data.get('user');
       const city = data.get('city').properties.name;
       const age = data.get('age').properties.age;
       const sex = data.get('sex').properties.sex;
 
-      const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url };
+      const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url, online };
 
       console.log('5) [UserController.js/getUser] Sending User data: ', result);
       res.json(result);
