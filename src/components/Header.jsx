@@ -16,20 +16,15 @@ const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handle
       title="ShyBi"
       onLeftIconButtonTouchTap={handleToggle}
       iconElementRight={renderFlatButton(label, path)}
-    />
-  );
-
-  const loggedInAppBar = (label, path) => (
-    <AppBar
-      title="ShyBi"
-      onLeftIconButtonTouchTap={handleToggle}
-      iconElementRight={renderFlatButton(label, path)}
     >
-      <NotificationBadge
-        numberOfMatches={numberOfMatches}
-        numberOfMessages={numberOfMessages}
-        handleClick={handleClick}
-      />
+      {
+        auth &&
+          <NotificationBadge
+            numberOfMatches={numberOfMatches}
+            numberOfMessages={numberOfMessages}
+            handleClick={handleClick}
+          />
+      }
     </AppBar>
   );
 
@@ -37,7 +32,7 @@ const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handle
     if (location === '/login') return renderAppBar('Sign UP', '/signup');
     return renderAppBar('Log In', '/login');
   }
-  return loggedInAppBar('Log Out', '/');
+  return renderAppBar('Log Out');
 };
 
 Header.propTypes = {

@@ -158,4 +158,19 @@ module.exports = {
         console.log(`[userModel.js/toggleOnline] Toggled ${username} online`, data);
       });
   },
+
+  toggleOffline(username, callback) {
+    console.log(`[userModel.js/toggleOffline] Toggling ${username} online `);
+    return db
+      .run(
+        `MATCH (user: User{username: {username}})
+        SET user.online = 'false'
+        RETURN user`,
+        { username })
+      .then((data) => {
+        db.close();
+        console.log(`[userModel.js/toggleOffline] Toggled ${username} offline`, data);
+        return callback(data);
+      });
+  },
 };
