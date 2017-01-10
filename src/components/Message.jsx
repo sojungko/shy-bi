@@ -5,11 +5,11 @@ const Message = (props) => {
   const { title, sentBy, senderID, body } = props.message;
   return (
     <li>
-      <h3>title: {title}</h3>
+      <h3>{title}</h3>
       <h5>
-        <Link to={`/profile/${senderID}`}>Sent by: {sentBy}</Link>
+        <Link to={`/profile/${senderID}`}>{sentBy}</Link>
       </h5>
-      <p>body: {body}</p>
+      <p>{`${body.split('. ')[0].slice(0, 35)}...`}</p>
     </li>
   );
 };
