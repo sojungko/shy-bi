@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
-import UserListItem from '../components/UserListItem';
+import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';
 
 class RecommendedUsers extends Component {
@@ -28,19 +28,10 @@ class RecommendedUsers extends Component {
       .then(() => this.context.router.push(`/profile/${userName}`));
   }
 
-  renderRecommendedUsersList() {
-    return this.props.recommended.map((user, index) => (
-      <UserListItem key={index} user={user} handleClick={this.handleClick} />
-    ));
-  }
-
   render() {
-    console.log('RENDERING Recommended users.....');
     return (
       <div>
-        <ul>
-          {this.renderRecommendedUsersList()}
-        </ul>
+        <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
       </div>
     );
   }

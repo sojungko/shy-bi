@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import renderUsers from '../modules/users';
+import renderUserList from '../modules/users';
 
 const Likes = ({ likes, handleClick }) => (
   <ul>
-    {renderUsers(likes, handleClick)}
+    {renderUserList(likes, handleClick)}
   </ul>
 );
 

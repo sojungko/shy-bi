@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import renderUsers from '../modules/users';
+import renderUserList from '../modules/users';
 
-const MutualLikes = ({ mutualLikes, handleClick }) => (
+const MutualLikes = ({ matches, handleClick }) => (
   <ul>
-    {renderUsers(mutualLikes, handleClick)}
+    {renderUserList(matches, handleClick)}
   </ul>
 );
 
 MutualLikes.propTypes = {
-  mutualLikes: PropTypes.arrayOf(PropTypes.object),
+  matches: PropTypes.arrayOf(PropTypes.object),
   handleClick: PropTypes.func,
 };
 
