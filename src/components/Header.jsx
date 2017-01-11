@@ -31,6 +31,7 @@ const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handle
       onLeftIconButtonTouchTap={handleToggle}
       iconElementRight={renderFlatButton(label, path)}
       titleStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '400%' }}
+      zDepth={0}
     >
       {
         auth &&
