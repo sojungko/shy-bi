@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages } from '../actions/index';
 import Navbar from '../components/Navbar';
+import expandCard from '../actions/cardToggle';
 
 class Messages extends Component {
   static contextTypes = {
@@ -16,6 +17,8 @@ class Messages extends Component {
     getSentMessages: PropTypes.func.isRequired,
     received: PropTypes.arrayOf(PropTypes.object.isRequired),
     sent: PropTypes.arrayOf(PropTypes.object.isRequired),
+    expandCard: PropTypes.func,
+    expanded: PropTypes.bool,
   }
 
   componentWillMount() {
@@ -28,6 +31,8 @@ class Messages extends Component {
     }
   }
 
+  handleExpand = () => this.props.expandCard(this.props.expanded);
+
   render() {
     const messageMenu = [
       { label: 'received', path: 'messages/received' },
@@ -39,6 +44,8 @@ class Messages extends Component {
       .map(this.props.children, child => React.cloneElement(child, {
         received: this.props.received,
         sent: this.props.sent,
+        handleExpand: this.handleExpand,
+        expanded: this.props.expanded,
       }));
 
     return (
@@ -50,9 +57,14 @@ class Messages extends Component {
   }
 }
 
-const mapStateToProps = ({ messages }) => ({
+const mapStateToProps = ({ messages, card }) => ({
   received: messages.received,
   sent: messages.sent,
+  expanded: card.expaned,
 });
 
-export default connect(mapStateToProps, { getAllMessages, getSentMessages })(Messages);
+export default connect(mapStateToProps, {
+  getAllMessages,
+  getSentMessages,
+  expandCard,
+})(Messages);
