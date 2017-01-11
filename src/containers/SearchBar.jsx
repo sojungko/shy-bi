@@ -61,7 +61,7 @@ class SearchBar extends Component {
       <div>
         <Card style={{ textAlign: 'left' }}>
           <CardHeader
-            titleStyle={{ fontFamily: 'PT Sans', fontSize: '300%' }}
+            titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
             title="Search"
           />
           <form>

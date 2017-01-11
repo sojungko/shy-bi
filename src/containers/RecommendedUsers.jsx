@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';
@@ -30,9 +31,15 @@ class RecommendedUsers extends Component {
 
   render() {
     return (
-      <div>
+      <Card>
+        <CardHeader
+          title="Recommended For You"
+          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          subtitle="Based on our special algorithm"
+          subtitleStyle={{ fontFamily: 'PT Sans' }}
+        />
         <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
-      </div>
+      </Card>
     );
   }
 }
