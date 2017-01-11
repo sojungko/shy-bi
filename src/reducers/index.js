@@ -8,8 +8,10 @@ import ActionsReducer from './actionsReducer';
 import MessagesReducer from './messagesReducer';
 import LeftNavReducer from './leftNavReducer';
 import FilterInputsReducer from './filterInputsReducer';
+import LocationReducer from './locationReducer';
 
 const RootReducer = combineReducers({
+  location: LocationReducer,
   leftNavToggle: LeftNavReducer,
   form: FormReducer,
   users: UsersReducer,

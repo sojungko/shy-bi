@@ -137,3 +137,13 @@ export function uploadImage(props) {
       console.log('     ACTIONS/IMAGE_UPLOADS FAIL | ', error);
     });
 }
+
+export function getLocations(props) {
+  const sending = { input: props }
+  return dispatch => axios.post('/api/getlocations', sending)
+    .then(({ data }) => {
+      console.log('actions/getLocations data : ', data.predictions);
+      const results = data.predictions.map(result => result.description);
+      return dispatch({ type: A.GET_LOCATIONS, payload: results });
+    });
+}
