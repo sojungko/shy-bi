@@ -9,6 +9,7 @@ import MessagesReducer from './messagesReducer';
 import LeftNavReducer from './leftNavReducer';
 import FilterInputsReducer from './filterInputsReducer';
 import LocationReducer from './locationReducer';
+import ExpandCardReducer from './expandCardReducer';
 
 const RootReducer = combineReducers({
   location: LocationReducer,
@@ -20,6 +21,7 @@ const RootReducer = combineReducers({
   actions: ActionsReducer,
   messages: MessagesReducer,
   filterInputs: FilterInputsReducer,
+  card: ExpandCardReducer,
 });
 
 export default RootReducer;
