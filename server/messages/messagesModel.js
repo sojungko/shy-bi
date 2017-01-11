@@ -74,8 +74,7 @@ module.exports = {
      .run(
       `MATCH(sender:User {username:{senderID}})
       MATCH(receiver:User {username:{receiverID}})
-      MERGE(msg:Messages {title:{title}, body:{body}, read: false, deletedBySender: false, deletedByReceiver: false })
-        ON CREATE SET msg.created=timestamp()
+      CREATE(msg:Messages {title:{title}, body:{body}, read: false, deletedBySender: false, deletedByReceiver: false, created: timestamp() })
       MERGE(sender)-[:SENDS]->(msg)<-[:RECEIVES]-(receiver)
       RETURN receiver, sender, msg`,
        { senderID, receiverID, title, body })
