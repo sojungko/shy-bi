@@ -38,7 +38,7 @@ class LogIn extends Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <Card>
+      <Card style={{ textAlign: 'center' }}>
         <CardHeader
           title="Log In"
           titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}

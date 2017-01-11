@@ -1,16 +1,21 @@
 import React from 'react';
+import { GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import { getUsername } from '../modules/auth';
 
 const renderUserList = (users, handleClick) => users
   .filter(({ username }) => username !== getUsername())
   .map(({ name, sex, age, city, image_url, username, online }, index) => (
-    <li key={index} onClick={() => handleClick(username)}>
+    <GridTile
+      key={index}
+      title={name}
+      subtitle={<span><b>{city}</b></span>}
+      actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+      onClick={() => handleClick(username)}
+    >
       <img role="presentation" src={image_url} />
-      <h3>{name}</h3>{online && 'ONLINE'}
-      <h5>Sex: {sex}</h5>
-      <h5>Age: {age}</h5>
-      <h5>City: {city}</h5>
-    </li>
+    </GridTile>
   ));
 
 export default renderUserList;

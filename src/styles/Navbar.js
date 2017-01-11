@@ -1,5 +1,5 @@
 const styles = {
-  backgroundColor: '#FF6E40',
+  backgroundColor: '#FFB74D',
 };
 
 export default styles;

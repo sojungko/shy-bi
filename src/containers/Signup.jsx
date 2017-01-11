@@ -74,7 +74,7 @@ class SignUp extends Component {
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <Card className="container">
+      <Card className="container" style={{ textAlign: 'center', display: 'block' }}>
         <CardHeader
           title="Sign Up"
           titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}
