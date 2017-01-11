@@ -77,7 +77,7 @@ class SignUp extends Component {
       <Card className="container" style={{ textAlign: 'center', display: 'block' }}>
         <CardHeader
           title="Sign Up"
-          titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
           titleColor="black"
         />
         <form onSubmit={handleSubmit(this.onSubmit)}>
