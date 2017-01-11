@@ -6,8 +6,9 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 
-import { signupUser } from '../actions/index';
+import { signupUser, getLocations } from '../actions/index';
 
 const styles = {
   block: {
@@ -25,6 +26,11 @@ class SignUp extends Component {
 
   static propTypes = {
     signupUser: PropTypes.func,
+    getLocations: PropTypes.func,
+    location: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.arrayOf(PropTypes.object),
+    ]),
   }
 
   onSubmit = (inputs) => {
@@ -32,6 +38,10 @@ class SignUp extends Component {
       .then(() => {
         this.context.router.push('/');
       });
+  }
+
+  handleUpdateInput = (inputs) => {
+    this.props.getLocations(inputs);
   }
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
@@ -49,6 +59,14 @@ class SignUp extends Component {
       {...input} {...rest}
       valueSelected={input.value}
       onChange={(event, value) => input.onChange(value)}
+    />
+  );
+
+  renderAutoComplete = () => (
+    <AutoComplete
+      hintText="Type your city"
+      dataSource={this.props.location || []}
+      onUpdateInput={this.handleUpdateInput}
     />
   );
 
@@ -83,7 +101,7 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={this.renderTextField} label="City" />
+            <Field name="city" type="text" component={this.renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" primary />
@@ -113,4 +131,6 @@ SignUp = reduxForm({
   validate,
 })(SignUp);
 
-export default connect(null, { signupUser })(SignUp);
+const mapStateToProps = ({ location }) => ({ location })
+
+export default connect(mapStateToProps, { signupUser, getLocations })(SignUp);

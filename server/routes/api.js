@@ -8,6 +8,7 @@ const { getRecommendedMatches } = require('../recommendations/recommendationsCon
 const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
 const { getMatches } = require('../matches/matchesController');
 const { likeUser, unlikeUser } = require('../likes/likesController');
+const { getLocations } = require('../location/locationController');
 
 const router = new express.Router();
 
@@ -96,5 +97,7 @@ router.post('/bio/upload_image', uploadImage);
 
 // 6-a-i)
 router.get('/matches/:username', getMatches);
+
+router.post('/getlocations', getLocations);
 
 module.exports = router;
