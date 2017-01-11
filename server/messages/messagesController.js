@@ -13,7 +13,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks getAll methods from messagesModel.js
-const { getAll, postMessage, getOutbox } = require('./messagesModel');
+const { getAll, postMessage, getOutbox, toggleRead } = require('./messagesModel');
 
 module.exports = {
   //
@@ -70,9 +70,9 @@ module.exports = {
           = message.get('user');
         const { properties: { name: sentBy, username: senderID } }
           = message.get('sender');
-        const { properties: { title, body, created } } = message.get('msgs');
+        const { properties: { title, body, created, deletedBySender, deletedByReceiver, read } } = message.get('msgs');
 
-        return { receivedBy, receiverID, sentBy, senderID, title, body, created };
+        return { receivedBy, receiverID, sentBy, senderID, title, body, created, deletedBySender, deletedByReceiver, read };
       });
 
       res.json(messages);
@@ -155,14 +155,32 @@ module.exports = {
 
         const { properties: { name: sentBy, username: senderID } }
           = message.get('user');
+        const msgID = message.get('ID(msgs)').toNumber();
         const { properties: { name: receivedBy, username: receiverID } }
           = message.get('receiver');
-        const { properties: { title, body, created } } = message.get('msgs');
+        const { title, body, deletedBySender, deletedByReceiver, read } = message.get('msgs').properties;
+        const created = message.get('msgs').properties.created.toNumber();
 
-        return { sentBy, senderID, receivedBy, receiverID, title, body, created };
+        return {
+          sentBy,
+          senderID,
+          receivedBy,
+          receiverID,
+          msgID,
+          created,
+          read,
+          title,
+          body,
+          deletedBySender,
+          deletedByReceiver,
+        };
       });
 
       res.json(sentMessages);
     });
+  },
+
+  readMsg({ body }, res) {
+    toggleRead(body, data => res.json(data));
   },
 };

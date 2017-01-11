@@ -112,7 +112,7 @@ module.exports = {
       .run(
         `MATCH
           (user:User {username: {username}})-[:SENDS]->(msgs:Messages)<-[:RECEIVES]-(receiver:User)
-        RETURN user, receiver, msgs ORDER BY msgs.created DESC LIMIT 10`,
+        RETURN user, ID(msgs), receiver, msgs ORDER BY msgs.created DESC LIMIT 10`,
         { username })
       .then(({ records }) => {
         db.close();
@@ -123,6 +123,23 @@ module.exports = {
       .catch((error) => {
         console.error(`3) [messagesModel.js/getOutbox]
           Could not execute the query to the database`);
+        throw error;
+      });
+  },
+
+  toggleRead({ message: { msgID } }, callback) {
+    return db
+      .run(
+        `MATCH (message: Messages)
+          WHERE ID(message) = {msgID}
+          SET message.read = true
+        RETURN message`,
+        { msgID })
+      .then(({ records }) => {
+        db.close();
+        return callback(records);
+      })
+      .catch((error) => {
         throw error;
       });
   },
