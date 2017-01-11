@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions';
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../containers/SearchBar';
 import UserListItem from '../components/UserListItem';
 
 class UserList extends Component {
