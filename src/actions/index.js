@@ -97,6 +97,17 @@ export function likeUser(username, likedUser) {
     });
 }
 
+export function unlikeUser(username, userToUnlike) {
+  return dispatch => axios.post('/api/users/unlike', { username, userToUnlike })
+    .then(({ data }) => {
+      console.info('Unliking: ', data);
+      return dispatch({ type: A.UNLIKE_USER, payload: data });
+    })
+    .catch((error) => {
+      console.log('ACTIONS/UNLIKE_USER did not alter user data! ', error);
+    });
+}
+
 /* -- Editing Bio -- */
 export function editBio(props) {
   return (dispatch) => {
