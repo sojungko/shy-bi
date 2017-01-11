@@ -1,12 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, createElement, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import { getUsername } from '../modules/auth';
-import { sendMessage, getSentMessages } from '../actions/index';
+import { sendMessage, getSentMessages, getMatches } from '../actions/index';
 
 class SendMessages extends Component {
   static contextTypes = {
@@ -20,6 +22,14 @@ class SendMessages extends Component {
     valid: PropTypes.bool.isRequired,
     sendMessage: PropTypes.func.isRequired,
     getSentMessages: PropTypes.func.isRequired,
+    getMatches: PropTypes.func.isRequired,
+    matches: PropTypes.node,
+  }
+
+  componentWillMount() {
+    console.log('Component Will Mount');
+    this.props.getMatches(getUsername())
+     .then(() => console.log('MATCHES : ', this.props.matches));
   }
 
   onSubmit = (inputs) => {
@@ -51,13 +61,37 @@ class SendMessages extends Component {
   )
 
   render() {
+    const children = this.props.matches.map((match) => {
+      return (
+        <MenuItem
+          key={match.username}
+          value={match.username}
+          primaryText={match.username}
+        />
+      );
+    });
+
+    const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+      <SelectField
+        floatingLabelText={label}
+        errorText={touched && error}
+        {...input}
+        onChange={(event, index, value) => input.onChange(value)}
+        {...custom}
+      >
+        {children}
+      </SelectField>
+  );
+
+    console.log('Rendering...');
+    console.log('COMPONENTS/SEND_MESSAGES this.props.matches : ', this.props.matches);
     const { handleSubmit, valid, pristine, submitting } = this.props;
     return (
       <Card className="container">
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">Send Message</h2>
           <div className="field-line">
-            <Field name="sendTo" type="text" component={this.renderTextField} label="Send To" />
+            <Field name="sendTo" type="text" component={renderSelectField} label="Send To" />
           </div>
           <div className="field-line">
             <Field name="title" type="text" component={this.renderTextField} label="Title" />
@@ -91,8 +125,9 @@ SendMessages = reduxForm({
   validate,
 })(SendMessages);
 
-const mapStateToProps = ({ messages }) => ({
+const mapStateToProps = ({ messages, users }) => ({
   sent: messages.sent,
+  matches: users.matches,
 });
 
-export default connect(mapStateToProps, { sendMessage, getSentMessages })(SendMessages);
+export default connect(mapStateToProps, { sendMessage, getSentMessages, getMatches })(SendMessages);
