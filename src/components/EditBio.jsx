@@ -118,8 +118,8 @@ class EditBio extends Component {
           <div className="field-line">
             <div>
               <Field name="sex" component={this.renderRadioGroup}>
-                <RadioButton value="male" label="male" />
-                <RadioButton value="female" label="female" />
+                <RadioButton value="Male" label="Male" />
+                <RadioButton value="Female" label="Female" />
               </Field>
             </div>
           </div>

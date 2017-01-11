@@ -118,6 +118,7 @@ module.exports = {
         db.close();
 
         console.log(`3) [userModel.js/getUser] ${username} has been found`);
+        console.log(records);
         callback(records[0]);
       })
       .catch((error) => {
