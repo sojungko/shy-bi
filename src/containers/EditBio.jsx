@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Card } from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
@@ -82,9 +82,13 @@ class EditBio extends Component {
   render() {
     const { handleSubmit, pristine, submitting, reset } = this.props;
     return (
-      <Card className="container">
+      <Card style={{ padding: '50px' }}>
+        <CardHeader
+          title="Edit Profile"
+          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleColor="black"
+        />
         <form onSubmit={handleSubmit(this.onSubmit)} >
-          <h2>Edit Profile</h2>
           <div className="field-line">
             <div>
               <Field

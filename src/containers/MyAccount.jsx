@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import EditBio from '../components/EditBio';
+import EditBio from '../containers/EditBio';
 
 class MyAccount extends Component {
 

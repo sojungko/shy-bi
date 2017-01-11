@@ -10,7 +10,9 @@ const renderUserList = (users, handleClick) => users
     <GridTile
       key={index}
       title={name}
-      subtitle={<span><b>{city}</b></span>}
+      style={{ opacity: '50%' }}
+      titleStyle={{ fontFamily: 'PT Sans', fontSize: '400%' }}
+      subtitle={<span>{city}</span>}
       actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
       onClick={() => handleClick(username)}
     >

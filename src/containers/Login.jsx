@@ -41,7 +41,7 @@ class LogIn extends Component {
       <Card style={{ textAlign: 'center' }}>
         <CardHeader
           title="Log In"
-          titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
           titleColor="black"
         />
         <form onSubmit={handleSubmit(this.onSubmit)}>

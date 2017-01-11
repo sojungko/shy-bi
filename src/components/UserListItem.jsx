@@ -9,15 +9,15 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 500,
-    height: 450,
+    width: 1000,
+    height: 900,
     overflowY: 'auto',
   },
 };
 
 const UserListItem = ({ users, handleClick }) => (
   <GridList
-    cellHeight={180}
+    cellHeight="auto"
     style={styles.gridList}
   >
     {renderUserList(users, handleClick)}
