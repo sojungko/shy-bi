@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
@@ -75,8 +75,12 @@ class SignUp extends Component {
 
     return (
       <Card className="container">
+        <CardHeader
+          title="Sign Up"
+          titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}
+          titleColor="black"
+        />
         <form onSubmit={handleSubmit(this.onSubmit)}>
-          <h2 className="card-heading">Sign Up</h2>
           <div className="field-line">
             <Field name="username" type="text" component={this.renderTextField} label="Username" />
           </div>
@@ -104,7 +108,7 @@ class SignUp extends Component {
             <Field name="city" type="text" component={renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" label="Create New Account" primary />
+            <RaisedButton type="submit" label="Create New Account" disabledBackgroundColor="#FCE4EC" />
           </div>
 
           <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>

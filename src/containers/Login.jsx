@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
@@ -39,8 +39,12 @@ class LogIn extends Component {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
       <Card>
+        <CardHeader
+          title="Log In"
+          titleStyle={{ fontFamily: 'Bitter', fontSize: '30px' }}
+          titleColor="black"
+        />
         <form onSubmit={handleSubmit(this.onSubmit)}>
-          <h2 className="card-heading">LogIn</h2>
           <div className="field-line">
             <Field name="username" type="text" component={this.renderTextField} label="Username" />
           </div>
@@ -48,10 +52,14 @@ class LogIn extends Component {
             <Field name="password" type="password" component={this.renderTextField} label="Password" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" label="Log in" disabled={pristine || submitting} primary />
+            <RaisedButton
+              type="submit"
+              label="Log in"
+              disabled={pristine || submitting}
+            />
           </div>
           <a href="/auth/facebook">
-            <RaisedButton label="Login with Facebook" primary />
+            <RaisedButton label="Login with Facebook" />
           </a>
           <CardText>
             Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
