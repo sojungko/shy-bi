@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {GridList} from 'material-ui/GridList';
+import { GridList } from 'material-ui/GridList';
 import renderUserList from '../modules/users';
 
 const styles = {

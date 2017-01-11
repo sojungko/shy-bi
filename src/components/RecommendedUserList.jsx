@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
-import renderUserList from '../modules/users';
+import UserListItem from './UserListItem';
 
 const RecommendedUserList = ({ recommended, handleClick }) => (
-  <ul>
-    {renderUserList(recommended, handleClick)}
-  </ul>
+  <UserListItem users={recommended} handleClick={handleClick} />
 );
 
 RecommendedUserList.propTypes = {
