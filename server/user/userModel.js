@@ -150,7 +150,7 @@ module.exports = {
     return db
       .run(
         `MATCH (user: User{username: {username}})
-        SET user.online = 'true'
+        SET user.online = true
         RETURN user`,
         { username })
       .then((data) => {
@@ -164,7 +164,7 @@ module.exports = {
     return db
       .run(
         `MATCH (user: User{username: {username}})
-        SET user.online = 'false'
+        SET user.online = false
         RETURN user`,
         { username })
       .then((data) => {
