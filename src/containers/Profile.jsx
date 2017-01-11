@@ -2,9 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import { Card, CardText } from 'material-ui/Card';
+import Checkbox from 'material-ui/Checkbox';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
+
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+};
 
 class Profile extends Component {
   static propTypes = {
@@ -109,7 +121,13 @@ class Profile extends Component {
       return (
         <div>
           {this.renderProfile()}
-          <button onClick={this.handleLikeButton}>Like</button>
+          <Checkbox
+            onClick={this.handleLikeButton}
+            checkedIcon={<ActionFavorite />}
+            uncheckedIcon={<ActionFavoriteBorder />}
+            label="Like"
+            style={styles.checkbox}
+          />
           <Snackbar
             open={this.props.open || false}
             message="You guys are a match!"
