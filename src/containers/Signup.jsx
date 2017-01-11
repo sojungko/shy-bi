@@ -62,15 +62,15 @@ class SignUp extends Component {
     />
   );
 
-  renderAutoComplete = () => (
-    <AutoComplete
-      hintText="Type your city"
-      dataSource={this.props.location || []}
-      onUpdateInput={this.handleUpdateInput}
-    />
-  );
 
   render() {
+    const renderAutoComplete = () => (
+      <AutoComplete
+        hintText="Type your city"
+        dataSource={this.props.location || []}
+        onUpdateInput={this.handleUpdateInput}
+      />
+    )
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
@@ -101,7 +101,7 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={this.renderAutoComplete} label="City" />
+            <Field name="city" type="text" component={renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" primary />
