@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -59,10 +59,13 @@ class SearchBar extends Component {
     const { minage, maxage, city } = this.props;
     return (
       <div>
-        <Card>
+        <Card style={{ textAlign: 'left' }}>
+          <CardHeader
+            titleStyle={{ fontFamily: 'PT Sans', fontSize: '300%' }}
+            title="Search"
+          />
           <form>
             <div style={styles.cardMargin}>
-              <h2 className="card-heading">Search</h2>
               <div className="field-line">
                 <TextField
                   floatingLabelText="Minimum Age"
