@@ -68,15 +68,10 @@ module.exports = {
 
         const { properties: { name: receivedBy, username: receiverID } }
           = message.get('user');
-
-        // Getting User location data
         const { properties: { name: sentBy, username: senderID } }
           = message.get('sender');
-
-        // Getting User age data
         const { properties: { title, body, created } } = message.get('msgs');
 
-        // Putting together a user data object.
         return { receivedBy, receiverID, sentBy, senderID, title, body, created };
       });
 
@@ -160,15 +155,10 @@ module.exports = {
 
         const { properties: { name: sentBy, username: senderID } }
           = message.get('user');
-
-        // Getting User location data
         const { properties: { name: receivedBy, username: receiverID } }
           = message.get('receiver');
-
-        // Getting User age data
         const { properties: { title, body, created } } = message.get('msgs');
 
-        // Putting together a user data object.
         return { sentBy, senderID, receivedBy, receiverID, title, body, created };
       });
 

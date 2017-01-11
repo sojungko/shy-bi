@@ -33,8 +33,7 @@ module.exports = {
         `MATCH
           (user:User {username: {username}})-[:RECEIVES]->(msgs:Messages)<-[:SENDS]-(sender:User)
         RETURN user, sender, msgs ORDER BY msgs.created DESC LIMIT 10`,
-        { username }
-      )
+        { username })
       .then(({ records }) => {
         db.close();
         console.log('3) [messagesModel.js/getAll] Reteriving first 10 messsages: ');
@@ -69,28 +68,26 @@ module.exports = {
       senderID: ${senderID}
       receiverID: ${receiverID}
       title: ${title}
-      body: ${body}`
-    );
+      body: ${body}`);
 
     return db
      .run(
       `MATCH(sender:User {username:{senderID}})
       MATCH(receiver:User {username:{receiverID}})
-      MERGE(msg:Messages {title:{title}, body:{body}})
+      MERGE(msg:Messages {title:{title}, body:{body}, read: false, deletedBySender: false, deletedByReceiver: false })
         ON CREATE SET msg.created=timestamp()
       MERGE(sender)-[:SENDS]->(msg)<-[:RECEIVES]-(receiver)
       RETURN receiver, sender, msg`,
-       { senderID, receiverID, title, body }
-     )
+       { senderID, receiverID, title, body })
      .then((data) => {
-        db.close();
-        console.log('3) [messagesModel.js/postMessage] Writing message to database:');
-        return callback(data);
-      })
+       db.close();
+       console.log('3) [messagesModel.js/postMessage] Writing message to database:');
+       return callback(data);
+     })
      .catch((error) => {
-        console.error('3) [messagesModel.js/postMessage] Could not writing message to database');
-        throw error;
-      });
+       console.error('3) [messagesModel.js/postMessage] Could not writing message to database');
+       throw error;
+     });
   },
 
   //
@@ -117,8 +114,7 @@ module.exports = {
         `MATCH
           (user:User {username: {username}})-[:SENDS]->(msgs:Messages)<-[:RECEIVES]-(receiver:User)
         RETURN user, receiver, msgs ORDER BY msgs.created DESC LIMIT 10`,
-        { username }
-      )
+        { username })
       .then(({ records }) => {
         db.close();
         console.log(`3) [messagesModel.js/getOutbox] Reteriving first 10 messsages
