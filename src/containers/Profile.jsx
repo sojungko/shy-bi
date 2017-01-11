@@ -66,8 +66,8 @@ class Profile extends Component {
     return (
       <Card>
         <CardText style={{ fontFamily: 'Georgia', fontSize: '20px' }}>
-          <img role="presentation" src={image_url} />
-          <table style={{ width: '70%', textAlign: 'left' }}>
+          <img role="presentation" src={image_url} style={{ padding: '30px' }}/>
+          <table style={{ padding: '30px', width: '70%', textAlign: 'left' }}>
             <tbody>
               <tr>
                 <th>Name</th>
@@ -120,7 +120,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <div>Hi, {this.props.profile.name}!</div>
+        <div style={{ fontFamily: 'Bitter', fontSize: '30px' }}>Hi, {this.props.profile.name}!</div>
         {this.renderProfile()}
       </div>
     );

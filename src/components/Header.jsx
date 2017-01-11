@@ -15,7 +15,7 @@ const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handle
     const flatButton = (
       <FlatButton
         label={label}
-        labelStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '150%' }}
+        labelStyle={{ fontFamily: 'Roboto Condensed', color: '#FF4081', fontSize: '150%' }}
         hoverColor="#FCE4EC"
         containerElement={<Link to={path}>{label}</Link>}
       />
