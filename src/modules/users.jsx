@@ -5,7 +5,11 @@ import { getUsername } from '../modules/auth';
 const renderUserList = (users, handleClick) => users
   .filter(({ username }) => username !== getUsername())
   .map(({ name, sex, age, city, image_url, username, online }, index) => {
-    const renderOnlineIcon = bool => bool && <i className="fa fa-circle" style={{ color: '#81C784' }} aria-hidden="true" />;
+    const renderOnlineIcon = (bool) => {
+      if (bool) {
+        return <i className="fa fa-circle" style={{ color: '#81C784' }} aria-hidden="true" />;
+      }
+    };
     return (
       <GridTile
         key={index}

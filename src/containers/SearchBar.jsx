@@ -63,44 +63,46 @@ class SearchBar extends Component {
           titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
           title="Search"
         />
-        <form>
-          <TextField
-            floatingLabelText="Minimum Age"
-            name="minage"
-            type="number"
-            value={minage}
-            onChange={this.handleChange}
+        <TextField
+          floatingLabelText="Minimum Age"
+          name="minage"
+          type="number"
+          value={minage}
+          style={styles}
+          onChange={this.handleChange}
+        />
+        <TextField
+          floatingLabelText="Maximum Age"
+          name="maxage"
+          type="number"
+          value={maxage}
+          style={styles}
+          onChange={this.handleChange}
+        />
+        <RadioButtonGroup
+          name="sex"
+          onChange={this.handleChange}
+          style={styles}
+        >
+          <RadioButton
+            value="Male"
+            label="Male"
+            style={styles.radioButton}
           />
-          <TextField
-            floatingLabelText="Maximum Age"
-            name="maxage"
-            type="number"
-            value={maxage}
-            onChange={this.handleChange}
+          <RadioButton
+            value="Female"
+            label="Female"
+            style={styles.radioButton}
           />
-          <RadioButtonGroup
-            name="sex"
-            onChange={this.handleChange}
-          >
-            <RadioButton
-              value="Male"
-              label="Male"
-              style={styles.radioButton}
-            />
-            <RadioButton
-              value="Female"
-              label="Female"
-              style={styles.radioButton}
-            />
-          </RadioButtonGroup>
-          <TextField
-            floatingLabelText="City"
-            type="text"
-            name="city"
-            value={city}
-            onChange={this.handleChange}
-          />
-        </form>
+        </RadioButtonGroup>
+        <TextField
+          floatingLabelText="City"
+          type="text"
+          name="city"
+          value={city}
+          style={styles}
+          onChange={this.handleChange}
+        />
         <RaisedButton label="Clear Fields" onClick={this.handleClick} />
       </Card>
     );

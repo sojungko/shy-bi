@@ -73,12 +73,26 @@ class Profile extends Component {
     this.props.likeUser(getUsername(), this.props.params.username);
   }
 
+  renderOnlineMessage = (bool, name, sex) => {
+    if (bool) {
+      return (
+        <p>
+          {name} is online. Message {sex === 'Female' ? 'her' : 'him'} now! {' '}
+          <a href="/#/messages/send"><i className="fa fa-arrow-right" aria-hidden="true" /></a>
+        </p>
+      );
+    }
+  }
+
   renderProfile() {
-    const { name, sex, age, city, job, edLevel, aboutMe, image_url } = this.props.profile;
+    const { name, sex, age, city, job, edLevel, aboutMe, image_url, online } = this.props.profile;
     return (
       <Card>
-        <CardText style={{ fontFamily: 'Georgia', fontSize: '20px' }}>
-          <img role="presentation" src={image_url} style={{ padding: '30px' }}/>
+        <CardText style={{ fontFamily: 'Open Sans', fontSize: '20px' }}>
+          <img role="presentation" src={image_url} style={{ padding: '30px' }} />
+          <div>
+            {this.renderOnlineMessage(online, name, sex)}
+          </div>
           <table style={{ padding: '30px', width: '70%', textAlign: 'left' }}>
             <tbody>
               <tr>
