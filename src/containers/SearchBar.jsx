@@ -58,7 +58,7 @@ class SearchBar extends Component {
   render() {
     const { minage, maxage, city } = this.props;
     return (
-      <Card>
+      <Card style={{ position: 'fixed', marginTop: '100px' }}>
         <CardHeader
           titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
           title="Search"

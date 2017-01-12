@@ -53,7 +53,7 @@ class App extends Component {
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
     return (
-      <div>
+      <div style={{ backgroundColor: '#FAFAFA' }}>
         <Header
           location={this.props.location.pathname}
           auth={auth}
@@ -70,7 +70,9 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-        {this.props.children}
+        <div style={{ marginTop: '70px' }}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

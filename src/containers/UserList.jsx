@@ -33,7 +33,7 @@ class UserList extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: '100px' }}>
         <SearchBar />
         <UserListItem users={this.props.users} handleClick={this.handleClick} />
       </div>
