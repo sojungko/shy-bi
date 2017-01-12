@@ -172,4 +172,4 @@ export const viewMatch = username => dispatch => axios.post('api/matches/view', 
   .then(() => dispatch({ type: A.VIEW_MATCH }));
 
 export const getUnviewedMatches = username => dispatch => axios.get(`api/matches/newmatches/${username}`)
-  .then(() => dispatch({ type: A.GET_UNVIEWED_MATCHES }));
+  .then(({ data }) => dispatch({ type: A.GET_UNVIEWED_MATCHES, payload: data.length }));
