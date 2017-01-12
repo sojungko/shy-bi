@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
-import { getMatches, getAllMessages, getUnreadMessages, logoutUser } from '../actions';
+import { getUnviewedMatches, getAllMessages, getUnreadMessages, logoutUser } from '../actions';
 import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';
@@ -20,9 +20,9 @@ class App extends Component {
       pathname: PropTypes.string,
     }),
     open: PropTypes.bool.isRequired,
-    matches: PropTypes.arrayOf(PropTypes.object),
+    unviewed: PropTypes.number,
     toggleLeftNav: PropTypes.func,
-    getMatches: PropTypes.func,
+    getUnviewedMatches: PropTypes.func,
     logoutUser: PropTypes.func,
     getUnreadMessages: PropTypes.func,
     unread: PropTypes.number,
@@ -30,7 +30,7 @@ class App extends Component {
 
   componentWillMount() {
     injectTapEventPlugin();
-    this.props.getMatches(getUsername());
+    this.props.getUnviewedMatches(getUsername());
     this.props.getUnreadMessages(getUsername());
   }
 
@@ -57,7 +57,7 @@ class App extends Component {
           auth={auth}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
-          numberOfMatches={this.props.matches.length}
+          numberOfMatches={this.props.unviewed}
           numberOfMessages={this.props.unread}
           handleClick={this.handleClick}
           handleTitleClick={() => this.context.router.push('/')}
@@ -76,18 +76,18 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNavToggle, messages, users, badges }) {
+function mapStateToProps({ leftNavToggle, messages, badges }) {
   return {
     open: leftNavToggle.open,
     received: messages.received,
-    matches: users.matches,
     unread: badges.unread,
+    unviewed: badges.unviewed,
   };
 }
 
 export default connect(mapStateToProps, {
   toggleLeftNav,
-  getMatches,
+  getUnviewedMatches,
   getAllMessages,
   logoutUser,
   getUnreadMessages,

@@ -7,10 +7,11 @@ module.exports = {
     return db
     .run(
       `MATCH (me:User{username: {username}})
-      MATCH (me)-[:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
+      MATCH (me)-[r:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
       MATCH (liked)-[]->(city:City)
       MATCH (liked)-[]->(age:Age)
       MATCH (liked)-[]->(sex:Sex)
+      SET r.viewed = false
       RETURN liked, age, city, sex`,
       { username })
       .then(({ records }) => {
@@ -32,13 +33,14 @@ module.exports = {
       .run(
         `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
         WHERE (liked)-[:LIKES]->(user)
-        SET r.viewed = true`,
+        SET r.viewed = true
+        RETURN r`,
         { username }
       )
-      .then(() => {
+      .then(({ records }) => {
         db.close();
 
-        console.log('3) [matchesModel.js/toggleView] Toggled view properties of matches');
+        console.log('3) [matchesModel.js/toggleView] Toggled view properties of matches', records);
         return callback();
       })
       .catch((error) => {
@@ -53,14 +55,21 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
-        WHERE (liked)-[:LIKES]->(user)
-        WITH r
-        MATCH r.viewed = false
-        RETURN liked`,
+        WHERE (liked)-[:LIKES]->(user) AND (r.viewed = false OR r.viewed IS NULL)
+        MATCH (liked)-[]->(city:City)
+        MATCH (liked)-[]->(age:Age)
+        MATCH (liked)-[]->(sex:Sex)
+        RETURN liked, city, age, sex`,
         { username }
       )
-      .then(() => {
-        return callback();
+      .then(({ records }) => {
+        db.close();
+        console.log('3) [matchesModel.js/getNewMatches] Successfully fetched unviewed matches : ', records);
+        return callback(records);
+      })
+      .catch((error) => {
+        console.log('3) [matchesModel.js/getNewMatches] Could not fetch unviewed matches', error);
+        throw error;
       })
   }
 };
