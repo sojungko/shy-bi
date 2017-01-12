@@ -6,8 +6,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
-import AutoComplete from 'material-ui/AutoComplete';
-
+import AutoComplete from '../components/AutoComplete';
 import { signupUser, getLocations } from '../actions/index';
 
 const styles = {
@@ -32,6 +31,11 @@ class SignUp extends Component {
       PropTypes.arrayOf(PropTypes.object),
     ]),
   }
+
+  shouldComponentUpdate = (nextProps) => {
+    return !nextProps.location;
+  }
+
 
   onSubmit = (inputs) => {
     this.props.signupUser(inputs)
@@ -66,11 +70,11 @@ class SignUp extends Component {
   render() {
     const renderAutoComplete = () => (
       <AutoComplete
-        hintText="Type your city"
-        dataSource={this.props.location || []}
-        disableFocusRipple={false}
+        location={this.props.location || []}
+        handleUpdateInput={this.handleUpdateInput}
       />
-    )
+  );
+
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
@@ -105,7 +109,7 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" onKeyUp={this.handleUpdateInput} component={renderAutoComplete} label="City" />
+            <Field name="city" type="text" component={renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" disabledBackgroundColor="#FCE4EC" />
