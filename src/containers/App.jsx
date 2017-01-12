@@ -22,7 +22,6 @@ class App extends Component {
       pathname: PropTypes.string,
     }),
     open: PropTypes.bool.isRequired,
-    received: PropTypes.arrayOf(PropTypes.object),
     matches: PropTypes.arrayOf(PropTypes.object),
     toggleLeftNav: PropTypes.func,
     getMatches: PropTypes.func,
@@ -45,6 +44,10 @@ class App extends Component {
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
   handleClick = path => this.context.router.push(path);
+
+  forceUpdate() {
+    this.forceUpdate();
+  }
 
   render() {
     const currentUser = getUsername();
