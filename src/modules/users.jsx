@@ -13,6 +13,7 @@ const renderUserList = (users, handleClick) => users
         style={{ opacity: '50%', fontFamily: 'PT Sans', cursor: 'pointer' }}
         titleStyle={{ fontFamily: 'PT Sans', fontSize: '200%' }}
         subtitle={<span style={{ fontSize: '17px' }}>{city}</span>}
+        cols={2}
         actionIcon={renderOnlineIcon(online)}
         onClick={() => handleClick(username)}
       >

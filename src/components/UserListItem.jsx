@@ -9,19 +9,22 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 1000,
-    height: 400,
+    width: '50%',
     overflowY: 'auto',
   },
 };
 
 const UserListItem = ({ users, handleClick }) => (
-  <GridList
-    cellHeight="auto"
-    style={styles.gridList}
-  >
-    {renderUserList(users, handleClick)}
-  </GridList>
+  <div style={styles.root}>
+    <GridList
+      cellHeight="auto"
+      style={styles.gridList}
+      cols={4}
+      padding={5}
+    >
+      {renderUserList(users, handleClick)}
+    </GridList>
+  </div>
 );
 
 UserListItem.propTypes = {
