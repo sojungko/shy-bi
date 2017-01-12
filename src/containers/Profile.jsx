@@ -34,6 +34,7 @@ class Profile extends Component {
       edLevel: PropTypes.string,
       aboutMe: PropTypes.string,
       image_url: PropTypes.string,
+      online: PropTypes.bool,
     }),
     likeUser: PropTypes.func,
     open: PropTypes.bool,
@@ -91,7 +92,7 @@ class Profile extends Component {
         <CardText style={{ fontFamily: 'Open Sans', fontSize: '20px' }}>
           <img role="presentation" src={image_url} style={{ padding: '30px' }} />
           <div>
-            {this.renderOnlineMessage(online, name, sex)}
+            {this.props.params.username ? this.renderOnlineMessage(online, name, sex) : 'You are online.'}
           </div>
           <table style={{ padding: '30px', width: '70%', textAlign: 'left' }}>
             <tbody>
