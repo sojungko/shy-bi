@@ -21,4 +21,12 @@ module.exports = {
       res.json(matchedUsers);
     });
   },
+
+  viewMatch() {
+    
+  },
+
+  getNewMatches() {
+
+  },
 };

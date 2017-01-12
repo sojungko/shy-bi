@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages } from '../actions/index';
-import getUnreadMessages from '../actions/badges';
 import Navbar from '../components/Navbar';
-import expandCard from '../actions/cardToggle';
 
 class Messages extends Component {
   static contextTypes = {

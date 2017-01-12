@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
-import { getMatches, getAllMessages } from '../actions';
-import getUnreadMessages from '../actions/badges';
-import logoutUser from '../actions/auth';
+import { getMatches, getAllMessages, getUnreadMessages, logoutUser } from '../actions';
 import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';

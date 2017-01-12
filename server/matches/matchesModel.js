@@ -24,4 +24,8 @@ module.exports = {
         throw error;
       });
   },
-}
+
+  toggleView() {
+
+  },
+};

@@ -6,7 +6,7 @@ const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchC
 const { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
 const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
-const { getMatches } = require('../matches/matchesController');
+const { getMatches, viewMatch, getNewMatches } = require('../matches/matchesController');
 const { likeUser, unlikeUser } = require('../likes/likesController');
 const { getLocations } = require('../location/locationController');
 
@@ -101,6 +101,10 @@ router.post('/bio/upload_image', uploadImage);
 
 // 6-a-i)
 router.get('/matches/:username', getMatches);
+
+router.post('/matches/view', viewMatch);
+
+router.get('/matches/newmatches', getNewMatches);
 
 router.post('/getlocations', getLocations);
 
