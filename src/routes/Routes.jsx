@@ -18,6 +18,8 @@ import RecommendedUsers from '../containers/RecommendedUsers';
 import MyAccount from '../containers/MyAccount';
 import Token from '../components/Token';
 import FacebookSignup from '../containers/FacebookSignup';
+import AboutUs from '../components/AboutUs';
+import Contact from '../components/Contact';
 
 export default (
   <Route path="/" component={App}>
@@ -42,5 +44,7 @@ export default (
     <Route path="login" component={LogIn} />
     <Route path="logout" component={LogIn} />
     <Route path="token/:token" component={Token} />
+    <Route path="aboutus" component={AboutUs} />
+    <Route path="contact" component={Contact} />
   </Route>
 );
