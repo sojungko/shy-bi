@@ -25,7 +25,42 @@ module.exports = {
       });
   },
 
-  toggleView() {
+  toggleView(username, callback) {
+    console.log('2) [matchesModel.js/toggleView] Accessing user database');
 
+    return db
+      .run(
+        `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
+        WHERE (liked)-[:LIKES]->(user)
+        SET r.viewed = true`,
+        { username }
+      )
+      .then(() => {
+        db.close();
+
+        console.log('3) [matchesModel.js/toggleView] Toggled view properties of matches');
+        return callback();
+      })
+      .catch((error) => {
+        console.log('3) [matchesModel.js/toggleView] Could not toggle view of matches');
+        throw error;
+      });
   },
+
+  getNewMatches(username, callback) {
+    console.log('2) [matchesModel.js/getNewMatches] Accessing user database');
+
+    return db
+      .run(
+        `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
+        WHERE (liked)-[:LIKES]->(user)
+        WITH r
+        MATCH r.viewed = false
+        RETURN liked`,
+        { username }
+      )
+      .then(() => {
+        return callback();
+      })
+  }
 };

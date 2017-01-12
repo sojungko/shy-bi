@@ -1,4 +1,4 @@
-const { getMatchedUsers } = require('./matchesModel');
+const { getMatchedUsers, toggleView, getNewMatches } = require('./matchesModel');
 
 module.exports = {
 
@@ -22,11 +22,13 @@ module.exports = {
     });
   },
 
-  viewMatch() {
-    
+  viewMatch({ body: { username } }, res) {
+    console.log(`1) [matchesController.js/viewMatch] Received request for ${username}`);
+    toggleView(username, () => res.sendStatus(201));
   },
 
-  getNewMatches() {
-
+  findNewMatches({ params }, res) {
+    console.log(`1) [matchesController.js/findNewMatches] Received request for ${params.username}`);
+    getNewMatches(params.username
   },
 };

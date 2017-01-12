@@ -104,7 +104,7 @@ router.get('/matches/:username', getMatches);
 
 router.post('/matches/view', viewMatch);
 
-router.get('/matches/newmatches', getNewMatches);
+router.get('/matches/newmatches/:username', getNewMatches);
 
 router.post('/getlocations', getLocations);
 
