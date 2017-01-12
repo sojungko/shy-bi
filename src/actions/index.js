@@ -43,7 +43,11 @@ export function getMatches(username) {
 
 /* -- Signing up User--*/
 export function signupUser(props) {
-  return dispatch => axios.post('/auth/signup', props)
+  const sending = {
+    ...props,
+    image_url: 'http://res.cloudinary.com/dm4fqf9nm/image/upload/v1484180655/default_profile_photo_ss2jmw.jpg',
+  };
+  return dispatch => axios.post('/auth/signup', sending)
     .then(({ data }) => {
       authenticateUser(data.token, data.user.username);
       return dispatch({ type: A.SIGN_UP_USER, payload: data });

@@ -34,13 +34,13 @@ module.exports = {
    * --------------------------------------------------------------- */
 
 // Taking in job and education because Facebook provides the info
-  signUp({ body: { name, username, email, password, city, age, sex, job = '', edLevel = '' } }, callback) {
+  signUp({ body: { name, username, email, password, city, age, sex, job = '', edLevel = '', image_url } }, callback) {
     console.log(`1) [UserController.js/signup] Signing up ${name}`);
     getUser(username, (user) => {
       if (user) {
         callback(null);
       } else {
-        const userData = { name, username, email, password, city, age, sex, job, edLevel };
+        const userData = { name, username, email, password, city, age, sex, job, edLevel, image_url };
         addUser(userData, () => {
           callback(userData);
           toggleOnline(username);

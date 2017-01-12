@@ -68,7 +68,7 @@ class SignUp extends Component {
       <AutoComplete
         hintText="Type your city"
         dataSource={this.props.location || []}
-        onUpdateInput={this.handleUpdateInput}
+        disableFocusRipple={false}
       />
     )
     const { handleSubmit, pristine, submitting } = this.props;
@@ -105,7 +105,7 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={renderAutoComplete} label="City" />
+            <Field name="city" type="text" onKeyUp={this.handleUpdateInput} component={renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
             <RaisedButton type="submit" label="Create New Account" disabledBackgroundColor="#FCE4EC" />
