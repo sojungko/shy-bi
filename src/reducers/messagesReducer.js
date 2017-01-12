@@ -8,7 +8,8 @@ export default function (state = INITIAL_STATE, action) {
     case GET_SENT_MESSAGES:
       return { ...state, sent: action.payload };
     case EXPAND_CARD:
-      console.log('EXPAND CARD');
+      console.log(state);
+      return state;
     default:
       return state;
   }

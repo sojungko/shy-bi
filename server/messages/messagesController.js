@@ -68,11 +68,25 @@ module.exports = {
 
         const { properties: { name: receivedBy, username: receiverID } }
           = message.get('user');
+        const msgID = message.get('ID(msgs)').toNumber();
         const { properties: { name: sentBy, username: senderID } }
           = message.get('sender');
-        const { properties: { title, body, created, deletedBySender, deletedByReceiver, read } } = message.get('msgs');
+        const { title, body, deletedBySender, deletedByReceiver, read } = message.get('msgs').properties;
+        const created = message.get('msgs').properties.created.toNumber();
 
-        return { receivedBy, receiverID, sentBy, senderID, title, body, created, deletedBySender, deletedByReceiver, read };
+        return {
+          sentBy,
+          senderID,
+          receivedBy,
+          receiverID,
+          msgID,
+          created,
+          read,
+          title,
+          body,
+          deletedBySender,
+          deletedByReceiver,
+        };
       });
 
       res.json(messages);
@@ -181,6 +195,7 @@ module.exports = {
   },
 
   readMsg({ body }, res) {
+    console.log(body);
     toggleRead(body, data => res.json(data));
   },
 };

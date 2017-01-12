@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { getUsername } from '../modules/auth';
 
 const Message = ({ message, handleExpand, expanded }) => {
-  const { title, sentBy, senderID, receiverID, receivedBy, body } = message;
+  const { title, sentBy, senderID, receiverID, receivedBy, body, read } = message;
 
   const id = (senderID === getUsername()) ? receiverID : senderID;
   const name = (id === receiverID) ? receivedBy : sentBy;
@@ -21,6 +21,7 @@ const Message = ({ message, handleExpand, expanded }) => {
         showExpandableButton
       />
       <CardText>
+        { !read && <p>Unread</p>}
         <p>{`${body.slice(0, 20)}...`}</p>
       </CardText>
       <CardTitle title={title} subtitle="Card subtitle" expandable />

@@ -32,7 +32,7 @@ module.exports = {
       .run(
         `MATCH
           (user:User {username: {username}})-[:RECEIVES]->(msgs:Messages)<-[:SENDS]-(sender:User)
-        RETURN user, sender, msgs ORDER BY msgs.created DESC LIMIT 10`,
+        RETURN user, ID(msgs), sender, msgs ORDER BY msgs.created DESC LIMIT 10`,
         { username })
       .then(({ records }) => {
         db.close();
