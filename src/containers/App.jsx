@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import { getMatches, getAllMessages } from '../actions';
+import getUnreadMessages from '../actions/badges';
 import logoutUser from '../actions/auth';
 import Header from '../components/Header';
 
@@ -25,14 +26,15 @@ class App extends Component {
     matches: PropTypes.arrayOf(PropTypes.object),
     toggleLeftNav: PropTypes.func,
     getMatches: PropTypes.func,
-    getAllMessages: PropTypes.func,
     logoutUser: PropTypes.func,
+    getUnreadMessages: PropTypes.func,
+    unread: PropTypes.number,
   }
 
   componentWillMount() {
     injectTapEventPlugin();
     this.props.getMatches(getUsername());
-    this.props.getAllMessages(getUsername());
+    this.props.getUnreadMessages(getUsername());
   }
 
   handleLogOut = () => this.props.logoutUser(getUsername())
@@ -55,7 +57,7 @@ class App extends Component {
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
           numberOfMatches={this.props.matches.length}
-          numberOfMessages={this.props.received.length}
+          numberOfMessages={this.props.unread}
           handleClick={this.handleClick}
           handleTitleClick={() => this.context.router.push('/')}
         />
@@ -71,11 +73,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNavToggle, messages, users }) {
+function mapStateToProps({ leftNavToggle, messages, users, badges }) {
   return {
     open: leftNavToggle.open,
     received: messages.received,
     matches: users.matches,
+    unread: badges.unread,
   };
 }
 
@@ -84,4 +87,5 @@ export default connect(mapStateToProps, {
   getMatches,
   getAllMessages,
   logoutUser,
+  getUnreadMessages,
 })(App);

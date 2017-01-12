@@ -13,7 +13,7 @@
  * --------------------------------------------------------------- */
 
 // Plucks getAll methods from messagesModel.js
-const { getAll, postMessage, getOutbox, toggleRead } = require('./messagesModel');
+const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messagesModel');
 
 module.exports = {
   //
@@ -196,5 +196,9 @@ module.exports = {
 
   readMsg({ body }, res) {
     toggleRead(body, data => res.json(data));
+  },
+
+  findUnreadMessages({ params }, res) {
+    getUnreadMsgs(params, UnreadMsgs => res.json(UnreadMsgs));
   },
 };

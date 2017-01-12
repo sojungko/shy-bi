@@ -143,4 +143,20 @@ module.exports = {
         throw error;
       });
   },
+
+  getUnreadMsgs({ username }, callback) {
+    return db
+      .run(
+        `MATCH(user:User {username: {username}})-[:RECEIVES]->(msgs:Messages)
+        WHERE msgs.read = false
+        RETURN msgs`,
+        { username })
+      .then(({ records }) => {
+        db.close();
+        callback(records);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  },
 };
