@@ -31,22 +31,22 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
   const renderAppBar = (label, path) => (
     <div style={containerStyle}>
       <AppBar
-        title="Bind."
+        title="BIND"
         style={appBarStyle}
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
         iconElementRight={renderFlatButton(label, path)}
-        titleStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '400%' }}
+        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#FF4081', fontSize: '72px' }}
         iconStyleLeft={{ backgroundColor: '#FF4081' }}
         zDepth={0}
       >
         {
           auth &&
-          <NotificationBadge
-            numberOfMatches={numberOfMatches}
-            numberOfMessages={numberOfMessages}
-            handleClick={handleClick}
-          />
+            <NotificationBadge
+              numberOfMatches={numberOfMatches}
+              numberOfMessages={numberOfMessages}
+              handleClick={handleClick}
+            />
         }
       </AppBar>
     </div>
