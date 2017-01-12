@@ -31,3 +31,6 @@ export const CLEAR_FIELDS = 'CLEAR_FIELDS';
 export const FILTER_USER = 'FILTER_USER';
 
 export const GET_LOCATIONS = 'GET_LOCATIONS';
+
+export const VIEW_MATCH = 'VIEW_MATCH';
+export const GET_UNVIEWED_MATCHES = 'GET_UNVIEWED_MATCHES';

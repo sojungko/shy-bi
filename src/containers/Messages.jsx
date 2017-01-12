@@ -2,7 +2,7 @@ import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-import { getAllMessages, getSentMessages } from '../actions/index';
+import { getAllMessages, getSentMessages, expandCard } from '../actions/index';
 import Navbar from '../components/Navbar';
 
 class Messages extends Component {
@@ -68,7 +68,7 @@ class Messages extends Component {
 const mapStateToProps = ({ messages, card }) => ({
   received: messages.received,
   sent: messages.sent,
-  expanded: card.expaned,
+  expanded: card.expanded,
 });
 
 export default connect(mapStateToProps, {

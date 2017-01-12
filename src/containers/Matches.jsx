@@ -2,7 +2,7 @@ import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Navbar from '../components/Navbar';
-import { getMatches, getLikedUsers, getUser } from '../actions';
+import { getMatches, getLikedUsers, getUser, viewMatch } from '../actions';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 
 
@@ -18,6 +18,7 @@ class Matches extends Component {
     matches: PropTypes.arrayOf(PropTypes.object),
     likes: PropTypes.arrayOf(PropTypes.object),
     getUser: PropTypes.func,
+    viewMatch: PropTypes.func,
   }
 
   componentWillMount() {
@@ -30,14 +31,15 @@ class Matches extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.viewMatch(getUsername());
+  }
+
   handleClick = (userName) => {
     this.props.getUser(userName)
       .then(() => {
         this.context.router.push(`/profile/${userName}`);
       });
-  }
-
-  handleView = (userName) => {
   }
 
   render() {
@@ -70,4 +72,4 @@ const mapStateToProps = ({ users }) => ({
   likes: users.likes,
 });
 
-export default connect(mapStateToProps, { getMatches, getLikedUsers, getUser })(Matches);
+export default connect(mapStateToProps, { getMatches, getLikedUsers, getUser, viewMatch })(Matches);

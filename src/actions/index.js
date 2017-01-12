@@ -168,4 +168,8 @@ export const expandCard = (bool, msgID) => dispatch => axios.post('api/messages/
 export const getUnreadMessages = username => dispatch => axios.get(`api/messages/unread/${username}`)
   .then(({ data }) => dispatch({ type: A.GET_UNREAD_MESSAGES, payload: data.length }));
 
-export const getUnviewedMatches = username => dispatch => axios.get(`api/matches/view`)
+export const viewMatch = username => dispatch => axios.post('api/matches/view', { username })
+  .then(() => dispatch({ type: A.VIEW_MATCH }));
+
+export const getUnviewedMatches = username => dispatch => axios.get(`api/matches/newmatches/${username}`)
+  .then(() => dispatch({ type: A.GET_UNVIEWED_MATCHES }));
