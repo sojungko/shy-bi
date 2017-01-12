@@ -31,7 +31,7 @@ class Messages extends Component {
     }
   }
 
-  handleExpand = message => this.props.expandCard(this.props.expanded, message)
+  handleExpand = message => this.props.expandCard(this.props.expanded, message.msgID)
 
   render() {
     const messageMenu = [

@@ -195,7 +195,6 @@ module.exports = {
   },
 
   readMsg({ body }, res) {
-    console.log(body);
     toggleRead(body, data => res.json(data));
   },
 };
