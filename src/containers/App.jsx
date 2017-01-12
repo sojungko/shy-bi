@@ -57,6 +57,7 @@ class App extends Component {
           numberOfMatches={this.props.matches.length}
           numberOfMessages={this.props.received.length}
           handleClick={this.handleClick}
+          handleTitleClick={() => this.context.router.push('/')}
         />
         <LeftNav
           auth={auth}

@@ -7,10 +7,10 @@ import NotificationBadge from './Badges';
 const style = {
   backgroundColor: 'white',
   padding: '30px',
-  actionMenuTextColor: '#FF4081',
+  cursor: 'pointer',
 };
 
-const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
+const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderFlatButton = (label, path) => {
     const flatButton = (
       <FlatButton
@@ -28,8 +28,10 @@ const Header = ({ handleClick, numberOfMatches, numberOfMessages, logOut, handle
       title="Bind."
       style={style}
       onLeftIconButtonTouchTap={handleToggle}
+      onTitleTouchTap={handleTitleClick}
       iconElementRight={renderFlatButton(label, path)}
       titleStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '400%' }}
+      iconStyleLeft={{ backgroundColor: '#FF4081' }}
       zDepth={0}
     >
       {
