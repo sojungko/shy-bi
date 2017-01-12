@@ -127,7 +127,7 @@ module.exports = {
       });
   },
 
-  toggleRead({ message: { msgID } }, callback) {
+  toggleRead({ msgID }, callback) {
     return db
       .run(
         `MATCH (message: Messages)

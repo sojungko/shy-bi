@@ -7,9 +7,15 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, received: action.payload };
     case GET_SENT_MESSAGES:
       return { ...state, sent: action.payload };
-    case EXPAND_CARD:
-      console.log(state);
-      return state;
+    case EXPAND_CARD: {
+      const newReceived = [...state.received];
+      newReceived.forEach((message, index) => {
+        if (message.msgID === action.payload.msgID) {
+          newReceived[index].read = true;
+        }
+      });
+      return { ...state, received: newReceived };
+    }
     default:
       return state;
   }
