@@ -29,6 +29,6 @@ module.exports = {
 
   findNewMatches({ params }, res) {
     console.log(`1) [matchesController.js/findNewMatches] Received request for ${params.username}`);
-    getNewMatches(params.username
+    getNewMatches(params.username);
   },
 };
