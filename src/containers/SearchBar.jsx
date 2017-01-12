@@ -58,63 +58,51 @@ class SearchBar extends Component {
   render() {
     const { minage, maxage, city } = this.props;
     return (
-      <div>
-        <Card style={{ textAlign: 'left' }}>
-          <CardHeader
-            titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
-            title="Search"
+      <Card>
+        <CardHeader
+          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          title="Search"
+        />
+        <form>
+          <TextField
+            floatingLabelText="Minimum Age"
+            name="minage"
+            type="number"
+            value={minage}
+            onChange={this.handleChange}
           />
-          <form>
-            <div style={styles.cardMargin}>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="Minimum Age"
-                  name="minage"
-                  type="number"
-                  value={minage}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="Maximum Age"
-                  name="maxage"
-                  type="number"
-                  value={maxage}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field-line">
-                <RadioButtonGroup
-                  name="sex"
-                  onChange={this.handleChange}
-                >
-                  <RadioButton
-                    value="Male"
-                    label="Male"
-                    style={styles.radioButton}
-                  />
-                  <RadioButton
-                    value="Female"
-                    label="Female"
-                    style={styles.radioButton}
-                  />
-                </RadioButtonGroup>
-              </div>
-              <div className="field-line">
-                <TextField
-                  floatingLabelText="City"
-                  type="text"
-                  name="city"
-                  value={city}
-                  onChange={this.handleChange}
-                />
-              </div>
-            </div>
-          </form>
-          <RaisedButton label="Clear Fields" style={styles} onClick={this.handleClick} />
-        </Card>
-      </div>
+          <TextField
+            floatingLabelText="Maximum Age"
+            name="maxage"
+            type="number"
+            value={maxage}
+            onChange={this.handleChange}
+          />
+          <RadioButtonGroup
+            name="sex"
+            onChange={this.handleChange}
+          >
+            <RadioButton
+              value="Male"
+              label="Male"
+              style={styles.radioButton}
+            />
+            <RadioButton
+              value="Female"
+              label="Female"
+              style={styles.radioButton}
+            />
+          </RadioButtonGroup>
+          <TextField
+            floatingLabelText="City"
+            type="text"
+            name="city"
+            value={city}
+            onChange={this.handleChange}
+          />
+        </form>
+        <RaisedButton label="Clear Fields" onClick={this.handleClick} />
+      </Card>
     );
   }
 }

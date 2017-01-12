@@ -4,6 +4,9 @@ const styles = {
   },
   radioButton: {
     marginBottom: 16,
+    display: 'flex',
+    width: 'auto',
+    alignItems: 'center',
   },
   margin: 12,
   cardMargin: {
