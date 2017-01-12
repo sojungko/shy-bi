@@ -3,7 +3,7 @@ const express = require('express');
 // Plucks signup method from user/userController.js
 const { findUser, signOut } = require('../user/userController');
 const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
-const { findAllMessages, sendMessage, sentMessages, readMsg } = require('../messages/messagesController');
+const { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } = require('../messages/messagesController');
 const { getRecommendedMatches } = require('../recommendations/recommendationsController');
 const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
 const { getMatches } = require('../matches/matchesController');
@@ -84,6 +84,8 @@ router.post('/messages/send', sendMessage);
 router.get('/messages/sent/:username', sentMessages);
 
 router.post('/messages/read', readMsg);
+
+router.get('/messages/unread/:username', findUnreadMessages);
 
 // 4-a-i) GET -> file: recommendations/recommendationsController.js method:
 router.get('/recommendations/:username', getRecommendedMatches);
