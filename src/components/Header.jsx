@@ -9,7 +9,7 @@ const containerStyle = {
 };
 
 const appBarStyle = {
-  backgroundColor: 'white',
+  backgroundColor: '#ff294c',
   padding: '30px',
   cursor: 'pointer',
   position: 'fixed',
@@ -20,7 +20,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
     const flatButton = (
       <FlatButton
         label={label}
-        labelStyle={{ fontFamily: 'Roboto Condensed', color: 'black', fontSize: '150%' }}
+        labelStyle={{ fontFamily: 'Maria', color: 'white', fontSize: '15px' }}
         containerElement={<Link to={path}>{label}</Link>}
       />
    );
@@ -29,15 +29,15 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
   };
 
   const renderAppBar = (label, path) => (
-    <div style={containerStyle}>
+    <div id="AppBar" style={containerStyle}>
       <AppBar
         title="BIND"
         style={appBarStyle}
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
         iconElementRight={renderFlatButton(label, path)}
-        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#FF4081', fontSize: '72px' }}
-        iconStyleLeft={{ backgroundColor: '#FF4081' }}
+        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#04284a', fontSize: '72px' }}
+        iconStyleLeft={{ backgroundColor: '#04284a' }}
         zDepth={0}
       >
         {
