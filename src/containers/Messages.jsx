@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages } from '../actions/index';
+import getUnreadMessages from '../actions/badges';
 import Navbar from '../components/Navbar';
 import expandCard from '../actions/cardToggle';
 
@@ -19,6 +20,7 @@ class Messages extends Component {
     sent: PropTypes.arrayOf(PropTypes.object.isRequired),
     expandCard: PropTypes.func,
     expanded: PropTypes.bool,
+    getUnreadMessages: PropTypes.func,
   }
 
   componentWillMount() {
@@ -31,7 +33,15 @@ class Messages extends Component {
     }
   }
 
-  handleExpand = message => this.props.expandCard(this.props.expanded, message.msgID)
+  handleExpand = (message) => {
+    this.props.expandCard(this.props.expanded, message.msgID)
+    .then(() => {
+      console.log('force updating');
+      const username = getUsername();
+      this.props.getAllMessages(username);
+      this.props.getUnreadMessages(username);
+    });
+  }
 
   render() {
     const messageMenu = [
