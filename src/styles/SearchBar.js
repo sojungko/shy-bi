@@ -13,6 +13,7 @@ const styles = {
     paddingTop: 50,
     paddingLeft: 100,
   },
+  display: 'in-line',
 };
 
 export default styles;
