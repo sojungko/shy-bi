@@ -37,6 +37,9 @@ class Matches extends Component {
       });
   }
 
+  handleView = (userName) => {
+  }
+
   render() {
     const username = getUsername();
     const matchesMenu = [

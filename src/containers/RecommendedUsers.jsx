@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';

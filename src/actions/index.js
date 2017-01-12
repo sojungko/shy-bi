@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authenticateUser } from '../modules/auth';
+import { authenticateUser, deauthenticateUser } from '../modules/auth';
 import * as A from '../constants/ActionTypes';
 
 /* -- Fetching Users --*/
@@ -67,6 +67,15 @@ export function loginUser(props) {
       console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
     });
 }
+
+export const logoutUser = (username) => {
+  const request = { username };
+  return dispatch => axios.post('/api/signout', request)
+    .then(({ data }) => deauthenticateUser())
+    .catch((error) => {
+      console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
+    });
+};
 
 export function getAllMessages(username) {
   return dispatch => axios.get(`api/messages/all/${username}`)
@@ -143,7 +152,7 @@ export function uploadImage(props) {
 }
 
 export function getLocations(props) {
-  const sending = { input: props }
+  const sending = { input: props };
   return dispatch => axios.post('/api/getlocations', sending)
     .then(({ data }) => {
       console.log('actions/getLocations data : ', data.predictions);
@@ -151,3 +160,12 @@ export function getLocations(props) {
       return dispatch({ type: A.GET_LOCATIONS, payload: results });
     });
 }
+
+export const expandCard = (bool, msgID) => dispatch => axios.post('api/messages/read', { msgID })
+    .then(() => dispatch({ type: A.EXPAND_CARD, payload: { expanded: !bool, msgID } }));
+
+
+export const getUnreadMessages = username => dispatch => axios.get(`api/messages/unread/${username}`)
+  .then(({ data }) => dispatch({ type: A.GET_UNREAD_MESSAGES, payload: data.length }));
+
+export const getUnviewedMatches = username => dispatch => axios.get(`api/matches/view`)
