@@ -54,7 +54,9 @@ class Matches extends Component {
     return (
       <div>
         <Navbar menus={matchesMenu} />
-        {children}
+        <div style={{ marginTop: '50px' }}>
+          {children}
+        </div>
       </div>
     );
   }

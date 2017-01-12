@@ -116,7 +116,7 @@ export function unlikeUser(username, userToUnlike) {
 export function editBio(props) {
   return (dispatch) => {
     axios.post('/api/bio/edit_bio', props)
-    .then(({ data }) => dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data }))
+    .then(() => dispatch({ type: A.EDIT_BIO_SUCCESS, payload: true }))
     .catch((error) => {
       console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
     });

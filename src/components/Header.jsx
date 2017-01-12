@@ -4,10 +4,15 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
-const style = {
+const containerStyle = {
+  height: '70px',
+};
+
+const appBarStyle = {
   backgroundColor: 'white',
   padding: '30px',
   cursor: 'pointer',
+  position: 'fixed',
 };
 
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
@@ -24,25 +29,27 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
   };
 
   const renderAppBar = (label, path) => (
-    <AppBar
-      title="Bind."
-      style={style}
-      onLeftIconButtonTouchTap={handleToggle}
-      onTitleTouchTap={handleTitleClick}
-      iconElementRight={renderFlatButton(label, path)}
-      titleStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '400%' }}
-      iconStyleLeft={{ backgroundColor: '#FF4081' }}
-      zDepth={0}
-    >
-      {
-        auth &&
+    <div style={containerStyle}>
+      <AppBar
+        title="Bind."
+        style={appBarStyle}
+        onLeftIconButtonTouchTap={handleToggle}
+        onTitleTouchTap={handleTitleClick}
+        iconElementRight={renderFlatButton(label, path)}
+        titleStyle={{ fontFamily: 'Bitter', color: '#FF4081', fontSize: '400%' }}
+        iconStyleLeft={{ backgroundColor: '#FF4081' }}
+        zDepth={0}
+      >
+        {
+          auth &&
           <NotificationBadge
             numberOfMatches={numberOfMatches}
             numberOfMessages={numberOfMessages}
             handleClick={handleClick}
           />
-      }
-    </AppBar>
+        }
+      </AppBar>
+    </div>
   );
 
   if (!auth) {

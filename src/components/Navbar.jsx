@@ -15,7 +15,7 @@ const Navbar = (props) => {
       />);
 
   return (
-    <Tabs>
+    <Tabs className="tabs" contentContainerClassName="tab" >
       {renderMenu()}
     </Tabs>
   );

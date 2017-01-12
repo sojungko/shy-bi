@@ -88,7 +88,7 @@ class Profile extends Component {
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online } = this.props.profile;
     return (
-      <Card>
+      <Card style={{ marginTop: '30px' }}>
         <CardText style={{ fontFamily: 'Open Sans', fontSize: '20px' }}>
           <img role="presentation" src={image_url} style={{ padding: '30px' }} />
           <div>
@@ -153,7 +153,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <div style={{ fontFamily: 'Bitter', fontSize: '30px' }}>Hi, {this.props.profile.name}!</div>
+        <div style={{ fontFamily: 'Bitter', fontSize: '30px', marginTop: '50px' }}>Hi, {this.props.profile.name}!</div>
         {this.renderProfile()}
       </div>
     );

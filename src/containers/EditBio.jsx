@@ -8,6 +8,7 @@ import SelectField from 'material-ui/SelectField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import Snackbar from 'material-ui/Snackbar';
 import ImageUpload from './ImageUpload';
 import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
@@ -34,6 +35,7 @@ class EditBio extends Component {
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
     reset: PropTypes.func,
+    isEdited: PropTypes.bool,
   }
 
   onSubmit = (inputs) => {
@@ -183,6 +185,11 @@ class EditBio extends Component {
             </div>
           </div>
         </form>
+        <Snackbar
+          open={this.props.isEdited || false}
+          message="Profile successfully updated!"
+          autoHideDuration={4000}
+        />
       </Card>
 
     );
@@ -193,5 +200,5 @@ EditBio = reduxForm({
   form: 'EditBioForm',
 })(EditBio);
 
-const mapStateToProps = ({ profile }) => ({ profile });
+const mapStateToProps = ({ profile }) => ({ profile, isEdited: profile.isEdited });
 export default connect(mapStateToProps, { getUser, editBio })(EditBio);
