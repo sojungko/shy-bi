@@ -69,7 +69,7 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-        <div style={{ marginTop: '70px' }}>
+        <div style={{ height: '100%', margin: 'auto' }}>
           {this.props.children}
         </div>
         <BottomNav />
