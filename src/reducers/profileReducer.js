@@ -1,6 +1,6 @@
-import { GET_USER, IS_MATCH } from '../constants/ActionTypes';
+import { GET_USER, IS_MATCH, EDIT_BIO_SUCCESS } from '../constants/ActionTypes';
 
-export default function (state = { isMatch: false }, action) {
+export default function (state = { isMatch: false, isEdited: false }, action) {
   switch (action.type) {
     case GET_USER:
       // console.log(`    REDUCER/PROFILE | Received Action type: ${action.type}`, action);
@@ -9,6 +9,8 @@ export default function (state = { isMatch: false }, action) {
       return action.payload;
     case IS_MATCH:
       return { ...state, isMatch: action.payload };
+    case EDIT_BIO_SUCCESS:
+      return { ...state, isEdited: action.payload };
     default:
       return state;
   }
