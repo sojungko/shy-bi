@@ -35,7 +35,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   addUser(userData, callback) {
-    const { name, username, email, password, job, edLevel, city, age, sex } = userData;
+    const { name, username, email, password, job, edLevel, city, age, sex, image_url } = userData;
     console.log(`2) [userModel.js/addUser] Adding user ${name}
       username: ${username}
       email: ${email}
@@ -45,6 +45,7 @@ module.exports = {
       city: ${city}
       age: ${age}
       sex: ${sex}
+      image: ${image_url}
       to database`);
 
     bcrypt.hash(password, null, null, ((err, hash) => {
@@ -62,6 +63,7 @@ module.exports = {
             password: {hash},
             job: {job},
             edLevl: {edLevel}
+            image_url: {image_url}
           })
           ON CREATE SET newUser.memberSince = timestamp()
 
@@ -74,7 +76,7 @@ module.exports = {
           MERGE (newUser)-[:MEMBER_OF]->(userSex)
 
           RETURN newUser`,
-          { name, username, email, hash, job, edLevel, city, age, sex })
+          { name, username, email, hash, job, edLevel, city, age, sex, image_url })
         .then((user) => {
           db.close();
           console.log('3) [userModel.js/addUser] user : ', user);
