@@ -62,7 +62,7 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     const visitedUser = this.props.params.username;
     if (!isUserAuthenticated()) {
-      this.context.router.push('/login');
+      this.context.router.push('/');
     } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
       this.props.getUser(getUsername());
     } else if (visitedUser === getUsername()) {
@@ -74,8 +74,8 @@ class Profile extends Component {
     this.props.likeUser(getUsername(), this.props.params.username);
   }
 
-  renderOnlineMessage = (bool, name, sex) => {
-    if (bool) {
+  renderOnlineMessage = (online, isMatch, name, sex) => {
+    if (online && isMatch) {
       return (
         <p>
           {name} is online. Message {sex === 'Female' ? 'her' : 'him'} now! {' '}
@@ -86,13 +86,13 @@ class Profile extends Component {
   }
 
   renderProfile() {
-    const { name, sex, age, city, job, edLevel, aboutMe, image_url, online } = this.props.profile;
+    const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
       <Card style={{ marginTop: '30px' }}>
         <CardText style={{ fontFamily: 'Open Sans', fontSize: '20px' }}>
           <img role="presentation" src={image_url} style={{ padding: '30px' }} />
           <div>
-            {this.props.params.username ? this.renderOnlineMessage(online, name, sex) : 'You are online.'}
+            {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
           </div>
           <table style={{ padding: '30px', width: '70%', textAlign: 'left' }}>
             <tbody>

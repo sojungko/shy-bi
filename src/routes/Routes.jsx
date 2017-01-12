@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
+import Home from '../components/Home';
 import App from '../containers/App';
 import LogIn from '../containers/Login';
 import SignUp from '../containers/Signup';
@@ -20,7 +21,7 @@ import FacebookSignup from '../containers/FacebookSignup';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={Profile} />
+    <IndexRoute component={Home} />
     <Route path="signup" component={SignUp} />
     <Route path="facebook/signup" component={FacebookSignup} />
     <Route path="search" component={UserList} />

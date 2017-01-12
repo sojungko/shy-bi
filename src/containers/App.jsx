@@ -8,6 +8,7 @@ import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';
 import toggleLeftNav from '../actions/leftNavToggle';
+import BottomNav from '../components/BottomNav';
 
 class App extends Component {
   static contextTypes = {
@@ -71,6 +72,7 @@ class App extends Component {
         <div style={{ marginTop: '70px' }}>
           {this.props.children}
         </div>
+        <BottomNav />
       </div>
     );
   }

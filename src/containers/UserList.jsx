@@ -18,7 +18,7 @@ class UserList extends Component {
 
   componentWillMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/login');
+      this.context.router.push('/');
     } else {
       this.props.getAllUsers();
     }
