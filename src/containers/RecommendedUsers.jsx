@@ -18,7 +18,7 @@ class RecommendedUsers extends Component {
 
   componentWillMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     } else {
       this.props.getRecommendedUsers(getUsername());
     }

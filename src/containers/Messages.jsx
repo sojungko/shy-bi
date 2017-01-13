@@ -2,7 +2,7 @@ import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-import { getAllMessages, getSentMessages, expandCard } from '../actions/index';
+import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '../actions';
 import Navbar from '../components/Navbar';
 
 class Messages extends Component {
@@ -23,7 +23,7 @@ class Messages extends Component {
 
   componentWillMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     } else {
       const username = getUsername();
       this.props.getAllMessages(username);
@@ -68,11 +68,12 @@ class Messages extends Component {
 const mapStateToProps = ({ messages, card }) => ({
   received: messages.received,
   sent: messages.sent,
-  expanded: card.expanded,
+  expanded: card.expaned,
 });
 
 export default connect(mapStateToProps, {
   getAllMessages,
   getSentMessages,
   expandCard,
+  getUnreadMessages,
 })(Messages);
