@@ -75,7 +75,6 @@ class SignUp extends Component {
       <AutoComplete
         style={maria}
         location={this.props.location || []}
-        handleUpdateInput={this.handleUpdateInput}
       />
   );
 
@@ -113,10 +112,15 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" style={maria} component={renderAutoComplete} label="City" />
+            <Field name="city" type="text" style={maria} component={this.renderTextField} label="City" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" labelStyle={maria} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+            <RaisedButton
+              type="submit"
+              labelStyle={maria}
+              label="Create New Account"
+              disabledBackgroundColor="#FCE4EC"
+            />
           </div>
           <CardText style={maria}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
         </form>

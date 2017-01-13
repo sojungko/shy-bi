@@ -35,13 +35,11 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   addUser(userData, callback) {
-    const { name, username, email, password, job, edLevel, city, age, sex, image_url } = userData;
+    const { name, username, email, password, city, age, sex, image_url } = userData;
     console.log(`2) [userModel.js/addUser] Adding user ${name}
       username: ${username}
       email: ${email}
       password: ${password}
-      job: ${job}
-      edLevel: ${edLevel}
       city: ${city}
       age: ${age}
       sex: ${sex}
@@ -61,8 +59,6 @@ module.exports = {
             username: {username},
             email: {email},
             password: {hash},
-            job: {job},
-            edLevl: {edLevel}
             image_url: {image_url}
           })
           ON CREATE SET newUser.memberSince = timestamp()
@@ -76,12 +72,12 @@ module.exports = {
           MERGE (newUser)-[:MEMBER_OF]->(userSex)
 
           RETURN newUser`,
-          { name, username, email, hash, job, edLevel, city, age, sex, image_url })
-        .then((user) => {
+          { name, username, email, hash, city, age, sex, image_url })
+        .then(({ records }) => {
           db.close();
-          console.log('3) [userModel.js/addUser] user : ', user);
+          console.log('3) [userModel.js/addUser] records : ', records);
           console.log('3) [userModel.js/addUser] user has been added');
-          return callback(user);
+          return callback(records[0]);
         })
         .catch((error) => {
           console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
