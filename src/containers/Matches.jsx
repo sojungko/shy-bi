@@ -23,7 +23,7 @@ class Matches extends Component {
 
   componentWillMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     } else {
       const username = getUsername();
       this.props.getMatches(username);

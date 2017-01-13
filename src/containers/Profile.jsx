@@ -62,7 +62,7 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     const visitedUser = this.props.params.username;
     if (!isUserAuthenticated()) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
       this.props.getUser(getUsername());
     } else if (visitedUser === getUsername()) {
