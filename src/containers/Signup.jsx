@@ -18,6 +18,10 @@ const styles = {
   },
 };
 
+const maria = {
+  fontFamily: 'Maria',
+};
+
 class SignUp extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -32,9 +36,7 @@ class SignUp extends Component {
     ]),
   }
 
-  shouldComponentUpdate = (nextProps) => {
-    return !nextProps.location;
-  }
+  shouldComponentUpdate = nextProps => !nextProps.location
 
 
   onSubmit = (inputs) => {
@@ -55,6 +57,7 @@ class SignUp extends Component {
       errorText={touched && error}
       {...input}
       {...custom}
+      style={maria}
     />
   );
 
@@ -70,6 +73,7 @@ class SignUp extends Component {
   render() {
     const renderAutoComplete = () => (
       <AutoComplete
+        style={maria}
         location={this.props.location || []}
         handleUpdateInput={this.handleUpdateInput}
       />
@@ -81,7 +85,7 @@ class SignUp extends Component {
       <Card className="container" style={{ textAlign: 'center', display: 'block' }}>
         <CardHeader
           title="Sign Up"
-          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
           titleColor="black"
         />
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -109,13 +113,12 @@ class SignUp extends Component {
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={renderAutoComplete} label="City" />
+            <Field name="city" type="text" style={maria} component={renderAutoComplete} label="City" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+            <RaisedButton type="submit" labelStyle={maria} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
           </div>
-
-          <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+          <CardText style={maria}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
         </form>
       </Card>
     );
@@ -139,6 +142,6 @@ SignUp = reduxForm({
   validate,
 })(SignUp);
 
-const mapStateToProps = ({ location }) => ({ location })
+const mapStateToProps = ({ location }) => ({ location });
 
 export default connect(mapStateToProps, { signupUser, getLocations })(SignUp);

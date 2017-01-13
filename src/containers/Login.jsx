@@ -32,6 +32,7 @@ class LogIn extends Component {
       errorText={touched && error}
       {...input}
       {...custom}
+      style={{ fontFamily: 'Maria' }}
     />
   )
 
@@ -41,7 +42,7 @@ class LogIn extends Component {
       <Card style={{ textAlign: 'center' }}>
         <CardHeader
           title="Log In"
-          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
           titleColor="black"
         />
         <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -55,13 +56,14 @@ class LogIn extends Component {
             <RaisedButton
               type="submit"
               label="Log in"
+              labelStyle={{ fontFamily: 'Maria' }}
               disabled={pristine || submitting}
             />
           </div>
           <a href="/auth/facebook">
-            <RaisedButton label="Login with Facebook" />
+            <RaisedButton labelStyle={{ fontFamily: 'Maria' }} label="Login with Facebook" />
           </a>
-          <CardText>
+          <CardText style={{ fontFamily: 'Maria' }}>
             Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
           </CardText>
         </form>
