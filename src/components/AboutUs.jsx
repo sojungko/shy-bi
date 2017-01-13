@@ -46,10 +46,12 @@ const AboutUs = () => (
       </CardText>
     </Card>
     <Card>
-      <CardTitle
-        title="JW Garrison"
-        titleStyle={nameTitleStyle}
-      />
+      <a href="https://github.com/jw-garrison">
+        <CardTitle
+          title="JW Garrison"
+          titleStyle={nameTitleStyle}
+        />
+      </a>
       <CardText
         style={textStyle}
       >
@@ -57,10 +59,12 @@ const AboutUs = () => (
       </CardText>
     </Card>
     <Card>
-      <CardTitle
-        title="Sojung Park"
-        titleStyle={nameTitleStyle}
-      />
+      <a href="https://github.com/sojungko">
+        <CardTitle
+          title="Sojung Park"
+          titleStyle={nameTitleStyle}
+        />
+      </a>
       <CardText
         style={textStyle}
       >
@@ -71,10 +75,12 @@ const AboutUs = () => (
       </CardText>
     </Card>
     <Card>
-      <CardTitle
-        title="Peter Schussheim"
-        titleStyle={nameTitleStyle}
-      />
+      <a href="https://github.com/peterschussheim">
+        <CardTitle
+          title="Peter Schussheim"
+          titleStyle={nameTitleStyle}
+        />
+      </a>
       <CardText
         style={textStyle}
       >
