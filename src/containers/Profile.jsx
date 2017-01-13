@@ -8,15 +8,7 @@ import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
-
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  checkbox: {
-    marginBottom: 16,
-  },
-};
+import styles from '../styles/Profile';
 
 class Profile extends Component {
   static propTypes = {
@@ -35,6 +27,7 @@ class Profile extends Component {
       aboutMe: PropTypes.string,
       image_url: PropTypes.string,
       online: PropTypes.bool,
+      isMatch: PropTypes.bool,
     }),
     likeUser: PropTypes.func,
     open: PropTypes.bool,
@@ -88,13 +81,14 @@ class Profile extends Component {
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
-      <Card style={{ marginTop: '30px' }}>
-        <CardText style={{ fontFamily: 'Maria', fontSize: '20px' }}>
-          <img role="presentation" src={image_url} style={{ padding: '30px' }} />
+      <Card style={styles.card}>
+        <CardText style={styles.cardText}>
+          <img role="presentation" src={image_url} style={styles.image} />
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
           </div>
-          <table style={{ padding: '30px', width: '70%', textAlign: 'left' }}>
+          <br></br>
+          <table style={styles.table}>
             <tbody>
               <tr>
                 <th>Name</th>
@@ -153,7 +147,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <div style={{ fontFamily: 'Eskell', fontSize: '30px', marginTop: '50px' }}>Hi, {this.props.profile.name}!</div>
+        <div style={styles.greeting}>Hi, {this.props.profile.name}!</div>
         {this.renderProfile()}
       </div>
     );

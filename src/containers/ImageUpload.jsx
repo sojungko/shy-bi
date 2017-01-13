@@ -40,6 +40,7 @@ class ImageUpload extends Component {
                         .field('file', file);
 
     upload.end((err, response) => {
+      console.log('ImageUpload response.body : ', response.body);
       if (err) {
         console.error(err);
       }
@@ -50,7 +51,7 @@ class ImageUpload extends Component {
         });
         const sending = {
           username: getUsername(),
-          url: response.body.url,
+          url: response.body.secure_url,
         };
         this.props.uploadImage(sending);
       }
