@@ -13,6 +13,10 @@ import ImageUpload from './ImageUpload';
 import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
 
+const style = {
+  fontFamily: 'Maria',
+};
+
 class EditBio extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -51,6 +55,8 @@ class EditBio extends Component {
       errorText={touched && error}
       {...input}
       {...custom}
+      hintStyle={style}
+      style={style}
     />
   )
 
@@ -78,6 +84,8 @@ class EditBio extends Component {
       onChange={(event, index, value) => input.onChange(value)}
       children={children}
       {...custom}
+      style={style}
+      menuItemStyle={style}
     />
 )
 
@@ -87,10 +95,10 @@ class EditBio extends Component {
       <Card style={{ padding: '50px' }}>
         <CardHeader
           title="Edit Profile"
-          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
           titleColor="black"
         />
-        <form onSubmit={handleSubmit(this.onSubmit)} >
+        <form style={style} onSubmit={handleSubmit(this.onSubmit)} >
           <div className="field-line">
             <div>
               <Field
@@ -122,10 +130,10 @@ class EditBio extends Component {
             </div>
           </div>
           <div className="field-line">
-            <div>
+            <div style={style}>
               <Field name="sex" component={this.renderRadioGroup}>
-                <RadioButton value="Male" label="Male" />
-                <RadioButton value="Female" label="Female" />
+                <RadioButton style={style} value="Male" label="Male" />
+                <RadioButton style={style} value="Female" label="Female" />
               </Field>
             </div>
           </div>
@@ -157,9 +165,9 @@ class EditBio extends Component {
                 component={this.renderSelectField}
                 label="Education Level"
               >
-                <MenuItem value={'highSchool'} primaryText="High School" />
-                <MenuItem value={'college'} primaryText="College" />
-                <MenuItem value={'graduate'} primaryText="Graduate" />
+                <MenuItem style={style} value={'highSchool'} primaryText="High School" />
+                <MenuItem style={style} value={'college'} primaryText="College" />
+                <MenuItem style={style} value={'graduate'} primaryText="Graduate" />
               </Field>
             </div>
           </div>
@@ -180,8 +188,8 @@ class EditBio extends Component {
           <ImageUpload />
           <div>
             <div className="button-line">
-              <RaisedButton type="submit" label="Submit" disabled={pristine || submitting} />
-              <RaisedButton label="Clear Fields" disabled={pristine} onClick={reset} />
+              <RaisedButton labelStyle={style} type="submit" label="Submit" disabled={pristine || submitting} />
+              <RaisedButton labelStyle={style} label="Clear Fields" disabled={pristine} onClick={reset} />
             </div>
           </div>
         </form>

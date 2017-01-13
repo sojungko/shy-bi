@@ -34,7 +34,7 @@ class RecommendedUsers extends Component {
       <Card>
         <CardHeader
           title="Recommended For You"
-          titleStyle={{ fontFamily: 'Maria', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
           subtitle="Based on our special algorithm"
           subtitleStyle={{ fontFamily: 'Maria' }}
         />
