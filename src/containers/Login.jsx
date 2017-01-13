@@ -39,34 +39,36 @@ class LogIn extends Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <Card style={{ textAlign: 'center' }}>
-        <CardHeader
-          title="Log In"
-          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
-          titleColor="black"
-        />
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <div className="field-line">
-            <Field name="username" type="text" component={this.renderTextField} label="Username" />
-          </div>
-          <div className="field-line">
-            <Field name="password" type="password" component={this.renderTextField} label="Password" />
-          </div>
-          <div className="button-line">
-            <RaisedButton
-              type="submit"
-              label="Log in"
-              labelStyle={{ fontFamily: 'Maria' }}
-              disabled={pristine || submitting}
-            />
-          </div>
-          <a href="/auth/facebook">
-            <RaisedButton labelStyle={{ fontFamily: 'Maria' }} label="Login with Facebook" />
-          </a>
-          <CardText style={{ fontFamily: 'Maria' }}>
-            Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
-          </CardText>
-        </form>
+      <Card className="container" style={{ display: 'block' }}>
+        <div style={{ margin: '0 auto', paddingTop: '81px', paddingBottom: '358px', width: '300px' }}>
+          <CardHeader
+            title="Log In"
+            titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+            titleColor="black"
+          />
+          <form onSubmit={handleSubmit(this.onSubmit)}>
+            <div className="field-line">
+              <Field name="username" type="text" component={this.renderTextField} label="Username" />
+            </div>
+            <div className="field-line">
+              <Field name="password" type="password" component={this.renderTextField} label="Password" />
+            </div>
+            <div className="button-line">
+              <RaisedButton
+                type="submit"
+                label="Log in"
+                labelStyle={{ fontFamily: 'Maria' }}
+                disabled={pristine || submitting}
+              />
+            </div>
+            <a href="/auth/facebook">
+              <RaisedButton labelStyle={{ fontFamily: 'Maria' }} label="Login with Facebook" />
+            </a>
+            <CardText style={{ fontFamily: 'Maria' }}>
+              Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
+            </CardText>
+          </form>
+        </div>
       </Card>
     );
   }

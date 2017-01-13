@@ -11,8 +11,7 @@ const styles = {
   gridList: {
     width: '50%',
     overflowY: 'auto',
-    marginTop: '80px',
-    marginBottom: '80px',
+    margin: '80px 0',
   },
   paper: {
     height: '300px',
