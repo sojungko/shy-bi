@@ -1,5 +1,7 @@
 const styles = {
-  backgroundColor: 'black',
+  backgroundColor: '#04284a',
+  fontFamily: 'Maria',
+  color: '#FFFFFF',
 };
 
 export default styles;

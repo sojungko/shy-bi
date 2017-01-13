@@ -54,10 +54,6 @@ table {
   src: url(./fonts/Eksell-Medium-65db42e354c2125e3ae4183b48ca445c.woff) format('woff');
 }
 
-html {
-	height: 100%;
-}
-
 body {
   height: 100%;
   margin: 0;
