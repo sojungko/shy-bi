@@ -61,6 +61,7 @@ class Messages extends Component {
 
     return (
       <Paper>
+        <Navbar menus={messageMenu} />
         <Card>
           <CardHeader
             title="Love Letters"
@@ -69,7 +70,6 @@ class Messages extends Component {
             subtitleStyle={styles.subtitle}
           />
         </Card>
-        <Navbar menus={messageMenu} />
         {children}
       </Paper>
     );

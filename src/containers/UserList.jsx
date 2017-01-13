@@ -37,7 +37,7 @@ class UserList extends Component {
   render() {
     return (
       <Paper>
-        <Card>
+        <Card style={{ position: 'fixed', width: '100%' }}>
           <CardHeader
             title="Explore"
             titleStyle={styles.title}
