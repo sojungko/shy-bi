@@ -69,11 +69,7 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-<<<<<<< Updated upstream
         <div style={{ marginTop: '14px' }}>
-=======
-      <div style={{ height: '100%', margin: 'auto', marginTop: '70px' }}>
->>>>>>> Stashed changes
           {this.props.children}
         </div>
         <BottomNav />
