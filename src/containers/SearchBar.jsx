@@ -60,7 +60,7 @@ class SearchBar extends Component {
     return (
       <Card style={{ position: 'fixed', marginTop: '100px' }}>
         <CardHeader
-          titleStyle={{ fontFamily: 'Maria', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
           title="Search"
         />
         <TextField
@@ -103,7 +103,7 @@ class SearchBar extends Component {
           style={styles}
           onChange={this.handleChange}
         />
-        <RaisedButton label="Clear Fields" onClick={this.handleClick} />
+        <RaisedButton labelStyle={{ fontFamily: 'Maria' }} label="Clear Fields" onClick={this.handleClick} />
       </Card>
     );
   }
