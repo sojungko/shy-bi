@@ -35,7 +35,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   addUser(userData, callback) {
-    const { name, username, email, password, city, age, sex, image_url } = userData;
+    const { name, username, email, password, city = '', age = '', sex = '', image_url = '' } = userData;
     console.log(`2) [userModel.js/addUser] Adding user ${name}
       username: ${username}
       email: ${email}
