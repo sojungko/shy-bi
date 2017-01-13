@@ -4,6 +4,10 @@ import { Link } from 'react-router';
 
 import { getUsername } from '../modules/auth';
 
+const style = {
+  fontFamily: 'Maria',
+};
+
 const Message = ({ message, handleExpand, expanded }) => {
   const { title, sentBy, senderID, receiverID, receivedBy, body, read } = message;
 
@@ -14,18 +18,19 @@ const Message = ({ message, handleExpand, expanded }) => {
   return (
     <Card expanded={expanded} onExpandChange={() => handleExpand(message)}>
       <CardHeader
+        style={style}
         title={<Link to={`/profile/${id}`}>{prefix}{name}</Link>}
         subtitle={title}
         avatar="http://www.color-hex.com/palettes/3899.png"
         actAsExpander
         showExpandableButton
       />
-      <CardText>
+      <CardText style={style}>
         { !read && <p>Unread</p>}
         <p>{`${body.slice(0, 20)}...`}</p>
       </CardText>
-      <CardTitle title={title} subtitle="Card subtitle" expandable />
-      <CardText expandable>
+      <CardTitle style={style} title={title} expandable />
+      <CardText style={style} expandable>
         {body}
       </CardText>
     </Card>

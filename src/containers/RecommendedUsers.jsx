@@ -34,9 +34,9 @@ class RecommendedUsers extends Component {
       <Card>
         <CardHeader
           title="Recommended For You"
-          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Maria', fontSize: '30px' }}
           subtitle="Based on our special algorithm"
-          subtitleStyle={{ fontFamily: 'PT Sans' }}
+          subtitleStyle={{ fontFamily: 'Maria' }}
         />
         <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
       </Card>

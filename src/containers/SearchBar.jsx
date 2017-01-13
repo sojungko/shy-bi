@@ -60,7 +60,7 @@ class SearchBar extends Component {
     return (
       <Card style={{ position: 'fixed', marginTop: '100px' }}>
         <CardHeader
-          titleStyle={{ fontFamily: 'PT Sans', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Maria', fontSize: '30px' }}
           title="Search"
         />
         <TextField

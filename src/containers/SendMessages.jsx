@@ -10,6 +10,10 @@ import MenuItem from 'material-ui/MenuItem';
 import { getUsername } from '../modules/auth';
 import { sendMessage, getSentMessages, getMatches } from '../actions/index';
 
+const style = {
+  fontFamily: 'Maria',
+};
+
 class SendMessages extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -52,6 +56,7 @@ class SendMessages extends Component {
 
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <TextField
+      style={style}
       hintText={label}
       floatingLabelText={label}
       errorText={touched && error}
@@ -61,18 +66,18 @@ class SendMessages extends Component {
   )
 
   render() {
-    const children = this.props.matches.map((match) => {
-      return (
-        <MenuItem
-          key={match.username}
-          value={match.username}
-          primaryText={match.username}
-        />
-      );
-    });
+    const children = this.props.matches.map(match => (
+      <MenuItem
+        style={style}
+        key={match.username}
+        value={match.username}
+        primaryText={match.username}
+      />
+      ));
 
     const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
       <SelectField
+        style={style}
         floatingLabelText={label}
         errorText={touched && error}
         {...input}
@@ -83,13 +88,11 @@ class SendMessages extends Component {
       </SelectField>
   );
 
-    console.log('Rendering...');
-    console.log('COMPONENTS/SEND_MESSAGES this.props.matches : ', this.props.matches);
     const { handleSubmit, valid, pristine, submitting } = this.props;
     return (
       <Card className="container">
         <form onSubmit={handleSubmit(this.onSubmit)}>
-          <h2 className="card-heading">Send Message</h2>
+          <h2 style={style} className="card-heading">Send Message</h2>
           <div className="field-line">
             <Field name="sendTo" type="text" component={renderSelectField} label="Send To" />
           </div>
@@ -100,7 +103,7 @@ class SendMessages extends Component {
             <Field name="message" type="text" component={this.renderTextField} label="Message" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
+            <RaisedButton style={style} type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
           </div>
         </form>
       </Card>
