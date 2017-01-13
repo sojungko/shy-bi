@@ -4,6 +4,7 @@ import { Card, CardHeader } from 'material-ui/Card';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';
+import styles from '../styles/CardHeader';
 
 class RecommendedUsers extends Component {
   static propTypes = {
@@ -33,10 +34,10 @@ class RecommendedUsers extends Component {
     return (
       <Card>
         <CardHeader
-          title="Recommended For You"
-          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+          title="Recommended for You"
+          titleStyle={styles.title}
           subtitle="Based on our special algorithm"
-          subtitleStyle={{ fontFamily: 'Maria' }}
+          subtitleStyle={styles.subtitle}
         />
         <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
       </Card>

@@ -1,10 +1,12 @@
 import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 
 import Navbar from '../components/Navbar';
 import { getMatches, getLikedUsers, getUser, viewMatch } from '../actions';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-
+import styles from '../styles/CardHeader';
 
 class Matches extends Component {
   static contextTypes = {
@@ -57,12 +59,19 @@ class Matches extends Component {
       }));
 
     return (
-      <div>
+      <Paper>
+        <Card>
+          <CardHeader
+            title="Candidates"
+            titleStyle={styles.title}
+          />
+        </Card>
         <Navbar menus={matchesMenu} />
         <div style={{ marginTop: '50px' }}>
           {children}
         </div>
-      </div>
+      </Paper>
+
     );
   }
 }
