@@ -1,9 +1,12 @@
 import React, { Children, Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '../actions';
 import Navbar from '../components/Navbar';
+import styles from '../styles/CardHeader';
 
 class Messages extends Component {
   static contextTypes = {
@@ -57,10 +60,18 @@ class Messages extends Component {
       }));
 
     return (
-      <div>
+      <Paper>
+        <Card>
+          <CardHeader
+            title="Love Letters"
+            titleStyle={styles.title}
+            subtitle="Exchange sweet nothings"
+            subtitleStyle={styles.subtitle}
+          />
+        </Card>
         <Navbar menus={messageMenu} />
         {children}
-      </div>
+      </Paper>
     );
   }
 }

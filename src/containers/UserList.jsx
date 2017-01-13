@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions';
 import SearchBar from '../containers/SearchBar';
 import UserListItem from '../components/UserListItem';
+import styles from '../styles/CardHeader';
 
 class UserList extends Component {
   static propTypes = {
@@ -33,10 +36,18 @@ class UserList extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: '100px' }}>
+      <Paper>
+        <Card>
+          <CardHeader
+            title="Explore"
+            titleStyle={styles.title}
+            subtitle="Take a look at our beautiful users. Like them to connect."
+            subtitleStyle={styles.subtitle}
+          />
+        </Card>
         <SearchBar />
         <UserListItem users={this.props.users} handleClick={this.handleClick} />
-      </div>
+      </Paper>
     );
   }
 }
