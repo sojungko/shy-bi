@@ -23,7 +23,8 @@ import Contact from '../components/Contact';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={Home} />
+    <IndexRoute component={Profile} />
+    <Route path="home" component={Home} />
     <Route path="signup" component={SignUp} />
     <Route path="facebook/signup" component={FacebookSignup} />
     <Route path="search" component={UserList} />
