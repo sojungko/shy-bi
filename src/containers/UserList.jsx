@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Card, CardHeader } from 'material-ui/Card';
-import Paper from 'material-ui/Paper';
 import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions';
 import SearchBar from '../containers/SearchBar';
@@ -36,7 +35,7 @@ class UserList extends Component {
 
   render() {
     return (
-      <Paper>
+      <div>
         <Card style={{ position: 'fixed', width: '100%' }}>
           <CardHeader
             title="Explore"
@@ -47,7 +46,7 @@ class UserList extends Component {
         </Card>
         <SearchBar />
         <UserListItem users={this.props.users} handleClick={this.handleClick} />
-      </Paper>
+      </div>
     );
   }
 }

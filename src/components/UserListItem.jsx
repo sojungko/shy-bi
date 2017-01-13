@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { GridList } from 'material-ui/GridList';
-import Paper from 'material-ui/Paper';
 import renderUserList from '../modules/users';
 
 const styles = {
@@ -12,11 +11,13 @@ const styles = {
   gridList: {
     width: '50%',
     overflowY: 'auto',
+    marginTop: '80px',
+    marginBottom: '80px',
   },
   paper: {
     height: '300px',
     width: '200px',
-  }
+  },
 };
 
 const UserListItem = ({ users, handleClick }) => (
