@@ -107,8 +107,8 @@ class SignUp extends Component {
             <div className="field-line">
               <div>
                 <Field name="sex" component={this.renderRadioGroup}>
-                  <RadioButton value="male" label="male" style={styles.RadioButton} />
-                  <RadioButton value="female" label="female" style={styles.RadioButton} />
+                  <RadioButton value="Male" label="Male" style={styles.RadioButton} />
+                  <RadioButton value="Female" label="Female" style={styles.RadioButton} />
                 </Field>
               </div>
             </div>
