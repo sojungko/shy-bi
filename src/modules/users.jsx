@@ -5,7 +5,7 @@ import { getUsername } from '../modules/auth';
 
 const gridTileStyle = {
   opacity: '50%',
-  fontFamily: 'PT Sans',
+  fontFamily: 'Maria',
   cursor: 'pointer',
   height: '300px',
   width: '200px',
@@ -13,14 +13,14 @@ const gridTileStyle = {
     fontSize: '24px',
   },
   subtitle: {
-    fontSize: '16px'
-  }
-}
+    fontSize: '16px',
+  },
+};
 
 const paperStyle = {
   height: '300px',
   width: '200px',
-}
+};
 
 const renderUserList = (users, handleClick) => users
   .filter(({ username }) => username !== getUsername())

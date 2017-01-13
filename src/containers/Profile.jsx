@@ -89,7 +89,7 @@ class Profile extends Component {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
       <Card style={{ marginTop: '30px' }}>
-        <CardText style={{ fontFamily: 'Open Sans', fontSize: '20px' }}>
+        <CardText style={{ fontFamily: 'Maria', fontSize: '20px' }}>
           <img role="presentation" src={image_url} style={{ padding: '30px' }} />
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
@@ -153,7 +153,7 @@ class Profile extends Component {
     }
     return (
       <div>
-        <div style={{ fontFamily: 'Bitter', fontSize: '30px', marginTop: '50px' }}>Hi, {this.props.profile.name}!</div>
+        <div style={{ fontFamily: 'Eskell', fontSize: '30px', marginTop: '50px' }}>Hi, {this.props.profile.name}!</div>
         {this.renderProfile()}
       </div>
     );
