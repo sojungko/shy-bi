@@ -60,13 +60,13 @@ class Matches extends Component {
 
     return (
       <Paper>
+        <Navbar menus={matchesMenu} />
         <Card>
           <CardHeader
             title="Candidates"
             titleStyle={styles.title}
           />
         </Card>
-        <Navbar menus={matchesMenu} />
         <div style={{ marginTop: '50px' }}>
           {children}
         </div>
