@@ -85,7 +85,6 @@ class EditBio extends Component {
       children={children}
       {...custom}
       style={style}
-      menuItemStyle={style}
     />
 )
 
