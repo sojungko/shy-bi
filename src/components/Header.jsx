@@ -10,7 +10,6 @@ const containerStyle = {
 
 const appBarStyle = {
   backgroundColor: '#ff294c',
-  padding: '30px',
   cursor: 'pointer',
   position: 'fixed',
 };
@@ -36,8 +35,8 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
         iconElementRight={renderFlatButton(label, path)}
-        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#04284a', fontSize: '72px' }}
-        iconStyleLeft={{ backgroundColor: '#04284a' }}
+        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#04284a', fontSize: '40px' }}
+        iconStyleLeft={{ backgroundColor: '#ff294c' }}
         zDepth={0}
       >
         {

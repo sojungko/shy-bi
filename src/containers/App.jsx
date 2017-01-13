@@ -52,7 +52,7 @@ class App extends Component {
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
     return (
-      <div style={{ backgroundColor: '#FAFAFA' }}>
+      <div>
         <Header
           location={this.props.location.pathname}
           auth={auth}
@@ -69,7 +69,7 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-        <div style={{ height: '100%', margin: 'auto' }}>
+        <div style={{ marginTop: '14px' }}>
           {this.props.children}
         </div>
         <BottomNav />
