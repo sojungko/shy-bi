@@ -1,6 +1,26 @@
 import React from 'react';
 import { GridTile } from 'material-ui/GridList';
+import Paper from 'material-ui/Paper';
 import { getUsername } from '../modules/auth';
+
+const gridTileStyle = {
+  opacity: '50%',
+  fontFamily: 'PT Sans',
+  cursor: 'pointer',
+  height: '300px',
+  width: '200px',
+  title: {
+    fontSize: '24px',
+  },
+  subtitle: {
+    fontSize: '16px'
+  }
+}
+
+const paperStyle = {
+  height: '300px',
+  width: '200px',
+}
 
 const renderUserList = (users, handleClick) => users
   .filter(({ username }) => username !== getUsername())
@@ -14,9 +34,9 @@ const renderUserList = (users, handleClick) => users
       <GridTile
         key={index}
         title={name}
-        style={{ opacity: '50%', fontFamily: 'PT Sans', cursor: 'pointer' }}
-        titleStyle={{ fontFamily: 'PT Sans', fontSize: '200%' }}
-        subtitle={<span style={{ fontSize: '17px' }}>{city}</span>}
+        style={gridTileStyle}
+        titleStyle={gridTileStyle.title}
+        subtitle={<span style={gridTileStyle.subtitle}>{city}</span>}
         cols={2}
         actionIcon={renderOnlineIcon(online)}
         onClick={() => handleClick(username)}
