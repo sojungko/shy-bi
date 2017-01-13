@@ -6,6 +6,6 @@ const styles = {
   subtitle: {
     fontFamily: 'Maria',
   },
-}
+};
 
 export default styles;

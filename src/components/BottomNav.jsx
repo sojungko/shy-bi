@@ -8,6 +8,7 @@ const cardStyle = {
   position: 'fixed',
   bottom: 0,
   width: '100%',
+  zIndex: 1,
 };
 
 const buttonStyle = {
