@@ -5,14 +5,16 @@ const styles = {
   checkbox: {
     marginBottom: 16,
   },
-  card: {
-    marginTop: '30px',
-  },
   cardText: {
     fontFamily: 'Maria',
     fontSize: '20px',
     marginLeft: '50px',
+    paddingBottom: '126px',
   },
+  card: {
+    margin: '100px;',
+  },
+
   image: {
     padding: '30px',
     display: 'in-line',
@@ -27,6 +29,7 @@ const styles = {
     fontSize: '30px',
     marginTop: '50px',
     marginLeft: '50px',
+    paddingBottom: '100px',
   },
 };
 

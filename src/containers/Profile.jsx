@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardText, CardHeader } from 'material-ui/Card';
 import Checkbox from 'material-ui/Checkbox';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
@@ -9,6 +9,7 @@ import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
 import styles from '../styles/Profile';
+import cardStyle from '../styles/CardHeader';
 
 class Profile extends Component {
   static propTypes = {
@@ -128,31 +129,47 @@ class Profile extends Component {
   render() {
     if (this.props.params.username) {
       return (
-        <div>
-          {this.renderProfile()}
-          <Checkbox
-            onClick={this.handleLikeButton}
-            checkedIcon={<ActionFavorite />}
-            uncheckedIcon={<ActionFavoriteBorder />}
-            label="Like"
-            style={styles.checkbox}
+        <Card>
+          <CardHeader
+            title={`${this.props.profile.name}`}
+            titleStyle={cardStyle.title}
+            subtitle={`Get to know ${this.props.profile.name}!`}
+            subtitleStyle={cardStyle.subtitle}
           />
+          <div>
+            {this.renderProfile()}
+            <Checkbox
+              onClick={this.handleLikeButton}
+              checkedIcon={<ActionFavorite />}
+              uncheckedIcon={<ActionFavoriteBorder />}
+              label="Like"
+              style={styles.checkbox}
+            />
+          </div>
           <Snackbar
             open={this.props.open || false}
             message="You guys are a match!"
             autoHideDuration={4000}
           />
-        </div>
+        </Card>
       );
     }
     return (
-      <div>
-        <div style={styles.greeting}>Hi, {this.props.profile.name}!</div>
-        {this.renderProfile()}
-      </div>
+      <Card>
+        <CardHeader
+          title={`Hi, ${this.props.profile.name}`}
+          titleStyle={cardStyle.title}
+          subtitle="Good to have you back!"
+          subtitleStyle={cardStyle.subtitle}
+        />
+        <div>
+          {this.renderProfile()}
+        </div>
+      </Card>
     );
   }
 }
+
 
 const mapStateToProps = ({ profile }) => ({ profile, open: profile.isMatch });
 export default connect(mapStateToProps, { getUser, likeUser })(Profile);

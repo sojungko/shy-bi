@@ -81,49 +81,46 @@ class SignUp extends Component {
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <Card className="container" style={{ textAlign: 'center', display: 'block' }}>
-        <CardHeader
-          title="Sign Up"
-          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
-          titleColor="black"
-        />
-        <form onSubmit={handleSubmit(this.onSubmit)}>
-          <div className="field-line">
-            <Field name="username" type="text" component={this.renderTextField} label="Username" />
-          </div>
-          <div className="field-line">
-            <Field name="password" type="password" component={this.renderTextField} label="Password" />
-          </div>
-          <div className="field-line">
-            <Field name="name" type="text" component={this.renderTextField} label="Name" />
-          </div>
-          <div className="field-line">
-            <Field name="email" type="email" component={this.renderTextField} label="Email" />
-          </div>
-          <div className="field-line">
-            <Field name="age" type="number" component={this.renderTextField} label="Age" />
-          </div>
-          <div className="field-line">
-            <div>
-              <Field name="sex" component={this.renderRadioGroup}>
-                <RadioButton value="male" label="male" style={styles.RadioButton} />
-                <RadioButton value="female" label="female" style={styles.RadioButton} />
-              </Field>
+      <Card className="container" style={{ display: 'block' }}>
+        <div style={{ margin: '0 auto', padding: '81px 0', width: '300px' }}>
+          <CardHeader
+            title="Sign Up"
+            titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+            titleColor="black"
+          />
+          <form onSubmit={handleSubmit(this.onSubmit)}>
+            <div className="field-line">
+              <Field name="username" type="text" component={this.renderTextField} label="Username" />
             </div>
-          </div>
-          <div className="field-line">
-            <Field name="city" type="text" style={maria} component={this.renderTextField} label="City" />
-          </div>
-          <div className="button-line">
-            <RaisedButton
-              type="submit"
-              labelStyle={maria}
-              label="Create New Account"
-              disabledBackgroundColor="#FCE4EC"
-            />
-          </div>
-          <CardText style={maria}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
-        </form>
+            <div className="field-line">
+              <Field name="password" type="password" component={this.renderTextField} label="Password" />
+            </div>
+            <div className="field-line">
+              <Field name="name" type="text" component={this.renderTextField} label="Name" />
+            </div>
+            <div className="field-line">
+              <Field name="email" type="email" component={this.renderTextField} label="Email" />
+            </div>
+            <div className="field-line">
+              <Field name="age" type="number" component={this.renderTextField} label="Age" />
+            </div>
+            <div className="field-line">
+              <div>
+                <Field name="sex" component={this.renderRadioGroup}>
+                  <RadioButton value="male" label="male" style={styles.RadioButton} />
+                  <RadioButton value="female" label="female" style={styles.RadioButton} />
+                </Field>
+              </div>
+            </div>
+            <div className="field-line">
+              <Field name="city" type="text" style={maria} component={this.renderTextField} label="City" />
+            </div>
+            <div className="button-line">
+              <RaisedButton type="submit" labelStyle={maria} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+            </div>
+            <CardText style={maria}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+          </form>
+        </div>
       </Card>
     );
   }
