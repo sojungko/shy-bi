@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
 const containerStyle = {
-  height: '70px',
+  height: '64px',
 };
 
 const appBarStyle = {

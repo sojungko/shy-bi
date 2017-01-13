@@ -6,6 +6,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 const NotificationBadge = ({ handleClick, numberOfMatches, numberOfMessages }) => (
   <div>
     <Badge
+      style={{ padding: '13px 24px 0px 0px' }}
       badgeContent={!numberOfMatches ? 0 : numberOfMatches}
       badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Maria', color: '#FFFFFF' }}
       onClick={() => handleClick('/matches')}
@@ -15,6 +16,7 @@ const NotificationBadge = ({ handleClick, numberOfMatches, numberOfMessages }) =
       </IconButton>
     </Badge>
     <Badge
+      style={{ padding: '13px 24px 0px 0px' }}
       badgeContent={!numberOfMessages ? 0 : numberOfMessages}
       secondary
       badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Maria', color: '#FFFFFF' }}
