@@ -44,7 +44,7 @@ class Profile extends Component {
 
     console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
     if (!isUserAuthenticated()) {
-      this.context.router.push('/login');
+      this.context.router.push('/home');
     } else if (!visitedUser) {
       this.props.getUser(getUsername());
     } else if (visitedUser !== username) {
@@ -87,7 +87,7 @@ class Profile extends Component {
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
           </div>
-          <br></br>
+          <br />
           <table style={styles.table}>
             <tbody>
               <tr>
