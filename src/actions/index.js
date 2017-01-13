@@ -45,7 +45,7 @@ export function getMatches(username) {
 export function signupUser(props) {
   const sending = {
     ...props,
-    image_url: 'http://res.cloudinary.com/dm4fqf9nm/image/upload/v1484180655/default_profile_photo_ss2jmw.jpg',
+    image_url: 'https://res.cloudinary.com/dm4fqf9nm/image/upload/v1484325145/default_profile-e08597880fc222202f22984a4f1966a29b108e856a3fb935072bfbbc302a4b73_h82hvb.png',
   };
   return dispatch => axios.post('/auth/signup', sending)
     .then(({ data }) => {

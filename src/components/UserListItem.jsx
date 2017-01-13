@@ -24,7 +24,7 @@ const UserListItem = ({ users, handleClick }) => (
     <GridList
       cellHeight="auto"
       style={styles.gridList}
-      cols={4}
+      cols={6}
       padding={30}
     >
       {renderUserList(users, handleClick)}
