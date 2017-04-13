@@ -5,7 +5,7 @@ const User = require('../user/userModel');
 module.exports = new PassportFacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:8080/auth/facebook/callback',
+  callbackURL: 'http://www.bind.cool/auth/facebook/callback',
   profileFields: ['id', 'first_name', 'email', 'birthday', 'location', 'gender', 'education', 'work'],
 }, (accessToken, refreshToken, profile, done) => {
   console.log('Facebook profile data : ', profile._json);
