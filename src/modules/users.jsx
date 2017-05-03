@@ -5,7 +5,7 @@ import { getUsername } from '../modules/auth';
 
 const gridTileStyle = {
   opacity: '50%',
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
   cursor: 'pointer',
   height: '300px',
   width: '200px',

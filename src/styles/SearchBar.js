@@ -13,7 +13,7 @@ const styles = {
     paddingTop: 50,
     paddingLeft: 100,
   },
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
   display: 'in-line',
 };
 

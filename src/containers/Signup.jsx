@@ -18,7 +18,7 @@ const styles = {
   },
 };
 
-const maria = {
+const font = {
   fontFamily: 'Source Sans Pro',
 };
 
@@ -57,7 +57,7 @@ class SignUp extends Component {
       errorText={touched && error}
       {...input}
       {...custom}
-      style={maria}
+      style={font}
     />
   );
 
@@ -73,7 +73,7 @@ class SignUp extends Component {
   render() {
     const renderAutoComplete = () => (
       <AutoComplete
-        style={maria}
+        style={font}
         location={this.props.location || []}
       />
   );
@@ -113,12 +113,12 @@ class SignUp extends Component {
               </div>
             </div>
             <div className="field-line">
-              <Field name="city" type="text" style={maria} component={this.renderTextField} label="City" />
+              <Field name="city" type="text" style={font} component={this.renderTextField} label="City" />
             </div>
             <div className="button-line">
-              <RaisedButton type="submit" labelStyle={maria} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+              <RaisedButton type="submit" labelStyle={font} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
             </div>
-            <CardText style={maria}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+            <CardText style={font}>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
           </form>
         </div>
       </Card>

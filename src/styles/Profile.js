@@ -6,7 +6,7 @@ const styles = {
     marginBottom: 16,
   },
   cardText: {
-    fontFamily: 'Maria',
+    fontFamily: 'Source Sans Pro',
     fontSize: '20px',
     marginLeft: '50px',
     paddingBottom: '126px',
@@ -25,7 +25,7 @@ const styles = {
     textAlign: 'left',
   },
   greeting: {
-    fontFamily: 'Eskell',
+    fontFamily: 'Source Sans Pro',
     fontSize: '30px',
     marginTop: '50px',
     marginLeft: '50px',

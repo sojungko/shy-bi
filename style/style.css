@@ -15,7 +15,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: 'Maria';
+	font: 'Source Sans Pro';
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	font-family: 'Maria';
+	font-family: 'Source Sans Pro';
 }
 
 ol, ul {

@@ -14,7 +14,7 @@ import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
 
 const style = {
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
 };
 
 class EditBio extends Component {
@@ -94,7 +94,7 @@ class EditBio extends Component {
       <Card style={{ padding: '50px' }}>
         <CardHeader
           title="Edit Profile"
-          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
           titleColor="black"
         />
         <form style={style} onSubmit={handleSubmit(this.onSubmit)} >

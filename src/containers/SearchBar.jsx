@@ -58,9 +58,9 @@ class SearchBar extends Component {
   render() {
     const { minage, maxage, city } = this.props;
     return (
-      <Card style={{ position: 'fixed', marginTop: '76px', height: '100%', fontFamily: 'Maria' }}>
+      <Card style={{ position: 'fixed', marginTop: '76px', height: '100%', fontFamily: 'Source Sans Pro' }}>
         <CardHeader
-          titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+          titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
           title="Search"
         />
         <TextField
@@ -103,7 +103,7 @@ class SearchBar extends Component {
           style={styles}
           onChange={this.handleChange}
         />
-        <RaisedButton labelStyle={{ fontFamily: 'Maria' }} label="Clear Fields" onClick={this.handleClick} />
+        <RaisedButton labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Clear Fields" onClick={this.handleClick} />
       </Card>
     );
   }

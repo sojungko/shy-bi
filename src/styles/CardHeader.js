@@ -1,10 +1,10 @@
 const styles = {
   title: {
-    fontFamily: 'Eskell',
+    fontFamily: 'Source Sans Pro',
     fontSize: '30px',
   },
   subtitle: {
-    fontFamily: 'Maria',
+    fontFamily: 'Source Sans Pro',
   },
 };
 

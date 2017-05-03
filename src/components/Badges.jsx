@@ -8,7 +8,7 @@ const NotificationBadge = ({ handleClick, numberOfMatches, numberOfMessages }) =
     <Badge
       style={{ padding: '13px 24px 0px 0px' }}
       badgeContent={!numberOfMatches ? 0 : numberOfMatches}
-      badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Maria', color: '#FFFFFF' }}
+      badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Source Sans Pro', color: '#FFFFFF' }}
       onClick={() => handleClick('/matches')}
     >
       <IconButton tooltip="Matches">
@@ -19,7 +19,7 @@ const NotificationBadge = ({ handleClick, numberOfMatches, numberOfMessages }) =
       style={{ padding: '13px 24px 0px 0px' }}
       badgeContent={!numberOfMessages ? 0 : numberOfMessages}
       secondary
-      badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Maria', color: '#FFFFFF' }}
+      badgeStyle={{ backgroundColor: '#04284a', top: 12, right: 12, fontFamily: 'Source Sans Pro', color: '#FFFFFF' }}
       onClick={() => handleClick('/messages')}
     >
       <IconButton tooltip="Messages">
