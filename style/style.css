@@ -64,3 +64,44 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
+.app-bar {
+	opacity: 0.3;
+	color: white;
+  background-color: '#ff294c';
+  cursor: 'pointer';
+  position: 'fixed';	
+}
+
+.left-navmenu-item {
+
+}
+
+.bottom-nav-button {
+
+}
+
+.app-bar-container {
+
+}
+
+.app-bar-left-icon {
+	opacity: 1;
+}
+.app-bar-button {
+	
+}
+
+.image-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.splash {
+	margin-top: -200px;
+	display: block;
+  background-repeat:no-repeat center center fixed;
+  background-size:cover;
+	height: 100%;
+	width: 100%;
+}

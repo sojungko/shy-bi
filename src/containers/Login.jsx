@@ -21,6 +21,7 @@ class LogIn extends Component {
   }
 
   onSubmit = (inputs) => {
+    // this.context.router.push('/home');
     this.props.loginUser(inputs)
       .then(() => this.context.router.push('/'));
   }
