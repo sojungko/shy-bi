@@ -2,7 +2,9 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 
 const style = {
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
+  marginTop: '100px',
+  marginLeft: '50px',
 };
 
 const Contact = () => (
