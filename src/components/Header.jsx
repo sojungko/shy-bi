@@ -26,11 +26,6 @@ const styles = {
   },
 };
 
-const contextTypes = {
-  router: PropTypes.object.isRequired,
-}
-
-
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderFlatButton = (label, path) => {
     const flatButton = (

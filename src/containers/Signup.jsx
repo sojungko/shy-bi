@@ -19,7 +19,7 @@ const styles = {
 };
 
 const maria = {
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
 };
 
 class SignUp extends Component {
@@ -85,7 +85,7 @@ class SignUp extends Component {
         <div style={{ margin: '0 auto', padding: '81px 0', width: '300px' }}>
           <CardHeader
             title="Sign Up"
-            titleStyle={{ fontFamily: 'Eskell', fontSize: '30px' }}
+            titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
             titleColor="black"
           />
           <form onSubmit={handleSubmit(this.onSubmit)}>
