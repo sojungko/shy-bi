@@ -1,7 +1,8 @@
 const styles = {
-  backgroundColor: '#04284a',
+  marginTop: '70px',
+  backgroundColor: 'white',
   fontFamily: 'Source Sans Pro',
-  color: '#FFFFFF',
+  color: 'black',
 };
 
 export default styles;
