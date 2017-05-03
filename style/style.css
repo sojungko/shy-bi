@@ -73,29 +73,16 @@ body {
   position: 'fixed';	
 }
 
-.left-navmenu-item {
-
-}
-
-.bottom-nav-button {
-
-}
-
-.app-bar-container {
-
-}
 
 .app-bar-left-icon {
 	opacity: 1;
-}
-.app-bar-button {
-	
 }
 
 .image-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	opacity: 0.7;
 }
 .splash {
 	margin-top: -200px;
