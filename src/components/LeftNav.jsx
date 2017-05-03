@@ -7,23 +7,20 @@ import { Link } from 'react-router';
 
 import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';
 
-const menuStyle = {
-  fontFamily: 'Maria',
-};
 
 const LeftNav = ({ auth, open, handleToggle }) => {
   const renderMenuItems = menu => menu
     .map(({ link, label }, index) =>
-      <MenuItem key={index} style={menuStyle} containerElement={<Link to={link}>{label}</Link>}>{label}</MenuItem>);
+      <MenuItem key={index} className="left-navmenu-item" containerElement={<Link to={link}>{label}</Link>}>{label}</MenuItem>);
 
   const renderDrawer = menu => (
     <Drawer open={open}>
       <Menu onItemTouchTap={handleToggle}>
-        <MenuItem style={menuStyle} containerElement={<Link to="/"> Home </Link>}>Home</MenuItem>
+        <MenuItem containerElement={<Link to="/"> Home </Link>}>Home</MenuItem>
         <Divider />
         {renderMenuItems(menu)}
         <Divider />
-        <MenuItem style={menuStyle} onTouchTap={handleToggle}>Close</MenuItem>
+        <MenuItem onTouchTap={handleToggle}>Close</MenuItem>
       </Menu>
     </Drawer>
   );

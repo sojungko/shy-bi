@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Home = () => (
-  <div>
+  <div className="image-container">
     <img
       role="presentation"
-      style={{ maxWidth: '100%', maxHeight: '100%' }}
-      src="../../style/imgs/pexels-photo-94898.jpg"
+      className="splash"
+      src="../../style/imgs/couple-1734001_1920.jpg"
     />
   </div>
   );

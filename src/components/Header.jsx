@@ -4,23 +4,41 @@ import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
-const containerStyle = {
-  height: '64px',
+const styles = {
+  appBar: {
+    backgroundColor: 'white',
+    cursor: 'pointer',
+    position: 'fixed',
+    height: '70px',
+  },
+  title: {
+    color: 'black',
+    opacity: 1,
+    fontFamily: 'Source Sans Pro',
+    fontSize: '50px',
+    marginLeft: '30px',
+  },
+  button: {
+    color: 'grey',
+  },
+  buttonLabel: {
+    fontSize: '17px',
+  },
 };
 
-const appBarStyle = {
-  backgroundColor: '#ff294c',
-  cursor: 'pointer',
-  position: 'fixed',
-};
+const contextTypes = {
+  router: PropTypes.object.isRequired,
+}
+
 
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderFlatButton = (label, path) => {
     const flatButton = (
       <FlatButton
         label={label}
-        labelStyle={{ fontFamily: 'Maria', color: 'white', fontSize: '15px' }}
         containerElement={<Link to={path}>{label}</Link>}
+        style={styles.button}
+        labelStyle={styles.buttonLabel}
       />
    );
     if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
@@ -28,15 +46,15 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
   };
 
   const renderAppBar = (label, path) => (
-    <div id="AppBar" style={containerStyle}>
+    <div id="AppBar" className="app-bar-container">
       <AppBar
         title="BIND"
-        style={appBarStyle}
+        style={styles.appBar}
+        titleStyle={styles.title}
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
+        iconClassNameLeft="app-bar-left-icon"
         iconElementRight={renderFlatButton(label, path)}
-        titleStyle={{ fontFamily: 'Eskell', fontWeight: 900, color: '#04284a', fontSize: '40px' }}
-        iconStyleLeft={{ backgroundColor: '#ff294c' }}
         zDepth={0}
       >
         {
