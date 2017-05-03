@@ -11,7 +11,7 @@ import { getUsername } from '../modules/auth';
 import { sendMessage, getSentMessages, getMatches } from '../actions/index';
 
 const style = {
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
 };
 
 class SendMessages extends Component {

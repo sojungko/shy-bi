@@ -1,6 +1,6 @@
 const styles = {
   backgroundColor: '#04284a',
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
   color: '#FFFFFF',
 };
 

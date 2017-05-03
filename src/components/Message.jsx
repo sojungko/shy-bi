@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { getUsername } from '../modules/auth';
 
 const style = {
-  fontFamily: 'Maria',
+  fontFamily: 'Source Sans Pro',
 };
 
 const Message = ({ message, handleExpand, expanded }) => {
