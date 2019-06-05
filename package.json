@@ -5,10 +5,10 @@
   "main": "js/index.jsx",
   "scripts": {
     "start": "webpack -w",
-    "nodemon": "nodemon server/server.js",
+    "nodemon": "nodemon -r dotenv/config server/server.js",
     "dev": "webpack -d --watch --display-error-details",
     "build": "webpack -p",
-    "commit": "git-cz"
+    "commit": "npx git-cz"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "jwt-simple": "^0.5.1",
     "material-ui": "^0.16.5",
     "morgan": "^1.7.0",
-    "neo4j-driver": "^1.0.5",
+    "neo4j-driver": "^1.7.5",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",

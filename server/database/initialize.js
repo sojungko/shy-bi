@@ -22,7 +22,7 @@ const initialize = () => {
     `CREATE CONSTRAINT ON (users:User)
       ASSERT users.username IS UNIQUE
     CREATE CONSTRAINT ON (users:User)
-      ASSERT users.email IS UNIQUE`
+      ASSERT users.email IS UNIQUE`,
   );
 };
 
