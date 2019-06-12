@@ -43,7 +43,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
   const renderAppBar = (label, path) => (
     <div id="AppBar" className="app-bar-container">
       <AppBar
-        title="BIND"
+        title="SHYBI"
         style={styles.appBar}
         titleStyle={styles.title}
         onLeftIconButtonTouchTap={handleToggle}

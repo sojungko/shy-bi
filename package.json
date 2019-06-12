@@ -2,11 +2,13 @@
   "name": "shy-bi",
   "version": "1.0.0",
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
-  "main": "js/index.jsx",
+  "main": "src/index.jsx",
   "scripts": {
-    "start": "webpack -w",
-    "nodemon": "nodemon -r dotenv/config server/server.js",
-    "dev": "webpack -d --watch --display-error-details",
+    "dev": "concurrently -k \"npm run client:dev\" \"npm run server:dev\"",
+    "client:start": "webpack -w",
+    "server:start": "node -r dotenv/config server/server.js",
+    "server:dev": "nodemon -r dotenv/config server/server.js",
+    "client:dev": "webpack -d --live-reload --watch --display-error-details",
     "build": "webpack -p",
     "commit": "npx git-cz"
   },
@@ -63,6 +65,7 @@
     "babel-preset-stage-1": "^6.16.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
     "commitizen": "^2.9.2",
+    "concurrently": "^4.1.0",
     "connect-history-api-fallback": "1.3.0",
     "css-loader": "0.26.0",
     "cz-conventional-changelog": "^1.2.0",
@@ -121,11 +124,6 @@
     "env": {
       "browser": true,
       "node": true
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
     }
   }
 }

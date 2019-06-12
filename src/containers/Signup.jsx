@@ -112,9 +112,9 @@ class SignUp extends Component {
                 </Field>
               </div>
             </div>
-            <div className="field-line">
+            {/* <div className="field-line">
               <Field name="city" type="text" style={font} component={this.renderTextField} label="City" />
-            </div>
+            </div> */}
             <div className="button-line">
               <RaisedButton type="submit" labelStyle={font} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
             </div>

@@ -27,7 +27,7 @@ const AboutUs = () => (
   <div>
     <Card>
       <CardTitle
-        title="BIND"
+        title="SHYBI"
         titleStyle={titleStyle}
       />
       <CardText
@@ -39,13 +39,13 @@ const AboutUs = () => (
         <br />
         <br />
         <br />
-        <p>Started out initially as 'ShyBi,' 'Bind' is a premium dating app for the sophisticated bicurious people.</p>
+        <p>'ShyBi' is a premium dating app for the sophisticated bicurious people.</p>
         <br />
         <br />
         <br />
         <p>No more shot-in-the-dark style dating.</p>
         <br />
-        <p>'Bind' provides a safe platform for anyone to explore his or her sexual orientation.</p>
+        <p>'ShyBi' provides a safe platform for anyone to explore his or her sexual orientation.</p>
       </CardText>
     </Card>
     <Card>
