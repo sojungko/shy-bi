@@ -26,13 +26,13 @@ const nodePaths = (process.env.NODE_PATH || '')
 const config = {
   entry: [
     require.resolve('./polyfills'),
-    APP_JSX
+    APP_JSX,
   ],
   output: {
     devtoolLineToLine: true,
     path: BUILD_DIR,
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   resolve: {
     fallback: nodePaths,
@@ -46,38 +46,38 @@ const config = {
           /\.(js|jsx)$/,
           /\.css$/,
           /\.json$/,
-          /\.svg$/
+          /\.svg$/,
         ],
         loader: 'url',
         query: {
           limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
       }, {
         test: /\.(js|jsx)$/,
         include: APP_DIR,
         loader: 'babel',
         query: {
           presets: ['react', 'es2015', 'stage-1'],
-          cacheDirectory: true
-        }
+          cacheDirectory: true,
+        },
       }, {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
+        loader: 'style!css?importLoaders=1!postcss',
       }, {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json',
       }, {
         test: /\.svg$/,
         loader: 'file',
         query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
+          name: 'static/media/[name].[hash:8].[ext]',
+        },
+      },
     ],
   },
 
-  postcss: function() {
+  postcss() {
     return [
       autoprefixer({
         browsers: [
@@ -85,7 +85,7 @@ const config = {
           'last 4 versions',
           'Firefox ESR',
           'not ie < 9', // React doesn't support IE8 anyway
-        ]
+        ],
       }),
     ];
   },
@@ -96,7 +96,7 @@ const config = {
       template: APP_HTML,
     }),
     new CaseSensitivePathsPlugin(),
-    new WatchMissingNodeModulesPlugin(APP_NODE_MODULES)
+    new WatchMissingNodeModulesPlugin(APP_NODE_MODULES),
   ],
   devServer: {
     historyApiFallback: true,
