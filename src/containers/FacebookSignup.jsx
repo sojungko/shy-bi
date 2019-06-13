@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardText } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import TextField from 'material-ui/TextField';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import TextField from '@material-ui/core/TextField';
 
 import { signupUser } from '../actions/index';
 
@@ -47,7 +48,7 @@ class FacebookSignup extends Component {
   );
 
   renderRadioGroup = ({ input, ...rest }) => (
-    <RadioButtonGroup
+    <RadioGroup
       {...input} {...rest}
       valueSelected={input.value}
       onChange={(event, value) => input.onChange(value)}
@@ -67,8 +68,8 @@ class FacebookSignup extends Component {
           <div className="field-line">
             <div>
               <Field name="sex" component={this.renderRadioGroup}>
-                <RadioButton value="male" label="male" style={styles.RadioButton} />
-                <RadioButton value="female" label="female" style={styles.RadioButton} />
+                <Radio value="male" label="male" style={styles.Radio} />
+                <Radio value="female" label="female" style={styles.Radio} />
               </Field>
             </div>
           </div>
@@ -76,7 +77,7 @@ class FacebookSignup extends Component {
             <Field name="city" type="text" component={this.renderTextField} label="City" />
           </div>
           <div className="button-line">
-            <RaisedButton type="submit" label="Create New Account" primary />
+            <Button type="submit" label="Create New Account" primary />
           </div>
         </form>
       </Card>

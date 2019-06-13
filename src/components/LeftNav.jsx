@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Drawer from 'material-ui/Drawer';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Divider from 'material-ui/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router';
 
 import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import { getUnviewedMatches, getAllMessages, getUnreadMessages, logoutUser } from '../actions';
@@ -31,7 +30,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    injectTapEventPlugin();
     this.props.getUnviewedMatches(getUsername());
     this.props.getUnreadMessages(getUsername());
   }

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, hashHistory } from 'react-router';
 import thunk from 'redux-thunk';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createLogger from 'redux-logger';
 
 import routes from './routes/Routes';
@@ -21,10 +20,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <MuiThemeProvider>
-    <Provider store={store}>
-      <Router history={hashHistory} routes={routes} />
-    </Provider>
-  </MuiThemeProvider>,
+  <Provider store={store}>
+    <Router history={hashHistory} routes={routes} />
+  </Provider>,
   document.getElementById('root'),
 );

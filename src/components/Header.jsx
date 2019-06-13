@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
@@ -28,9 +28,9 @@ const styles = {
 };
 
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
-  const renderFlatButton = (label, path) => {
+  const renderButton = (label, path) => {
     const flatButton = (
-      <FlatButton
+      <Button
         label={label}
         containerElement={<Link to={path}>{label}</Link>}
         style={styles.button}
@@ -50,7 +50,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
         iconClassNameLeft="app-bar-left-icon"
-        iconElementRight={renderFlatButton(label, path)}
+        iconElementRight={renderButton(label, path)}
         zDepth={0}
       >
         {

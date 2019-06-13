@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Card, CardHeader } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/SelectField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
-import Snackbar from 'material-ui/Snackbar';
+import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import Snackbar from '@material-ui/core/Snackbar';
 import ImageUpload from './ImageUpload';
 import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
@@ -64,13 +67,13 @@ class EditBio extends Component {
   renderCheckbox = ({ input, label }) => (
     <Checkbox
       label={label}
-      checked={input.value ? true : false}
+      checked={!!input.value}
       onCheck={input.onChange}
     />
   )
 
   renderRadioGroup = ({ input, ...rest }) => (
-    <RadioButtonGroup
+    <RadioGroup
       {...input} {...rest}
       valueSelected={input.value}
       onChange={(event, value) => input.onChange(value)}
@@ -78,26 +81,27 @@ class EditBio extends Component {
   )
 
   renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
-    <SelectField
+    <Select
       floatingLabelText={label}
       errorText={touched && error}
       {...input}
       onChange={(event, index, value) => input.onChange(value)}
-      children={children}
       {...custom}
       style={style}
-    />
+    >
+      {children}
+    </Select>
 )
 
   render() {
     const { handleSubmit, pristine, submitting, reset } = this.props;
     return (
       <Card style={{ padding: '50px' }}>
-        <CardHeader
+        {/* <CardHeader
           title="Edit Profile"
           titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
           titleColor="black"
-        />
+        /> */}
         <form style={style} onSubmit={handleSubmit(this.onSubmit)} >
           <div className="field-line">
             <div>
@@ -132,8 +136,8 @@ class EditBio extends Component {
           <div className="field-line">
             <div style={style}>
               <Field name="sex" component={this.renderRadioGroup}>
-                <RadioButton style={style} value="Male" label="Male" />
-                <RadioButton style={style} value="Female" label="Female" />
+                <Radio style={style} value="Male" label="Male" />
+                <Radio style={style} value="Female" label="Female" />
               </Field>
             </div>
           </div>
@@ -188,8 +192,8 @@ class EditBio extends Component {
           <ImageUpload />
           <div>
             <div className="button-line">
-              <RaisedButton labelStyle={style} type="submit" label="Submit" disabled={pristine || submitting} />
-              <RaisedButton labelStyle={style} label="Clear Fields" disabled={pristine} onClick={reset} />
+              <Button labelStyle={style} type="submit" label="Submit" disabled={pristine || submitting} />
+              <Button labelStyle={style} label="Clear Fields" disabled={pristine} onClick={reset} />
             </div>
           </div>
         </form>

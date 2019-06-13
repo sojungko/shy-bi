@@ -1,5 +1,8 @@
 import React from 'react';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+// import CardTitle from '@material-ui/core/CardTitle';
+// import CardText from '@material-ui/core/CardText';
+import CardContent from '@material-ui/core/CardContent';
 
 const titleStyle = {
   fontSize: '400%',
@@ -26,7 +29,7 @@ const textStyle = {
 const AboutUs = () => (
   <div>
     <Card>
-      <CardTitle
+      {/* <CardTitle
         title="SHYBI"
         titleStyle={titleStyle}
       />
@@ -46,47 +49,47 @@ const AboutUs = () => (
         <p>No more shot-in-the-dark style dating.</p>
         <br />
         <p>'ShyBi' provides a safe platform for anyone to explore his or her sexual orientation.</p>
-      </CardText>
+      </CardText> */}
     </Card>
     <Card>
       <a href="https://github.com/jw-garrison">
-        <CardTitle
+        {/* <CardTitle
           title="JW Garrison"
           titleStyle={nameTitleStyle}
-        />
+        /> */}
       </a>
-      <CardText
+      {/* <CardText
         style={textStyle}
-      >
+      > */}
         <p> Wife, daughter, and mom, in that order </p>
-      </CardText>
+      {/* </CardText> */}
     </Card>
     <Card>
       <a href="https://github.com/sojungko">
-        <CardTitle
+        {/* <CardTitle
           title="Sojung Park"
           titleStyle={nameTitleStyle}
-        />
+        /> */}
       </a>
-      <CardText
+      {/* <CardText
         style={textStyle}
-      >  
+      >   */}
         <p>Worked as a journalist for five years in Korea before deciding to switch to programming.</p>
         <p>Regrets not having done that sooner.</p>
-      </CardText>
+      {/* </CardText> */}
     </Card>
     <Card>
       <a href="https://github.com/peterschussheim">
-        <CardTitle
+        {/* <CardTitle
           title="Peter Schussheim"
           titleStyle={nameTitleStyle}
-        />
+        /> */}
       </a>
-      <CardText
+      {/* <CardText
         style={textStyle}
-      >
+      > */}
         <p>A gracefully aging white 30-something man</p>
-      </CardText>
+      {/* </CardText> */}
     </Card>
   </div>
   );

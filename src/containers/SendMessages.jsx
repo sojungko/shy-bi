@@ -2,11 +2,11 @@ import React, { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Card } from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Card from '@material-ui/core/Card';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { getUsername } from '../modules/auth';
 import { sendMessage, getSentMessages, getMatches } from '../actions/index';
@@ -77,7 +77,7 @@ class SendMessages extends Component {
       ));
 
     const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
-      <SelectField
+      <Select
         style={style}
         floatingLabelText={label}
         errorText={touched && error}
@@ -86,7 +86,7 @@ class SendMessages extends Component {
         {...custom}
       >
         {children}
-      </SelectField>
+      </Select>
   );
 
     const { handleSubmit, valid, pristine, submitting } = this.props;
@@ -104,7 +104,7 @@ class SendMessages extends Component {
             <Field name="message" type="text" component={this.renderTextField} label="Message" />
           </div>
           <div className="button-line">
-            <RaisedButton style={style} type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
+            <Button style={style} type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
           </div>
         </form>
       </Card>

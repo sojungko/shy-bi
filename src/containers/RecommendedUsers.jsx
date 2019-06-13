@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader } from 'material-ui/Card';
+import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';
@@ -34,12 +36,12 @@ class RecommendedUsers extends Component {
   render() {
     return (
       <Card>
-        <CardHeader
+        {/* <CardHeader
           title="Recommended for You"
           titleStyle={styles.title}
           subtitle="Based on our special algorithm"
           subtitleStyle={styles.subtitle}
-        />
+        /> */}
         <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
       </Card>
     );

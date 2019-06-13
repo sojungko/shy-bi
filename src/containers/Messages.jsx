@@ -1,8 +1,10 @@
 import React, { Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader } from 'material-ui/Card';
-import Paper from 'material-ui/Paper';
+import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Paper from '@material-ui/core/Paper';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '../actions';
@@ -64,12 +66,12 @@ class Messages extends Component {
       <Paper>
         <Navbar menus={messageMenu} />
         <Card>
-          <CardHeader
+          {/* <CardHeader
             title="Love Letters"
             titleStyle={styles.title}
             subtitle="Exchange sweet nothings"
             subtitleStyle={styles.subtitle}
-          />
+          /> */}
         </Card>
         {children}
       </Paper>
