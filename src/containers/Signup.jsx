@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import Card from '@material-ui/core/Card';
+// import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardText from '@material-ui/core/CardText';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import TextField from '@material-ui/core/TextField';
+// import CardContent from '@material-ui/core/CardContent';
+// import Button from '@material-ui/core/Button';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import Radio from '@material-ui/core/Radio';
+// import TextField from '@material-ui/core/TextField';
 // import AutoComplete from '../components/AutoComplete';
 import { signupUser, getLocations } from '../actions/index';
-
+const { input, select, textarea } = ReactDOM;
 const styles = {
   block: {
     maxWidth: 250,
@@ -95,33 +96,31 @@ class SignUp extends Component {
           /> */}
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <div className="field-line">
-              <Field name="username" type="text" component={this.renderTextField} label="Username" />
+              <Field name="username" type="text" component={input} label="Username" />
             </div>
             <div className="field-line">
-              <Field name="password" type="password" component={this.renderTextField} label="Password" />
+              <Field name="password" type="password" component={input} label="Password" />
             </div>
             <div className="field-line">
-              <Field name="name" type="text" component={this.renderTextField} label="Name" />
+              <Field name="name" type="text" component={input} label="Name" />
             </div>
             <div className="field-line">
-              <Field name="email" type="email" component={this.renderTextField} label="Email" />
+              <Field name="email" type="email" component={input} label="Email" />
             </div>
             <div className="field-line">
-              <Field name="age" type="number" component={this.renderTextField} label="Age" />
+              <Field name="age" type="number" component={input} label="Age" />
             </div>
             <div className="field-line">
               <div>
-                <Field name="sex" component={this.renderRadioGroup}>
-                  <Radio value="Male" label="Male" style={styles.Radio} />
-                  <Radio value="Female" label="Female" style={styles.Radio} />
-                </Field>
+                <label><Field name="sex" component={input} type="radio" value="male"/> Male</label>
+                <label><Field name="sex" component={input} type="radio" value="female"/> Female</label>
               </div>
             </div>
             {/* <div className="field-line">
               <Field name="city" type="text" style={font} component={this.renderTextField} label="City" />
             </div> */}
             <div className="button-line">
-              <Button type="submit" labelStyle={font} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+              <button type="submit" labelStyle={font} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
             </div>
             {/* <CardText style={font}>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
           </form>

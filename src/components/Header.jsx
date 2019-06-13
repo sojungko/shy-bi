@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
+// import AppBar from '@material-ui/core/AppBar';
+// import Button from '@material-ui/core/Button';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
@@ -30,7 +30,7 @@ const styles = {
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
   const renderButton = (label, path) => {
     const flatButton = (
-      <Button
+      <button
         label={label}
         containerElement={<Link to={path}>{label}</Link>}
         style={styles.button}
@@ -43,7 +43,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
 
   const renderAppBar = (label, path) => (
     <div id="AppBar" className="app-bar-container">
-      <AppBar
+      <div
         title="SHYBI"
         style={styles.appBar}
         titleStyle={styles.title}
@@ -61,7 +61,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
               handleClick={handleClick}
             />
         }
-      </AppBar>
+      </div>
     </div>
   );
 

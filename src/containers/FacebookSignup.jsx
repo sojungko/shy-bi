@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import TextField from '@material-ui/core/TextField';
+// import Card from '@material-ui/core/Card';
+// import Button from '@material-ui/core/Button';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import Radio from '@material-ui/core/Radio';
+// import TextField from '@material-ui/core/TextField';
 
 import { signupUser } from '../actions/index';
+
+const { input, select, textarea } = ReactDOM;
 
 const styles = {
   block: {
@@ -59,28 +62,26 @@ class FacebookSignup extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <Card className="container">
+      <div className="container">
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">Complete Signup</h2>
           <div className="field-line">
-            <Field name="birthday" type="date" component={this.renderTextField} label="Birthday" />
+            <Field name="birthday" type="date" component={input} label="Birthday" />
           </div>
           <div className="field-line">
             <div>
-              <Field name="sex" component={this.renderRadioGroup}>
-                <Radio value="male" label="male" style={styles.Radio} />
-                <Radio value="female" label="female" style={styles.Radio} />
-              </Field>
+              <label><Field name="sex" component={input} type="radio" value="male"/> Male</label>
+              <label><Field name="sex" component={input} type="radio" value="female"/> Female</label>
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={this.renderTextField} label="City" />
+            <Field name="city" type="text" component={input} label="City" />
           </div>
           <div className="button-line">
-            <Button type="submit" label="Create New Account" primary />
+            <button type="submit" label="Create New Account" primary />
           </div>
         </form>
-      </Card>
+      </div>
     );
   }
 }

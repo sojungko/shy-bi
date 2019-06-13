@@ -1,15 +1,18 @@
 import React, { Component, createElement } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import Card from '@material-ui/core/Card';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+// import Card from '@material-ui/core/Card';
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
+// import Select from '@material-ui/core/Select';
+// import MenuItem from '@material-ui/core/MenuItem';
 
 import { getUsername } from '../modules/auth';
 import { sendMessage, getSentMessages, getMatches } from '../actions/index';
+
+const { input, select, textarea } = ReactDOM;
 
 const style = {
   fontFamily: 'Source Sans Pro',
@@ -91,23 +94,23 @@ class SendMessages extends Component {
 
     const { handleSubmit, valid, pristine, submitting } = this.props;
     return (
-      <Card className="container">
+      <div className="container">
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 style={style} className="card-heading">Send Message</h2>
           <div className="field-line">
-            <Field name="sendTo" type="text" component={renderSelectField} label="Send To" />
+            <Field name="sendTo" type="text" component={select} label="Send To" />
           </div>
           <div className="field-line">
-            <Field name="title" type="text" component={this.renderTextField} label="Title" />
+            <Field name="title" type="text" component={input} label="Title" />
           </div>
           <div className="field-line">
-            <Field name="message" type="text" component={this.renderTextField} label="Message" />
+            <Field name="message" type="text" component={textarea} label="Message" />
           </div>
           <div className="button-line">
-            <Button style={style} type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
+            <button style={style} type="submit" label="Send" disabled={pristine || !valid || submitting} primary />
           </div>
         </form>
-      </Card>
+      </div>
     );
   }
 }

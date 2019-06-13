@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import Card from '@material-ui/core/Card';
+// import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import Select from '@material-ui/core/Select';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Snackbar from '@material-ui/core/Snackbar';
+// import CardContent from '@material-ui/core/CardContent';
+// import TextField from '@material-ui/core/TextField';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Select from '@material-ui/core/Select';
+// import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import Button from '@material-ui/core/Button';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import Snackbar from '@material-ui/core/Snackbar';
 import ImageUpload from './ImageUpload';
 import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
 
+const { input, select, textarea } = ReactDOM;
 const style = {
   fontFamily: 'Source Sans Pro',
 };
@@ -96,7 +98,7 @@ class EditBio extends Component {
   render() {
     const { handleSubmit, pristine, submitting, reset } = this.props;
     return (
-      <Card style={{ padding: '50px' }}>
+      <div style={{ padding: '50px' }}>
         {/* <CardHeader
           title="Edit Profile"
           titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
@@ -108,7 +110,7 @@ class EditBio extends Component {
               <Field
                 name="name"
                 type="text"
-                component={this.renderTextField}
+                component={input}
                 label="Name"
               />
             </div>
@@ -118,7 +120,7 @@ class EditBio extends Component {
               <Field
                 name="password"
                 type="password"
-                component={this.renderTextField}
+                component={input}
                 label="Password"
               />
             </div>
@@ -128,17 +130,15 @@ class EditBio extends Component {
               <Field
                 name="email"
                 type="email"
-                component={this.renderTextField}
+                component={input}
                 label="Email"
               />
             </div>
           </div>
           <div className="field-line">
             <div style={style}>
-              <Field name="sex" component={this.renderRadioGroup}>
-                <Radio style={style} value="Male" label="Male" />
-                <Radio style={style} value="Female" label="Female" />
-              </Field>
+              <label><Field name="sex" component={input} type="radio" value="male"/> Male</label>
+              <label><Field name="sex" component={input} type="radio" value="female"/> Female</label>
             </div>
           </div>
           {/* <div className="field-line">
@@ -156,7 +156,7 @@ class EditBio extends Component {
               <Field
                 name="job"
                 type="text"
-                component={this.renderTextField}
+                component={input}
                 label="Job"
               />
             </div>
@@ -166,12 +166,12 @@ class EditBio extends Component {
               <Field
                 name="edLevel"
                 type="text"
-                component={this.renderSelectField}
+                component={select}
                 label="Education Level"
               >
-                <MenuItem style={style} value={'highSchool'} primaryText="High School" />
-                <MenuItem style={style} value={'college'} primaryText="College" />
-                <MenuItem style={style} value={'graduate'} primaryText="Graduate" />
+                <option style={style} value={'highSchool'} primaryText="High School" />
+                <option style={style} value={'college'} primaryText="College" />
+                <option style={style} value={'graduate'} primaryText="Graduate" />
               </Field>
             </div>
           </div>
@@ -180,7 +180,7 @@ class EditBio extends Component {
               <Field
                 name="aboutMe"
                 type="text"
-                component={this.renderTextField}
+                component={textarea}
                 label="About Me"
                 multiLine
                 fullWidth
@@ -192,17 +192,17 @@ class EditBio extends Component {
           <ImageUpload />
           <div>
             <div className="button-line">
-              <Button labelStyle={style} type="submit" label="Submit" disabled={pristine || submitting} />
-              <Button labelStyle={style} label="Clear Fields" disabled={pristine} onClick={reset} />
+              <button labelStyle={style} type="submit" label="Submit" disabled={pristine || submitting} />
+              <button labelStyle={style} label="Clear Fields" disabled={pristine} onClick={reset} />
             </div>
           </div>
         </form>
-        <Snackbar
+        <div
           open={this.props.isEdited || false}
           message="Profile successfully updated!"
           autoHideDuration={4000}
         />
-      </Card>
+      </div>
 
     );
   }

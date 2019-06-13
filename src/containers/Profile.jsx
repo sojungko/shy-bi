@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
-import Card from '@material-ui/core/Card';
+// import Card from '@material-ui/core/Card';
 // import CardText from '@material-ui/core/CardText';
 // import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
+// import CardContent from '@material-ui/core/CardContent';
 import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
@@ -86,7 +86,7 @@ class Profile extends Component {
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
-      <Card style={styles.card}>
+      <div style={styles.card}>
         {/* <CardText style={styles.cardText}> */}
           <img role="presentation" src={image_url} style={styles.image} />
           <div>
@@ -126,14 +126,14 @@ class Profile extends Component {
             </tbody>
           </table>
         {/* </CardText> */}
-      </Card>
+      </div>
     );
   }
 
   render() {
     if (this.props.params.username) {
       return (
-        <Card>
+        <div>
           {/* <CardHeader
             title={`${this.props.profile.name}`}
             titleStyle={cardStyle.title}
@@ -155,11 +155,11 @@ class Profile extends Component {
             message="You guys are a match!"
             autoHideDuration={4000}
           />
-        </Card>
+        </div>
       );
     }
     return (
-      <Card>
+      <div>
         {/* <CardHeader
           title={`Hi, ${this.props.profile.name}`}
           titleStyle={cardStyle.title}
@@ -169,7 +169,7 @@ class Profile extends Component {
         <div>
           {this.renderProfile()}
         </div>
-      </Card>
+      </div>
     );
   }
 }

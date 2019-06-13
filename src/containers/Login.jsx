@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import Card from '@material-ui/core/Card';
+// import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardText from '@material-ui/core/CardText';
-import CardConent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+// import CardConent from '@material-ui/core/CardContent';
+// import Button from '@material-ui/core/Button';
+// import TextField from '@material-ui/core/TextField';
 
 import { loginUser } from '../actions/index';
+const  { input, select, textarea } = ReactDOM;
 
 class LogIn extends Component {
   static contextTypes = {
@@ -30,21 +32,21 @@ class LogIn extends Component {
       .then(() => this.context.router.push('/'));
   }
 
-  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField
-      hintText={label}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom}
-      style={{ fontFamily: 'Source Sans Pro' }}
-    />
-  )
+  // renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  //   <TextField
+  //     hintText={label}
+  //     floatingLabelText={label}
+  //     errorText={touched && error}
+  //     {...input}
+  //     {...custom}
+  //     style={{ fontFamily: 'Source Sans Pro' }}
+  //   />
+  // )
 
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <Card className="container" style={{ display: 'block' }}>
+      <div className="container" style={{ display: 'block' }}>
         <div style={{ margin: '0 auto', paddingTop: '81px', paddingBottom: '358px', width: '300px' }}>
           {/* <CardHeader
             title="Log In"
@@ -53,13 +55,13 @@ class LogIn extends Component {
           /> */}
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <div className="field-line">
-              <Field name="username" type="text" component={this.renderTextField} label="Username" />
+              <Field name="username" type="text" component={input} label="Username" />
             </div>
             <div className="field-line">
-              <Field name="password" type="password" component={this.renderTextField} label="Password" />
+              <Field name="password" type="password" component={input} label="Password" />
             </div>
             <div className="button-line">
-              <Button
+              <button
                 type="submit"
                 label="Log in"
                 labelStyle={{ fontFamily: 'Source Sans Pro' }}
@@ -67,14 +69,14 @@ class LogIn extends Component {
               />
             </div>
             <a href="/auth/facebook">
-              <Button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Login with Facebook" />
+              <button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Login with Facebook" />
             </a>
             {/* <CardText style={{ fontFamily: 'Source Sans Pro' }}>
               Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
             </CardText> */}
           </form>
         </div>
-      </Card>
+      </div>
     );
   }
 }
