@@ -137,7 +137,7 @@ class EditBio extends Component {
               </Field>
             </div>
           </div>
-          <div className="field-line">
+          {/* <div className="field-line">
             <div>
               <Field
                 name="city"
@@ -146,7 +146,7 @@ class EditBio extends Component {
                 label="City"
               />
             </div>
-          </div>
+          </div> */}
           <div className="field-line">
             <div>
               <Field
