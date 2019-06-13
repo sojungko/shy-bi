@@ -4,11 +4,9 @@
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "concurrently -k \"npm run client:dev\" \"npm run server:dev\"",
-    "client:start": "webpack -w",
-    "server:start": "node -r dotenv/config server/server.js",
-    "server:dev": "nodemon -r dotenv/config server/server.js",
-    "client:dev": "webpack -d --live-reload --watch --display-error-details",
+    "start": "webpack -w",
+    "nodemon": "nodemon -r dotenv/config server/server.js",
+    "dev": "webpack -d --watch --display-error-details",
     "build": "webpack -p",
     "commit": "npx git-cz"
   },
@@ -40,6 +38,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "prop-types": "^15.7.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-dropzone": "^3.8.0",
@@ -61,6 +60,7 @@
     "babel-core": "^6.17.0",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.2.7",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^2.0.1",
     "babel-preset-stage-1": "^6.16.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -100,13 +100,6 @@
   },
   "directories": {
     "test": "test"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015",
-      "stage-1"
-    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",

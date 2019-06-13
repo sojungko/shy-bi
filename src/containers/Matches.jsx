@@ -1,4 +1,5 @@
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Children, Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Card, CardHeader } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';

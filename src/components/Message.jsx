@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
 
