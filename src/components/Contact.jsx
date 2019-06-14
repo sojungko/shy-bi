@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
+// import TextField from '@material-ui/core/TextField';
 
 const style = {
   fontFamily: 'Source Sans Pro',
@@ -10,19 +10,19 @@ const style = {
 const Contact = () => (
   <div>
     <div>
-      <TextField
+      <textarea
         style={style}
         hintText="Name"
       />
     </div>
     <div>
-      <TextField
+      <textarea
         style={style}
         hintText="Email"
       />
     </div>
     <div>
-      <TextField
+      <textarea
         style={style}
         hintText="Write us something sweet"
       />

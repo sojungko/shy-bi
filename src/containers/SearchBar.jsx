@@ -1,12 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import CardContent from '@material-ui/core/CardContent';
+// import TextField from '@material-ui/core/TextField';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import Radio from '@material-ui/core/Radio';
+// import Button from '@material-ui/core/Button';
 
 import styles from '../styles/SearchBar';
 import { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser } from '../actions/FilterInputActions';
+
+const { input, select, textarea } = ReactDOM;
 
 class SearchBar extends Component {
   static propTypes = {
@@ -58,12 +65,12 @@ class SearchBar extends Component {
   render() {
     const { minage, maxage, city } = this.props;
     return (
-      <Card style={{ position: 'fixed', marginTop: '76px', height: '100%', fontFamily: 'Source Sans Pro' }}>
-        <CardHeader
+      <div style={{ position: 'fixed', marginTop: '76px', height: '100%', fontFamily: 'Source Sans Pro' }}>
+        {/* <CardHeader
           titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
           title="Search"
-        />
-        <TextField
+        /> */}
+        <textarea
           floatingLabelText="Minimum Age"
           name="minage"
           type="number"
@@ -71,7 +78,7 @@ class SearchBar extends Component {
           style={styles}
           onChange={this.handleChange}
         />
-        <TextField
+        <textarea
           floatingLabelText="Maximum Age"
           name="maxage"
           type="number"
@@ -79,23 +86,23 @@ class SearchBar extends Component {
           style={styles}
           onChange={this.handleChange}
         />
-        <RadioButtonGroup
+        <select
           name="sex"
           onChange={this.handleChange}
           style={styles}
         >
-          <RadioButton
+          <option
             value="Male"
             label="Male"
             style={styles.radioButton}
           />
-          <RadioButton
+          <option
             value="Female"
             label="Female"
             style={styles.radioButton}
           />
-        </RadioButtonGroup>
-        <TextField
+        </select>
+        <textarea
           floatingLabelText="City"
           type="text"
           name="city"
@@ -103,8 +110,8 @@ class SearchBar extends Component {
           style={styles}
           onChange={this.handleChange}
         />
-        <RaisedButton labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Clear Fields" onClick={this.handleClick} />
-      </Card>
+        <button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Clear Fields" onClick={this.handleClick} />
+      </div>
     );
   }
 }

@@ -1,9 +1,14 @@
 const neo4j = require('neo4j-driver').v1;
-const pw = process.env.key || require('./pw.js');
+
+const {
+  NEO4J_URI,
+  NEO4J_USERNAME,
+  NEO4J_PASSWORD,
+} = process.env;
 
 const driver = neo4j.driver(
-  'bolt://hobby-jdjicmbeoeaggbkeckfkllol.dbs.graphenedb.com:24786',
-  neo4j.auth.basic('datastructureducks', pw)
+  NEO4J_URI,
+  neo4j.auth.basic(NEO4J_USERNAME, NEO4J_PASSWORD),
 );
 const session = driver.session();
 

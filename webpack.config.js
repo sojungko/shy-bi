@@ -1,10 +1,7 @@
-const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const path = require('path');
 const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const appDirectory = fs.realpathSync(process.cwd());
 function resolveApp(relativePath) {
@@ -13,95 +10,101 @@ function resolveApp(relativePath) {
 
 const BUILD_DIR = resolveApp('public');
 const APP_JSX = resolveApp('src/index.jsx');
-const APP_HTML = resolveApp('public/index.html');
+const APP_HTML = resolveApp('index.html');
 const APP_DIR = resolveApp('src');
-const APP_NODE_MODULES = resolveApp('node_modules');
 
-const nodePaths = (process.env.NODE_PATH || '')
-  .split(process.platform === 'win32' ? ';' : ':')
-  .filter(Boolean)
-  .filter(folder => !path.isAbsolute(folder))
-  .map(resolveApp);
+module.exports = [
+  /** Compiling client-side JS */
+  {
+    entry: [
+      APP_JSX,
+      require.resolve('./polyfills'),
 
-const config = {
-  entry: [
-    require.resolve('./polyfills'),
-    APP_JSX
-  ],
-  output: {
-    devtoolLineToLine: true,
-    path: BUILD_DIR,
-    filename: 'bundle.js',
-    publicPath: '/'
-  },
-  resolve: {
-    fallback: nodePaths,
-    extensions: ['.js', '.json', '.jsx', ''],
-  },
-  module: {
-    loaders: [
-      {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.css$/,
-          /\.json$/,
-          /\.svg$/
-        ],
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }, {
-        test: /\.(js|jsx)$/,
-        include: APP_DIR,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-1'],
-          cacheDirectory: true
-        }
-      }, {
-        test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
-      }, {
-        test: /\.json$/,
-        loader: 'json'
-      }, {
-        test: /\.svg$/,
-        loader: 'file',
-        query: {
-          name: 'static/media/[name].[hash:8].[ext]'
-        }
-      }
+    ],
+    output: {
+      devtoolLineToLine: true,
+      path: BUILD_DIR,
+      filename: 'bundle.js',
+      publicPath: '/',
+    },
+    resolve: {
+      extensions: ['.js', '.json', '.jsx'],
+    },
+    module: {
+      rules: [
+        {
+          exclude: [
+            /\.html$/,
+            /\.(js|jsx)$/,
+            /\.css$/,
+            /\.scss$/,
+            /\.json$/,
+            /\.svg$/,
+          ],
+          loader: 'url-loader',
+          query: {
+            limit: 10000,
+            name: 'static/media/[name].[hash:8].[ext]',
+          },
+        },
+        {
+          test: /\.(js|jsx)$/,
+          include: APP_DIR,
+          loader: 'babel-loader',
+          query: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+            cacheDirectory: true,
+          },
+        },
+      // {
+      //   test: /\.css$/,
+      //   loader: ['style-loader', 'css-loader', 'postcss-loader'],
+      // },
+        {
+          test: /\.svg$/,
+          loader: 'file-loader',
+          query: {
+            name: 'static/media/[name].[hash:8].[ext]',
+          },
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: APP_HTML,
+      }),
     ],
   },
-
-  postcss: function() {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
-    ];
+  /** Compiling SCSS */
+  {
+    entry: path.resolve(__dirname, 'style/app.scss'),
+    output: {
+      path: BUILD_DIR,
+      filename: 'styles.css',
+    },
+    resolve: {
+      extensions: ['.scss', '.css'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.scss$/,
+          use: [
+            'style-loader',
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            'css-loader',
+            'postcss-loader',
+            'sass-loader',
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new MiniCssExtractPlugin(),
+    ],
   },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: APP_HTML,
-    }),
-    new CaseSensitivePathsPlugin(),
-    new WatchMissingNodeModulesPlugin(APP_NODE_MODULES)
-  ],
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './',
-  },
-};
-
-module.exports = config;
+];

@@ -1,10 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Snackbar from 'material-ui/Snackbar';
-import { Card, CardText, CardHeader } from 'material-ui/Card';
-import Checkbox from 'material-ui/Checkbox';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import Snackbar from '@material-ui/core/Snackbar';
+// import Card from '@material-ui/core/Card';
+// import CardText from '@material-ui/core/CardText';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import CardContent from '@material-ui/core/CardContent';
+import Checkbox from '@material-ui/core/Checkbox';
+import ActionFavorite from '@material-ui/icons/Favorite';
+import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
@@ -82,8 +86,8 @@ class Profile extends Component {
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
-      <Card style={styles.card}>
-        <CardText style={styles.cardText}>
+      <div style={styles.card}>
+        {/* <CardText style={styles.cardText}> */}
           <img role="presentation" src={image_url} style={styles.image} />
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
@@ -121,21 +125,21 @@ class Profile extends Component {
               </tr>
             </tbody>
           </table>
-        </CardText>
-      </Card>
+        {/* </CardText> */}
+      </div>
     );
   }
 
   render() {
     if (this.props.params.username) {
       return (
-        <Card>
-          <CardHeader
+        <div>
+          {/* <CardHeader
             title={`${this.props.profile.name}`}
             titleStyle={cardStyle.title}
             subtitle={`Get to know ${this.props.profile.name}!`}
             subtitleStyle={cardStyle.subtitle}
-          />
+          /> */}
           <div>
             {this.renderProfile()}
             <Checkbox
@@ -151,21 +155,21 @@ class Profile extends Component {
             message="You guys are a match!"
             autoHideDuration={4000}
           />
-        </Card>
+        </div>
       );
     }
     return (
-      <Card>
-        <CardHeader
+      <div>
+        {/* <CardHeader
           title={`Hi, ${this.props.profile.name}`}
           titleStyle={cardStyle.title}
           subtitle="Good to have you back!"
           subtitleStyle={cardStyle.subtitle}
-        />
+        /> */}
         <div>
           {this.renderProfile()}
         </div>
-      </Card>
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { GridTile } from 'material-ui/GridList';
-import Paper from 'material-ui/Paper';
+// import GridListTile from '@material-ui/core/GridListTile';
+// import Paper from '@material-ui/core/Paper';
 import { getUsername } from '../modules/auth';
 
 const gridTileStyle = {
@@ -31,7 +31,7 @@ const renderUserList = (users, handleClick) => users
       }
     };
     return (
-      <GridTile
+      <div
         key={index}
         title={name}
         style={gridTileStyle}
@@ -42,7 +42,7 @@ const renderUserList = (users, handleClick) => users
         onClick={() => handleClick(username)}
       >
         <img role="presentation" src={image_url} />
-      </GridTile>
+      </div>
     );
   },
 );

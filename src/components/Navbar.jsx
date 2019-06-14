@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import Tabs from '@material-ui/core/Tabs';
+// import Tab from '@material-ui/core/Tab';
 import { Link } from 'react-router' ;
 
 import styles from '../styles/Navbar';
@@ -7,7 +9,7 @@ import styles from '../styles/Navbar';
 const Navbar = (props) => {
   const renderMenu = () => props.menus
     .map(({ path, label }, index) =>
-      <Tab
+      <li
         key={index}
         label={label}
         containerElement={<Link to={path}>{label}</Link>}
@@ -15,9 +17,9 @@ const Navbar = (props) => {
       />);
 
   return (
-    <Tabs className="tabs" contentContainerClassName="tab" >
+    <ul className="tabs" contentContainerClassName="tab" >
       {renderMenu()}
-    </Tabs>
+    </ul>
   );
 };
 

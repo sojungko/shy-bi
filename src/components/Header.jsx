@@ -1,6 +1,7 @@
-import React, { PropTypes, cloneElement } from 'react';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import React, { cloneElement } from 'react';
+import PropTypes from 'prop-types';
+// import AppBar from '@material-ui/core/AppBar';
+// import Button from '@material-ui/core/Button';
 import { Link } from 'react-router';
 import NotificationBadge from './Badges';
 
@@ -27,9 +28,9 @@ const styles = {
 };
 
 const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
-  const renderFlatButton = (label, path) => {
+  const renderButton = (label, path) => {
     const flatButton = (
-      <FlatButton
+      <button
         label={label}
         containerElement={<Link to={path}>{label}</Link>}
         style={styles.button}
@@ -42,14 +43,14 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
 
   const renderAppBar = (label, path) => (
     <div id="AppBar" className="app-bar-container">
-      <AppBar
-        title="BIND"
+      <div
+        title="SHYBI"
         style={styles.appBar}
         titleStyle={styles.title}
         onLeftIconButtonTouchTap={handleToggle}
         onTitleTouchTap={handleTitleClick}
         iconClassNameLeft="app-bar-left-icon"
-        iconElementRight={renderFlatButton(label, path)}
+        iconElementRight={renderButton(label, path)}
         zDepth={0}
       >
         {
@@ -60,7 +61,7 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
               handleClick={handleClick}
             />
         }
-      </AppBar>
+      </div>
     </div>
   );
 

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { GridList } from 'material-ui/GridList';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import GridList from '@material-ui/core/GridList';
 import renderUserList from '../modules/users';
 
 const styles = {
@@ -21,14 +22,14 @@ const styles = {
 
 const UserListItem = ({ users, handleClick }) => (
   <div style={styles.root}>
-    <GridList
+    <ul
       cellHeight="auto"
       style={styles.gridList}
       cols={6}
       padding={30}
     >
       {renderUserList(users, handleClick)}
-    </GridList>
+    </ul>
   </div>
 );
 

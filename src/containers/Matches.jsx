@@ -1,7 +1,10 @@
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Children, Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, CardHeader } from 'material-ui/Card';
-import Paper from 'material-ui/Paper';
+// import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+// import CardContent from '@material-ui/core/CardContent';
+// import Paper from '@material-ui/core/Paper';
 
 import Navbar from '../components/Navbar';
 import { getMatches, getLikedUsers, getUser, viewMatch } from '../actions';
@@ -59,18 +62,19 @@ class Matches extends Component {
       }));
 
     return (
-      <Paper>
-        <Navbar menus={matchesMenu} />
-        <Card>
-          <CardHeader
+      <div>
+        {/* <div menus={matchesMenu} /> */}
+        <div>
+          Candidates
+          {/* <CardHeader
             title="Candidates"
             titleStyle={styles.title}
-          />
-        </Card>
+          /> */}
+        </div>
         <div style={{ marginTop: '50px' }}>
           {children}
         </div>
-      </Paper>
+      </div>
 
     );
   }

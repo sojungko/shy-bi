@@ -1,5 +1,11 @@
-import React, { PropTypes } from 'react';
-import { Card, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import React from 'react';
+import PropTypes from 'prop-types';
+// import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/CardHeader';
+// import CardTitle from '@material-ui/CardTitle';
+// import CardText from '@material-ui/CardText';
+// import CardContent from '@material-ui/core/CardContent';
+// import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router';
 
 import { getUsername } from '../modules/auth';
@@ -16,8 +22,10 @@ const Message = ({ message, handleExpand, expanded }) => {
   const prefix = (id === receiverID) ? 'from : ' : 'to : ';
 
   return (
-    <Card expanded={expanded} onExpandChange={() => handleExpand(message)}>
-      <CardHeader
+    <div expanded={expanded} onExpandChange={() => handleExpand(message)}>
+      <div>
+      </div>
+      {/* <CardHeader
         style={style}
         title={<Link to={`/profile/${id}`}>{prefix}{name}</Link>}
         subtitle={title}
@@ -32,8 +40,8 @@ const Message = ({ message, handleExpand, expanded }) => {
       <CardTitle style={style} title={title} expandable />
       <CardText style={style} expandable>
         {body}
-      </CardText>
-    </Card>
+      </CardText> */}
+    </div>
   );
 };
 
