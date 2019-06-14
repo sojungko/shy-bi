@@ -2,8 +2,8 @@ import React from 'react';
 
 
 const BottomNavBar = () => (
-  <div>
-    <div className="bottom-nav">
+  <div className="bottom-nav">
+    <div>
       <a href="/#/aboutus">
         <button className="button button--flat">
           About Us

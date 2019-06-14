@@ -67,29 +67,27 @@ class SignUp extends Component {
     />
   );*/
 
-  renderRadioButton = ({ input, label }) => (
+  renderRadioButton = ({ input, label, ...rest }) => (
     <Fragment>
       <label>{label}</label>
-      <input type="radio" />
+      <input type="radio" {...input} {...rest} />
     </Fragment>
   );
-  renderInput = ({ input, label }) => (
+  renderInput = ({ input, label, ...rest }) => {
+    return (
     <Fragment>
       <label>{label}</label>
-      <input />
+      <input {...input} {...rest}/>
     </Fragment>
   )
+  }
 
   render() {
-  //   const renderAutoComplete = () => (
-  //     <AutoComplete
-  //       style={font}
-  //       location={this.props.location || []}
-  //     />
-  // );
-
+    const required = value => (value || typeof value === 'number' ? undefined : 'Required')
+    const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
     const { handleSubmit, pristine, submitting } = this.props;
 
+    // TODO pristine controle doesnt work
     return (
       <div className="card">
         <div className="card-body">
@@ -97,35 +95,60 @@ class SignUp extends Component {
             Sign Up
           </h2>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="field-line">
-              <Field name="username" type="text" component={this.renderInput} label="Username" />
+            <div className="card-text">
+              <Field
+                name="username"
+                type="text"
+                component={this.renderInput}
+                label="Username"
+                validate={[required]}
+              />
             </div>
-            <div className="field-line">
-              <Field name="password" type="password" component={this.renderInput} label="Password" />
+            <div className="card-text">
+              <Field
+                name="password"
+                type="password"
+                component={this.renderInput}
+                label="Password"
+                validate={[required]}
+              />
             </div>
-            <div className="field-line">
-              <Field name="name" type="text" component={this.renderInput} label="Name" />
+            <div className="card-text">
+              <Field
+                name="name"
+                type="text"
+                component={this.renderInput}
+                label="Name"
+                validate={[required]}
+              />
             </div>
-            <div className="field-line">
-              <Field name="email" type="email" component={this.renderInput} label="Email" />
+            <div className="card-text">
+              <Field
+                name="email"
+                type="email"
+                component={this.renderInput}
+                label="Email"
+                validate={[required]}
+              />
             </div>
-            <div className="field-line">
-              <Field name="age" type="number" component={this.renderInput} label="Age" />
+            <div className="card-text">
+              <Field
+                name="age"
+                type="number"
+                component={this.renderInput}
+                label="Age"
+                validate={[required, number]}
+              />
             </div>
-            <div className="field-line">
+            <div className="card-text">
               <div>
                 <label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>
                 <label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>
               </div>
             </div>
-            {/* <div className="field-line">
-              <Field name="city" type="text" style={font} component={this.renderTextField} label="City" />
-            </div> */}
             <div className="button-line">
               <button
                 type="submit"
-                className="button button--flat"
-                disabled={pristine || submitting}
               >
                 Create New Account
               </button>
@@ -138,21 +161,8 @@ class SignUp extends Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-  const requiredFields = ['username', 'password', 'name', 'email', 'age', 'sex', 'city'];
-  requiredFields.forEach((field) => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-
-  return errors;
-};
-
 SignUp = reduxForm({
   form: 'SignUp',
-  validate,
 })(SignUp);
 
 const mapStateToProps = ({ location }) => ({ location });

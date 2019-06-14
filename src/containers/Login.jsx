@@ -36,15 +36,16 @@ class LogIn extends Component {
   //     style={{ fontFamily: 'Source Sans Pro' }}
   //   />
   // )
-  renderInput = ({ input, label }) => (
+  renderInput = ({ input, label, ...rest }) => (
     <Fragment>
       <label>{label}</label>
-      <input />
+      <input {...input} {...rest} />
     </Fragment>
   )
 
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
+
     return (
       <div className="card">
         <div className="card-body">
@@ -61,7 +62,6 @@ class LogIn extends Component {
             <div>
               <button
                 type="submit"
-                className="button button--flat"
                 disabled={pristine || submitting}
               >
                 Log In

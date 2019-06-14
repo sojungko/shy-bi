@@ -88,9 +88,10 @@ a {
 	opacity: 0.7;
 }
 .splash {
-	margin-top: -200px;
+  margin-top: 40vh;
 	display: block;
   background-repeat:no-repeat center center fixed;
   background-size:cover;
 	height: 100%;
+  position: fixed;
 }

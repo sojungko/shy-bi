@@ -72,7 +72,9 @@ class ImageUpload extends Component {
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
         </div>
-        <button label="Delete Photo" onClick={this.onDelete} />
+        <button onClick={this.onDelete}>
+          Delete Photo
+        </button>
         <div>
           {this.state.uploadedFileCloudinaryUrl === '' ? null :
           <div>

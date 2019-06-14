@@ -65,11 +65,14 @@ const Header = (props) => {
       </h1>
       {
         auth ?
-          <button
-            className="button button--flat"
-          >
-            Log Out
-          </button>
+          <a href="/#/logout">
+            <button
+              className="button button--flat"
+              onClick={logOut}
+            >
+              Log Out
+            </button>
+          </a>
           :
           <a href="/#/login" className="app-bar__button-container">
             <button
