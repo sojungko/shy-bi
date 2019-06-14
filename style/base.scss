@@ -59,18 +59,27 @@ a {
   text-decoration: none;
 }
 
-.app-bar {
-	opacity: 0.3;
-	color: white;
-  background-color: '#ff294c';
-  cursor: 'pointer';
-  position: 'fixed';	
+.main {
+  display: flex;
 }
 
-
-.app-bar-left-icon {
-	opacity: 1;
+.content {
+  margin: auto;
+  margin-top: 100px;
 }
+
+// .app-bar {
+// 	opacity: 0.3;
+// 	color: white;
+//   background-color: '#ff294c';
+//   cursor: 'pointer';
+//   position: 'fixed';	
+// }
+
+
+// .app-bar-left-icon {
+// 	opacity: 1;
+// }
 
 .image-container {
 	display: flex;

@@ -51,7 +51,7 @@ class App extends Component {
     const currentUser = getUsername();
     const auth = isUserAuthenticated();
     return (
-      <div>
+      <div className="main">
         <Header
           location={this.props.location.pathname}
           auth={auth}
@@ -68,7 +68,7 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-        <div>
+        <div className="content">
           {this.props.children}
         </div>
         <BottomNav />

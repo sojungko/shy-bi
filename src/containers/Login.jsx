@@ -46,7 +46,7 @@ class LogIn extends Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <div className="card login">
+      <div className="card">
         <div className="card-body">
           <h2 className="card-title">
             Log In

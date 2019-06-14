@@ -53,7 +53,10 @@ const Header = (props) => {
 
   const renderAppBar = (label, path) => (
     <div className="app-bar">
-      <Menu className="app-bar__menu-svg" />
+      <Menu
+        className="app-bar__menu-svg"
+        onClick={handleToggle}
+      />
       <h1
         className="app-bar__header"
         onClick={handleTitleClick}
@@ -63,14 +66,14 @@ const Header = (props) => {
       {
         auth ?
           <button
-            className="button button--flat app-bar__button"
+            className="button button--flat"
           >
             Log Out
           </button>
           :
-          <a href="/#/login">
+          <a href="/#/login" className="app-bar__button-container">
             <button
-              className="button button--flat app-bar__button"
+              className="button button--flat"
             >
               Log In
             </button>

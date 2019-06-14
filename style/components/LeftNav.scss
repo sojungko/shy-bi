@@ -1,0 +1,27 @@
+.left-nav {
+  // display: none;
+  width: 20vw;
+  left: -20vw;
+  transition: left $duration-medium;
+  height: 100vh;
+  background: white;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  &__active {
+    left: 0;
+    z-index: $filterBar;
+    // width: $nav-mobile-width;
+    // left: -$nav-mobile-width;
+    // transition: left $duration-medium;
+  }
+}
+
+.left-nav__list {
+  margin: 30px;
+  height: 100%;
+}
+
+.left-nav__item {
+  margin: 20px 0;
+}

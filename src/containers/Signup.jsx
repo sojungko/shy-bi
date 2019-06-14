@@ -130,7 +130,7 @@ class SignUp extends Component {
                 Create New Account
               </button>
             </div>
-            {/* <CardText style={font}>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
+             <div style={font}>Already have an account? <Link to={'/login'}>Log in</Link></div> 
           </form>
         </div>
       </div>

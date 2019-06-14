@@ -1,27 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Drawer from '@material-ui/core/Drawer';
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 
 import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';
-
 
 const LeftNav = ({ auth, open, handleToggle }) => {
   const renderMenuItems = menu => menu
     .map(({ link, label }, index) =>
-      <li key={index} className="left-navmenu-item" containerElement={<Link to={link}>{label}</Link>}>{label}</li>);
+      <li
+        key={index}
+        className="left-nav__item"
+      >
+        <button className="button button--flat">
+          <Link to={link}>
+            {label}
+          </Link>
+        </button>
+      </li>);
 
+  const leftNavStyle = classNames({
+    'left-nav': true,
+    'left-nav__active': !!open,
+  });
   const renderDrawer = menu => (
-    <div open={open}>
-      <ul onItemTouchTap={handleToggle}>
-        <li containerElement={<Link to="/"> Home </Link>}>Home</li>
-        {/* <Divider /> */}
+    <div className={leftNavStyle}>
+      <ul className="left-nav__list">
+        <li className="left-nav__item">
+          <button className="button button--flat">
+            <Link to="/">
+            Home
+          </Link>
+          </button>
+        </li>
         {renderMenuItems(menu)}
-        {/* <Divider /> */}
-        <li onTouchTap={handleToggle}>Close</li>
+        <li
+          className="left-nav__item"
+          onClick={handleToggle}
+        >
+          <button className="button button--flat">
+          Close
+          </button>
+        </li>
       </ul>
     </div>
   );
