@@ -1,0 +1,31 @@
+.app-bar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  z-index: 1;
+  cursor: pointer;
+  position: fixed;
+  display: grid;
+  opacity: 1;
+  grid-template-columns: 1fr 18fr 2fr;
+  width: 100%;
+}
+
+.app-bar__header {
+  color: black;
+  font-family: Source Sans Pro;
+  letter-spacing: 0.5rem;
+  font-weight: 300;
+  font-size: 50px;
+  margin-left: 30px;
+}
+
+.app-bar__menu-svg {
+  width: 2em !important;
+  height: 2em !important;
+  fill: black !important;
+}
+
+.app-bar__button {
+  margin: auto 10px !important;
+}

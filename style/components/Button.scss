@@ -1,0 +1,49 @@
+.button {
+  @include button-text-s;
+  align-items: center;
+  background: $brand-color;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: $white;
+  cursor: pointer;
+  display: inline-flex;
+  height: 32px;
+  justify-content: center;
+  margin: 0;
+  min-width: 100px;
+  outline: none;
+  padding: 0 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  &:hover {
+    background: lighten($brand-color, 2%);
+  }
+  &:active {
+    background: darken($brand-color, 2%);
+  }
+
+  // Button Styles
+  // ---------------------------------------------------------------------------
+
+  &--light {
+    background: $white;
+    box-shadow: 0 2px 2px 0 #AAA, 0 0 2px 0 #AAA;
+    color: $brand-color;
+    &:hover {
+      background: $white;
+    }
+  }
+
+  &--flat {
+    background: transparent;
+    border-radius: 0 !important;
+    color: $gray-darker;
+    &:hover {
+      background: $gray-lightest;
+      color: $brand-color;
+    }
+  }
+}

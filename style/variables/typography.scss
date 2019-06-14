@@ -1,0 +1,142 @@
+// PIXEL TO REM CONVERTER
+//------------------------------------------------------------------------------
+$pixel-base: 16;
+
+@function toRem($pixel) {
+  @return ($pixel / $pixel-base) + rem;
+}
+
+// FONT FAMILIES
+//------------------------------------------------------------------------------
+$font-system: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$font-headline: $font-system;
+$font-body: $font-system;
+
+// LOGO TEXT
+//------------------------------------------------------------------------------
+@mixin logo-text {
+  font-family: $font-body;
+  font-size: toRem(22);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+// HEADLINE TEXT
+//------------------------------------------------------------------------------
+@mixin headline-text-s {
+  font-family: $font-headline;
+  font-size: toRem(16);
+  font-weight: 500;
+  line-height: toRem(20);
+  @include tablet {
+    font-size: toRem(18);
+    line-height: toRem(24);
+  }
+}
+
+@mixin headline-text-m {
+  font-family: $font-headline;
+  font-size: toRem(22);
+  font-weight: 500;
+  line-height: toRem(24);
+  @include tablet {
+    font-size: toRem(24);
+    line-height: toRem(32);
+  }
+}
+
+@mixin headline-text-l {
+  font-family: $font-headline;
+  font-size: toRem(32);
+  font-weight: 600;
+  line-height: toRem(40);
+  @include phone {
+    font-size: toRem(40);
+    line-height: toRem(48);
+  }
+  @include tablet {
+    font-size: toRem(48);
+    line-height: toRem(56);
+  }
+}
+
+// BODY TEXT
+//------------------------------------------------------------------------------
+@mixin body-text-s {
+  font-family: $font-body;
+  font-size: toRem(13);
+  font-weight: 400;
+  letter-spacing: toRem(0.4);
+  line-height: toRem(20);
+}
+
+@mixin body-text-m {
+  font-family: $font-body;
+  font-size: toRem(16);
+  font-weight: 300;
+  line-height: toRem(24);
+}
+
+@mixin body-text-l {
+  font-family: $font-body;
+  font-size: toRem(20);
+  font-weight: 300;
+  line-height: toRem(32);
+}
+
+// BUTTON TEXT
+//------------------------------------------------------------------------------
+@mixin button-text-s {
+  font-family: $font-body;
+  font-size: toRem(13);
+  font-weight: 500;
+  letter-spacing: toRem(1);
+  line-height: toRem(16);
+}
+
+@mixin button-text-m {
+  font-family: $font-body;
+  font-size: toRem(16);
+  font-weight: 500;
+  letter-spacing: toRem(1);
+  line-height: toRem(16);
+}
+
+@mixin button-text-l {
+  font-family: $font-body;
+  font-size: toRem(20);
+  font-weight: 500;
+  letter-spacing: toRem(1);
+  line-height: toRem(16);
+}
+
+// LINK TEXT
+//------------------------------------------------------------------------------
+@mixin link-text {
+  color: $gray-darkest;
+  cursor: pointer;
+  fill: $gray-darkest;
+  text-decoration: none;
+  &:hover {
+    color: $brand-color;
+    fill: $brand-color;
+  }
+}
+
+@mixin link-text-color {
+  @include link-text;
+  @include button-text-m;
+  color: $brand-color;
+  fill: $brand-color;
+  text-decoration: none;
+}
+
+@mixin link-text-underline {
+  @include link-text;
+  text-decoration: underline;
+}
+
+@mixin link-light {
+  @include link-text;
+  color: $white;
+}

@@ -1,8 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-// import AppBar from '@material-ui/core/AppBar';
-// import Button from '@material-ui/core/Button';
 import { Link } from 'react-router';
+import Menu from '@material-ui/icons/Menu'
 import NotificationBadge from './Badges';
 
 const styles = {
@@ -27,8 +26,19 @@ const styles = {
   },
 };
 
-const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessages, logOut, handleToggle, auth, location }) => {
-  const renderButton = (label, path) => {
+const Header = (props) => {
+  const {
+    handleTitleClick,
+    handleClick,
+    numberOfMatches,
+    numberOfMessages,
+    logOut,
+    handleToggle,
+    auth,
+    location,
+  } = props;
+
+  /*const renderButton = (label, path) => {
     const flatButton = (
       <button
         label={label}
@@ -36,32 +46,33 @@ const Header = ({ handleTitleClick, handleClick, numberOfMatches, numberOfMessag
         style={styles.button}
         labelStyle={styles.buttonLabel}
       />
-   );
+    );
     if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
     return flatButton;
-  };
+  };*/
 
   const renderAppBar = (label, path) => (
-    <div id="AppBar" className="app-bar-container">
-      <div
-        title="SHYBI"
-        style={styles.appBar}
-        titleStyle={styles.title}
-        onLeftIconButtonTouchTap={handleToggle}
-        onTitleTouchTap={handleTitleClick}
-        iconClassNameLeft="app-bar-left-icon"
-        iconElementRight={renderButton(label, path)}
-        zDepth={0}
+    <div className="app-bar">
+      <Menu className="app-bar__menu-svg" />
+      <h1
+        className="app-bar__header"
+        onClick={handleTitleClick}
       >
-        {
-          auth &&
-            <NotificationBadge
-              numberOfMatches={numberOfMatches}
-              numberOfMessages={numberOfMessages}
-              handleClick={handleClick}
-            />
-        }
-      </div>
+        SHYBI
+      </h1>
+      {
+        auth ?
+          <button className="button button--flat app-bar__button">Log Out</button>
+        : <button className="button button--flat app-bar__button">Log In</button>
+      }
+      {
+        auth &&
+        <NotificationBadge
+          numberOfMatches={numberOfMatches}
+          numberOfMessages={numberOfMessages}
+          handleClick={handleClick}
+        />
+      }
     </div>
   );
 

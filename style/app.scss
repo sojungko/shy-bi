@@ -1,1 +1,14 @@
+// VARIABLES
+// -----------------------------------------------------------------------------
+@import 'variables/breakpoints';
+@import 'variables/colors';
+@import 'variables/typography';
+@import 'variables/sizes';
+@import 'variables/z-index';
+
 @import 'base';
+
+
+@import 'components/AboutUs';
+@import 'components/Header';
+@import 'components/Button';

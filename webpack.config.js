@@ -1,23 +1,24 @@
-const path = require('path');
-const fs = require('fs');
+const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const appDirectory = fs.realpathSync(process.cwd());
-function resolveApp(relativePath) {
-  return path.resolve(appDirectory, relativePath);
-}
-
-const BUILD_DIR = resolveApp('public');
-const APP_JSX = resolveApp('src/index.jsx');
-const APP_HTML = resolveApp('index.html');
-const APP_DIR = resolveApp('src');
+const BUILD_DIR = resolve(__dirname, 'public');
+const JS_ENTRY = resolve(__dirname, 'src/index.jsx');
+const HTML_TEMPLATE = resolve(__dirname, 'index.html');
+const CLIENT_DIR = resolve(__dirname, 'src');
+const CSS_ENTRY = resolve(__dirname, 'style/app.scss');
 
 module.exports = [
-  /** Compiling client-side JS */
+  /**
+   *
+   *
+   * Compiling client-side JS
+   *
+   *
+   * */
   {
     entry: [
-      APP_JSX,
+      JS_ENTRY,
       require.resolve('./polyfills'),
 
     ],
@@ -49,7 +50,7 @@ module.exports = [
         },
         {
           test: /\.(js|jsx)$/,
-          include: APP_DIR,
+          include: CLIENT_DIR,
           loader: 'babel-loader',
           query: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
@@ -73,16 +74,22 @@ module.exports = [
     plugins: [
       new HtmlWebpackPlugin({
         inject: true,
-        template: APP_HTML,
+        template: HTML_TEMPLATE,
       }),
     ],
   },
-  /** Compiling SCSS */
+  /**
+   *
+   *
+   *
+   * Compiling SCSS
+   *
+   *
+   * */
   {
-    entry: path.resolve(__dirname, 'style/app.scss'),
+    entry: CSS_ENTRY,
     output: {
       path: BUILD_DIR,
-      filename: 'styles.css',
     },
     resolve: {
       extensions: ['.scss', '.css'],
@@ -104,7 +111,9 @@ module.exports = [
       ],
     },
     plugins: [
-      new MiniCssExtractPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'styles.css',
+      }),
     ],
   },
 ];
