@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import Menu from '@material-ui/icons/Menu'
+import Menu from '@material-ui/icons/Menu';
 import NotificationBadge from './Badges';
 
 const styles = {
@@ -38,7 +38,7 @@ const Header = (props) => {
     location,
   } = props;
 
-  /*const renderButton = (label, path) => {
+  /* const renderButton = (label, path) => {
     const flatButton = (
       <button
         label={label}
@@ -62,8 +62,19 @@ const Header = (props) => {
       </h1>
       {
         auth ?
-          <button className="button button--flat app-bar__button">Log Out</button>
-        : <button className="button button--flat app-bar__button">Log In</button>
+          <button
+            className="button button--flat app-bar__button"
+          >
+            Log Out
+          </button>
+          :
+          <a href="/#/login">
+            <button
+              className="button button--flat app-bar__button"
+            >
+              Log In
+            </button>
+          </a>
       }
       {
         auth &&

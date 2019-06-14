@@ -1,17 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import CardText from '@material-ui/core/CardText';
-// import CardContent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
-// import RadioGroup from '@material-ui/core/RadioGroup';
-// import Radio from '@material-ui/core/Radio';
-// import TextField from '@material-ui/core/TextField';
 // import AutoComplete from '../components/AutoComplete';
 import { signupUser, getLocations } from '../actions/index';
 const { input, select, textarea } = ReactDOM;
@@ -56,7 +48,7 @@ class SignUp extends Component {
     this.props.getLocations(inputs);
   }
 
-  renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  /*renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <TextField
       hintText={label}
       floatingLabelText={label}
@@ -65,16 +57,28 @@ class SignUp extends Component {
       {...custom}
       style={font}
     />
-  );
+  );*/
 
-  renderRadioGroup = ({ input, ...rest }) => (
+  /*renderRadioGroup = ({ input, ...rest }) => (
     <RadioGroup
       {...input} {...rest}
       valueSelected={input.value}
       onChange={(event, value) => input.onChange(value)}
     />
-  );
+  );*/
 
+  renderRadioButton = ({ input, label }) => (
+    <Fragment>
+      <label>{label}</label>
+      <input type="radio" />
+    </Fragment>
+  );
+  renderInput = ({ input, label }) => (
+    <Fragment>
+      <label>{label}</label>
+      <input />
+    </Fragment>
+  )
 
   render() {
   //   const renderAutoComplete = () => (
@@ -87,45 +91,49 @@ class SignUp extends Component {
     const { handleSubmit, pristine, submitting } = this.props;
 
     return (
-      <Card className="container" style={{ display: 'block' }}>
-        <div style={{ margin: '0 auto', padding: '81px 0', width: '300px' }}>
-          {/* <CardHeader
-            title="Sign Up"
-            titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
-            titleColor="black"
-          /> */}
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title">
+            Sign Up
+          </h2>
           <form onSubmit={handleSubmit(this.onSubmit)}>
             <div className="field-line">
-              <Field name="username" type="text" component={input} label="Username" />
+              <Field name="username" type="text" component={this.renderInput} label="Username" />
             </div>
             <div className="field-line">
-              <Field name="password" type="password" component={input} label="Password" />
+              <Field name="password" type="password" component={this.renderInput} label="Password" />
             </div>
             <div className="field-line">
-              <Field name="name" type="text" component={input} label="Name" />
+              <Field name="name" type="text" component={this.renderInput} label="Name" />
             </div>
             <div className="field-line">
-              <Field name="email" type="email" component={input} label="Email" />
+              <Field name="email" type="email" component={this.renderInput} label="Email" />
             </div>
             <div className="field-line">
-              <Field name="age" type="number" component={input} label="Age" />
+              <Field name="age" type="number" component={this.renderInput} label="Age" />
             </div>
             <div className="field-line">
               <div>
-                <label><Field name="sex" component={input} type="radio" value="male"/> Male</label>
-                <label><Field name="sex" component={input} type="radio" value="female"/> Female</label>
+                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>
+                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>
               </div>
             </div>
             {/* <div className="field-line">
               <Field name="city" type="text" style={font} component={this.renderTextField} label="City" />
             </div> */}
             <div className="button-line">
-              <button type="submit" labelStyle={font} label="Create New Account" disabledBackgroundColor="#FCE4EC" />
+              <button
+                type="submit"
+                className="button button--flat"
+                disabled={pristine || submitting}
+              >
+                Create New Account
+              </button>
             </div>
             {/* <CardText style={font}>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
           </form>
         </div>
-      </Card>
+      </div>
     );
   }
 }

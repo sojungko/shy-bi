@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import CardText from '@material-ui/core/CardText';
-// import CardConent from '@material-ui/core/CardContent';
-// import Button from '@material-ui/core/Button';
-// import TextField from '@material-ui/core/TextField';
 
 import { loginUser } from '../actions/index';
 const  { input, select, textarea } = ReactDOM;
@@ -42,38 +36,43 @@ class LogIn extends Component {
   //     style={{ fontFamily: 'Source Sans Pro' }}
   //   />
   // )
+  renderInput = ({ input, label }) => (
+    <Fragment>
+      <label>{label}</label>
+      <input />
+    </Fragment>
+  )
 
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <div className="container" style={{ display: 'block' }}>
-        <div style={{ margin: '0 auto', paddingTop: '81px', paddingBottom: '358px', width: '300px' }}>
-          {/* <CardHeader
-            title="Log In"
-            titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
-            titleColor="black"
-          /> */}
+      <div className="card login">
+        <div className="card-body">
+          <h2 className="card-title">
+            Log In
+          </h2>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="field-line">
-              <Field name="username" type="text" component={input} label="Username" />
+            <div className="card-text">
+              <Field name="username" type="text" component={this.renderInput} label="Username" />
             </div>
-            <div className="field-line">
-              <Field name="password" type="password" component={input} label="Password" />
+            <div className="card-text">
+              <Field name="password" type="password" component={this.renderInput} label="Password" />
             </div>
-            <div className="button-line">
+            <div>
               <button
                 type="submit"
-                label="Log in"
-                labelStyle={{ fontFamily: 'Source Sans Pro' }}
+                className="button button--flat"
                 disabled={pristine || submitting}
-              />
+              >
+                Log In
+              </button>
             </div>
-            <a href="/auth/facebook">
+            {/*<a href="/auth/facebook">
               <button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Login with Facebook" />
-            </a>
-            {/* <CardText style={{ fontFamily: 'Source Sans Pro' }}>
+            </a>*/}
+             <div style={{ fontFamily: 'Source Sans Pro' }}>
               Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
-            </CardText> */}
+            </div> 
           </form>
         </div>
       </div>
