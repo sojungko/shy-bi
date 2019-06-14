@@ -1,0 +1,23 @@
+.contact {
+  margin: 50px;
+}
+
+.contact__item {
+  font-family: Source Sans Pro;
+  margin-bottom: 20px;
+  display: grid;
+}
+
+.contact__label {
+  margin-bottom: 10px;
+}
+
+.contact__input {
+  width: 200px;
+  height: 20px;
+}
+
+.contact__textarea {
+  width: 400px;
+  height: 200px;
+}

@@ -1,31 +1,18 @@
 import React from 'react';
-// import TextField from '@material-ui/core/TextField';
-
-const style = {
-  fontFamily: 'Source Sans Pro',
-  marginTop: '100px',
-  marginLeft: '50px',
-};
 
 const Contact = () => (
-  <div>
-    <div>
-      <textarea
-        style={style}
-        hintText="Name"
-      />
+  <div className="contact">
+    <div className="contact__item">
+      <label className="contact__label" for="name">Name</label>
+      <input className="contact__input" />
     </div>
-    <div>
-      <textarea
-        style={style}
-        hintText="Email"
-      />
+    <div className="contact__item">
+      <label className="contact__label" for="email">Email</label>
+      <input className="contact__input" type="email" />
     </div>
-    <div>
-      <textarea
-        style={style}
-        hintText="Write us something sweet"
-      />
+    <div className="contact__item">
+      <label className="contact__label" for="message">Write us something sweet</label>
+      <textarea className="contact__textarea" />
     </div>
   </div>
   );
