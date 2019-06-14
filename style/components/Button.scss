@@ -17,6 +17,7 @@
   padding: 0 12px;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
   transition: background 0.2s, color 0.2s;
   &:hover {
     background: lighten($brand-color, 2%);
