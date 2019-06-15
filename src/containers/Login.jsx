@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Form, Field } from 'react-final-form';
 
 import { loginUser } from '../actions/index';
-const  { input, select, textarea } = ReactDOM;
 
 class LogIn extends Component {
   static contextTypes = {
@@ -54,7 +52,7 @@ class LogIn extends Component {
                 label="Password"
               />
               <button
-                class="button button--flat"  
+                className="button button--flat button--large form__submit"  
                 type="submit"
                 disabled={invalid || pristine}
               >

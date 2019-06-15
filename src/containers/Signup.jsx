@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-// import { Field, reduxForm } from 'redux-form';
-// import AutoComplete from '../components/AutoComplete';
+import { Form, Field } from 'react-final-form';
+
 import { signupUser, getLocations } from '../actions/index';
-const { input, select, textarea } = ReactDOM;
+
 const styles = {
   block: {
     maxWidth: 250,
@@ -53,93 +52,71 @@ class SignUp extends Component {
       <input type="radio" {...input} {...rest} />
     </Fragment>
   );
-  renderInput = ({ input, label, ...rest }) => {
-    return (
-    <Fragment>
-      <label>{label}</label>
-      <input {...input} {...rest}/>
-    </Fragment>
+
+  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div className="form__group">
+      <label className="form__label">{label}</label>
+      <input {...input} type={type} className="form__input" />
+      {
+        touched && error && <span className="form__warning">{error}</span>
+      }
+    </div>
   )
-  }
 
   render() {
-    const required = value => (value || typeof value === 'number' ? undefined : 'Required')
-    const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
-    const { handleSubmit, pristine, submitting } = this.props;
-
     return (
-      <div className="card">
-        <div className="card-body">
-          <h2 className="card-title">
-            Sign Up
-          </h2>
-          <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="form-group">
-              {/*<Field
+      <div className="page__container page__container--centered">
+        <Form
+          onSubmit={this.onSubmit}
+          render={({ handleSubmit, pristine, invalid }) => (
+            <form onSubmit={handleSubmit} className="form">
+              <h2 className="form__title">
+                Sign Up
+              </h2>
+              <Field
+                component={this.renderField}
                 name="username"
                 type="text"
-                component={this.renderInput}
                 label="Username"
-                className="form-control"
-                validate={[required]}
-              />*/}
-            </div>
-            <div className="form-group">
-              {/*<Field
+              />
+              <Field
+                component={this.renderField}
                 name="password"
                 type="password"
-                component={this.renderInput}
                 label="Password"
-                className="form-control"
-                validate={[required]}
-              />*/}
-            </div>
-            <div className="form-group">
-              {/*<Field
+              />
+              <Field
+                component={this.renderField}
                 name="name"
                 type="text"
-                component={this.renderInput}
                 label="Name"
-                className="form-control"
-                validate={[required]}
-              />*/}
-            </div>
-            <div className="form-group">
-              {/*<Field
+              />
+              <Field
+                component={this.renderField}
                 name="email"
                 type="email"
-                component={this.renderInput}
                 label="Email"
-                className="form-control"
-                validate={[required]}
-              />*/}
-            </div>
-            <div className="form-group">
+              />
               {/*<Field
+                component={this.renderField}
                 name="age"
                 type="number"
-                component={this.renderInput}
                 label="Age"
-                className="form-control"
-                validate={[required, number]}
               />*/}
-            </div>
-            <div className="form-group">
-              <div>
+              {/*<div>*/}
                 {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>*/}
                 {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>*/}
-              </div>
-            </div>
-            <div className="button-line">
+              {/*</div>*/}
               <button
+                className="button button--flat button--large form__submit"  
                 type="submit"
               >
                 Create New Account
               </button>
-            </div>
-             <div style={font}>Already have an account? <Link to={'/login'}>Log in</Link></div> 
-          </form>
-        </div>
+             <div className="form__text">Already have an account? <Link to={'/login'}>Log in</Link></div> 
+            </form>
+          )}
+        />
       </div>
     );
   }

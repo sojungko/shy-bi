@@ -4,7 +4,8 @@
 }
 
 .form__title {
-  @include headline-text-m;
+  @include headline-text-l;
+  text-align: center;
   margin-bottom: 30px;
 }
 
@@ -14,11 +15,18 @@
 }
 
 .form__label {
+  @include body-text-l;
   margin-bottom: 7px;
 }
 
 .form__input {
   height: 30px;
+  border-radius: 2px;
+  border: 0.6px solid $gray-light;
+}
+
+.form__submit {
+  width: 100%;
 }
 
 .form__warning {
@@ -26,5 +34,5 @@
 }
 
 .form__text {
-  
+  margin-top: 20px;
 }

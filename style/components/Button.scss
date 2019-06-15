@@ -47,4 +47,21 @@
       color: $brand-color;
     }
   }
+
+  // Button Sizes
+  // ---------------------------------------------------------------------------
+
+  &--medium {
+    @include button-text-m;
+    border-radius: 4px;
+    height: 60px;
+    padding: 0 32px;
+  }
+
+  &--large {
+    @include button-text-m;
+    border-radius: 4px;
+    height: 70px;
+    padding: 0 48px;
+  }
 }
