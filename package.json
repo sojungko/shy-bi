@@ -4,9 +4,9 @@
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "concurrently -k \"npm run server:dev\" \"npm run client:dev\"",
+    "dev": "NODE_ENV=development concurrently -k --raw \"npm run server:dev\" \"npm run client:dev\"",
     "start": "webpack -w",
-    "server:dev": "NODE_ENV=development nodemon -r dotenv/config server/server.js",
+    "server:dev": "nodemon -r dotenv/config server/server.js",
     "client:dev": "webpack -d --watch --display-error-details",
     "build": "webpack -p",
     "commit": "npx git-cz"
