@@ -30,10 +30,10 @@ import {
       .then(() => this.context.router.push('/'));
   }
 
-  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  renderField = ({ input, label, meta: { touched, error, warning } }) => (
     <div className="form__group">
       <label className="form__label">{label}</label>
-      <input {...input} type={type} className="form__input" />
+      <input {...input} className="form__input" />
       {
         touched && error && <span className="form__warning">{error}</span>
       }
