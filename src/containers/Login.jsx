@@ -2,11 +2,21 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { loginUser } from '../actions/index';
+import {
+  required,
+  mustBeShorterThan,
+  mustBeLongerThan,
+  noSpecialChars,
+  mustContainNumber,
+  mustContainLetter,
+  composeValidators,
+} from '../modules/validators';
 
-class LogIn extends Component {
+  class LogIn extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
   }
@@ -31,6 +41,7 @@ class LogIn extends Component {
   )
 
   render() {
+
     return (
       <div className="page__container">
         <Form
@@ -41,18 +52,36 @@ class LogIn extends Component {
                 Log In
               </h2>
               <Field
-                component={this.renderField}
-                name="email"
-                label="Email"
+                render={this.renderField}
+                name="username"
+                label="Username"
+                validate={composeValidators(required, noSpecialChars, mustContainLetter)}
               />
               <Field
-                component={this.renderField}
+                render={this.renderField}
                 name="password"
                 type="password"
                 label="Password"
+                validate={
+                  composeValidators(
+                    required,
+                    mustBeLongerThan(8),
+                    mustBeShorterThan(16),
+                    mustContainLetter,
+                    mustContainNumber
+                  )
+                }
               />
               <button
-                className="button button--flat button--large form__submit"  
+                className={
+                  classNames({
+                    'button': true,
+                    'button--flat': true,
+                    'button--large': true,
+                    'form__submit': true,
+                    'button--disabled': invalid || pristine,
+                  })
+                }  
                 type="submit"
                 disabled={invalid || pristine}
               >

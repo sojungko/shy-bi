@@ -11,7 +11,7 @@
  *
  * --------------------------------------------------------------- */
 
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+const debug = require('debug');
 
 const { getAll, getFilteredUsers, getLikedUsers } = require('./searchModel');
 

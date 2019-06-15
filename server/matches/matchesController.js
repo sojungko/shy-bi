@@ -1,4 +1,4 @@
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+const debug = require('debug');
 
 const { getMatchedUsers, toggleView, getNewMatches } = require('./matchesModel');
 

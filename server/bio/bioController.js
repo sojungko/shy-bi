@@ -1,5 +1,4 @@
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
-
+const debug = require('debug');
 const { postBio, removeImage, postImage } = require('./bioModel');
 
 const log = debug('server:bio:controller');

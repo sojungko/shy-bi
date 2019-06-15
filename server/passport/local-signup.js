@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+const debug = require('debug');
 
 const User = require('../user/userController');
 const PassportLocalStrategy = require('passport-local').Strategy;

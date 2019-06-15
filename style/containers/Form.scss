@@ -1,6 +1,7 @@
 .form {
   max-width: 200px;
   margin: auto;
+  display: grid;
 }
 
 .form__title {
@@ -26,11 +27,15 @@
 }
 
 .form__submit {
-  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  height: 40px;
 }
 
 .form__warning {
-
+  font-weight: 500;
+  color: $error;
+  margin-top: 6px;
 }
 
 .form__text {

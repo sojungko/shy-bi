@@ -2,9 +2,19 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { signupUser, getLocations } from '../actions/index';
+import {
+  required,
+  mustBeShorterThan,
+  mustBeLongerThan,
+  noSpecialChars,
+  mustContainNumber,
+  mustContainLetter,
+  composeValidators,
+} from '../modules/validators';
 
 class SignUp extends Component {
   static contextTypes = {
@@ -61,35 +71,37 @@ class SignUp extends Component {
                 Sign Up
               </h2>
               <Field
-                component={this.renderField}
-                name="email"
-                type="email"
-                label="Email"
+                render={this.renderField}
+                name="username"
+                type="username"
+                label="Username"
+                validate={composeValidators(required, noSpecialChars, mustContainLetter)}
               />
               <Field
-                component={this.renderField}
+                render={this.renderField}
                 name="password"
                 type="password"
                 label="Password"
+                validate={
+                  composeValidators(
+                    required,
+                    mustBeLongerThan(8),
+                    mustBeShorterThan(16),
+                    mustContainLetter,
+                    mustContainNumber
+                  )
+                }
               />
-              {/*<Field
-                component={this.renderField}
-                name="name"
-                type="text"
-                label="Name"
-              />*/}
-              {/*<Field
-                component={this.renderField}
-                name="age"
-                type="number"
-                label="Age"
-              />*/}
-              {/*<div>*/}
-                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>*/}
-                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>*/}
-              {/*</div>*/}
               <button
-                className="button button--flat button--large form__submit"  
+                className={
+                  classNames({
+                    'button': true,
+                    'button--flat': true,
+                    'button--large': true,
+                    'form__submit': true,
+                    'button--disabled': invalid || pristine,
+                  })
+                }
                 type="submit"
               >
                 Create New Account

@@ -10,7 +10,7 @@
  * --------------------------------------------------------------- */
 
 const bcrypt = require('bcrypt-nodejs');
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => {};
+const debug = require('debug');
 const db = require('../database/config');
 
 const log = debug('server:user:model');

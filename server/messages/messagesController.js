@@ -11,7 +11,7 @@
  *  3) SENT MESSAGES
  *
  * --------------------------------------------------------------- */
-const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+const debug = require('debug');
 
 // Plucks getAll methods from messagesModel.js
 const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messagesModel');
