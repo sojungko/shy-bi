@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently -k \"npm run server:dev\" \"npm run client:dev\"",
     "start": "webpack -w",
-    "server:dev": "nodemon -r dotenv/config server/server.js",
+    "server:dev": "NODE_ENV=development nodemon -r dotenv/config server/server.js",
     "client:dev": "webpack -d --watch --display-error-details",
     "build": "webpack -p",
     "commit": "npx git-cz"
@@ -68,6 +68,7 @@
     "connect-history-api-fallback": "1.3.0",
     "css-loader": "3.0.0",
     "cz-conventional-changelog": "^1.2.0",
+    "debug": "^4.1.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",

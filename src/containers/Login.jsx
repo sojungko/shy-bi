@@ -32,7 +32,7 @@ class LogIn extends Component {
 
   render() {
     return (
-      <div className="page__container page__container--spaced">
+      <div className="page__container">
         <Form
           onSubmit={this.onSubmit}
           render={({ handleSubmit, pristine, invalid }) => (
@@ -42,8 +42,8 @@ class LogIn extends Component {
               </h2>
               <Field
                 component={this.renderField}
-                name="username"
-                label="Username"
+                name="email"
+                label="Email"
               />
               <Field
                 component={this.renderField}

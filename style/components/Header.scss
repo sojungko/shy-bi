@@ -11,18 +11,14 @@
 }
 
 .app-bar__header {
-  color: black;
-  font-family: Source Sans Pro;
-  letter-spacing: 0.5rem;
-  font-weight: 300;
-  font-size: 50px;
-  margin-left: 30px;
+  @include logo-text;
+  margin: auto 10px;
 }
 
 .app-bar__menu-svg {
   width: 2em !important;
   height: 2em !important;
-  fill: black !important;
+  fill: $brand-light !important;
   margin: auto !important;
 }
 

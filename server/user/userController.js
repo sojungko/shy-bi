@@ -12,7 +12,10 @@
  *
  * --------------------------------------------------------------- */
 
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => {};
 const bcrypt = require('bcrypt-nodejs');
+
+const log = debug('server:user:controller');
 // Plucks addUser methods from user/userModel.js
 const { addUser, getUser, toggleOnline, toggleOffline } = require('./userModel');
 
@@ -34,13 +37,13 @@ module.exports = {
    * --------------------------------------------------------------- */
 
 // Taking in job and education because Facebook provides the info
-  signUp({ body: { name, username, email, password, city, age, sex, job = '', edLevel = '', image_url } }, callback) {
-    console.log(`1) [UserController.js/signup] Signing up ${name}`);
+  signUp({ body: { username, email, password } }, callback) {
+    log(`[signup] Signing up ${username}`);
     getUser(username, (user) => {
       if (user) {
         callback(null);
       } else {
-        const userData = { name, username, email, password, city, age, sex, job, edLevel, image_url };
+        const userData = { username, email, password };
         addUser(userData, () => {
           callback(userData);
           toggleOnline(username);
@@ -88,18 +91,18 @@ module.exports = {
     const attemptedPassword = body.password;
     const attemptedUsername = body.username;
 
-    console.log(`1) [UserController.js/signIn] Authenticating for user with
+    log(`[signIn] Authenticating for user with
     username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
     getUser(attemptedUsername, (data) => {
-      console.log(`4) [UserController.js/signIn] Success!
+      log(`4[signIn] Success!
         Checking attempted password: ${body.password} against database`);
 
       const { properties: { username, memberSince, password, name, email, image_url } } = data.get('user');
 
       bcrypt.compare(body.password, password, (err, isMatch) => {
         if (err) {
-          console.log('5) [UserController.js/signIn] Wrong password!');
+          log('[signIn] Wrong password!');
           callback(err);
         } else if (isMatch) {
           const city = data.get('city').properties.name;
@@ -108,7 +111,7 @@ module.exports = {
 
           const result = { memberSince, password, name, email, username, city, age, sex, image_url };
 
-          console.log('5) [UserController.js/signIn] Sending User data: ', result);
+          log('[signIn] Sending User data: ', result);
           callback(null, result);
           toggleOnline(username);
         }
@@ -117,9 +120,9 @@ module.exports = {
   },
 
   signOut({ body: { username } }, res) {
-    console.log(`1) [UserController.js/singOut] Deauthenticating username: ${username}`);
+    log(`[singOut] Deauthenticating username: ${username}`);
     toggleOffline(username, (data) => {
-      console.log('4) [UserController.js/singOut] Success!', data);
+      log('[singOut] Success!', data);
       return res.send(data);
     });
   },
@@ -157,10 +160,10 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   findUser({ params: { username } }, res) {
-    console.log(`1) [UserController.js/findUser] Searching for user with username: ${username}`);
+    log(`[findUser] Searching for user with username: ${username}`);
 
     getUser(username, (data) => {
-      console.log('4) [UserController.js/findUser] Success! Chunking data & building res object', data);
+      log('[findUser] Success! Chunking data & building res object', data);
       const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url, online } } = data.get('user');
       const city = data.get('city').properties.name;
       const age = data.get('age').properties.age;
@@ -168,7 +171,7 @@ module.exports = {
 
       const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url, online };
 
-      console.log('5) [UserController.js/findUser] Sending User data: ', result);
+      log('[findUser] Sending User data: ', result);
       res.json(result);
     });
   },

@@ -11,7 +11,11 @@
  *
  * --------------------------------------------------------------- */
 
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const { getAll, getFilteredUsers, getLikedUsers } = require('./searchModel');
+
+const log = debug('server:search:controller');
 
 module.exports = {
   //
@@ -58,13 +62,13 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   findAllUsers(req, res) {
-    console.log('1) [SearchController.js/findAll] Searching all user');
+    log('[findAll] Searching all user');
 
     getAll((allUserData) => {
-      console.log('4) [SearchController.js/findAll] Success! parsing data & building res object');
+      log('[findAll] Success! parsing data & building res object');
 
       const allUsers = allUserData.map((userData, index) => {
-        console.log(`4-${index}) [SearchController.js/findAll] parsing user ${index} data`);
+        log(`${index}) [findAll] parsing user ${index} data`);
 
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } }
@@ -85,7 +89,7 @@ module.exports = {
         return user;
       });
 
-      console.log('5) [SearchController.js/findAll] Sending All User info: ', allUsers);
+      log('[findAll] Sending All User info: ', allUsers);
       res.send(allUsers);
     });
   },
@@ -127,15 +131,15 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   filterUsers({ query }, res) {
-    console.log(`1) [SearchController.js/filterUsers] Filtering users by
+    log(`[filterUsers] Filtering users by
       minage: ${query.minage}, maxage: ${query.maxage}, city: ${query.city}, sex: ${query.sex}`);
 
     getFilteredUsers(query, (filteredUserData) => {
-      console.log(`4) [SearchController.js/filterUsers] Success!
+      log(`[filterUsers] Success!
         Chunking data & building res object`);
 
       const filteredUsers = filteredUserData.map((userData, index) => {
-        console.log(`4-${index}) [SearchController.js/filterUsers] parsing user ${index} data`);
+        log(`${index}) [filterUsers] parsing user ${index} data`);
 
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } }
@@ -156,14 +160,14 @@ module.exports = {
         return user;
       });
 
-      console.log('5) [SearchController.js/filterUsers] Sending User data: ', filteredUsers);
+      log('[filterUsers] Sending User data: ', filteredUsers);
       res.json(filteredUsers);
     });
   },
 
 /* -------------------------- * FIND LIKED USERS * ------------------------- */
   findLikedUsers({ params }, res) {
-    console.log(`1) [SearchController.js/findLikedUsers] Searching ${params.username}'s liked users`);
+    log(`[findLikedUsers] Searching ${params.username}'s liked users`);
     getLikedUsers(params, (likedUsersData) => {
       const likedUsers = likedUsersData.map((userData) => {
         const { properties: { memberSince, name, username, image_url, online } } = userData.get('liked');
@@ -175,7 +179,7 @@ module.exports = {
         return likedUser;
       });
 
-      console.log('5) [SearchController.js/filterUsers] Sending User data: ', likedUsers);
+      log('[filterUsers] Sending User data: ', likedUsers);
       res.json(likedUsers);
     });
   },

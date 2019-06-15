@@ -11,9 +11,12 @@
  *  3) SENT MESSAGES
  *
  * --------------------------------------------------------------- */
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
 
 // Plucks getAll methods from messagesModel.js
 const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messagesModel');
+
+const log = debug('server:messages:controller');
 
 module.exports = {
   //
@@ -55,15 +58,15 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   findAllMessages({ params }, res) {
-    console.log(`1) [MessagesController.js/findAllMessages] Searching for
+    log(`[findAllMessages] Searching for
       ${params.username} messages`);
 
     getAll(params, (messagesData) => {
-      console.log(`4) [MessagesController.js/findAllMessages] Success!
+      log(`[findAllMessages] Success!
         Parsing messages & building res object`);
 
       const messages = messagesData.map((message, index) => {
-        console.log(`4-${index}) [SearchController.js/findAll] parsing message ${index} data: `,
+        log(`${index}) [findAll] parsing message ${index} data: `,
           message);
 
         const { properties: { name: receivedBy, username: receiverID } }
@@ -109,14 +112,14 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   sendMessage({ body }, res) {
-    console.log(body);
-    console.log(`1) [MessagesController.js/sendMessage] ${body.senderID} is sending message
+    log(body);
+    log(`[sendMessage] ${body.senderID} is sending message
       title: ${body.title}
       body: ${body.body}
       to ${body.receiverID}`);
 
     postMessage(body, () => {
-      console.log('4) [MessagesController.js/sendMessage] Success, sending back 201 status');
+      log('[sendMessage] Success, sending back 201 status');
       res.sendStatus(201);
     });
   },
@@ -156,15 +159,15 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   sentMessages({ params }, res) {
-    console.log(`1) [MessagesController.js/sentMessages]
+    log(`[sentMessages]
       searching for messages sent by ${params.username} `);
 
     getOutbox(params, (sentMessagesData) => {
-      console.log(`4) [MessagesController.js/sentMessages] Success!
+      log(`[sentMessages] Success!
         Parsing messages & building res object`);
 
       const sentMessages = sentMessagesData.map((message, index) => {
-        console.log(`4-${index}) [SearchController.js/sentMessages] parsing message
+        log(`${index}) [sentMessages] parsing message
           ${index} data:`, message);
 
         const { properties: { name: sentBy, username: senderID } }

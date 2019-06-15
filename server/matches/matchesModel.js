@@ -1,8 +1,12 @@
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const db = require('../database/config');
+
+const log = debug('server:matches:model');
 
 module.exports = {
   getMatchedUsers({ username }, callback) {
-    console.log('2) [matchesModel.js/getMatchedUsers] Accessing user database');
+    log('[getMatchedUsers] Accessing user database');
 
     return db
     .run(
@@ -17,17 +21,17 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log('3) [matchesModel.js/getMatchedUsers] Reteriving matched users data');
+        log('[getMatchedUsers] Reteriving matched users data');
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getMatchedUsers] Could not find matched users for ${username}`);
+        console.error(`[userModel.js/getMatchedUsers] Could not find matched users for ${username}`);
         throw error;
       });
   },
 
   toggleView(username, callback) {
-    console.log('2) [matchesModel.js/toggleView] Accessing user database');
+    log('[toggleView] Accessing user database');
 
     return db
       .run(
@@ -35,41 +39,41 @@ module.exports = {
         WHERE (liked)-[:LIKES]->(user)
         SET r.viewed = true
         RETURN r`,
-        { username }
+        { username },
       )
       .then(({ records }) => {
         db.close();
 
-        console.log('3) [matchesModel.js/toggleView] Toggled view properties of matches', records);
+        log('[toggleView] Toggled view properties of matches', records);
         return callback();
       })
       .catch((error) => {
-        console.log('3) [matchesModel.js/toggleView] Could not toggle view of matches');
+        log('[toggleView] Could not toggle view of matches');
         throw error;
       });
   },
 
   getNewMatches(username, callback) {
-    console.log('2) [matchesModel.js/getNewMatches] Accessing user database');
+    log('[getNewMatches] Accessing user database');
 
     return db
       .run(
-        `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
+      `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
         WHERE (liked)-[:LIKES]->(user) AND (r.viewed = false OR r.viewed IS NULL)
         MATCH (liked)-[]->(city:City)
         MATCH (liked)-[]->(age:Age)
         MATCH (liked)-[]->(sex:Sex)
         RETURN liked, city, age, sex`,
-        { username }
-      )
+      { username },
+    )
       .then(({ records }) => {
         db.close();
-        console.log('3) [matchesModel.js/getNewMatches] Successfully fetched unviewed matches : ', records);
+        log('[getNewMatches] Successfully fetched unviewed matches : ', records);
         return callback(records);
       })
       .catch((error) => {
-        console.log('3) [matchesModel.js/getNewMatches] Could not fetch unviewed matches', error);
+        log('[getNewMatches] Could not fetch unviewed matches', error);
         throw error;
-      })
-  }
+      });
+  },
 };

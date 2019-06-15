@@ -1,8 +1,11 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const PassportLocalStrategy = require('passport-local').Strategy;
 const User = require('../user/userController');
 
+const log = debug('server:passport:local-login');
 
 module.exports = new PassportLocalStrategy({
   usernameField: 'username',
@@ -14,7 +17,7 @@ module.exports = new PassportLocalStrategy({
     if (err) {
       done(err);
     }
-    console.log('local-login err : ', err);
+    log('local-login err : ', err);
     const payload = {
       sub: user.username,
     };

@@ -8,7 +8,11 @@
  *  2) GET MATCHES : getFilteredUsers({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback)
  *
  * --------------------------------------------------------------- */
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const db = require('../database/config');
+
+const log = debug('server:search:model');
 
 module.exports = {
   //
@@ -26,7 +30,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getAll(callback) {
-    console.log('2) [searchModel.js/getAll] Accessing user database');
+    log('[getAll] Accessing user database');
 
     return db
       .run(
@@ -37,11 +41,11 @@ module.exports = {
         RETURN age, user, city, sex LIMIT 10`)
       .then(({ records }) => {
         db.close();
-        console.log('3) [searchModel.js/getAll] Reteriving first 10 user data');
+        log('[getAll] Reteriving first 10 user data');
         return callback(records);
       })
       .catch((error) => {
-        console.error('3) [userModel.js/addUser] Could not execute the query to the database');
+        console.error('[addUser] Could not execute the query to the database');
         throw error;
       });
   },
@@ -64,7 +68,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getFilteredUsers({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
-    console.log(`2) [searchModel.js/getFilteredUsers] Accessing user database
+    log(`[getFilteredUsers] Accessing user database
       age: ${minage} < age < ${maxage}
       city: ${city},
       sex: ${sex}
@@ -84,19 +88,19 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log(`3) [searchModel.js/getFilteredUsers] Reteriving first 10 user data that matches
+        log(`[getFilteredUsers] Reteriving first 10 user data that matches
           minage: ${minage}, maxage: ${maxage} city: ${city}, sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getFilteredUsers] Could not user with
+        console.error(`[getFilteredUsers] Could not user with
           ${minage}, ${maxage}, ${city}, ${sex} in database`);
         throw error;
       });
   },
 
   getLikedUsers({ username }, callback) {
-    console.log('2) [searchModel.js/getLikedUsers] Accessing user database');
+    log('[getLikedUsers] Accessing user database');
 
     return db
       .run(
@@ -110,11 +114,11 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log('3) [searchModel.js/getLikedUsers] Reteriving liked users data');
+        log('[getLikedUsers] Reteriving liked users data');
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getLikedUsers] Could not find liked users for ${username}`);
+        console.error(`[getLikedUsers] Could not find liked users for ${username}`);
         throw error;
       });
   },

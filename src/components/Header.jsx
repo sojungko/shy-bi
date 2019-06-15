@@ -61,7 +61,7 @@ const Header = (props) => {
         className="app-bar__header"
         onClick={handleTitleClick}
       >
-        SHYBI
+        shybi
       </h1>
       {
         auth ?

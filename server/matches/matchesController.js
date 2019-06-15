@@ -1,13 +1,17 @@
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const { getMatchedUsers, toggleView, getNewMatches } = require('./matchesModel');
+
+const log = debug('server:matches:controller');
 
 module.exports = {
 
   getMatches({ params }, res) {
-    console.log('1) [matchesController.js/getMatches] Received request for ', params.username);
+    log('[getMatches] Received request for ', params.username);
     getMatchedUsers(params, (matches) => {
-      console.log('4) [matchesController.js/getMatches] Completed database query for ', params.username);
+      log('[getMatches] Completed database query for ', params.username);
       const matchedUsers = matches.map((matchedUserData, index) => {
-        console.log(`4-${index}) [matchesController.js/getMatches] parsing data`);
+        log(`${index}) [getMatches] parsing data`);
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } } = matchedUserData.get('liked');
         const city = matchedUserData.get('city').properties.name;
@@ -17,18 +21,18 @@ module.exports = {
 
         return user;
       });
-      console.log('5) [matchesController.js/getMatches] Sending matches!', matchedUsers);
+      log('[getMatches] Sending matches!', matchedUsers);
       res.json(matchedUsers);
     });
   },
 
   viewMatch({ body: { username } }, res) {
-    console.log(`1) [matchesController.js/viewMatch] Received request for ${username}`);
+    log(`[viewMatch] Received request for ${username}`);
     toggleView(username, () => res.sendStatus(201));
   },
 
   findNewMatches({ params }, res) {
-    console.log(`1) [matchesController.js/findNewMatches] Received request for ${params.username}`);
+    log(`[findNewMatches] Received request for ${params.username}`);
     getNewMatches(params.username, newMatches => res.json(newMatches));
   },
 };

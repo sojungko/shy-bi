@@ -1,8 +1,12 @@
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const db = require('../database/config');
+
+const log = debug('server:bio:model');
 
 module.exports = {
   postBio({ name, email, job = '', edLevel = '', aboutMe = '', username, city, age, sex }, callback) {
-    console.log(`2) [bioModel.js/postBio] Accessing user database with username: ${username}`);
+    log(`[postBio] Accessing user database with username: ${username}`);
     return db
       .run(
         `MATCH (user:User {username: {username}})
@@ -22,38 +26,38 @@ module.exports = {
         { name, email, job, edLevel, aboutMe, username, city, age, sex }
       )
       .then(() => {
-        console.log('3) [bioModel.js/postBio] Editing user info in database:');
+        log('[postBio] Editing user info in database:');
         db.close();
         return callback();
       })
       .catch((error) => {
-        console.log('3) [bioModel.js/postBio] Could not edit user in database : ', error);
+        log('[postBio] Could not edit user in database : ', error);
         throw error;
       });
   },
 
   removeImage(username, callback) {
-    console.log(`2) [bioModel.js/removeImage] Accessing user database with ${username}`)
+    log(`[removeImage] Accessing user database with ${username}`)
     return db
       .run(
         `MATCH (user:User {username: {username}})
         REMOVE user.image_url
         RETURN user`,
-        { username }
+        { username },
       )
       .then(({ records }) => {
         db.close();
-        console.log(`3) [bioModel.js/removeImage] Successfully removed image url from database`);
+        log('[removeImage] Successfully removed image url from database');
         return callback(records);
       })
       .catch((error) => {
-        console.log('3) [bioModel.js/removeImage] Could not delete image from database');
+        log('[removeImage] Could not delete image from database');
         throw error;
       });
   },
 
   postImage(username, url, callback) {
-    console.log(`2) [bioModel.js/postImage] Accessing user database with url: ${url}`);
+    log(`[postImage] Accessing user database with url: ${url}`);
     return db
      .run(
       `MATCH (user:User{ username: {username} })
@@ -63,11 +67,11 @@ module.exports = {
      )
      .then(({ records }) => {
        db.close();
-       console.log('3) [bioModel.js/postImage] Saving image to database:');
+       log('[postImage] Saving image to database:');
        return callback(records);
      })
      .catch((error) => {
-       console.error('3) [bioModel.js/postImage] Could not save image to database');
+       console.error('[postImage] Could not save image to database');
        throw error;
      });
   },

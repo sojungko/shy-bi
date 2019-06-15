@@ -9,8 +9,11 @@
  *
  * --------------------------------------------------------------- */
 
-const db = require('../database/config');
 const bcrypt = require('bcrypt-nodejs');
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => {};
+const db = require('../database/config');
+
+const log = debug('server:user:model');
 
 module.exports = {
   //
@@ -35,52 +38,38 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   addUser(userData, callback) {
-    const { name, username, email, password, city = '', age = '', sex = '', image_url = '' } = userData;
-    console.log(`2) [userModel.js/addUser] Adding user ${name}
+    const { username, password, email } = userData;
+    log(`[addUser] Adding user
       username: ${username}
-      email: ${email}
       password: ${password}
-      city: ${city}
-      age: ${age}
-      sex: ${sex}
-      image: ${image_url}
+      email: ${email}
       to database`);
 
     bcrypt.hash(password, null, null, ((err, hash) => {
       if (err) {
-        console.log(`2) [userModel.js/addUser] Error hashing ${password}`);
+        log(`[addUser] Error hashing ${password}`);
       } else {
-        console.log(`2) [userModel.js/addUser] Password successfully hashed: ${hash}`);
-        console.log('2) username : ', { username });
+        log(`[addUser] Password successfully hashed: ${hash}`);
+        log('[addUser] username : ', { username });
         return db
         .run(
           `MERGE (newUser:User {
-            name: {name},
             username: {username},
-            email: {email},
             password: {hash},
-            image_url: {image_url}
+            email: {email}
           })
           ON CREATE SET newUser.memberSince = timestamp()
 
-          MERGE (userCity: City {name: {city}})
-          MERGE (userAge: Age {age: {age}})
-          MERGE (userSex: Sex {sex: {sex}})
-
-          MERGE (newUser)-[:LIVES_IN]->(userCity)
-          MERGE (newUser)-[:YEARS_OLD]->(userAge)
-          MERGE (newUser)-[:MEMBER_OF]->(userSex)
-
           RETURN newUser`,
-          { name, username, email, hash, city, age, sex, image_url })
+          { username, email, hash })
         .then(({ records }) => {
           db.close();
-          console.log('3) [userModel.js/addUser] records : ', records);
-          console.log('3) [userModel.js/addUser] user has been added');
+          log('[addUser] records : ', records);
+          log('[addUser] user has been added');
           return callback(records[0]);
         })
         .catch((error) => {
-          console.error(`3) [userModel.js/addUser] Could not add ${username} to the database`);
+          console.error(`[addUser] Could not add ${username} to the database`);
           throw error;
         });
       }
@@ -102,7 +91,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getUser(username, callback) {
-    console.log(`2) [userModel.js/getUser] Finding ${username} from database`);
+    log(`[getUser] Finding ${username} from database`);
 
     return db
       .run(
@@ -115,12 +104,12 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log(`3) [userModel.js/getUser] ${username} has been found`);
-        console.log(records);
+        log(`[getUser] ${username} has been found`);
+        log(records);
         callback(records[0]);
       })
       .catch((error) => {
-        console.error(`3) [userModel.js/getUser] Could not find ${username} from database`);
+        console.error(`[getUser] Could not find ${username} from database`);
         throw error;
       });
   },
@@ -145,7 +134,7 @@ module.exports = {
   },
 
   toggleOnline(username) {
-    console.log(`[userModel.js/toggleOnline] Toggling ${username} online `);
+    log(`[toggleOnline] Toggling ${username} online `);
     return db
       .run(
         `MATCH (user: User{username: {username}})
@@ -154,12 +143,12 @@ module.exports = {
         { username })
       .then((data) => {
         db.close();
-        console.log(`[userModel.js/toggleOnline] Toggled ${username} online`, data);
+        log(`[toggleOnline] Toggled ${username} online`, data);
       });
   },
 
   toggleOffline(username, callback) {
-    console.log(`[userModel.js/toggleOffline] Toggling ${username} online `);
+    log(`[toggleOffline] Toggling ${username} online `);
     return db
       .run(
         `MATCH (user: User{username: {username}})
@@ -168,7 +157,7 @@ module.exports = {
         { username })
       .then((data) => {
         db.close();
-        console.log(`[userModel.js/toggleOffline] Toggled ${username} offline`, data);
+        console.log(`[toggleOffline] Toggled ${username} offline`, data);
         return callback(data);
       });
   },

@@ -1,7 +1,11 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const User = require('../user/userController');
 const PassportLocalStrategy = require('passport-local').Strategy;
+
+const log = debug('server:passport:local-signup');
 
 module.exports = new PassportLocalStrategy({
   usernameField: 'username',
@@ -11,10 +15,10 @@ module.exports = new PassportLocalStrategy({
 }, (req, username, password, done) => {
   User.signUp(req, (user) => {
     if (!user) {
-      console.log('passport/local-signup: Username already exists');
+      log('Username already exists');
       return done('Username already exists');
     }
-    console.log('passport/local-signup: User successfully added');
+    log('User successfully added');
     const payload = {
       sub: user.username,
     };

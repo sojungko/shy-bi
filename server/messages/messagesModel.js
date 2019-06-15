@@ -6,7 +6,11 @@
  *
  *  1) GET ALL : getAll({ username }, callback)
  * --------------------------------------------------------------- */
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
+
 const db = require('../database/config');
+
+const log = debug('server:messages:model');
 
 module.exports = {
   //
@@ -26,7 +30,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getAll({ username }, callback) {
-    console.log('2) [messagesModel.js/getAll] Accessing message database');
+    log('[getAll] Accessing message database');
 
     return db
       .run(
@@ -36,11 +40,11 @@ module.exports = {
         { username })
       .then(({ records }) => {
         db.close();
-        console.log('3) [messagesModel.js/getAll] Reteriving first 10 messsages: ');
+        log('[getAll] Reteriving first 10 messsages: ');
         return callback(records);
       })
       .catch((error) => {
-        console.error('3) [messagesModel.js/getAll] Could not execute the query to the database');
+        console.error('[getAll] Could not execute the query to the database');
         throw error;
       });
   },
@@ -64,7 +68,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   postMessage({ senderID, receiverID, title, body }, callback) {
-    console.log(`2) [messagesModel.js/postMessage] Accessing message database with
+    log(`[postMessage] Accessing message database with
       senderID: ${senderID}
       receiverID: ${receiverID}
       title: ${title}
@@ -80,11 +84,11 @@ module.exports = {
        { senderID, receiverID, title, body })
      .then((data) => {
        db.close();
-       console.log('3) [messagesModel.js/postMessage] Writing message to database:');
+       log('[postMessage] Writing message to database:');
        return callback(data);
      })
      .catch((error) => {
-       console.error('3) [messagesModel.js/postMessage] Could not writing message to database');
+       console.error('3) [postMessage] Could not writing message to database');
        throw error;
      });
   },
@@ -106,7 +110,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getOutbox({ username }, callback) {
-    console.log('2) [messagesModel.js/getOutbox] Accessing message database');
+    log('[getOutbox] Accessing message database');
 
     return db
       .run(
@@ -116,12 +120,12 @@ module.exports = {
         { username })
       .then(({ records }) => {
         db.close();
-        console.log(`3) [messagesModel.js/getOutbox] Reteriving first 10 messsages
+        log(`[getOutbox] Reteriving first 10 messsages
           sent by ${username}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [messagesModel.js/getOutbox]
+        console.error(`[getOutbox]
           Could not execute the query to the database`);
         throw error;
       });

@@ -5,8 +5,11 @@
 *
 *
 */
+const debug = process.env.NODE_ENV === 'development' ? require('debug') : () => { };
 
 const db = require('../database/config');
+
+const log = debug('server:rec:model');
 
 module.exports = {
     /* ------------------------- * getRecMatches * ------------
@@ -27,7 +30,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getRecMatches({ username }, callback) {
-    console.log('2) [recommendationsModel.js/getRecMatches] Accessing user database');
+    log('[getRecMatches] Accessing user database');
 
     return db
       .run(
@@ -41,11 +44,11 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        console.log(`3) [recommendationsModel.js/getRecMatches] Fetching the recommended matches for username: ${username}`);
+        log(`[getRecMatches] Fetching the recommended matches for username: ${username}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`3) [recommendationsModel.js/getRecMatches] Could not find any
+        console.error(`[getRecMatches] Could not find any
         recommendations for username: ${username}`);
         throw error;
       });

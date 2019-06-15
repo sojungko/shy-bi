@@ -47,6 +47,49 @@
       color: $brand-color;
     }
   }
+  &--faded {
+    background: $gray-lightest;
+    border-radius: 0 !important;
+    color: $gray-light;
+    &:hover {
+      background: $gray-lightest;
+    }
+  }
+
+  &--danger {
+    background: $error;
+    &:hover {
+      background: lighten($error, 2%);
+    }
+    &:active {
+      background: darken($error, 2%);
+    }
+  }
+
+  &--warning {
+    background: $warning;
+    &:hover {
+      background: lighten($warning, 2%);
+    }
+    &:active {
+      background: darken($warning, 2%);
+    }
+  }
+
+  &--disabled {
+    background: $gray-light;
+    border: 1px solid $gray-dark;
+    box-shadow: none;
+    color: $gray-dark;
+    pointer-events: none;
+    &:hover {
+      background: $gray-light;
+    }
+  }
+
+  &--link {
+    color: $brand-dark;
+  }
 
   // Button Sizes
   // ---------------------------------------------------------------------------

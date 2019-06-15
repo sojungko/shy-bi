@@ -16,9 +16,9 @@ $font-body: $font-system;
 //------------------------------------------------------------------------------
 @mixin logo-text {
   font-family: $font-body;
-  font-size: toRem(22);
-  font-weight: 900;
-  text-transform: uppercase;
+  font-size: toRem(30);
+  font-weight: 300;
+  letter-spacing: 0.8rem;
 }
 
 // HEADLINE TEXT

@@ -6,19 +6,6 @@ import { Form, Field } from 'react-final-form';
 
 import { signupUser, getLocations } from '../actions/index';
 
-const styles = {
-  block: {
-    maxWidth: 250,
-  },
-  radioButton: {
-    marginBottom: 16,
-  },
-};
-
-const font = {
-  fontFamily: 'Source Sans Pro',
-};
-
 class SignUp extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -65,7 +52,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div className="page__container page__container--centered">
+      <div className="page__container">
         <Form
           onSubmit={this.onSubmit}
           render={({ handleSubmit, pristine, invalid }) => (
@@ -75,9 +62,9 @@ class SignUp extends Component {
               </h2>
               <Field
                 component={this.renderField}
-                name="username"
-                type="text"
-                label="Username"
+                name="email"
+                type="email"
+                label="Email"
               />
               <Field
                 component={this.renderField}
@@ -85,18 +72,12 @@ class SignUp extends Component {
                 type="password"
                 label="Password"
               />
-              <Field
+              {/*<Field
                 component={this.renderField}
                 name="name"
                 type="text"
                 label="Name"
-              />
-              <Field
-                component={this.renderField}
-                name="email"
-                type="email"
-                label="Email"
-              />
+              />*/}
               {/*<Field
                 component={this.renderField}
                 name="age"
