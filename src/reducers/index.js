@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { reducer as FormReducer } from 'redux-form';
 import UsersReducer from './usersReducer';
 import ProfileReducer from './profileReducer';
 import AuthReducer from './authReducer';
@@ -15,7 +14,6 @@ import ExpandCardReducer from './expandCardReducer';
 const RootReducer = combineReducers({
   location: LocationReducer,
   leftNavToggle: LeftNavReducer,
-  form: FormReducer,
   users: UsersReducer,
   profile: ProfileReducer,
   auth: AuthReducer,

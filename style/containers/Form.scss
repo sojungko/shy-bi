@@ -1,0 +1,30 @@
+.form {
+  max-width: 200px;
+  margin: auto;
+}
+
+.form__title {
+  @include headline-text-m;
+  margin-bottom: 30px;
+}
+
+.form__group {
+  display: grid;
+  margin-bottom: 20px;
+}
+
+.form__label {
+  margin-bottom: 7px;
+}
+
+.form__input {
+  height: 30px;
+}
+
+.form__warning {
+
+}
+
+.form__text {
+  
+}

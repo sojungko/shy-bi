@@ -8,7 +8,7 @@ $pixel-base: 16;
 
 // FONT FAMILIES
 //------------------------------------------------------------------------------
-$font-system: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$font-system: Source Sans Pro, Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 $font-headline: $font-system;
 $font-body: $font-system;
 
@@ -28,6 +28,7 @@ $font-body: $font-system;
   font-size: toRem(16);
   font-weight: 500;
   line-height: toRem(20);
+  text-transform: uppercase;
   @include tablet {
     font-size: toRem(18);
     line-height: toRem(24);
@@ -39,6 +40,7 @@ $font-body: $font-system;
   font-size: toRem(22);
   font-weight: 500;
   line-height: toRem(24);
+  text-transform: uppercase;
   @include tablet {
     font-size: toRem(24);
     line-height: toRem(32);
@@ -50,6 +52,7 @@ $font-body: $font-system;
   font-size: toRem(32);
   font-weight: 600;
   line-height: toRem(40);
+  text-transform: uppercase;
   @include phone {
     font-size: toRem(40);
     line-height: toRem(48);

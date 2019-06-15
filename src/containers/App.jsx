@@ -68,7 +68,7 @@ class App extends Component {
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
-        <div className="content">
+        <div className="page">
           {this.props.children}
         </div>
         <BottomNav />

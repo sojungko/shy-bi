@@ -1,0 +1,31 @@
+.page {
+  max-width: $tablet;
+  padding: $header-height + $page-padding;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page__container {
+  // PAGE SPACING
+  // --------------------------------------------------------------------------
+
+  &--spaced {
+    padding: $page-padding*3 $page-padding 0;
+  }
+
+  &--spaced-small {
+    padding: $page-padding 16px 0;
+  }
+
+  &--narrow {
+    max-width: 450px;
+  }
+
+  &--wide {
+    max-width: $desktop-xl;
+  }
+
+  &--center {
+    text-align: center;
+  }
+}

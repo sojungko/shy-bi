@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+// import { Field, reduxForm } from 'redux-form';
 // import Card from '@material-ui/core/Card';
 // import Button from '@material-ui/core/Button';
 // import RadioGroup from '@material-ui/core/RadioGroup';
@@ -66,16 +66,16 @@ class FacebookSignup extends Component {
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <h2 className="card-heading">Complete Signup</h2>
           <div className="field-line">
-            <Field name="birthday" type="date" component={input} label="Birthday" />
+            {/*<Field name="birthday" type="date" component={input} label="Birthday" />*/}
           </div>
           <div className="field-line">
             <div>
-              <label><Field name="sex" component={input} type="radio" value="male"/> Male</label>
-              <label><Field name="sex" component={input} type="radio" value="female"/> Female</label>
+              {/*<label><Field name="sex" component={input} type="radio" value="male"/> Male</label>*/}
+              {/*<label><Field name="sex" component={input} type="radio" value="female"/> Female</label>*/}
             </div>
           </div>
           <div className="field-line">
-            <Field name="city" type="text" component={input} label="City" />
+            {/*<Field name="city" type="text" component={input} label="City" />*/}
           </div>
           <div className="button-line">
             <button type="submit" label="Create New Account" primary />
@@ -85,22 +85,5 @@ class FacebookSignup extends Component {
     );
   }
 }
-
-const validate = (values) => {
-  const errors = {};
-  const requiredFields = ['birthday', 'sex', 'city'];
-  requiredFields.forEach((field) => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-
-  return errors;
-};
-
-FacebookSignup = reduxForm({
-  form: 'FacebookSignup',
-  validate,
-})(FacebookSignup);
 
 export default connect(null, { signupUser })(FacebookSignup);

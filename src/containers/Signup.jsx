@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+// import { Field, reduxForm } from 'redux-form';
 // import AutoComplete from '../components/AutoComplete';
 import { signupUser, getLocations } from '../actions/index';
 const { input, select, textarea } = ReactDOM;
@@ -36,7 +36,6 @@ class SignUp extends Component {
 
   shouldComponentUpdate = nextProps => !nextProps.location
 
-
   onSubmit = (inputs) => {
     this.props.signupUser(inputs)
       .then(() => {
@@ -47,25 +46,6 @@ class SignUp extends Component {
   handleUpdateInput = (inputs) => {
     this.props.getLocations(inputs);
   }
-
-  /*renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField
-      hintText={label}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom}
-      style={font}
-    />
-  );*/
-
-  /*renderRadioGroup = ({ input, ...rest }) => (
-    <RadioGroup
-      {...input} {...rest}
-      valueSelected={input.value}
-      onChange={(event, value) => input.onChange(value)}
-    />
-  );*/
 
   renderRadioButton = ({ input, label, ...rest }) => (
     <Fragment>
@@ -87,7 +67,6 @@ class SignUp extends Component {
     const number = value => value && isNaN(Number(value)) ? 'Must be a number' : undefined
     const { handleSubmit, pristine, submitting } = this.props;
 
-    // TODO pristine controle doesnt work
     return (
       <div className="card">
         <div className="card-body">
@@ -95,55 +74,60 @@ class SignUp extends Component {
             Sign Up
           </h2>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div className="card-text">
-              <Field
+            <div className="form-group">
+              {/*<Field
                 name="username"
                 type="text"
                 component={this.renderInput}
                 label="Username"
+                className="form-control"
                 validate={[required]}
-              />
+              />*/}
             </div>
-            <div className="card-text">
-              <Field
+            <div className="form-group">
+              {/*<Field
                 name="password"
                 type="password"
                 component={this.renderInput}
                 label="Password"
+                className="form-control"
                 validate={[required]}
-              />
+              />*/}
             </div>
-            <div className="card-text">
-              <Field
+            <div className="form-group">
+              {/*<Field
                 name="name"
                 type="text"
                 component={this.renderInput}
                 label="Name"
+                className="form-control"
                 validate={[required]}
-              />
+              />*/}
             </div>
-            <div className="card-text">
-              <Field
+            <div className="form-group">
+              {/*<Field
                 name="email"
                 type="email"
                 component={this.renderInput}
                 label="Email"
+                className="form-control"
                 validate={[required]}
-              />
+              />*/}
             </div>
-            <div className="card-text">
-              <Field
+            <div className="form-group">
+              {/*<Field
                 name="age"
                 type="number"
                 component={this.renderInput}
                 label="Age"
+                className="form-control"
                 validate={[required, number]}
-              />
+              />*/}
             </div>
-            <div className="card-text">
+            <div className="form-group">
               <div>
-                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>
-                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>
+                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>*/}
+                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>*/}
               </div>
             </div>
             <div className="button-line">
@@ -160,10 +144,6 @@ class SignUp extends Component {
     );
   }
 }
-
-SignUp = reduxForm({
-  form: 'SignUp',
-})(SignUp);
 
 const mapStateToProps = ({ location }) => ({ location });
 

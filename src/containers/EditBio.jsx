@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+// import { Field, reduxForm } from 'redux-form';
 import ImageUpload from './ImageUpload';
 import { getUser, editBio } from '../actions';
 import { getUsername } from '../modules/auth';
@@ -89,48 +89,48 @@ class EditBio extends Component {
           <form onSubmit={handleSubmit(this.onSubmit)} >
             <div className="card-text">
               <div>
-                <Field
+                {/*<Field
                   name="name"
                   type="text"
                   component={this.renderInput}
                   label="Name"
-                />
+                />*/}
               </div>
             </div>
             <div className="card-text">
               <div>
-                <Field
+                {/*<Field
                   name="password"
                   type="password"
                   component={this.renderInput}
                   label="Password"
-                />
+                />*/}
               </div>
             </div>
             <div className="card-text">
               <div>
-                <Field
+                {/*<Field
                   name="email"
                   type="email"
                   component={this.renderInput}
                   label="Email"
-                />
+                />*/}
               </div>
             </div>
             <div className="card-text">
               <div style={style}>
-                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>
-                <label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>
+                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>*/}
+                {/*<label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>*/}
               </div>
             </div>
             <div className="card-text">
               <div>
-                <Field
+                {/*<Field
                   name="job"
                   type="text"
                   component={this.renderInput}
                   label="Job"
-                />
+                />*/}
               </div>
             </div>
             {/*<div className="card-text">
@@ -149,7 +149,7 @@ class EditBio extends Component {
             </div>*/}
             <div className="card-text">
               <div>
-                <Field
+                {/*<Field
                   name="aboutMe"
                   type="text"
                   component={this.renderInput}
@@ -158,7 +158,7 @@ class EditBio extends Component {
                   fullWidth
                   rows={2}
                   rowsMax={4}
-                />
+                />*/}
               </div>
             </div>
             <ImageUpload />
@@ -184,10 +184,6 @@ class EditBio extends Component {
     );
   }
 }
-
-EditBio = reduxForm({
-  form: 'EditBioForm',
-})(EditBio);
 
 const mapStateToProps = ({ profile }) => ({ profile, isEdited: profile.isEdited });
 export default connect(mapStateToProps, { getUser, editBio })(EditBio);
