@@ -1,6 +1,6 @@
 const debug = require('debug');
 
-const { getRecMatches } = require('./recommendationsModel');
+const { getRecMatches } = require('./recommendations-model');
 
 const log = debug('server:rec:controller');
 

@@ -1,5 +1,5 @@
 const debug = require('debug');
-const { postBio, removeImage, postImage } = require('./bioModel');
+const { postBio, removeImage, postImage } = require('./bio-model');
 
 const log = debug('server:bio:controller');
 

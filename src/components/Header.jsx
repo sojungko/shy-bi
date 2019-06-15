@@ -4,27 +4,27 @@ import { Link } from 'react-router';
 import Menu from '@material-ui/icons/Menu';
 import NotificationBadge from './Badges';
 
-const styles = {
-  appBar: {
-    backgroundColor: 'white',
-    cursor: 'pointer',
-    position: 'fixed',
-    height: '70px',
-  },
-  title: {
-    color: 'black',
-    opacity: 1,
-    fontFamily: 'Source Sans Pro',
-    fontSize: '50px',
-    marginLeft: '30px',
-  },
-  button: {
-    color: 'grey',
-  },
-  buttonLabel: {
-    fontSize: '17px',
-  },
-};
+// const styles = {
+//   appBar: {
+//     backgroundColor: 'white',
+//     cursor: 'pointer',
+//     position: 'fixed',
+//     height: '70px',
+//   },
+//   title: {
+//     color: 'black',
+//     opacity: 1,
+//     fontFamily: 'Source Sans Pro',
+//     fontSize: '50px',
+//     marginLeft: '30px',
+//   },
+//   button: {
+//     color: 'grey',
+//   },
+//   buttonLabel: {
+//     fontSize: '17px',
+//   },
+// };
 
 const Header = (props) => {
   const {
@@ -37,19 +37,6 @@ const Header = (props) => {
     auth,
     location,
   } = props;
-
-  /* const renderButton = (label, path) => {
-    const flatButton = (
-      <button
-        label={label}
-        containerElement={<Link to={path}>{label}</Link>}
-        style={styles.button}
-        labelStyle={styles.buttonLabel}
-      />
-    );
-    if (label === 'Log Out') return cloneElement(flatButton, { onTouchTap: logOut });
-    return flatButton;
-  };*/
 
   const renderAppBar = (label, path) => (
     <div className="app-bar">
@@ -74,13 +61,22 @@ const Header = (props) => {
             </button>
           </a>
           :
-          <a href="/#/login" className="app-bar__button-container">
-            <button
-              className="button button--flat"
-            >
+          location === '/login' ?
+            <a href="/#/signup" className="app-bar__button-container">
+              <button
+                className="button button--flat"
+              >
+                Sign Up
+            </button>
+            </a>
+          :
+            <a href="/#/login" className="app-bar__button-container">
+              <button
+                className="button button--flat"
+              >
               Log In
             </button>
-          </a>
+            </a>
       }
       {
         auth &&

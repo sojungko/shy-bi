@@ -115,7 +115,7 @@ module.exports = {
   },
 
   getUserByEmail(email, callback) {
-    console.log(`2) [userModel.js/getUserByEmail] Finding ${email} from database`);
+    console.log(`2) [user-model.js/getUserByEmail] Finding ${email} from database`);
 
     return db
       .run(
@@ -124,11 +124,11 @@ module.exports = {
         { email })
       .then(({ records }) => {
         db.close();
-        console.log(`3) [userModel.js/getUserByEmail] ${email} has been found`, records);
+        console.log(`3) [user-model.js/getUserByEmail] ${email} has been found`, records);
         return callback(records);
       })
       .catch((error) => {
-        console.log(`3) [userModel.js/getUserByEmail] Could not find ${email} from database`);
+        console.log(`3) [user-model.js/getUserByEmail] Could not find ${email} from database`);
         throw error;
       });
   },

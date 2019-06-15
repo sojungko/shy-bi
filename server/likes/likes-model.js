@@ -49,7 +49,7 @@ module.exports = {
         callback(results);
       })
       .catch((error) => {
-        console.error(`[userModel.js/unlike] Could not make ${username} to unlike ${unlikedUser}`);
+        console.error(`[user-model.js/unlike] Could not make ${username} to unlike ${unlikedUser}`);
         callback(error);
       });
   },

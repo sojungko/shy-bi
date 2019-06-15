@@ -1,4 +1,4 @@
-/* ------------* server/recommendations/recommendationsModel.js *-----------
+/* ------------* server/recommendations/recommendations-model.js *-----------
 * methods:
 *
 *  1) getRecMatches:

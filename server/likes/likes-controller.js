@@ -1,6 +1,6 @@
 const debug = require('debug');
 
-const { like, unlike } = require('./likesModel');
+const { like, unlike } = require('./likes-model');
 
 const log = debug('server:likes:controller');
 

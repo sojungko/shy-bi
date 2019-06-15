@@ -1,8 +1,8 @@
 /* ---------------- * SERVER/MESSAGES/MESSAGESCONTROLLER.JS * ---------------
  *
  * This file contains all user methods and serves as an intermediary
- * layer between routes.js and messagesModel.js. Methods in this file are
- * responsible for invoking methods in the messagesModel.js
+ * layer between routes.js and messages-model.js. Methods in this file are
+ * responsible for invoking methods in the messages-model.js
  *
  * Methods in this file are:
  *
@@ -13,8 +13,8 @@
  * --------------------------------------------------------------- */
 const debug = require('debug');
 
-// Plucks getAll methods from messagesModel.js
-const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messagesModel');
+// Plucks getAll methods from messages-model.js
+const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messages-model');
 
 const log = debug('server:messages:controller');
 
@@ -22,7 +22,7 @@ module.exports = {
   //
   /* -------------------------- * FIND ALL MESSAGES * -------------------------
    *
-   * Calls getAll method. (see messagesModel.js)
+   * Calls getAll method. (see messages-model.js)
    *
    *  Parameters:
    *    • req | Object | request object
@@ -99,7 +99,7 @@ module.exports = {
   //
   /* -------------------------- * SEND MESSAGES * -------------------------
    *
-   * Calls getAll method. (see messagesModel.js)
+   * Calls getAll method. (see messages-model.js)
    * Sends 201 status as a response.
    *
    *  Parameters:
@@ -127,7 +127,7 @@ module.exports = {
   //
   /* -------------------------- * FIND SENT MESSAGES * -------------------------
    *
-   * Calls getAllSent method. (see messagesModel.js)
+   * Calls getAllSent method. (see messages-model.js)
    * Sends 201 status as a response.
    *
    * -Sample API Route: api/messages/sent/tim

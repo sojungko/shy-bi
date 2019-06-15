@@ -1,8 +1,8 @@
 /* ---------------- * SERVER/USER/USERCONTROLLER.JS * ---------------
  *
  * This file contains all user methods and serves as an intermediary
- * layer between routes.js and userModel.js. Methods in this file are
- * responsible for invoking methods in the userModel.js
+ * layer between routes.js and user-model.js. Methods in this file are
+ * responsible for invoking methods in the user-model.js
  *
  * Methods in this file are:
  *
@@ -16,14 +16,14 @@ const debug = require('debug');
 const bcrypt = require('bcrypt-nodejs');
 
 const log = debug('server:user:controller');
-// Plucks addUser methods from user/userModel.js
-const { addUser, getUser, toggleOnline, toggleOffline } = require('./userModel');
+// Plucks addUser methods from user/user-model.js
+const { addUser, getUser, toggleOnline, toggleOffline } = require('./user-model');
 
 module.exports = {
   //
   /* -------------------------- * SIGN UP * -------------------------
    *
-   * Calls addUser method. (see user/userModel.js)
+   * Calls addUser method. (see user/user-model.js)
    * Sends 201 status as a response.
    *
    *  Parameters:
@@ -55,7 +55,7 @@ module.exports = {
   //
   /* -------------------------- * SIGN IN * -------------------------
    *
-   * Calls getUser method. (see user/userModel.js)
+   * Calls getUser method. (see user/user-model.js)
    * If user is authenticated: send user data as a JSON object
    * If user is not authenticated: send 401 status
    *
@@ -128,7 +128,7 @@ module.exports = {
   },
   /* ------------------------- * FIND USER * -------------------------
    *
-   * Calls getUser method. (see user/userModel.js)
+   * Calls getUser method. (see user/user-model.js)
    * Once it receives user data,
    *  chunks the data and build a result object for FE to use.
    * Sends a JSON stringified result object as a response.

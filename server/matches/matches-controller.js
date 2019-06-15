@@ -1,6 +1,6 @@
 const debug = require('debug');
 
-const { getMatchedUsers, toggleView, getNewMatches } = require('./matchesModel');
+const { getMatchedUsers, toggleView, getNewMatches } = require('./matches-model');
 
 const log = debug('server:matches:controller');
 

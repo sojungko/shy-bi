@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const PassportFacebookStrategy = require('passport-facebook').Strategy;
-const User = require('../user/userModel');
+const User = require('../user/user-model');
 
 module.exports = new PassportFacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,

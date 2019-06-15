@@ -25,7 +25,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[userModel.js/getMatchedUsers] Could not find matched users for ${username}`);
+        console.error(`[user-model.js/getMatchedUsers] Could not find matched users for ${username}`);
         throw error;
       });
   },

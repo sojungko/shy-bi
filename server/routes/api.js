@@ -1,14 +1,14 @@
 const express = require('express');
 
-// Plucks signup method from user/userController.js
-const { findUser, signOut } = require('../user/userController');
-const { findAllUsers, filterUsers, findLikedUsers } = require('../search/searchController');
-const { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } = require('../messages/messagesController');
-const { getRecommendedMatches } = require('../recommendations/recommendationsController');
-const { editBio, deleteImage, uploadImage } = require('../bio/bioController');
-const { getMatches, viewMatch, findNewMatches } = require('../matches/matchesController');
-const { likeUser, unlikeUser } = require('../likes/likesController');
-const { getLocations } = require('../location/locationController');
+// Plucks signup method from user/user-controller.js
+const { findUser, signOut } = require('../user/user-controller');
+const { findAllUsers, filterUsers, findLikedUsers } = require('../search/search-controller');
+const { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } = require('../messages/messages-controller');
+const { getRecommendedMatches } = require('../recommendations/recommendations-controller');
+const { editBio, deleteImage, uploadImage } = require('../bio/bio-controller');
+const { getMatches, viewMatch, findNewMatches } = require('../matches/matches-controller');
+const { likeUser, unlikeUser } = require('../likes/likes-controller');
+const { getLocations } = require('../location/location-controller');
 
 const router = new express.Router();
 
@@ -22,81 +22,81 @@ const router = new express.Router();
    * 1) Users
    *  a) Sign Up
    *    i) POST request to: '/api/users/signup'
-   *     - Calls signUp function in the user/userController.js
+   *     - Calls signUp function in the user/user-controller.js
    *  b) Log In
    *    i) POST request to: 'api/users/signin'
-   *     - Calls signIn function in the user/userController.js
+   *     - Calls signIn function in the user/user-controller.js
    *  c) Find User
    *    i) GET request to: 'api/users:username'
-   *     - Calls findUser function in the user/userController.js
+   *     - Calls findUser function in the user/user-controller.js
    *  d) Like User
    *    i) POST request to: '/api/users/like'
    *
    * 2) Search
    *  a) All Users
    *    i) GET request to: 'api/search/all'
-   *      - Calls findAllUsers in search/searchController.js
+   *      - Calls findAllUsers in search/search-controller.js
    *  b) Filter User
    *    i) GET request to: 'api/search/filter?sex={sex}&age={age}&city={city}'
-   *      - Calls filterUsers in search/searchController.js
+   *      - Calls filterUsers in search/search-controller.js
    *
    * 3) Messages
    *  a) Find All Messsages
    *    i) GET request to: '/api/messages/all:username'
-   *      - Calls getAllMessages in the messages/messagesController.js
+   *      - Calls getAllMessages in the messages/messages-controller.js
    *  b) Send Message
    *    ii) POST request to: '/api/messages/send'
-   *      - Calls sendMessage in the messages/messagesController.js
+   *      - Calls sendMessage in the messages/messages-controller.js
    *  C) Find Sent Messages
    *    iii) GET request to: '/api/messages/sent'
-   *      - Calls sendMessage in the messages/messagesController.js
+   *      - Calls sendMessage in the messages/messages-controller.js
    *
    * ------------------------------------------------------------- */
 
-// 1-c-i) GET -> file: user/userController.js, method: getUser
+// 1-c-i) GET -> file: user/user-controller.js, method: getUser
 router.get('/users/:username', findUser);
 
-// 1-d-i) POST -> file: user/userController.js, method: likeUser
+// 1-d-i) POST -> file: user/user-controller.js, method: likeUser
 router.post('/users/like', likeUser);
 
-// 1-e-1) POST -> file: user/userController.js, methoq: unlikeUser
+// 1-e-1) POST -> file: user/user-controller.js, methoq: unlikeUser
 router.post('/users/unlike', unlikeUser);
 
-// 1-e-1) POST -> file: user/userController.js, methoq: unlikeUser
+// 1-e-1) POST -> file: user/user-controller.js, methoq: unlikeUser
 router.post('/signout', signOut);
 
-// 2-a-i) GET -> file: search/searchController.js method: findAllUsers
+// 2-a-i) GET -> file: search/search-controller.js method: findAllUsers
 router.get('/search/all', findAllUsers);
 
-// 2-b-i) GET -> file: search/searchController.js method:
+// 2-b-i) GET -> file: search/search-controller.js method:
 router.get('/search/filter', filterUsers);
 
-// 2-c-i) GET -> file: search/searchController.js method:
+// 2-c-i) GET -> file: search/search-controller.js method:
 router.get('/search/liked/:username', findLikedUsers);
 
-// 3-a-i) GET -> file: messages/messagesController.js method:
+// 3-a-i) GET -> file: messages/messages-controller.js method:
 router.get('/messages/all/:username', findAllMessages);
 
-// 3-a-ii) POST -> file: messages/messagesController.js method:
+// 3-a-ii) POST -> file: messages/messages-controller.js method:
 router.post('/messages/send', sendMessage);
 
-// 3-a-iii) GET -> file: messages/messagesController.js method:
+// 3-a-iii) GET -> file: messages/messages-controller.js method:
 router.get('/messages/sent/:username', sentMessages);
 
 router.post('/messages/read', readMsg);
 
 router.get('/messages/unread/:username', findUnreadMessages);
 
-// 4-a-i) GET -> file: recommendations/recommendationsController.js method:
+// 4-a-i) GET -> file: recommendations/recommendations-controller.js method:
 router.get('/recommendations/:username', getRecommendedMatches);
 
-// 5-a-i) POST -> file: bio/bioController.js
+// 5-a-i) POST -> file: bio/bio-controller.js
 router.post('/bio/edit_bio', editBio);
 
-// 5-b-i) POST -> file: bio/bioController.js
+// 5-b-i) POST -> file: bio/bio-controller.js
 router.post('/bio/delete_image', deleteImage);
 
-// 5-c-i) POST -> file: bio/bioController.js
+// 5-c-i) POST -> file: bio/bio-controller.js
 router.post('/bio/upload_image', uploadImage);
 
 // 6-a-i)

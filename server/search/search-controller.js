@@ -1,8 +1,8 @@
 /* -------------- * SERVER/SEARCH/SEARCHCONTROLLER.JS * -------------
  *
  * This file contains all user methods and serves as an intermediary
- * layer between routes.js and searchModel.js. Methods in this file are
- * responsible for invoking methods in the searchModel.js
+ * layer between routes.js and search-model.js. Methods in this file are
+ * responsible for invoking methods in the search-model.js
  *
  * Methods in this file are:
  *
@@ -13,7 +13,7 @@
 
 const debug = require('debug');
 
-const { getAll, getFilteredUsers, getLikedUsers } = require('./searchModel');
+const { getAll, getFilteredUsers, getLikedUsers } = require('./search-model');
 
 const log = debug('server:search:controller');
 
@@ -21,7 +21,7 @@ module.exports = {
   //
   /* -------------------------- * FIND ALL USERS* -------------------------
    *
-   * Calls getAll method (see serach/searchModel.js)
+   * Calls getAll method (see serach/search-model.js)
    * Once it receives all users data,
    *  chunks the data for each users to build a all users object for FE to use.
    * Sends a JSON stringified all users object as a response.
@@ -96,7 +96,7 @@ module.exports = {
 
   /* -------------------------- * FILTER USERS * -------------------------
    *
-   * Calls getFilteredUsers method (see serach/searchModel.js)
+   * Calls getFilteredUsers method (see serach/search-model.js)
    * Once it receives all users data,
    *  chunks the data for each users to build a all users object for FE to use.
    * Sends a JSON stringified all users object as a response.
