@@ -12,7 +12,7 @@ const LeftNav = ({ auth, open, handleToggle }) => {
         key={index}
         className="left-nav__item"
       >
-        <button className="button button--flat">
+        <button className="button button--flat button--link">
           <Link to={link}>
             {label}
           </Link>
@@ -27,7 +27,7 @@ const LeftNav = ({ auth, open, handleToggle }) => {
     <div className={leftNavStyle}>
       <ul className="left-nav__list">
         <li className="left-nav__item">
-          <button className="button button--flat">
+          <button className="button button--flat button--link">
             <Link to="/">
             Home
           </Link>
@@ -38,7 +38,7 @@ const LeftNav = ({ auth, open, handleToggle }) => {
           className="left-nav__item"
           onClick={handleToggle}
         >
-          <button className="button button--flat">
+          <button className="button button--flat button--link">
           Close
           </button>
         </li>

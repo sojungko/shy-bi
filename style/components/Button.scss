@@ -88,6 +88,7 @@
   }
 
   &--link {
+    @include button-text-l;
     color: $brand-dark;
   }
 

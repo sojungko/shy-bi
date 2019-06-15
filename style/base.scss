@@ -57,8 +57,10 @@ body {
 
 a {
   text-decoration: none;
+  color: $brand-dark;
   &:hover {
     text-decoration: none;
+    color: $brand-dark;
   }
 }
 
