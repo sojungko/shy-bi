@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { getUsername, isUserAuthenticated } from '../modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from '../actions';
-import styles from '../styles/CardHeader';
 
 class RecommendedUsers extends Component {
   static propTypes = {

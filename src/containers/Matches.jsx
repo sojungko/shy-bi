@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { getMatches, getLikedUsers, getUser, viewMatch } from '../actions';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-import styles from '../styles/CardHeader';
 
 class Matches extends Component {
   static contextTypes = {

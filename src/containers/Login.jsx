@@ -55,7 +55,14 @@ import {
                 render={this.renderField}
                 name="username"
                 label="Username"
-                validate={composeValidators(required, noSpecialChars, mustContainLetter)}
+                validate={
+                  composeValidators(
+                    required,
+                    noSpecialChars,
+                    mustContainLetter,
+                    mustBeLongerThan(6),
+                    mustBeShorterThan(12)
+                  )}
               />
               <Field
                 render={this.renderField}

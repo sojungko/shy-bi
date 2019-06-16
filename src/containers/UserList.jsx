@@ -8,7 +8,6 @@ import { isUserAuthenticated } from '../modules/auth';
 import { getUser, getAllUsers } from '../actions';
 import SearchBar from '../containers/SearchBar';
 import UserListItem from '../components/UserListItem';
-import styles from '../styles/CardHeader';
 
 class UserList extends Component {
   static propTypes = {

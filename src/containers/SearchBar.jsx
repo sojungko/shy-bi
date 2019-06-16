@@ -10,7 +10,6 @@ import Card from '@material-ui/core/Card';
 // import Radio from '@material-ui/core/Radio';
 // import Button from '@material-ui/core/Button';
 
-import styles from '../styles/SearchBar';
 import { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser } from '../actions/FilterInputActions';
 
 const { input, select, textarea } = ReactDOM;
@@ -75,7 +74,6 @@ class SearchBar extends Component {
           name="minage"
           type="number"
           value={minage}
-          style={styles}
           onChange={this.handleChange}
         />
         <textarea
@@ -83,23 +81,19 @@ class SearchBar extends Component {
           name="maxage"
           type="number"
           value={maxage}
-          style={styles}
           onChange={this.handleChange}
         />
         <select
           name="sex"
           onChange={this.handleChange}
-          style={styles}
         >
           <option
             value="Male"
             label="Male"
-            style={styles.radioButton}
           />
           <option
             value="Female"
             label="Female"
-            style={styles.radioButton}
           />
         </select>
         <textarea
@@ -107,7 +101,6 @@ class SearchBar extends Component {
           type="text"
           name="city"
           value={city}
-          style={styles}
           onChange={this.handleChange}
         />
         <button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Clear Fields" onClick={this.handleClick} />

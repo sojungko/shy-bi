@@ -12,8 +12,6 @@ import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getUser, likeUser } from '../actions/index';
-import styles from '../styles/Profile';
-import cardStyle from '../styles/CardHeader';
 
 class Profile extends Component {
   static propTypes = {
@@ -86,14 +84,14 @@ class Profile extends Component {
   renderProfile() {
     const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
     return (
-      <div style={styles.card}>
+      <div>
         {/* <CardText style={styles.cardText}> */}
           <img role="presentation" src={image_url} style={styles.image} />
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
           </div>
           <br />
-          <table style={styles.table}>
+          <table>
             <tbody>
               <tr>
                 <th>Name</th>
@@ -147,7 +145,6 @@ class Profile extends Component {
               checkedIcon={<ActionFavorite />}
               uncheckedIcon={<ActionFavoriteBorder />}
               label="Like"
-              style={styles.checkbox}
             />
           </div>
           <Snackbar
