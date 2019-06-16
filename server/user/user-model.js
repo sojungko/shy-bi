@@ -11,7 +11,7 @@
 
 const bcrypt = require('bcrypt-nodejs');
 const debug = require('debug');
-const db = require('../database/config');
+const db = require('../db/config');
 
 const log = debug('server:user:model');
 

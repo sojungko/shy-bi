@@ -15,7 +15,7 @@ npm-debug.log
 public
 
 ### API keys ###
-server/database/pw.js
+server/db/pw.js
 
 ### WIP ###
 js/actions_test

@@ -1,6 +1,6 @@
 const debug = require('debug');
 
-const db = require('../database/config');
+const db = require('../db/config');
 
 const log = debug('server:matches:model');
 

@@ -11,7 +11,7 @@ const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const dbinit = require('./database/initialize');
+const dbinit = require('./db/initialize');
 
 const localSignupStrategy = require('./passport/local-signup');
 const localLoginStrategy = require('./passport/local-login');
