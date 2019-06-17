@@ -6,7 +6,7 @@ const BUILD_DIR = resolve(__dirname, 'public');
 const JS_ENTRY = resolve(__dirname, 'src/index.jsx');
 const HTML_TEMPLATE = resolve(__dirname, 'index.html');
 const CLIENT_DIR = resolve(__dirname, 'src');
-const CSS_ENTRY = resolve(__dirname, 'style/app.scss');
+const CSS_ENTRY = resolve(__dirname, 'styles/app.scss');
 
 module.exports = [
   /**

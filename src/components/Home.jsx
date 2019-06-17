@@ -5,7 +5,7 @@ const Home = () => (
     <img
       role="presentation"
       className="splash"
-      src="../../style/imgs/couple-1734001_1920.jpg"
+      src="../../styles/imgs/couple-1734001_1920.jpg"
     />
   </div>
   );

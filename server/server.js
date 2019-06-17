@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+
 // pass the passport middleware
 app.use(passport.initialize());
 

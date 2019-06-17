@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { isUserAuthenticated, getUsername } from '../modules/auth';
 import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '../actions';
 import Navbar from '../components/Navbar';
-import styles from '../styles/CardHeader';
 
 class Messages extends Component {
   static contextTypes = {

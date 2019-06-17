@@ -86,7 +86,7 @@ class Profile extends Component {
     return (
       <div>
         {/* <CardText style={styles.cardText}> */}
-          <img role="presentation" src={image_url} style={styles.image} />
+          <img role="presentation" src={image_url} />
           <div>
             {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
           </div>
