@@ -7,6 +7,7 @@ import { Form, Field } from 'react-final-form';
 
 import { signupUser, getLocations } from '../actions/index';
 import {
+  email,
   required,
   mustBeShorterThan,
   mustBeLongerThan,
@@ -70,6 +71,17 @@ class SignUp extends Component {
               <h2 className="form__title">
                 Sign Up
               </h2>
+              <Field
+                render={this.renderField}
+                name="email"
+                label="Email"
+                validate={
+                  composeValidators(
+                    email,
+                    required,
+                    mustContainLetter,
+                  )}
+              />
               <Field
                 render={this.renderField}
                 name="username"
