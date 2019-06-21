@@ -7,6 +7,7 @@
  * --------------------------------------------------------------- */
 
 const express = require('express');
+const next = require('next');
 const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -20,49 +21,61 @@ const facebookLoginStrategy = require('./passport/facebook');
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 
-const app = express();
-dbinit();
+const { NODE_ENV } = process.env;
 
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
-app.use(bodyParser.json());
-app.use(morgan('dev'));
+const app = next({ dev: NODE_ENV === 'development' });
+const handle = app.getRequestHandler();
 
-// pass the passport middleware
-app.use(passport.initialize());
+app.prepare()
+  .then(() => {
+    const server = express();
+    dbinit();
 
-// load passport strategies
-passport.use('local-signup', localSignupStrategy);
-passport.use('local-login', localLoginStrategy);
-passport.use('facebook-login', facebookLoginStrategy);
+    server.use(bodyParser.urlencoded({
+      extended: true,
+    }));
+    server.use(bodyParser.json());
+    server.use(morgan('dev'));
 
-// pass the authenticaion checker middleware
-// app.use('/api', authCheckMiddleware);
+    // pass the passport middleware
+    server.use(passport.initialize());
 
-// routes
-app.use('/auth', authRoutes);
-app.use('/api', apiRoutes);
+    // load passport strategies
+    passport.use('local-signup', localSignupStrategy);
+    passport.use('local-login', localLoginStrategy);
+    passport.use('facebook-login', facebookLoginStrategy);
 
-// // Deligates all routing to routes.js
-// routes(app, passport);
+    // pass the authenticaion checker middleware
+    // server.use('/api', authCheckMiddleware);
 
-/* ------------------- * Serving Static Files * -------------------
- * Files in:
- *
- *  1) Node Modules Directory, and
- *  2) Build Directory
- * ------------------------------------------------------------- */
+    // routes
+    server.use('/auth', authRoutes);
+    server.use('/api', apiRoutes);
 
-app.use(express.static(path.join(__dirname, '/../node_modules')));
-app.use(express.static(path.join(__dirname, '/../')));
+    // // Deligates all routing to routes.js
+    // routes(server, passport);
 
-const port = process.env.PORT || 8080;
+    /* ------------------- * Serving Static Files * -------------------
+    * Files in:
+    *
+    *  1) Node Modules Directory, and
+    *  2) Build Directory
+    * ------------------------------------------------------------- */
 
-app.listen(port, (err) => {
-  if (err) {
-    console.error('Cannot start server: ', err);
-  } else {
-    console.log('Shy-bi is listening to port : ', port);
-  }
-});
+    server.use(express.static(path.join(__dirname, '/../node_modules')));
+    server.use(express.static(path.join(__dirname, '/../')));
+
+    server.get('*', (req, res) => handle(req, res));
+
+
+    const port = process.env.PORT || 8080;
+
+    server.listen(port, (err) => {
+      if (err) {
+        console.error('Cannot start server: ', err);
+      } else {
+        console.log('Shy-bi is listening to port : ', port);
+      }
+    });
+  });
+

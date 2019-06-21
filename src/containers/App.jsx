@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getUsername, isUserAuthenticated } from '../modules/auth';
-import { getUnviewedMatches, getAllMessages, getUnreadMessages, logoutUser } from '../actions';
+import {
+  getUnviewedMatches,
+  getAllMessages,
+  getUnreadMessages,
+  logoutUser,
+} from '../actions';
 import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';
 import toggleLeftNav from '../actions/leftNavToggle';
-import BottomNav from '../components/BottomNav';
+import Footer from '../components/Footer';
 
 class App extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     children: PropTypes.node.isRequired,
     location: PropTypes.shape({
@@ -71,7 +72,7 @@ class App extends Component {
         <div className="page">
           {this.props.children}
         </div>
-        <BottomNav />
+        <Footer />
       </div>
     );
   }
