@@ -1,4 +1,4 @@
-import * as A from '../constants/ActionTypes';
+import * as A from '../constants/action-types';
 
 export default function (state = [], action) {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import { GET_LOCATIONS } from '../constants/ActionTypes';
+import { GET_LOCATIONS } from '../constants/action-types';
 
 export default function (state = {}, action) {
   switch (action.type) {

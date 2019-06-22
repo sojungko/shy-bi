@@ -1,4 +1,4 @@
-import { GET_USER, IS_MATCH, EDIT_BIO_SUCCESS } from '../constants/ActionTypes';
+import { GET_USER, IS_MATCH, EDIT_BIO_SUCCESS } from '../constants/action-types';
 
 export default function (state = { isMatch: false, isEdited: false }, action) {
   switch (action.type) {

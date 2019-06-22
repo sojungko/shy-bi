@@ -1,4 +1,4 @@
-import { GET_ALL_MESSAGES, GET_SENT_MESSAGES } from '../constants/ActionTypes';
+import { GET_ALL_MESSAGES, GET_SENT_MESSAGES } from '../constants/action-types';
 
 const INITIAL_STATE = { received: [], sent: [] };
 export default function (state = INITIAL_STATE, action) {

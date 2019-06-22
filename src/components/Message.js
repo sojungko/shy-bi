@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 // import Typography from '@material-ui/core/Typography';
 import Link from 'next/link';
 
-import { getUsername } from '../modules/auth';
+import { getUsername } from 'modules/auth';
 
 const style = {
   fontFamily: 'Source Sans Pro',

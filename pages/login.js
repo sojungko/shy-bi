@@ -6,7 +6,7 @@ import { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import { loginUser } from '../src/actions/index';
+import { loginUser } from 'actions';
 import {
   required,
   mustBeShorterThan,

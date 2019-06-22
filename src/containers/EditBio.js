@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Field, reduxForm } from 'redux-form';
 import ImageUpload from './ImageUpload';
-import { getUser, editBio } from '../actions';
-import { getUsername } from '../modules/auth';
+import { getUser, editBio } from 'actions';
+import { getUsername } from 'modules/auth';
 
 const { input, select, textarea } = ReactDOM;
 const style = {

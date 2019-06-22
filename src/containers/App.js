@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getUsername, isUserAuthenticated } from '../modules/auth';
+import { getUsername, isUserAuthenticated } from 'modules/auth';
 import {
   getUnviewedMatches,
   getAllMessages,
   getUnreadMessages,
   logoutUser,
-} from '../actions';
+  toggleLeftNav,
+} from 'actions';
 import Header from '../components/Header';
 
 import LeftNav from '../components/LeftNav';
-import toggleLeftNav from '../actions/leftNavToggle';
 import Footer from '../components/Footer';
 
 class App extends Component {
@@ -76,9 +76,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNavToggle, location, messages, badges }) {
+function mapStateToProps({ leftNav, location, messages, badges }) {
   return {
-    open: leftNavToggle.open,
+    open: leftNav.open,
     received: messages.received,
     unread: badges.unread,
     unviewed: badges.unviewed,

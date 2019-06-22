@@ -1,4 +1,4 @@
-import { GET_UNREAD_MESSAGES, EXPAND_CARD, GET_UNVIEWED_MATCHES } from '../constants/ActionTypes';
+import { GET_UNREAD_MESSAGES, EXPAND_CARD, GET_UNVIEWED_MATCHES } from '../constants/action-types';
 
 const INITIAL_STATE = { unread: 0, unviewed: 0 };
 export default function (state = INITIAL_STATE, action) {

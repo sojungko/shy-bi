@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 // import CardContent from '@material-ui/core/CardContent';
 // import Paper from '@material-ui/core/Paper';
 
-import { isUserAuthenticated, getUsername } from '../modules/auth';
-import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '../actions';
+import { isUserAuthenticated, getUsername } from 'modules/auth';
+import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from 'actions';
 import Navbar from '../components/Navbar';
 
 class Messages extends Component {

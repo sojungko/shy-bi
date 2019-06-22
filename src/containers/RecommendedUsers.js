@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 // import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
-import { getUsername, isUserAuthenticated } from '../modules/auth';
+import { getUsername, isUserAuthenticated } from 'modules/auth';
 import RecommendedUserList from '../components/RecommendedUserList';
-import { getRecommendedUsers, getUser } from '../actions';
+import { getRecommendedUsers, getUser } from 'actions';
 
 class RecommendedUsers extends Component {
   static propTypes = {

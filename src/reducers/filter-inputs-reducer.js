@@ -1,4 +1,4 @@
-import * as A from '../constants/ActionTypes';
+import * as A from '../constants/action-types';
 
 const INITIAL_STATE = {
   minage: '',

@@ -1,7 +1,7 @@
 import React from 'react';
 // import GridListTile from '@material-ui/core/GridListTile';
 // import Paper from '@material-ui/core/Paper';
-import { getUsername } from '../modules/auth';
+import { getUsername } from 'modules/auth';
 
 const gridTileStyle = {
   opacity: '50%',

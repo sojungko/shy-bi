@@ -1,4 +1,4 @@
-import { LOGIN_USER_SUCCESS } from '../constants/ActionTypes';
+import { LOGIN_USER_SUCCESS } from '../constants/action-types';
 
 export default function (state = {}, action) {
   switch (action.type) {

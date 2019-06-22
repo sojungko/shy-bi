@@ -10,7 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-import { isUserAuthenticated, getUsername } from '../modules/auth';
+import { isUserAuthenticated, getUsername } from 'modules/auth';
 import { getUser, likeUser } from 'actions';
 
 class Profile extends Component {

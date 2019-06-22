@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import classNames from 'classnames';
 
-import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';
+import { leftNavUnAuth, leftNavAuth } from 'modules/left-nav-menus';
 
 const LeftNav = ({ auth, open, handleToggle }) => {
   const renderMenuItems = menu => menu

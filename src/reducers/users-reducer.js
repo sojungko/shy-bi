@@ -1,4 +1,4 @@
-import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER, GET_MATCHES, GET_LIKED_USERS } from '../constants/ActionTypes';
+import { GET_ALL_USERS, GET_RECOMMENDED_USERS, SIGN_UP_USER, GET_MATCHES, GET_LIKED_USERS } from '../constants/action-types';
 
 const INITIAL_STATE = { users: [], recommended: [], likes: [], matches: [] };
 export default function (state = INITIAL_STATE, action) {

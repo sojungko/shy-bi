@@ -1,4 +1,4 @@
-import { TOGGLE_LEFT_NAV } from '../constants/ActionTypes';
+import { TOGGLE_LEFT_NAV } from '../constants/action-types';
 
 const toggleLeftNav = bool => ({ type: TOGGLE_LEFT_NAV, payload: !bool });
 

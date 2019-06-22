@@ -1,4 +1,4 @@
-import { EXPAND_CARD } from '../constants/ActionTypes';
+import { EXPAND_CARD } from '../constants/action-types';
 
 const INITIAL_STATE = { expanded: false };
 

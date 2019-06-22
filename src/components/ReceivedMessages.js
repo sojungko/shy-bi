@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import renderMessages from '../modules/messages';
+import renderMessages from 'modules/messages';
 
 const ReceivedMessages = ({ received, handleExpand, expanded }) => (
   <div>

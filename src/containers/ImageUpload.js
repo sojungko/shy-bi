@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 // import Button from '@material-ui/core/Button';
-import { deleteImage, uploadImage } from '../actions';
-import { getUsername } from '../modules/auth';
+import { deleteImage, uploadImage } from 'actions';
+import { getUsername } from 'modules/auth';
 
 const CLOUDINARY_UPLOAD_PRESET = 'yzo22f3q';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dm4fqf9nm/image/upload';

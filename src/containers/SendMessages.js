@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 // import Select from '@material-ui/core/Select';
 // import MenuItem from '@material-ui/core/MenuItem';
 
-import { getUsername } from '../modules/auth';
+import { getUsername } from 'modules/auth';
 import { sendMessage, getSentMessages, getMatches } from 'actions';
 
 const { input, select, textarea } = ReactDOM;

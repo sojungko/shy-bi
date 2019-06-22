@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 // import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
-import { isUserAuthenticated } from '../modules/auth';
-import { getUser, getAllUsers } from '../actions';
+import { isUserAuthenticated } from 'modules/auth';
+import { getUser, getAllUsers } from 'actions';
 import SearchBar from '../containers/SearchBar';
 import UserListItem from '../components/UserListItem';
 

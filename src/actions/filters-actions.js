@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as A from '../constants/ActionTypes';
+import * as A from '../constants/action-types';
 
 const updateMinAge = input => ({ type: A.UPDATE_MINAGE, payload: input });
 const updateMaxAge = input => ({ type: A.UPDATE_MAXAGE, payload: input });

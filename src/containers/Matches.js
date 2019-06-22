@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 // import Paper from '@material-ui/core/Paper';
 
 import Navbar from '../components/Navbar';
-import { getMatches, getLikedUsers, getUser, viewMatch } from '../actions';
-import { isUserAuthenticated, getUsername } from '../modules/auth';
+import { getMatches, getLikedUsers, getUser, viewMatch } from 'actions';
+import { isUserAuthenticated, getUsername } from 'modules/auth';
 
 class Matches extends Component {
   static contextTypes = {
