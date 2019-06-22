@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // import CardText from '@material-ui/CardText';
 // import CardContent from '@material-ui/core/CardContent';
 // import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router';
+import Link from 'next/link';
 
 import { getUsername } from '../modules/auth';
 

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 // import MenuItem from '@material-ui/core/MenuItem';
 
 import { getUsername } from '../modules/auth';
-import { sendMessage, getSentMessages, getMatches } from '../actions/index';
+import { sendMessage, getSentMessages, getMatches } from 'actions';
 
 const { input, select, textarea } = ReactDOM;
 
@@ -34,7 +34,7 @@ class SendMessages extends Component {
     matches: PropTypes.node,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     console.log('Component Will Mount');
     this.props.getMatches(getUsername())
      .then(() => console.log('MATCHES : ', this.props.matches));

@@ -19,7 +19,7 @@ class RecommendedUsers extends Component {
     router: PropTypes.object.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/home');
     } else {

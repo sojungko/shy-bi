@@ -20,7 +20,7 @@ class UserList extends Component {
     router: PropTypes.object.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/');
     } else {

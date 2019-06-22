@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import { loginUser } from '../actions/index';
+import { loginUser } from 'actions';
 import {
   required,
   mustBeShorterThan,
@@ -14,7 +14,7 @@ import {
   mustContainNumber,
   mustContainLetter,
   composeValidators,
-} from '../modules/validators';
+} from 'modules/validators';
 
   class LogIn extends Component {
   static contextTypes = {

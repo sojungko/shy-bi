@@ -1,6 +1,6 @@
 import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import Menu from '@material-ui/icons/Menu';
 import NotificationBadge from './Badges';
 
@@ -52,31 +52,37 @@ const Header = (props) => {
       </h1>
       {
         auth ?
-          <a href="/#/logout">
-            <button
-              className="button button--flat"
-              onClick={logOut}
-            >
-              Log Out
-            </button>
-          </a>
+          <Link>
+            <a href="/logout">
+              <button
+                className="button button--flat"
+                onClick={logOut}
+              >
+                Log Out
+              </button>
+            </a>
+          </Link>
           :
           location === '/login' ?
-            <a href="/#/signup" className="app-bar__button-container">
-              <button
-                className="button button--flat"
-              >
-                Sign Up
-            </button>
-            </a>
-          :
-            <a href="/#/login" className="app-bar__button-container">
-              <button
-                className="button button--flat"
-              >
-              Log In
-            </button>
-            </a>
+            <Link>
+              <a href="/signup" className="app-bar__button-container">
+                <button
+                  className="button button--flat"
+                >
+                  Sign Up
+              </button>
+              </a>
+            </Link>
+            :
+            <Link>
+              <a href="/login" className="app-bar__button-container">
+                <button
+                  className="button button--flat"
+                >
+                Log In
+              </button>
+              </a>
+            </Link>
       }
       {
         auth &&

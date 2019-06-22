@@ -6,7 +6,7 @@ import { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import { loginUser } from '../actions/index';
+import { loginUser } from '../src/actions/index';
 import {
   required,
   mustBeShorterThan,
@@ -15,7 +15,7 @@ import {
   mustContainNumber,
   mustContainLetter,
   composeValidators,
-} from '../modules/validators';
+} from 'modules/validators';
 
 import App from '../src/containers/App';
 

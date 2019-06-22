@@ -25,7 +25,7 @@ class Matches extends Component {
     viewMatch: PropTypes.func,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/home');
     } else {

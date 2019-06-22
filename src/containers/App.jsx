@@ -30,10 +30,10 @@ class App extends Component {
     unread: PropTypes.number,
   }
 
-  componentWillMount() {
-    this.props.getUnviewedMatches(getUsername());
-    this.props.getUnreadMessages(getUsername());
-  }
+  // componentDidMount() {
+  //   this.props.getUnviewedMatches(getUsername());
+  //   this.props.getUnreadMessages(getUsername());
+  // }
 
   handleLogOut = () => this.props.logoutUser(getUsername())
     .then(() => {
@@ -49,13 +49,13 @@ class App extends Component {
   }
 
   render() {
-    const currentUser = getUsername();
-    const auth = isUserAuthenticated();
+    // const currentUser = getUsername();
+    // const auth = isUserAuthenticated();
+    console.log('this.props', this.props);
     return (
       <div className="main">
         <Header
           location={this.props.location.pathname}
-          auth={auth}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
           numberOfMatches={this.props.unviewed}
@@ -64,8 +64,6 @@ class App extends Component {
           handleTitleClick={() => this.context.router.push('/')}
         />
         <LeftNav
-          auth={auth}
-          user={currentUser}
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
@@ -78,12 +76,13 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNavToggle, messages, badges }) {
+function mapStateToProps({ leftNavToggle, location, messages, badges }) {
   return {
     open: leftNavToggle.open,
     received: messages.received,
     unread: badges.unread,
     unviewed: badges.unviewed,
+    location,
   };
 }
 

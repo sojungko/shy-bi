@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import Link from 'next/link';
 // import { Field, reduxForm } from 'redux-form';
 // import Card from '@material-ui/core/Card';
 // import Button from '@material-ui/core/Button';
@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 // import Radio from '@material-ui/core/Radio';
 // import TextField from '@material-ui/core/TextField';
 
-import { signupUser } from '../actions/index';
+import { signupUser } from 'actions';
 
 const { input, select, textarea } = ReactDOM;
 

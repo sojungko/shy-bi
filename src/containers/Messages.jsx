@@ -26,7 +26,7 @@ class Messages extends Component {
     getUnreadMessages: PropTypes.func,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!isUserAuthenticated()) {
       this.context.router.push('/home');
     } else {

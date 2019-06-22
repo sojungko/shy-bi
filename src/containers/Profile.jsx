@@ -11,7 +11,7 @@ import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 import { isUserAuthenticated, getUsername } from '../modules/auth';
-import { getUser, likeUser } from '../actions/index';
+import { getUser, likeUser } from 'actions';
 
 class Profile extends Component {
   static propTypes = {
@@ -41,7 +41,7 @@ class Profile extends Component {
   }
 
 
-  componentWillMount() {
+  componentDidMount() {
     const visitedUser = this.props.params.username;
     const username = this.props.profile.username;
 

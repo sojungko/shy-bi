@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import Link from 'next/link';
 import classNames from 'classnames';
 
 import { leftNavUnAuth, leftNavAuth } from '../modules/leftNavMenus';

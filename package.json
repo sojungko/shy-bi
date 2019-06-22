@@ -4,11 +4,8 @@
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "NODE_ENV=development concurrently -k --raw \"npm run server:dev\" \"npm run client:dev\"",
-    "start": "webpack -w",
-    "server:dev": "NODE_ENV=development nodemon -r dotenv/config server/server.js",
-    "client:dev": "webpack -d --watch --display-error-details",
-    "build": "webpack -p",
+    "dev": "NODE_ENV=development next build && nodemon -w server/server.js -r dotenv/config server/server.js",
+    "build": "next build",
     "commit": "npx git-cz"
   },
   "repository": {
@@ -38,6 +35,7 @@
     "morgan": "^1.7.0",
     "neo4j-driver": "^1.7.5",
     "next": "^8.1.0",
+    "next-redux-wrapper": "^3.0.0-alpha.3",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
@@ -92,7 +90,6 @@
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
     "url-loader": "2.0.0",
-    "webpack": "4.34.0",
     "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.7.1",
     "webpack-manifest-plugin": "1.1.0",

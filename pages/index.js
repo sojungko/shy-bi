@@ -1,4 +1,6 @@
-import Link from 'next/link';
+import React from 'react';
+// import Link from 'next/link';
+import { withRouter } from 'next/router';
 import App from '../src/containers/App';
 
 const Home = () => (
@@ -11,10 +13,6 @@ const Home = () => (
       />
     </div>
   </App>
-)
-
-Home.getInitialProps() {
-
-}
+);
 
 export default withRouter(Home);

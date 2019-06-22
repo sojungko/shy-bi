@@ -13,6 +13,7 @@ npm-debug.log
 
 ### Production ###
 public
+.next
 
 ### API keys ###
 server/db/pw.js

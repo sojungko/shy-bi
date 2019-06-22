@@ -6,9 +6,9 @@ export default class Token extends Component {
     router: PropTypes.object.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const token = window.location.hash.slice(8);
-    localStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
     this.context.router.push('/facebook/signup');
   }
 
