@@ -1,19 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 
-
 const Footer = () => (
   <footer className="footer">
     <div>
-      <Link href="/about" >
-        <a>
+      <Link>
+        <a href="/about">
           <button className="button button--flat">
             About Us
           </button>
         </a>
       </Link>
-      <Link href="/contact">
-        <a>
+      <Link>
+        <a href="/contact">
           <button className="button button--flat">
             Contact
           </button>

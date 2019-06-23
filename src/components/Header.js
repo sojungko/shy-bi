@@ -4,28 +4,6 @@ import Link from 'next/link';
 import Menu from '@material-ui/icons/Menu';
 import NotificationBadge from './Badges';
 
-// const styles = {
-//   appBar: {
-//     backgroundColor: 'white',
-//     cursor: 'pointer',
-//     position: 'fixed',
-//     height: '70px',
-//   },
-//   title: {
-//     color: 'black',
-//     opacity: 1,
-//     fontFamily: 'Source Sans Pro',
-//     fontSize: '50px',
-//     marginLeft: '30px',
-//   },
-//   button: {
-//     color: 'grey',
-//   },
-//   buttonLabel: {
-//     fontSize: '17px',
-//   },
-// };
-
 const Header = (props) => {
   const {
     handleTitleClick,
