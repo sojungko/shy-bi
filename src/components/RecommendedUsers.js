@@ -6,7 +6,7 @@ import Router from 'next/router';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
 import { getUsername, isUserAuthenticated } from 'modules/auth';
-import RecommendedUserList from '../components/RecommendedUserList';
+import RecommendedUserList from 'components/RecommendedUserList';
 import { getRecommendedUsers, getUser } from 'actions';
 
 class RecommendedUsers extends Component {

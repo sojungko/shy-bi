@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
 
-import users from './users-reducer';
+import {
+  users,
+  currentUser,
+  matches,
+} from './users-reducer';
+
 import profile from './profile-reducer';
 import auth from './auth-reducer';
 import actions from './actions-reducer';
@@ -12,16 +17,18 @@ import location from './location-reducer';
 import card from './expand-card-reducer';
 
 const RootReducer = combineReducers({
-  location,
-  leftNav,
-  users,
-  profile,
-  auth,
   actions,
-  messages,
-  filters,
-  card,
+  auth,
   badges,
+  card,
+  currentUser,
+  filters,
+  leftNav,
+  location,
+  matches,
+  messages,
+  profile,
+  users,
 });
 
 export default RootReducer;

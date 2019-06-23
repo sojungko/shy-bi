@@ -7,7 +7,7 @@ import Router from 'next/router';
 // import CardContent from '@material-ui/core/CardContent';
 // import Paper from '@material-ui/core/Paper';
 
-import Navbar from '../components/Navbar';
+import Navbar from 'components/Navbar';
 import { getMatches, getLikedUsers, getUser, viewMatch } from 'actions';
 import { isUserAuthenticated, getUsername } from 'modules/auth';
 

@@ -1,21 +1,21 @@
 export function authenticateUser(token, username) {
-  window.localStorage.setItem('token', token);
-  window.localStorage.setItem('username', username);
+  localStorage.setItem('token', token);
+  localStorage.setItem('username', username);
 }
 
 export function isUserAuthenticated() {
-  return window.localStorage.getItem('token') !== null;
+  return localStorage.getItem('token') !== null;
 }
 
 export function getUsername() {
-  return window.localStorage.getItem('username');
+  return localStorage.getItem('username');
 }
 
 export function deauthenticateUser() {
-  window.localStorage.removeItem('token');
-  window.localStorage.removeItem('username');
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
 }
 
 export function getToken() {
-  return window.localStorage.getItem('token');
+  return localStorage.getItem('token');
 }

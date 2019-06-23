@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from '../components/Message';
+import Message from 'components/Message';
 
 export default function renderMessages(messages, handleExpand, expanded) {
   return messages.map((message, index) =>

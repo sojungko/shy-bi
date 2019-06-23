@@ -9,7 +9,7 @@ import Router from 'next/router';
 
 import { isUserAuthenticated, getUsername } from 'modules/auth';
 import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from 'actions';
-import Navbar from '../components/Navbar';
+import Navbar from 'components/Navbar';
 
 class Messages extends Component {
   static contextTypes = {

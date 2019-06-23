@@ -7,8 +7,8 @@ import Router from 'next/router';
 // import CardContent from '@material-ui/core/CardContent';
 import { isUserAuthenticated } from 'modules/auth';
 import { getUser, getAllUsers } from 'actions';
-import SearchBar from '../components/SearchBar';
-import UserListItem from '../components/UserListItem';
+import SearchBar from 'components/SearchBar';
+import UserListItem from 'components/UserListItem';
 
 class UserList extends Component {
   static propTypes = {

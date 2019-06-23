@@ -12,9 +12,9 @@ import {
   toggleLeftNav,
 } from 'actions';
 
-import Header from '../components/Header';
-import LeftNav from '../components/LeftNav';
-import Footer from '../components/Footer';
+import Header from 'components/Header';
+import LeftNav from 'components/LeftNav';
+import Footer from 'components/Footer';
 
 class App extends Component {
   static propTypes = {
@@ -31,10 +31,10 @@ class App extends Component {
     unread: PropTypes.number,
   }
 
-  // componentDidMount() {
-  //   this.props.getUnviewedMatches(getUsername());
-  //   this.props.getUnreadMessages(getUsername());
-  // }
+  componentDidMount() {
+    this.props.getUnviewedMatches(getUsername());
+    this.props.getUnreadMessages(getUsername());
+  }
 
   handleLogOut = () => this.props.logoutUser(getUsername())
     .then(() => {
