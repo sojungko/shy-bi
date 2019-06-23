@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import Router, { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
@@ -17,11 +18,9 @@ import {
   composeValidators,
 } from 'modules/validators';
 
-class SignUp extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
+import App from 'components/App';
 
+class SignUp extends Component {
   static propTypes = {
     signupUser: PropTypes.func,
     getLocations: PropTypes.func,
@@ -36,7 +35,7 @@ class SignUp extends Component {
   onSubmit = (inputs) => {
     this.props.signupUser(inputs)
       .then(() => {
-        this.context.router.push('/');
+        Router.push('/');
       });
   }
 
@@ -54,7 +53,7 @@ class SignUp extends Component {
   renderField = ({ input, label, meta: { touched, error, warning } }) => (
     <div className="form__group">
       <label className="form__label">{label}</label>
-      <input {...input}  className="form__input" />
+      <input {...input} className="form__input" />
       {
         touched && error && <span className="form__warning">{error}</span>
       }
@@ -63,6 +62,7 @@ class SignUp extends Component {
 
   render() {
     return (
+      <App>
       <div className="page__container">
         <Form
           onSubmit={this.onSubmit}
@@ -125,15 +125,16 @@ class SignUp extends Component {
               >
                 Create New Account
               </button>
-             <div className="form__text">Already have an account? <Link to={'/login'}>Log in</Link></div> 
+              <div className="form__text">Already have an account? <Link><a href='/login'>Log in</a></Link></div>
             </form>
           )}
         />
-      </div>
+        </div>
+      </App>  
     );
   }
 }
 
 const mapStateToProps = ({ location }) => ({ location });
 
-export default connect(mapStateToProps, { signupUser, getLocations })(SignUp);
+export default connect(mapStateToProps, { signupUser, getLocations })(withRouter(SignUp));

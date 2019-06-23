@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 
 export default class Token extends Component {
   static contextTypes = {
@@ -9,7 +10,7 @@ export default class Token extends Component {
   componentDidMount() {
     const token = window.location.hash.slice(8);
     window.localStorage.setItem('token', token);
-    this.context.router.push('/facebook/signup');
+    Router.push('/facebook/signup');
   }
 
   render() {

@@ -1,13 +1,12 @@
 {
   "verbose": true,
   "ignore": [
-    "node_modules",
-    ".next"
+    "node_modules"
   ],
   "watch": [
+    ".next/**/*",
     "styles/**/*",
-    "server/**/*",
-    "server.js"
+    "server/**/*"
   ],
   "ext": "js json"
 }

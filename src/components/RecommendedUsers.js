@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 // import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
@@ -21,7 +22,7 @@ class RecommendedUsers extends Component {
 
   componentDidMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/home');
+      Router.push('/home');
     } else {
       this.props.getRecommendedUsers(getUsername());
     }
@@ -29,7 +30,7 @@ class RecommendedUsers extends Component {
 
   handleClick = (userName) => {
     this.props.getUser(userName)
-      .then(() => this.context.router.push(`/profile/${userName}`));
+      .then(() => Router.push(`/profile/${userName}`));
   }
 
   render() {

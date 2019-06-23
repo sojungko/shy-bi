@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import Link from 'next/link';
 // import { Field, reduxForm } from 'redux-form';
 // import Card from '@material-ui/core/Card';
@@ -36,7 +37,7 @@ class FacebookSignup extends Component {
   onSubmit = (inputs) => {
     this.props.signupUser(inputs)
       .then(() => {
-        this.context.router.push('/');
+        Router.push('/');
       });
   }
 

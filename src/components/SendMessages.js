@@ -2,6 +2,7 @@ import React, { Component, createElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 // import { Field, reduxForm } from 'redux-form';
 // import Card from '@material-ui/core/Card';
 // import Button from '@material-ui/core/Button';
@@ -54,7 +55,7 @@ class SendMessages extends Component {
         this.props.getSentMessages(senderID);
       })
       .then(() => {
-        this.context.router.push('/messages');
+        Router.push('/messages');
       });
   }
 

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 // import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
 import { isUserAuthenticated } from 'modules/auth';
 import { getUser, getAllUsers } from 'actions';
-import SearchBar from '../containers/SearchBar';
+import SearchBar from '../components/SearchBar';
 import UserListItem from '../components/UserListItem';
 
 class UserList extends Component {
@@ -22,7 +23,7 @@ class UserList extends Component {
 
   componentDidMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/');
+      Router.push('/');
     } else {
       this.props.getAllUsers();
     }
@@ -31,7 +32,7 @@ class UserList extends Component {
   handleClick = (userName) => {
     this.props.getUser(userName)
       .then(() => {
-        this.context.router.push(`/profile/${userName}`);
+        Router.push(`/profile/${userName}`);
       });
   }
 

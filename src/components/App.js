@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
@@ -62,14 +62,14 @@ class App extends Component {
           numberOfMatches={this.props.unviewed}
           numberOfMessages={this.props.unread}
           handleClick={this.handleClick}
-          handleTitleClick={() => this.context.router.push('/')}
+          handleTitleClick={() => Router.push('/')}
         />
         <LeftNav
           open={this.props.open}
           handleToggle={this.handleToggle}
         />
         <div className="page">
-          {this.props.children}
+          {cloneElement(this.props.children)}
         </div>
         <Footer />
       </main>

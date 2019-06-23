@@ -1,6 +1,7 @@
 import React, { Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 // import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
@@ -28,7 +29,7 @@ class Messages extends Component {
 
   componentDidMount() {
     if (!isUserAuthenticated()) {
-      this.context.router.push('/home');
+      Router.push('/home');
     } else {
       const username = getUsername();
       this.props.getAllMessages(username);

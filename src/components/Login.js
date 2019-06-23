@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
@@ -17,17 +18,13 @@ import {
 } from 'modules/validators';
 
   class LogIn extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
   }
 
   onSubmit = (inputs) => {
     this.props.loginUser(inputs)
-      .then(() => this.context.router.push('/'));
+      .then(() => Router.push('/'));
   }
 
   renderField = ({ input, label, meta: { touched, error, warning } }) => (
@@ -41,7 +38,6 @@ import {
   )
 
   render() {
-
     return (
       <div className="page__container">
         <Form
@@ -95,7 +91,7 @@ import {
                 Log In
               </button>
               <div className="form__text">
-                Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
+                Don&apos;t have an account?<Link href="/signup"> Create one</Link>.
               </div> 
             </form>
           )}

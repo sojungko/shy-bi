@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import Snackbar from '@material-ui/core/Snackbar';
 // import Card from '@material-ui/core/Card';
 // import CardText from '@material-ui/core/CardText';
@@ -47,7 +48,7 @@ class Profile extends Component {
 
     console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
     if (!isUserAuthenticated()) {
-      this.context.router.push('/home');
+      Router.push('/home');
     } else if (!visitedUser) {
       this.props.getUser(getUsername());
     } else if (visitedUser !== username) {
@@ -58,11 +59,11 @@ class Profile extends Component {
   componentWillReceiveProps(nextProps) {
     const visitedUser = this.props.params.username;
     if (!isUserAuthenticated()) {
-      this.context.router.push('/home');
+      Router.push('/home');
     } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
       this.props.getUser(getUsername());
     } else if (visitedUser === getUsername()) {
-      this.context.router.push('/');
+      Router.push('/');
     }
   }
 
