@@ -125,7 +125,7 @@ class SignUp extends Component {
               >
                 Create New Account
               </button>
-              <div className="form__text">Already have an account? <Link to={'/login'}>Log in</Link></div>
+              <div className="form__text">Already have an account? <Link><a href='/login'>Log in</a></Link></div>
             </form>
           )}
         />

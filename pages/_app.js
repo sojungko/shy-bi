@@ -1,10 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
-import { makeStore } from '../src/store';
 import App, { Container } from 'next/app';
 
-class DoorstepsApp extends App {
+import { makeStore } from '../src/store';
+
+class ShyBi extends App {
   render() {
     const { Component, pageProps, store } = this.props;
 
@@ -18,4 +19,4 @@ class DoorstepsApp extends App {
   }
 }
 
-export default withRedux(makeStore)(DoorstepsApp);
+export default withRedux(makeStore)(ShyBi);

@@ -1,11 +1,12 @@
 {
   "rules": {
-    "strict": 0,
     "max-len": ["error",  {
         "code": 125,
         "comments": 125
     }],
-    "no-console": 0
+    "no-console": 0,
+    "no-param-reassign": 0,
+    "react/jsx-filename-extension": 0
   },
   "extends": "airbnb",
   "env": {

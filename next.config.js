@@ -1,12 +1,12 @@
-const path = require('path');
+const { resolve } = require('path');
 
 module.exports = {
-  pageExtensions: ['jsx', 'js'],
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config) => {
+    /* Add aliases */
     config.resolve.alias = {
       ...config.resolve.alias,
-      actions: path.resolve(__dirname, 'src/actions/index'),
-      modules: path.resolve(__dirname, 'src/modules'),
+      actions: resolve(__dirname, 'src/actions/index'),
+      modules: resolve(__dirname, 'src/modules'),
     };
     return config;
   },

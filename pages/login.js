@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'next/link';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
@@ -26,7 +26,7 @@ class LogIn extends Component {
 
   onSubmit = (inputs) => {
     this.props.loginUser(inputs)
-      .then(() => this.context.router.push('/'));
+      .then(() => Router.push('/'));
   }
 
   renderField = ({ input, label, meta: { touched, error, warning } }) => (
@@ -95,7 +95,7 @@ class LogIn extends Component {
                   Log In
                 </button>
                 <div className="form__text">
-                  Don&apos;t have an account?<Link to={'/signup'}> Create one</Link>.
+                  Don&apos;t have an account?<Link><a href="/signup"> Create one</a></Link>.
                 </div>
               </form>
             )}
