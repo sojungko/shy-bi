@@ -5,6 +5,7 @@
     ".next"
   ],
   "watch": [
+    "styles/**/*",
     "server/**/*",
     "server.js"
   ],

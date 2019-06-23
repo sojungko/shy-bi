@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 
 import { getUsername, isUserAuthenticated } from 'modules/auth';
 import {
@@ -10,8 +11,8 @@ import {
   logoutUser,
   toggleLeftNav,
 } from 'actions';
-import Header from '../components/Header';
 
+import Header from '../components/Header';
 import LeftNav from '../components/LeftNav';
 import Footer from '../components/Footer';
 
@@ -37,12 +38,12 @@ class App extends Component {
 
   handleLogOut = () => this.props.logoutUser(getUsername())
     .then(() => {
-      this.context.router.push('/');
+      Router.push('/');
     })
 
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
-  handleClick = path => this.context.router.push(path);
+  handleClick = path => Router.push(path);
 
   forceUpdate() {
     this.forceUpdate();
@@ -53,7 +54,7 @@ class App extends Component {
     // const auth = isUserAuthenticated();
     console.log('this.props', this.props);
     return (
-      <div className="main">
+      <main className="main">
         <Header
           location={this.props.location.pathname}
           logOut={this.handleLogOut}
@@ -71,7 +72,7 @@ class App extends Component {
           {this.props.children}
         </div>
         <Footer />
-      </div>
+      </main>
     );
   }
 }

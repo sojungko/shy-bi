@@ -7,13 +7,13 @@ import { leftNavUnAuth, leftNavAuth } from 'modules/left-nav-menus';
 
 const LeftNav = ({ auth, open, handleToggle }) => {
   const renderMenuItems = menu => menu
-    .map(({ link, label }, index) =>
+    .map(({ href, label }, index) =>
       <li
         key={index}
         className="left-nav__item"
       >
         <button className="button button--flat button--link">
-          <Link to={link}>
+          <Link href={href}>
             {label}
           </Link>
         </button>
@@ -28,7 +28,7 @@ const LeftNav = ({ auth, open, handleToggle }) => {
       <ul className="left-nav__list">
         <li className="left-nav__item">
           <button className="button button--flat button--link">
-            <Link to="/">
+            <Link href="/">
             Home
           </Link>
           </button>

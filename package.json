@@ -4,10 +4,10 @@
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "NODE_ENV=development npm run build:styles && next build && nodemon -w server/server.js -r dotenv/config server/server.js",
+    "dev": "NODE_ENV=development npm run build:styles && next build && nodemon -r dotenv/config server/server.js | npm run watch:styles",
     "build": "next build",
     "build:styles": "sass styles/app.scss .next/static/style.css",
-    "watch:server": "nodemon -w server/server.js -r dotenv/config server/server.js",
+    "watch:styles": "chokidar 'styles/**/*.scss' -c 'npm run build:styles'",
     "commit": "npx git-cz"
   },
   "repository": {

@@ -22,12 +22,13 @@ const Header = (props) => {
         className="app-bar__menu-svg"
         onClick={handleToggle}
       />
-      <h1
-        className="app-bar__header"
-        onClick={handleTitleClick}
-      >
-        shybi
-      </h1>
+      <Link>
+        {/*<a href="/">*/}
+          <h1 className="app-bar__header">
+            shybi
+          </h1>
+        {/*</a>*/}
+      </Link>
       {
         auth ?
           <Link>
