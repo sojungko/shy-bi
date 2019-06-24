@@ -28,7 +28,7 @@ const UserListItem = ({ users, handleClick }) => (
       cols={6}
       padding={30}
     >
-      {renderUserList(users, handleClick)}
+      {/* {renderUserList(users, handleClick)} */}
     </ul>
   </div>
 );

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import CardContent from '@material-ui/core/CardContent';
 import { isUserAuthenticated } from 'modules/auth';
 import { getUser, getAllUsers } from 'actions';
 import SearchBar from 'components/SearchBar';
@@ -15,10 +12,6 @@ class UserList extends Component {
     getAllUsers: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
-  }
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -39,7 +32,7 @@ class UserList extends Component {
   render() {
     return (
       <div>
-        <div style={{ position: 'fixed', width: '100%' }}>
+        <div>
           {/* <CardHeader
             title="Explore"
             titleStyle={styles.title}
@@ -48,7 +41,7 @@ class UserList extends Component {
           /> */}
         </div>
         <SearchBar />
-        {/* <UserListItem users={this.props.users} handleClick={this.handleClick} /> */}
+        <UserListItem users={this.props.users} handleClick={this.handleClick} />
       </div>
     );
   }
