@@ -13,7 +13,7 @@
  * --------------------------------------------------------------- */
 
 const debug = require('debug');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 
 let log = debug('server:user:controller').bind(this);
 // Plucks addUser methods from user/user-model.js

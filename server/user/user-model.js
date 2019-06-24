@@ -9,7 +9,7 @@
  *
  * --------------------------------------------------------------- */
 
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const debug = require('debug');
 const db = require('../db/config');
 
@@ -47,35 +47,41 @@ module.exports = {
       email: ${email}
       to database`);
 
-    bcrypt.hash(password, null, null, ((err, hash) => {
+    bcrypt.genSalt(10, (err, salt) => {
       if (err) {
-        log(`Error hashing ${password}`);
+        err('Error generating hash');
       } else {
-        log(`Password successfully hashed: ${hash}`);
-        log('username : ', { username });
-        return db
-        .run(
-          `MERGE (newUser:User {
-            username: {username},
-            password: {hash},
-            email: {email}
-          })
-          ON CREATE SET newUser.memberSince = timestamp()
-
-          RETURN newUser`,
-          { username, email, hash })
-        .then(({ records }) => {
-          db.close();
-          log('records : ', records);
-          log('user has been added');
-          return callback(records[0]);
-        })
-        .catch((error) => {
-          err(`Could not add ${username} to the database`);
-          throw error;
-        });
+        bcrypt.hash(password, salt, ((err, hash) => {
+          if (err) {
+            log(`Error hashing ${password}`);
+          } else {
+            log(`Password successfully hashed: ${hash}`);
+            log('username : ', { username });
+            return db
+              .run(
+                `MERGE (newUser:User {
+                username: {username},
+                password: {hash},
+                email: {email}
+              })
+              ON CREATE SET newUser.memberSince = timestamp()
+    
+              RETURN newUser`,
+                { username, email, hash })
+              .then(({ records }) => {
+                db.close();
+                log('records : ', records);
+                log('user has been added');
+                return callback(records[0]);
+              })
+              .catch((error) => {
+                err(`Could not add ${username} to the database`);
+                throw error;
+              });
+          }
+        }));
       }
-    }));
+    });
   },
 
   /* ------------------------- * GET USER * -------------------------
@@ -103,7 +109,7 @@ module.exports = {
         MATCH (user)-[]->(age:Age)
         MATCH (user)-[]->(sex:Sex)
         RETURN age, user, city, sex`,
-      { username })
+        { username })
       .then(({ records }) => {
         db.close();
 
