@@ -16,6 +16,13 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: false,
+    }
+  }
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     location: PropTypes.shape({
@@ -31,8 +38,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getUnviewedMatches(getUsername());
-    this.props.getUnreadMessages(getUsername());
+    if (isUserAuthenticated()) {
+      this.props.getUnviewedMatches(getUsername());
+      this.props.getUnreadMessages(getUsername());
+      this.setState({ auth: true });
+    }
   }
 
   handleLogOut = () => this.props.logoutUser(getUsername())
@@ -53,10 +63,12 @@ class App extends Component {
     // const auth = isUserAuthenticated();
     console.log('this.props', this.props);
     const { asPath, open } = this.props;
+    const { auth } = this.state;
 
     return (
       <div className="app">
         <Header
+          auth={auth}
           asPath={asPath}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}

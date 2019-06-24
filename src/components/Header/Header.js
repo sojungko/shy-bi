@@ -58,7 +58,7 @@ const Header = (props) => {
           />
         } */}
       </div>
-      <LeftNav open={open} handleToggle={handleToggle} />
+      <LeftNav open={open} handleToggle={handleToggle} auth={auth} />
     </header>
   );
 };

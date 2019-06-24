@@ -4,7 +4,7 @@ const leftNavAuth = [
   { href: '/matches', label: 'Matches' },
   { href: '/messages', label: 'Messages' },
   { href: '/recommended', label: 'Recommended' },
-  { href: '/myaccount', label: 'My Account' },
+  { href: '/account', label: 'My Account' },
 ];
 
 export { leftNavUnAuth, leftNavAuth };
