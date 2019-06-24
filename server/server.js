@@ -25,6 +25,7 @@ const apiRoutes = require('./routes/api');
 
 const { NODE_ENV } = process.env;
 const log = debug('server:server').bind(this);
+const err = debug('server:server:error').bind(this);
 
 const app = next({ dev: NODE_ENV === 'development' });
 const handle = app.getRequestHandler();

@@ -10,6 +10,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:rec:model').bind(this);
+let err = debug('server:rec:model:error').bind(this);
 
 module.exports = {
     /* ------------------------- * getRecMatches * ------------
@@ -45,11 +46,11 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log(`[getRecMatches] Fetching the recommended matches for username: ${username}`);
+        log(`Fetching the recommended matches for username: ${username}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[getRecMatches] Could not find any
+        err(`Could not find any
         recommendations for username: ${username}`);
         throw error;
       });

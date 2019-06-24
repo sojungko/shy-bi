@@ -3,6 +3,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:likes:model').bind(this);
+let err = debug('server:likes:model:error').bind(this);
 
 module.exports = {
   like({ username, likedUser }, callback) {
@@ -28,7 +29,7 @@ module.exports = {
         callback(isMatch);
       })
       .catch((error) => {
-        console.error(`[like] Could not make ${username} to like ${likedUser}`);
+        err(`Could not make ${username} to like ${likedUser}`);
         throw error;
       });
   },
@@ -51,7 +52,7 @@ module.exports = {
         callback(results);
       })
       .catch((error) => {
-        console.error(`[user-model.js/unlike] Could not make ${username} to unlike ${unlikedUser}`);
+        err(`[user-model.js/unlike] Could not make ${username} to unlike ${unlikedUser}`);
         callback(error);
       });
   },

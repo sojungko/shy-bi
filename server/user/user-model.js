@@ -14,6 +14,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:user:model').bind(this);
+let err = debug('server:user:model:error').bind(this);
 
 module.exports = {
   //
@@ -70,7 +71,7 @@ module.exports = {
           return callback(records[0]);
         })
         .catch((error) => {
-          console.error(`Could not add ${username} to the database`);
+          err(`Could not add ${username} to the database`);
           throw error;
         });
       }
@@ -111,7 +112,7 @@ module.exports = {
         callback(records[0]);
       })
       .catch((error) => {
-        console.error(`Could not find ${username} from database`);
+        err(`Could not find ${username} from database`);
         throw error;
       });
   },
@@ -131,7 +132,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.log(`Could not find ${email} from database`);
+        err(`Could not find ${email} from database`);
         throw error;
       });
   },
@@ -162,7 +163,7 @@ module.exports = {
         { username })
       .then((data) => {
         db.close();
-        console.log(`Toggled ${username} offline`, data);
+        log(`Toggled ${username} offline`, data);
         return callback(data);
       });
   },

@@ -13,6 +13,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:search:model').bind(this);
+let err = debug('server:search:model:error').bind(this);
 
 module.exports = {
   //
@@ -46,7 +47,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error('Could not execute the query to the database');
+        err('Could not execute the query to the database');
         throw error;
       });
   },
@@ -95,7 +96,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`Could not user with
+        err(`Could not user with
           ${minage}, ${maxage}, ${city}, ${sex} in database`);
         throw error;
       });
@@ -121,7 +122,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`Could not find liked users for ${username}`);
+        err(`Could not find liked users for ${username}`);
         throw error;
       });
   },

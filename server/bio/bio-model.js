@@ -3,6 +3,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:bio:model').bind(this);
+let err = debug('server:bio:model:error').bind(this);
 
 module.exports = {
   postBio({ name, email, job = '', edLevel = '', aboutMe = '', username, city, age, sex }, callback) {
@@ -32,7 +33,7 @@ module.exports = {
         return callback();
       })
       .catch((error) => {
-        log('Could not edit user in database : ', error);
+        err('Could not edit user in database : ', error);
         throw error;
       });
   },
@@ -53,7 +54,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        log('Could not delete image from database');
+        err('Could not delete image from database');
         throw error;
       });
   },
@@ -74,7 +75,7 @@ module.exports = {
        return callback(records);
      })
      .catch((error) => {
-       console.error('[postImage] Could not save image to database');
+       err('[postImage] Could not save image to database');
        throw error;
      });
   },

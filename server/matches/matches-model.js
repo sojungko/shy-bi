@@ -3,6 +3,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:matches:model').bind(this);
+let err = debug('server:matches:model:error').bind(this);
 
 module.exports = {
   getMatchedUsers({ username }, callback) {
@@ -26,7 +27,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[user-model.js/getMatchedUsers] Could not find matched users for ${username}`);
+        err(`[user-model.js/getMatchedUsers] Could not find matched users for ${username}`);
         throw error;
       });
   },
@@ -50,7 +51,7 @@ module.exports = {
         return callback();
       })
       .catch((error) => {
-        log('Could not toggle view of matches');
+        err('Could not toggle view of matches');
         throw error;
       });
   },
@@ -75,7 +76,7 @@ module.exports = {
         return callback(records);
       })
       .catch((error) => {
-        log('Could not fetch unviewed matches', error);
+        err('Could not fetch unviewed matches', error);
         throw error;
       });
   },

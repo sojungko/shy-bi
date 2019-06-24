@@ -11,6 +11,7 @@ const debug = require('debug');
 const db = require('../db/config');
 
 let log = debug('server:messages:model').bind(this);
+let err = debug('server:messages:model:error').bind(this);
 
 module.exports = {
   //
