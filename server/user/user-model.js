@@ -105,10 +105,7 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User{username: {username}})
-        MATCH (user)-[]->(city:City)
-        MATCH (user)-[]->(age:Age)
-        MATCH (user)-[]->(sex:Sex)
-        RETURN age, user, city, sex`,
+        RETURN user`,
         { username })
       .then(({ records }) => {
         db.close();

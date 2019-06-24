@@ -107,11 +107,11 @@ module.exports = {
           log('Wrong password!');
           callback(err);
         } else if (isMatch) {
-          const city = data.get('city').properties.name;
-          const age = data.get('age').properties.age;
-          const sex = data.get('sex').properties.sex;
+          // const city = data.get('city').properties.name;
+          // const age = data.get('age').properties.age;
+          // const sex = data.get('sex').properties.sex;
 
-          const result = { memberSince, password, name, email, username, city, age, sex, image_url };
+          const result = { memberSince, password, name, email, username, image_url };
 
           log('Sending User data: ', result);
           callback(null, result);
@@ -169,11 +169,11 @@ module.exports = {
     getUser(username, (data) => {
       log('Success! Chunking data & building res object', data);
       const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url, online } } = data.get('user');
-      const city = data.get('city').properties.name;
-      const age = data.get('age').properties.age;
-      const sex = data.get('sex').properties.sex;
+      // const city = data.get('city').properties.name;
+      // const age = data.get('age').properties.age;
+      // const sex = data.get('sex').properties.sex;
 
-      const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url, online };
+      const result = { memberSince, name, username, email, job, edLevel, aboutMe, image_url, online };
 
       log('Sending User data: ', result);
       res.json(result);
