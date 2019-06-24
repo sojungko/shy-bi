@@ -1,11 +1,14 @@
 const express = require('express');
 const passport = require('passport');
+const debug = require('debug');
 
+console.log = console.log.bind(this);
 const router = new express.Router();
 
 router.post('/signup', (req, res, next) => {
   return passport.authenticate('local-signup', (err, token, userData) => {
     if (err) {
+      console.log('err', err);
       return res.status(400).json({
         success: false,
         message: 'Could not process the form.',
@@ -21,8 +24,10 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/signin', (req, res, next) => {
+  console.log('req.body', req.body);
   return passport.authenticate('local-login', (err, token, userData) => {
     if (err) {
+      console.log('err', err);
       return res.status(400).json({
         success: false,
         message: 'Could not process the form.',

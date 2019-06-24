@@ -12,6 +12,8 @@ const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const debug = require('debug');
+
 const dbinit = require('./db/initialize');
 
 const localSignupStrategy = require('./passport/local-signup');
@@ -22,6 +24,7 @@ const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 
 const { NODE_ENV } = process.env;
+const log = debug('server:server').bind(this);
 
 const app = next({ dev: NODE_ENV === 'development' });
 const handle = app.getRequestHandler();
@@ -49,7 +52,7 @@ app.prepare()
     // server.use('/api', authCheckMiddleware);
 
     // routes
-    server.use('/auth', authRoutes);
+    server.use('/auth', (req, res, next) => { log('here!!'); next(); }, authRoutes);
     server.use('/api', apiRoutes);
 
     // // Deligates all routing to routes.js

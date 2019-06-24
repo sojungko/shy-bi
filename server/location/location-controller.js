@@ -2,7 +2,7 @@ const debug = require('debug');
 
 const request = require('request');
 
-const log = debug('server:locaation:controller');
+const log = debug('server:location:controller').bind(this);
 
 module.exports = {
   getLocations({ body }, res) {

@@ -2,11 +2,12 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:likes:model');
+let log = debug('server:likes:model').bind(this);
 
 module.exports = {
   like({ username, likedUser }, callback) {
-    log(`[like] Finding ${username} and ${likedUser} from database`);
+    // log = log.extend('like');
+    log(`Finding ${username} and ${likedUser} from database`);
 
     return db
       .run(
@@ -23,7 +24,7 @@ module.exports = {
         db.close();
         const isMatch = records[0]._fields[0];
 
-        log(`[like] ${username} liked ${likedUser} <3 : `, isMatch);
+        log(`${username} liked ${likedUser} <3 : `, isMatch);
         callback(isMatch);
       })
       .catch((error) => {
@@ -33,7 +34,8 @@ module.exports = {
   },
 
   unlike({ username, unlikedUser }, callback) {
-    log(`[unlike] Finding ${username} and ${unlikedUser} from database`);
+    // log = log.extend('unlike');
+    log(`Finding ${username} and ${unlikedUser} from database`);
 
     return db
       .run(
@@ -45,7 +47,7 @@ module.exports = {
       )
       .then((results) => {
         db.close();
-        log(`[unlike] ${username} unliked ${unlikedUser} <3`, results);
+        log(`${username} unliked ${unlikedUser} <3`, results);
         callback(results);
       })
       .catch((error) => {

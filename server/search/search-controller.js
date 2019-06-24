@@ -15,7 +15,7 @@ const debug = require('debug');
 
 const { getAll, getFilteredUsers, getLikedUsers } = require('./search-model');
 
-const log = debug('server:search:controller');
+let log = debug('server:search:controller').bind(this);
 
 module.exports = {
   //
@@ -62,13 +62,14 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   findAllUsers(req, res) {
-    log('[findAll] Searching all user');
+    // log = log.extend('findAll');
+    log('Searching all user');
 
     getAll((allUserData) => {
-      log('[findAll] Success! parsing data & building res object');
+      log('Success! parsing data & building res object');
 
       const allUsers = allUserData.map((userData, index) => {
-        log(`${index}) [findAll] parsing user ${index} data`);
+        log(`${index}) parsing user ${index} data`);
 
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } }
@@ -89,7 +90,7 @@ module.exports = {
         return user;
       });
 
-      log('[findAll] Sending All User info: ', allUsers);
+      log('Sending All User info: ', allUsers);
       res.send(allUsers);
     });
   },
@@ -131,15 +132,16 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   filterUsers({ query }, res) {
-    log(`[filterUsers] Filtering users by
+    // log = log.extend('filterUsers');
+    log(`Filtering users by
       minage: ${query.minage}, maxage: ${query.maxage}, city: ${query.city}, sex: ${query.sex}`);
 
     getFilteredUsers(query, (filteredUserData) => {
-      log(`[filterUsers] Success!
+      log(`Success!
         Chunking data & building res object`);
 
       const filteredUsers = filteredUserData.map((userData, index) => {
-        log(`${index}) [filterUsers] parsing user ${index} data`);
+        log(`${index}) parsing user ${index} data`);
 
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } }
@@ -160,14 +162,15 @@ module.exports = {
         return user;
       });
 
-      log('[filterUsers] Sending User data: ', filteredUsers);
+      log('Sending User data: ', filteredUsers);
       res.json(filteredUsers);
     });
   },
 
 /* -------------------------- * FIND LIKED USERS * ------------------------- */
   findLikedUsers({ params }, res) {
-    log(`[findLikedUsers] Searching ${params.username}'s liked users`);
+    // log = log.extend('findLikedUsers');
+    log(`Searching ${params.username}'s liked users`);
     getLikedUsers(params, (likedUsersData) => {
       const likedUsers = likedUsersData.map((userData) => {
         const { properties: { memberSince, name, username, image_url, online } } = userData.get('liked');
@@ -179,7 +182,7 @@ module.exports = {
         return likedUser;
       });
 
-      log('[filterUsers] Sending User data: ', likedUsers);
+      log('Sending User data: ', likedUsers);
       res.json(likedUsers);
     });
   },

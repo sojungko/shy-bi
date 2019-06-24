@@ -5,7 +5,7 @@ import rootReducer from './reducers';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-export const makeStore = (initialState = { apiHeaders: {} }, { isServer, req = {} }) => {
+const makeStore = (initialState = { apiHeaders: {} }, { isServer, req = {} }) => {
   const composeEnhancers = typeof window !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
   const logger = createLogger();
@@ -18,4 +18,6 @@ export const makeStore = (initialState = { apiHeaders: {} }, { isServer, req = {
 
   return store;
 };
+
+export default makeStore;
 

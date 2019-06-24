@@ -2,16 +2,17 @@ const debug = require('debug');
 
 const { getMatchedUsers, toggleView, getNewMatches } = require('./matches-model');
 
-const log = debug('server:matches:controller');
+let log = debug('server:matches:controller').bind(this);
 
 module.exports = {
 
   getMatches({ params }, res) {
-    log('[getMatches] Received request for ', params.username);
+    // log = log.extend('getMatches');
+    log('Received request for ', params.username);
     getMatchedUsers(params, (matches) => {
-      log('[getMatches] Completed database query for ', params.username);
+      log('Completed database query for ', params.username);
       const matchedUsers = matches.map((matchedUserData, index) => {
-        log(`${index}) [getMatches] parsing data`);
+        log(`${index}) parsing data`);
         // Getting User data
         const { properties: { memberSince, name, username, image_url, online } } = matchedUserData.get('liked');
         const city = matchedUserData.get('city').properties.name;
@@ -21,18 +22,20 @@ module.exports = {
 
         return user;
       });
-      log('[getMatches] Sending matches!', matchedUsers);
+      log('Sending matches!', matchedUsers);
       res.json(matchedUsers);
     });
   },
 
   viewMatch({ body: { username } }, res) {
-    log(`[viewMatch] Received request for ${username}`);
+    // log = log.extend('viewMatch');
+    log(`Received request for ${username}`);
     toggleView(username, () => res.sendStatus(201));
   },
 
   findNewMatches({ params }, res) {
-    log(`[findNewMatches] Received request for ${params.username}`);
+    // // log = log.extend('findNewMatches');
+    log(`Received request for ${params.username}`);
     getNewMatches(params.username, newMatches => res.json(newMatches));
   },
 };

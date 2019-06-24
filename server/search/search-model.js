@@ -12,7 +12,7 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:search:model');
+let log = debug('server:search:model').bind(this);
 
 module.exports = {
   //
@@ -30,7 +30,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getAll(callback) {
-    log('[getAll] Accessing user database');
+    // log = log.extend('getAll');
+    log('Accessing user database');
 
     return db
       .run(
@@ -41,11 +42,11 @@ module.exports = {
         RETURN age, user, city, sex LIMIT 10`)
       .then(({ records }) => {
         db.close();
-        log('[getAll] Reteriving first 10 user data');
+        log('Reteriving first 10 user data');
         return callback(records);
       })
       .catch((error) => {
-        console.error('[addUser] Could not execute the query to the database');
+        console.error('Could not execute the query to the database');
         throw error;
       });
   },
@@ -68,7 +69,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getFilteredUsers({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
-    log(`[getFilteredUsers] Accessing user database
+    // log = log.extend('getFilteredUsers');
+    log(`Accessing user database
       age: ${minage} < age < ${maxage}
       city: ${city},
       sex: ${sex}
@@ -88,19 +90,20 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log(`[getFilteredUsers] Reteriving first 10 user data that matches
+        log(`Reteriving first 10 user data that matches
           minage: ${minage}, maxage: ${maxage} city: ${city}, sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[getFilteredUsers] Could not user with
+        console.error(`Could not user with
           ${minage}, ${maxage}, ${city}, ${sex} in database`);
         throw error;
       });
   },
 
   getLikedUsers({ username }, callback) {
-    log('[getLikedUsers] Accessing user database');
+    // log = log.extend('getLikedUsers');
+    log('Accessing user database');
 
     return db
       .run(
@@ -114,11 +117,11 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log('[getLikedUsers] Reteriving liked users data');
+        log('Reteriving liked users data');
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[getLikedUsers] Could not find liked users for ${username}`);
+        console.error(`Could not find liked users for ${username}`);
         throw error;
       });
   },

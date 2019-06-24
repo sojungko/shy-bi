@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'next/link';
@@ -28,6 +28,9 @@ class LogIn extends Component {
   }
 
   onSubmit = (inputs) => {
+    console.log('hello world');
+    // console.log('this.props.loginUser', this.props.loginUser);
+    console.log('this.props in onSubmit', this.props);
     this.props.loginUser(inputs)
       .then(() => Router.push('/'));
   }

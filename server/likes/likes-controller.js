@@ -2,11 +2,12 @@ const debug = require('debug');
 
 const { like, unlike } = require('./likes-model');
 
-const log = debug('server:likes:controller');
+let log = debug('server:likes:controller').bind(this);
 
 module.exports = {
   likeUser({ body }, res) {
-    log(`[likeUser] ${body.username} is liking ${body.likedUser}`);
+    // log = log.extend('likeUser');
+    log(`${body.username} is liking ${body.likedUser}`);
     like(body, (isMatch) => {
       log('[likeUser] Success! Sending back 201 status : ', isMatch);
       res.status(201).json(isMatch);
@@ -14,9 +15,10 @@ module.exports = {
   },
 
   unlikeUser({ body }, res) {
-    log(`[unlikeUser] ${body.username} is unliking ${body.unlikedUser}`);
+    // log = log.extend('unlikeUser');
+    log(`${body.username} is unliking ${body.unlikedUser}`);
     unlike(body, (data) => {
-      log(`[unlikeUser] ${data}`);
+      log(data);
       res.sendStatus(201);
     });
   },

@@ -2,11 +2,12 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:matches:model');
+let log = debug('server:matches:model').bind(this);
 
 module.exports = {
   getMatchedUsers({ username }, callback) {
-    log('[getMatchedUsers] Accessing user database');
+    // log = log.extend('getMatchedUsers');
+    log('Accessing user database');
 
     return db
     .run(
@@ -21,7 +22,7 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log('[getMatchedUsers] Reteriving matched users data');
+        log('Reteriving matched users data');
         return callback(records);
       })
       .catch((error) => {
@@ -31,7 +32,8 @@ module.exports = {
   },
 
   toggleView(username, callback) {
-    log('[toggleView] Accessing user database');
+    // log = log.extend('toggleView');
+    log('Accessing user database');
 
     return db
       .run(
@@ -44,17 +46,18 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log('[toggleView] Toggled view properties of matches', records);
+        log('Toggled view properties of matches', records);
         return callback();
       })
       .catch((error) => {
-        log('[toggleView] Could not toggle view of matches');
+        log('Could not toggle view of matches');
         throw error;
       });
   },
 
   getNewMatches(username, callback) {
-    log('[getNewMatches] Accessing user database');
+    // log = log.extend('getNewMatches');
+    log('Accessing user database');
 
     return db
       .run(
@@ -68,11 +71,11 @@ module.exports = {
     )
       .then(({ records }) => {
         db.close();
-        log('[getNewMatches] Successfully fetched unviewed matches : ', records);
+        log('Successfully fetched unviewed matches : ', records);
         return callback(records);
       })
       .catch((error) => {
-        log('[getNewMatches] Could not fetch unviewed matches', error);
+        log('Could not fetch unviewed matches', error);
         throw error;
       });
   },

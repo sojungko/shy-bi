@@ -15,7 +15,7 @@
 const debug = require('debug');
 const bcrypt = require('bcrypt-nodejs');
 
-const log = debug('server:user:controller');
+let log = debug('server:user:controller').bind(this);
 // Plucks addUser methods from user/user-model.js
 const { addUser, getUser, toggleOnline, toggleOffline } = require('./user-model');
 
@@ -38,7 +38,8 @@ module.exports = {
 
 // Taking in job and education because Facebook provides the info
   signUp({ body: { username, email, password } }, callback) {
-    log(`[signup] Signing up ${username}`);
+    // log = log.extend('signup');
+    log(`Signing up ${username}`);
     getUser(username, (user) => {
       if (user) {
         callback(null);
@@ -88,21 +89,22 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   signIn({ body }, callback) {
+    // log = log.extend('signIn');
     const attemptedPassword = body.password;
     const attemptedUsername = body.username;
 
-    log(`[signIn] Authenticating for user with
+    log(`Authenticating for user with
     username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
     getUser(attemptedUsername, (data) => {
-      log(`4[signIn] Success!
+      log(`Success!
         Checking attempted password: ${body.password} against database`);
 
       const { properties: { username, memberSince, password, name, email, image_url } } = data.get('user');
 
       bcrypt.compare(body.password, password, (err, isMatch) => {
         if (err) {
-          log('[signIn] Wrong password!');
+          log('Wrong password!');
           callback(err);
         } else if (isMatch) {
           const city = data.get('city').properties.name;
@@ -111,7 +113,7 @@ module.exports = {
 
           const result = { memberSince, password, name, email, username, city, age, sex, image_url };
 
-          log('[signIn] Sending User data: ', result);
+          log('Sending User data: ', result);
           callback(null, result);
           toggleOnline(username);
         }
@@ -120,9 +122,10 @@ module.exports = {
   },
 
   signOut({ body: { username } }, res) {
-    log(`[singOut] Deauthenticating username: ${username}`);
+    // log = log.extend('signOut');
+    log(`Deauthenticating username: ${username}`);
     toggleOffline(username, (data) => {
-      log('[singOut] Success!', data);
+      log('Success!', data);
       return res.send(data);
     });
   },
@@ -160,10 +163,11 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   findUser({ params: { username } }, res) {
-    log(`[findUser] Searching for user with username: ${username}`);
+    // log = log.extend('findUser');
+    log(`Searching for user with username: ${username}`);
 
     getUser(username, (data) => {
-      log('[findUser] Success! Chunking data & building res object', data);
+      log('Success! Chunking data & building res object', data);
       const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url, online } } = data.get('user');
       const city = data.get('city').properties.name;
       const age = data.get('age').properties.age;
@@ -171,7 +175,7 @@ module.exports = {
 
       const result = { memberSince, name, username, city, age, sex, email, job, edLevel, aboutMe, image_url, online };
 
-      log('[findUser] Sending User data: ', result);
+      log('Sending User data: ', result);
       res.json(result);
     });
   },

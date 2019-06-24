@@ -16,7 +16,7 @@ const debug = require('debug');
 // Plucks getAll methods from messages-model.js
 const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messages-model');
 
-const log = debug('server:messages:controller');
+let log = debug('server:messages:controller').bind(this);
 
 module.exports = {
   //
@@ -58,15 +58,16 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   findAllMessages({ params }, res) {
-    log(`[findAllMessages] Searching for
+    // log = log.extend('findAllMessages');
+    log(`Searching for
       ${params.username} messages`);
 
     getAll(params, (messagesData) => {
-      log(`[findAllMessages] Success!
+      log(`Success!
         Parsing messages & building res object`);
 
       const messages = messagesData.map((message, index) => {
-        log(`${index}) [findAll] parsing message ${index} data: `,
+        log(`${index}) parsing message ${index} data: `,
           message);
 
         const { properties: { name: receivedBy, username: receiverID } }
@@ -112,14 +113,15 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   sendMessage({ body }, res) {
+    // log = log.extend('sendMessage');
     log(body);
-    log(`[sendMessage] ${body.senderID} is sending message
+    log(`${body.senderID} is sending message
       title: ${body.title}
       body: ${body.body}
       to ${body.receiverID}`);
 
     postMessage(body, () => {
-      log('[sendMessage] Success, sending back 201 status');
+      log('Success, sending back 201 status');
       res.sendStatus(201);
     });
   },
@@ -159,15 +161,15 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
   sentMessages({ params }, res) {
-    log(`[sentMessages]
-      searching for messages sent by ${params.username} `);
+    // log = log.extend('sendMessages');
+    log(`searching for messages sent by ${params.username} `);
 
     getOutbox(params, (sentMessagesData) => {
-      log(`[sentMessages] Success!
+      log(`Success!
         Parsing messages & building res object`);
 
       const sentMessages = sentMessagesData.map((message, index) => {
-        log(`${index}) [sentMessages] parsing message
+        log(`${index}) parsing message
           ${index} data:`, message);
 
         const { properties: { name: sentBy, username: senderID } }

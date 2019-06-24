@@ -58,8 +58,10 @@ export function signupUser(props) {
 }
 
 export function loginUser(props) {
+  console.log('hey there');
   return dispatch => axios.post('/auth/signin', props)
     .then(({ data }) => {
+      console.log('data', data);
       authenticateUser(data.token, data.user.username);
       return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: data });
     })

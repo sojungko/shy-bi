@@ -13,7 +13,7 @@ const bcrypt = require('bcrypt-nodejs');
 const debug = require('debug');
 const db = require('../db/config');
 
-const log = debug('server:user:model');
+let log = debug('server:user:model').bind(this);
 
 module.exports = {
   //
@@ -39,7 +39,8 @@ module.exports = {
 
   addUser(userData, callback) {
     const { username, password, email } = userData;
-    log(`[addUser] Adding user
+    // log = log.extend('addUser');
+    log(`Adding user
       username: ${username}
       password: ${password}
       email: ${email}
@@ -47,10 +48,10 @@ module.exports = {
 
     bcrypt.hash(password, null, null, ((err, hash) => {
       if (err) {
-        log(`[addUser] Error hashing ${password}`);
+        log(`Error hashing ${password}`);
       } else {
-        log(`[addUser] Password successfully hashed: ${hash}`);
-        log('[addUser] username : ', { username });
+        log(`Password successfully hashed: ${hash}`);
+        log('username : ', { username });
         return db
         .run(
           `MERGE (newUser:User {
@@ -64,12 +65,12 @@ module.exports = {
           { username, email, hash })
         .then(({ records }) => {
           db.close();
-          log('[addUser] records : ', records);
-          log('[addUser] user has been added');
+          log('records : ', records);
+          log('user has been added');
           return callback(records[0]);
         })
         .catch((error) => {
-          console.error(`[addUser] Could not add ${username} to the database`);
+          console.error(`Could not add ${username} to the database`);
           throw error;
         });
       }
@@ -91,7 +92,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getUser(username, callback) {
-    log(`[getUser] Finding ${username} from database`);
+    // log = log.extend('getUser');
+    log(`Finding ${username} from database`);
 
     return db
       .run(
@@ -104,18 +106,19 @@ module.exports = {
       .then(({ records }) => {
         db.close();
 
-        log(`[getUser] ${username} has been found`);
+        log(`${username} has been found`);
         log(records);
         callback(records[0]);
       })
       .catch((error) => {
-        console.error(`[getUser] Could not find ${username} from database`);
+        console.error(`Could not find ${username} from database`);
         throw error;
       });
   },
 
   getUserByEmail(email, callback) {
-    console.log(`2) [user-model.js/getUserByEmail] Finding ${email} from database`);
+    // log = log.extend('getUserByEmail');
+    log(`Finding ${email} from database`);
 
     return db
       .run(
@@ -124,17 +127,18 @@ module.exports = {
         { email })
       .then(({ records }) => {
         db.close();
-        console.log(`3) [user-model.js/getUserByEmail] ${email} has been found`, records);
+        log(`${email} has been found`, records);
         return callback(records);
       })
       .catch((error) => {
-        console.log(`3) [user-model.js/getUserByEmail] Could not find ${email} from database`);
+        console.log(`Could not find ${email} from database`);
         throw error;
       });
   },
 
   toggleOnline(username) {
-    log(`[toggleOnline] Toggling ${username} online `);
+    // log = log.extend('toggleOnline');
+    log(`Toggling ${username} online `);
     return db
       .run(
         `MATCH (user: User{username: {username}})
@@ -143,12 +147,13 @@ module.exports = {
         { username })
       .then((data) => {
         db.close();
-        log(`[toggleOnline] Toggled ${username} online`, data);
+        log(`Toggled ${username} online`, data);
       });
   },
 
   toggleOffline(username, callback) {
-    log(`[toggleOffline] Toggling ${username} online `);
+    // log = log.extend('toggleOffline');
+    log(`Toggling ${username} online `);
     return db
       .run(
         `MATCH (user: User{username: {username}})
@@ -157,7 +162,7 @@ module.exports = {
         { username })
       .then((data) => {
         db.close();
-        console.log(`[toggleOffline] Toggled ${username} offline`, data);
+        console.log(`Toggled ${username} offline`, data);
         return callback(data);
       });
   },

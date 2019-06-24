@@ -2,11 +2,12 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:bio:model');
+let log = debug('server:bio:model').bind(this);
 
 module.exports = {
   postBio({ name, email, job = '', edLevel = '', aboutMe = '', username, city, age, sex }, callback) {
-    log(`[postBio] Accessing user database with username: ${username}`);
+    // log = log.extend('postBio');
+    log(`Accessing user database with username: ${username}`);
     return db
       .run(
         `MATCH (user:User {username: {username}})
@@ -26,18 +27,19 @@ module.exports = {
         { name, email, job, edLevel, aboutMe, username, city, age, sex }
       )
       .then(() => {
-        log('[postBio] Editing user info in database:');
+        log('Editing user info in database:');
         db.close();
         return callback();
       })
       .catch((error) => {
-        log('[postBio] Could not edit user in database : ', error);
+        log('Could not edit user in database : ', error);
         throw error;
       });
   },
 
   removeImage(username, callback) {
-    log(`[removeImage] Accessing user database with ${username}`)
+    // log = log.extend('removeImage');
+    log(`Accessing user database with ${username}`);
     return db
       .run(
         `MATCH (user:User {username: {username}})
@@ -47,27 +49,28 @@ module.exports = {
       )
       .then(({ records }) => {
         db.close();
-        log('[removeImage] Successfully removed image url from database');
+        log('Successfully removed image url from database');
         return callback(records);
       })
       .catch((error) => {
-        log('[removeImage] Could not delete image from database');
+        log('Could not delete image from database');
         throw error;
       });
   },
 
   postImage(username, url, callback) {
-    log(`[postImage] Accessing user database with url: ${url}`);
+    // log = log.extend('postImage');
+    log(`Accessing user database with url: ${url}`);
     return db
      .run(
       `MATCH (user:User{ username: {username} })
       SET user.image_url = {url}
       RETURN user`,
-      { username, url }
+      { username, url },
      )
      .then(({ records }) => {
        db.close();
-       log('[postImage] Saving image to database:');
+       log('Saving image to database:');
        return callback(records);
      })
      .catch((error) => {

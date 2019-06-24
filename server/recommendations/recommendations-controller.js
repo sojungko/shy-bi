@@ -2,16 +2,17 @@ const debug = require('debug');
 
 const { getRecMatches } = require('./recommendations-model');
 
-const log = debug('server:rec:controller');
+let log = debug('server:rec:controller').bind(this);
 
 module.exports = {
   getRecommendedMatches({ params }, res) {
-    log(`[getRecommendedMatches] Getting recommended matches for ${params.username}`);
+    // log = log.extend('getRecommendedMatches');
+    log(`Getting recommended matches for ${params.username}`);
     getRecMatches(params, (matches) => {
-      log('[getRecommendedMatches] Success! Building res object');
+      log('Success! Building res object');
 
       const matchedUsers = matches.map((matchedUserData, index) => {
-        log(`${index}) [getRecommendedMatches] parsing data`);
+        log(`${index}) parsing data`);
           // Getting User data
         const { properties: { memberSince, name, username, image_url, online } } = matchedUserData.get('recUsers');
         const city = matchedUserData.get('city').properties.name;
@@ -21,7 +22,7 @@ module.exports = {
 
         return user;
       });
-      log('[getRecommendedMatches] Sending potential matches!', matchedUsers);
+      log('Sending potential matches!', matchedUsers);
       res.json(matchedUsers);
     });
   },

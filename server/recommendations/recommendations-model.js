@@ -9,7 +9,7 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:rec:model');
+let log = debug('server:rec:model').bind(this);
 
 module.exports = {
     /* ------------------------- * getRecMatches * ------------
@@ -30,7 +30,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getRecMatches({ username }, callback) {
-    log('[getRecMatches] Accessing user database');
+    // log = log.extend('getRecMatches');
+    log('Accessing user database');
 
     return db
       .run(

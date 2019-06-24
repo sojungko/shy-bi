@@ -10,7 +10,7 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-const log = debug('server:messages:model');
+let log = debug('server:messages:model').bind(this);
 
 module.exports = {
   //
@@ -30,7 +30,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getAll({ username }, callback) {
-    log('[getAll] Accessing message database');
+    // log = log.extend('getAll');
+    log('Accessing message database');
 
     return db
       .run(
@@ -40,11 +41,11 @@ module.exports = {
         { username })
       .then(({ records }) => {
         db.close();
-        log('[getAll] Reteriving first 10 messsages: ');
+        log('Reteriving first 10 messsages: ');
         return callback(records);
       })
       .catch((error) => {
-        console.error('[getAll] Could not execute the query to the database');
+        log('Could not execute the query to the database');
         throw error;
       });
   },
@@ -68,7 +69,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   postMessage({ senderID, receiverID, title, body }, callback) {
-    log(`[postMessage] Accessing message database with
+    // log = log.extend('postMessage');
+    log(`Accessing message database with
       senderID: ${senderID}
       receiverID: ${receiverID}
       title: ${title}
@@ -84,11 +86,11 @@ module.exports = {
        { senderID, receiverID, title, body })
      .then((data) => {
        db.close();
-       log('[postMessage] Writing message to database:');
+       log('Writing message to database:');
        return callback(data);
      })
      .catch((error) => {
-       console.error('3) [postMessage] Could not writing message to database');
+       console.error('Could not writing message to database');
        throw error;
      });
   },
@@ -110,7 +112,8 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getOutbox({ username }, callback) {
-    log('[getOutbox] Accessing message database');
+    // log = log.extend('getOutbox');
+    log('Accessing message database');
 
     return db
       .run(
@@ -120,13 +123,12 @@ module.exports = {
         { username })
       .then(({ records }) => {
         db.close();
-        log(`[getOutbox] Reteriving first 10 messsages
+        log(`Reteriving first 10 messsages
           sent by ${username}`);
         return callback(records);
       })
       .catch((error) => {
-        console.error(`[getOutbox]
-          Could not execute the query to the database`);
+        console.error('Could not execute the query to the database');
         throw error;
       });
   },

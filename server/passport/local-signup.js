@@ -5,7 +5,7 @@ const debug = require('debug');
 const User = require('../user/user-controller');
 const PassportLocalStrategy = require('passport-local').Strategy;
 
-const log = debug('server:passport:local-signup');
+const log = debug('server:passport:local-signup').bind(this);
 
 module.exports = new PassportLocalStrategy({
   usernameField: 'username',
