@@ -13,7 +13,6 @@ import {
 } from 'actions';
 
 import Header from 'components/Header';
-import LeftNav from 'components/LeftNav';
 import Footer from 'components/Footer';
 
 class App extends Component {
@@ -53,26 +52,25 @@ class App extends Component {
     // const currentUser = getUsername();
     // const auth = isUserAuthenticated();
     console.log('this.props', this.props);
+    const { asPath, open } = this.props;
+
     return (
-      <main className="main">
+      <div className="app">
         <Header
-          location={this.props.location.pathname}
+          asPath={asPath}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
           numberOfMatches={this.props.unviewed}
           numberOfMessages={this.props.unread}
           handleClick={this.handleClick}
           handleTitleClick={() => Router.push('/')}
+          open={open}
         />
-        <LeftNav
-          open={this.props.open}
-          handleToggle={this.handleToggle}
-        />
-        <div className="page">
+        <main className="page">
           {cloneElement(this.props.children)}
-        </div>
+        </main>
         <Footer />
-      </main>
+      </div>
     );
   }
 }

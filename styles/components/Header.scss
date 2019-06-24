@@ -12,8 +12,12 @@
 
 .app-bar__header {
   @include logo-text;
+}
+
+.app-bar__logo {
   margin: auto 10px;
 }
+
 
 .app-bar__menu-svg {
   width: 2em !important;

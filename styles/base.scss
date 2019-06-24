@@ -56,21 +56,24 @@ body {
 }
 
 a {
-  text-decoration: none;
-  color: $brand-dark;
+	text-decoration: none;
+	color: inherit;
   &:hover {
     text-decoration: none;
-    color: $brand-dark;
   }
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	height: $header-height;
 }
 
 .main {
   display: grid;
-}
-
-.content {
-  margin: auto;
-  margin-top: 100px;
 }
 
 .image-container {
@@ -82,8 +85,12 @@ a {
 .splash {
   margin-top: 40vh;
 	display: block;
-  background-repeat:no-repeat center center fixed;
-  background-size:cover;
+  background-repeat: no-repeat center center fixed;
+  background-size: cover;
 	height: 100%;
   position: fixed;
+}
+
+.footer {
+	text-align: right;
 }

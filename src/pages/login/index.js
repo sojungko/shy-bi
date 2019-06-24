@@ -20,6 +20,9 @@ import {
 import App from 'components/App';
 
 class LogIn extends Component {
+  static getInitialProps = ({ asPath }) => {
+    return { asPath };
+  }
   static propTypes = {
     loginUser: PropTypes.func.isRequired,
   }
@@ -40,9 +43,10 @@ class LogIn extends Component {
   )
 
   render() {
+    const { asPath } = this.props;
 
     return (
-      <App>
+      <App asPath={asPath}>
         <div className="page__container">
           <Form
             onSubmit={this.onSubmit}
@@ -95,7 +99,7 @@ class LogIn extends Component {
                   Log In
                 </button>
                 <div className="form__text">
-                  Don&apos;t have an account?<Link><a href="/signup"> Create one</a></Link>.
+                  Don&apos;t have an account?<Link><a href="/signup" className="form__link"> Create one</a></Link>.
                 </div>
               </form>
             )}

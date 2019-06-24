@@ -21,6 +21,9 @@ import {
 import App from 'components/App';
 
 class SignUp extends Component {
+  static getInitialProps = ({ asPath }) => {
+    return { asPath };
+  }
   static propTypes = {
     signupUser: PropTypes.func,
     getLocations: PropTypes.func,
@@ -61,76 +64,77 @@ class SignUp extends Component {
   )
 
   render() {
+    const { asPath } = this.props;
     return (
-      <App>
-      <div className="page__container">
-        <Form
-          onSubmit={this.onSubmit}
-          render={({ handleSubmit, pristine, invalid }) => (
-            <form onSubmit={handleSubmit} className="form">
-              <h2 className="form__title">
-                Sign Up
+      <App asPath={asPath}>
+        <div className="page__container">
+          <Form
+            onSubmit={this.onSubmit}
+            render={({ handleSubmit, pristine, invalid }) => (
+              <form onSubmit={handleSubmit} className="form">
+                <h2 className="form__title">
+                  Sign Up
               </h2>
-              <Field
-                render={this.renderField}
-                name="email"
-                label="Email"
-                validate={
-                  composeValidators(
-                    email,
-                    required,
-                    mustContainLetter,
-                  )}
-              />
-              <Field
-                render={this.renderField}
-                name="username"
-                type="username"
-                label="Username"
-                validate={
-                  composeValidators(
-                    required,
-                    noSpecialChars,
-                    mustContainLetter,
-                    mustBeLongerThan(6),
-                    mustBeShorterThan(12)
-                  )}
-              />
-              <Field
-                render={this.renderField}
-                name="password"
-                type="password"
-                label="Password"
-                validate={
-                  composeValidators(
-                    required,
-                    mustBeLongerThan(8),
-                    mustBeShorterThan(16),
-                    mustContainLetter,
-                    mustContainNumber
-                  )
-                }
-              />
-              <button
-                className={
-                  classNames({
-                    'button': true,
-                    'button--flat': true,
-                    'button--large': true,
-                    'form__submit': true,
-                    'button--disabled': invalid || pristine,
-                  })
-                }
-                type="submit"
-              >
-                Create New Account
+                <Field
+                  render={this.renderField}
+                  name="email"
+                  label="Email"
+                  validate={
+                    composeValidators(
+                      email,
+                      required,
+                      mustContainLetter,
+                    )}
+                />
+                <Field
+                  render={this.renderField}
+                  name="username"
+                  type="username"
+                  label="Username"
+                  validate={
+                    composeValidators(
+                      required,
+                      noSpecialChars,
+                      mustContainLetter,
+                      mustBeLongerThan(6),
+                      mustBeShorterThan(12)
+                    )}
+                />
+                <Field
+                  render={this.renderField}
+                  name="password"
+                  type="password"
+                  label="Password"
+                  validate={
+                    composeValidators(
+                      required,
+                      mustBeLongerThan(8),
+                      mustBeShorterThan(16),
+                      mustContainLetter,
+                      mustContainNumber
+                    )
+                  }
+                />
+                <button
+                  className={
+                    classNames({
+                      'button': true,
+                      'button--flat': true,
+                      'button--large': true,
+                      'form__submit': true,
+                      'button--disabled': invalid || pristine,
+                    })
+                  }
+                  type="submit"
+                >
+                  Create New Account
               </button>
-              <div className="form__text">Already have an account? <Link><a href='/login'>Log in</a></Link></div>
-            </form>
-          )}
-        />
+                <div className="form__text">Already have an account? <Link><a href='/login' className="form__link">Log in</a></Link></div>
+              </form>
+            )}
+          />
         </div>
-      </App>  
+      </App>
     );
   }
 }

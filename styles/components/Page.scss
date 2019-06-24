@@ -1,7 +1,6 @@
 .page {
-  padding: $header-height + $page-padding;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 120px);
 }
 
 .page__container {

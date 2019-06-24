@@ -8,6 +8,7 @@
   overflow: auto;
   position: fixed;
   top: 0;
+  border-right: 1px solid $gray-light;
   &__active {
     left: 0;
     z-index: $filterBar;
@@ -19,7 +20,6 @@
 
 .left-nav__list {
   margin: 30px;
-  height: 100%;
 }
 
 .left-nav__item {

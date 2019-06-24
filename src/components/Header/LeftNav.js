@@ -13,8 +13,10 @@ const LeftNav = ({ auth, open, handleToggle }) => {
         className="left-nav__item"
       >
         <button className="button button--flat button--link">
-          <Link href={href}>
-            {label}
+          <Link>
+            <a href={href}>
+              {label}
+            </a>
           </Link>
         </button>
       </li>);
