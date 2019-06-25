@@ -20,6 +20,12 @@ import {
 
 import App from 'components/App';
 import ImageUpload from 'components/ImageUpload';
+import {
+  renderField,
+  renderRadioGroup,
+  renderSelect,
+  renderTextArea,
+} from 'components/Form';
 
 class Account extends Component {
   static propTypes = {
@@ -48,44 +54,6 @@ class Account extends Component {
       .then(props => this.props.editBio(props));
   }
 
-  renderField = ({ input, label, meta: { touched, error, warning } }) => (
-    <div className="form__group">
-      <label className="form__label">{label}</label>
-      <input {...input} className="form__input" />
-      {
-        touched && error && <span className="form__warning">{error}</span>
-      }
-    </div>
-  )
-
-  // renderCheckbox = ({ input, label }) => (
-    /*<Checkbox
-      label={label}
-      checked={!!input.value}
-      onCheck={input.onChange}
-    />*/
-  // )
-
-  renderRadioButton = ({ input, label, ...rest }) => (
-    <Fragment>
-      <label>{label}</label>
-      <input type="radio" {...input} {...rest} />
-    </Fragment>
-  )
-
-  // renderSelectField = ({ input, label, ...rest }) => (
-  //   /*<Select
-  //     floatingLabelText={label}
-  //     errorText={touched && error}
-  //     {...input}
-  //     onChange={(event, index, value) => input.onChange(value)}
-  //     {...custom}
-  //     style={style}
-  //   >
-  //     {children}
-  //   </Select>*/
-  // )
-
   render() {
     return (
       <App>
@@ -93,17 +61,17 @@ class Account extends Component {
           <Form
             onSubmit={this.onSubmit}
             render={({ handleSubmit, pristine, invalid }) => (
-              <form onSubmit={handleSubmit} className="form">
-                <h2 className="form__title">
+              <form onSubmit={handleSubmit} className="form form__left">
+                <h2 className="form--title">
                   Edit Profile
                 </h2>
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="name"
                   label="Name"
                 />
                 <Field
-                  component={this.renderField}
+                  component={renderField}
                   name="password"
                   type="password"
                   label="Password"
@@ -120,32 +88,26 @@ class Account extends Component {
                 <Field
                   name="email"
                   type="email"
-                  component={this.renderField}
+                  component={renderField}
                   label="Email"
                 />
-                  <label><Field name="sex" component={this.renderRadioButton} type="radio" value="male"/> Male</label>
-                  <label><Field name="sex" component={this.renderRadioButton} type="radio" value="female"/> Female</label>
-                  {/*<Field
-                    name="job"
-                    type="text"
-                    component={this.renderInput}
-                    label="Job"
-                  />*/}
-                  <label>Education Level</label>
-                  <Field
-                    name="edLevel"
-                    component="select"
-                    label="Education Leve"
-                  >
-                    <option value={'highSchool'}>High School</option>
-                    <option value={'college'}>College</option>
-                    <option value={'graduate'}>Graduate</option>
-                  </Field>
-                  <label>About Me</label>
-                  <Field
-                    name="aboutMe"
-                    component="textarea"
-                  />
+                <Field
+                  name="sex"
+                  component={renderRadioGroup}
+                  options={["Male", "Female", "Other"]}
+                  label="Sex"
+                />
+                <Field
+                  name="edLevel"
+                  component={renderSelect}
+                  label="Education Level"
+                  options={["High School", "Some College", "Bachelor's", "Master's", "Ph.D.", "Other"]}
+                />
+                <Field
+                  name="aboutMe"
+                  component={renderTextArea}
+                  label="About Me"
+                />
                 <ImageUpload />
                 <div className="button-line">
                   <button
@@ -154,7 +116,7 @@ class Account extends Component {
                         'button': true,
                         'button--flat': true,
                         'button--large': true,
-                        'form__submit': true,
+                        'form--submit': true,
                         'button--disabled': invalid || pristine,
                       })
                     }

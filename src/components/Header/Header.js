@@ -34,20 +34,24 @@ const Header = (props) => {
         </Link>
         {
           auth ?
-            <button
-              className="button button--flat"
-              onClick={logOut}
-            >
-              Log Out
-            </button>
+            <div className="app-bar__button-container">
+              <button
+                className="button button--flat"
+                onClick={logOut}
+              >
+                Log Out
+              </button>
+            </div>
             :
-            <Link>
-              <a href={asPath === '/login' ? '/signup' : '/login'} className="app-bar__button-container">
-                <button className="button button--flat">
-                  {asPath === '/login' ? 'Sign Up' : 'Log In'}
-                </button>
-              </a>
-            </Link>
+            <div className="app-bar__button-container">
+              <Link>
+                <a href={asPath === '/login' ? '/signup' : '/login'}>
+                  <button className="button button--flat">
+                    {asPath === '/login' ? 'Sign Up' : 'Log In'}
+                  </button>
+                </a>
+              </Link>
+            </div>
         }
         {/* {
           auth &&

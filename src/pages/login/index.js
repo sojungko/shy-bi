@@ -18,6 +18,9 @@ import {
 } from 'modules/validators';
 
 import App from 'components/App';
+import {
+  renderField,
+} from 'components/Form';
 
 class LogIn extends Component {
   static getInitialProps = ({ asPath }) => {
@@ -35,16 +38,6 @@ class LogIn extends Component {
       .then(() => Router.push('/'));
   }
 
-  renderField = ({ input, label, meta: { touched, error, warning } }) => (
-    <div className="form__group">
-      <label className="form__label">{label}</label>
-      <input {...input} className="form__input" />
-      {
-        touched && error && <span className="form__warning">{error}</span>
-      }
-    </div>
-  )
-
   render() {
     const { asPath } = this.props;
 
@@ -54,12 +47,12 @@ class LogIn extends Component {
           <Form
             onSubmit={this.onSubmit}
             render={({ handleSubmit, pristine, invalid }) => (
-              <form onSubmit={handleSubmit} className="form">
-                <h2 className="form__title">
+              <form onSubmit={handleSubmit} className="form form__login">
+                <h2 className="form--title">
                   Log In
                 </h2>
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="username"
                   label="Username"
                   validate={
@@ -72,7 +65,7 @@ class LogIn extends Component {
                     )}
                 />
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="password"
                   type="password"
                   label="Password"
@@ -92,7 +85,7 @@ class LogIn extends Component {
                       'button': true,
                       'button--flat': true,
                       'button--large': true,
-                      'form__submit': true,
+                      'form--submit': true,
                       'button--disabled': invalid || pristine,
                     })
                   }
@@ -101,8 +94,8 @@ class LogIn extends Component {
                 >
                   Log In
                 </button>
-                <div className="form__text">
-                  Don&apos;t have an account?<Link><a href="/signup" className="form__link"> Create one</a></Link>.
+                <div className="form--text">
+                  Don&apos;t have an account?<Link><a href="/signup" className="form--link"> Create one</a></Link>.
                 </div>
               </form>
             )}

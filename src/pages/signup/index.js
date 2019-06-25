@@ -19,6 +19,9 @@ import {
 } from 'modules/validators';
 
 import App from 'components/App';
+import {
+  renderField,
+} from 'components/Form';
 
 class SignUp extends Component {
   static getInitialProps = ({ asPath }) => {
@@ -46,23 +49,6 @@ class SignUp extends Component {
     this.props.getLocations(inputs);
   }
 
-  renderRadioButton = ({ input, label, ...rest }) => (
-    <Fragment>
-      <label>{label}</label>
-      <input type="radio" {...input} {...rest} />
-    </Fragment>
-  );
-
-  renderField = ({ input, label, meta: { touched, error, warning } }) => (
-    <div className="form__group">
-      <label className="form__label">{label}</label>
-      <input {...input} className="form__input" />
-      {
-        touched && error && <span className="form__warning">{error}</span>
-      }
-    </div>
-  )
-
   render() {
     const { asPath } = this.props;
     return (
@@ -71,12 +57,12 @@ class SignUp extends Component {
           <Form
             onSubmit={this.onSubmit}
             render={({ handleSubmit, pristine, invalid }) => (
-              <form onSubmit={handleSubmit} className="form">
-                <h2 className="form__title">
+              <form onSubmit={handleSubmit} className="form form__login">
+                <h2 className="form--title">
                   Sign Up
               </h2>
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="email"
                   label="Email"
                   validate={
@@ -87,7 +73,7 @@ class SignUp extends Component {
                     )}
                 />
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="username"
                   type="username"
                   label="Username"
@@ -101,7 +87,7 @@ class SignUp extends Component {
                     )}
                 />
                 <Field
-                  render={this.renderField}
+                  render={renderField}
                   name="password"
                   type="password"
                   label="Password"
@@ -121,7 +107,7 @@ class SignUp extends Component {
                       'button': true,
                       'button--flat': true,
                       'button--large': true,
-                      'form__submit': true,
+                      'form--submit': true,
                       'button--disabled': invalid || pristine,
                     })
                   }
@@ -129,7 +115,7 @@ class SignUp extends Component {
                 >
                   Create New Account
               </button>
-                <div className="form__text">Already have an account? <Link><a href='/login' className="form__link">Log in</a></Link></div>
+                <div className="form--text">Already have an account? <Link><a href='/login' className="form--link">Log in</a></Link></div>
               </form>
             )}
           />

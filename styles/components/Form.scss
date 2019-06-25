@@ -1,47 +1,57 @@
 .form {
-  max-width: 200px;
-  margin: auto;
   display: grid;
-}
 
-.form__title {
-  @include headline-text-l;
-  text-align: center;
-  margin-bottom: 30px;
-}
+  &__login {
+    max-width: 200px;
+    margin: auto;
+  }
 
-.form__group {
-  display: grid;
-  margin-bottom: 20px;
-}
+  &__left {
+    max-width: 500px;
+    margin: auto;
+    &--group {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 
-.form__label {
-  @include body-text-l;
-  margin-bottom: 7px;
-}
+  &--title {
+    @include headline-text-l;
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-.form__input {
-  height: 30px;
-  border-radius: 2px;
-  border: 0.6px solid $gray-light;
-}
+  &--group {
+    display: grid;
+    margin-bottom: 20px;
+  }
 
-.form__submit {
-  padding: 10px;
-  margin: 0 auto;
-  height: 40px;
-}
+  &--label {
+    @include body-text-l;
+    margin-bottom: 7px;
+  }
 
-.form__warning {
-  font-weight: 500;
-  color: $error;
-  margin-top: 6px;
-}
+  &--input {
+    height: 30px;
+    border-radius: 2px;
+    border: 0.6px solid $gray-light;
+  }
 
-.form__text {
-  margin-top: 20px;
-}
+  &--submit {
+    padding: 10px;
+    margin: 0 auto;
+    height: 40px;
+  }
 
-.form__link {
-  color: $brand-color;
+  &--warning {
+    font-weight: 500;
+    color: $error;
+    margin-top: 6px;
+  }
+  &--text {
+    margin-top: 20px;
+  }
+
+  &--link {
+    color: $brand-color;
+  }
 }
