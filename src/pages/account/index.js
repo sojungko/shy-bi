@@ -125,7 +125,17 @@ class Account extends Component {
                   >
                     Submit
                   </button>
-                  <button disabled={pristine}>
+                  <button
+                    className={
+                      classNames({
+                        'button': true,
+                        'button--flat': true,
+                        'button--large': true,
+                        'form--submit': true,
+                        'button--disabled': invalid || pristine,
+                      })
+                    }
+                    disabled={pristine}>
                     Clear Fields
                   </button>
                 </div>

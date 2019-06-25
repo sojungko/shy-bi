@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-// import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
 import { deleteImage, uploadImage } from 'actions';
 import { getUsername } from 'modules/auth';
 
@@ -72,7 +72,17 @@ class ImageUpload extends Component {
             <p>Drop an image or click to select a file to upload.</p>
           </Dropzone>
         </div>
-        <button onClick={this.onDelete}>
+        <button
+          className={
+            classNames({
+              'button': true,
+              'button--flat': true,
+              'button--large': true,
+              'form--submit': true,
+              'button--disabled': !!this.state.uploadedFileCloudinaryUrl,
+            })
+          }
+          onClick={this.onDelete}>
           Delete Photo
         </button>
         <div>
