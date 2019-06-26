@@ -1,16 +1,19 @@
 import React from 'react';
-import SearchBar from 'components/SearchBar';
-import UserListItem from 'components/UserListItem';
+import Link from 'next/link';
 
 const UserList = ({ users }) => (
-  <div>
-    <SearchBar />
-    <ul>
-      {users.map(user => (
-        <UserListItem user={user} />
-      ))}
-    </ul>
-  </div>
+  <ul>
+    {users.map(({ username, image_url }) => (
+      <Link>
+        <a href="/">
+          <li>
+            <img role="presentation " src={image_url} />
+            <div>Username: {username}</div>
+          </li>
+        </a>
+      </Link>
+    ))}
+  </ul>
 );
 
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserListItem from './UserListItem';
+import UserList from './UserList';
 
 const MutualLikes = ({ matches, handleClick }) => (
-  <UserListItem users={matches} handleClick={handleClick} />
+  <UserList users={matches} handleClick={handleClick} />
 );
 
 MutualLikes.propTypes = {

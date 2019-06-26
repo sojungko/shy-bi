@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 export default class Token extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
 
   componentDidMount() {
     const token = window.location.hash.slice(8);

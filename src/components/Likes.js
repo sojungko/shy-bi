@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserListItem from './UserListItem';
+import UserList from './UserList';
 
 const Likes = ({ likes, handleClick }) => (
-  <UserListItem users={likes} handleClick={handleClick} />
+  <UserList users={likes} handleClick={handleClick} />
 );
 
 Likes.propTypes = {

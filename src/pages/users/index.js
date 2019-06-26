@@ -8,6 +8,7 @@ import { GET_ALL_USERS } from 'constants/action-types';
 import App from 'components/App';
 import Profile from 'components/Profile';
 import UserList from 'components/UserList';
+import SearchBar from 'components/SearchBar';
 
 class Users extends Component {
   static async getInitialProps({ req = { params: {} }, query = {}, store, asPath }) {
@@ -52,7 +53,10 @@ class Users extends Component {
     }
     return (
       <App>
-        <UserList users={users} />
+        <section className="page__users">
+          <SearchBar />
+          <UserList users={users} />
+        </section>
       </App>
     );
   }

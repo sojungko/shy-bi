@@ -79,7 +79,7 @@ class App extends Component {
           open={open}
         />
         <main className="page">
-          {cloneElement(this.props.children)}
+          {this.props.children}
         </main>
         <Footer />
       </div>
