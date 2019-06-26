@@ -6,7 +6,7 @@ import Router from 'next/router';
 // import CardHeader from '@material-ui/core/CardHeader';
 // import CardContent from '@material-ui/core/CardContent';
 import { getUsername, isUserAuthenticated } from 'modules/auth';
-import RecommendedUserList from 'components/RecommendedUserList';
+// import RecommendedUserList from 'components/RecommendedUserList';
 import { getRecommendedUsers, getCurrentUser } from 'actions';
 
 class RecommendedUsers extends Component {
@@ -42,7 +42,7 @@ class RecommendedUsers extends Component {
           subtitle="Based on our special algorithm"
           subtitleStyle={styles.subtitle}
         /> */}
-        <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} />
+        {/* <RecommendedUserList recommended={this.props.recommended} handleClick={this.handleClick} /> */}
       </div>
     );
   }
