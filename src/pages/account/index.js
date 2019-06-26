@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Router, { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 

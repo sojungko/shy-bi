@@ -26,6 +26,7 @@ export const EXPAND_CARD = 'EXPAND_CARD';
 
 export const UPDATE_MINAGE = 'UPDATE_MINAGE';
 export const UPDATE_MAXAGE = 'UPDATE_MAXAGE';
+export const UPDATE_AGE_RANGE = 'UPDATE_AGE_RANGE';
 export const UPDATE_CITY = 'UPDATE_CITY';
 export const UPDATE_SEX = 'UPDATE_SEX';
 

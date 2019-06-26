@@ -6,7 +6,7 @@ const leftNavUnAuth = [
 
 const leftNavAuth = [
   { href: '/', label: 'Home' },
-  { href: '/search', label: 'Search' },
+  { href: '/users', label: 'Search' },
   { href: '/matches', label: 'Matches' },
   { href: '/messages', label: 'Messages' },
   { href: '/recommended', label: 'Recommended' },

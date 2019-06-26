@@ -11,19 +11,20 @@ import UserList from 'components/UserList';
 
 class Users extends Component {
   static async getInitialProps({ req = { params: {} }, query = {}, store, asPath }) {
+    const isServer = !!req;
     const { params: { username } } = req;
     const visitedUser = username || query.username || null;
 
     if (visitedUser) {
       try {
-        const { data } = await axios.get(`${process.env.API_DOMAIN}/api/users/${visitedUser}`);
+        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
         store.dispatch({ type: 'GET_VISITED_USER', data });
       } catch (err) {
         console.log('err', err);
       }
     } else {
       try {
-        const { data } = await axios.get(`${process.env.API_DOMAIN}/api/users/`);
+        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/`);
         store.dispatch({ type: GET_ALL_USERS, data });
       } catch (err) {
         console.log('err', err);

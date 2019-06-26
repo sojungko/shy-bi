@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import InputRange from 'react-input-range';
+import { Form, Field } from 'react-final-form';
+import classNames from 'classnames';
 
-import { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser } from 'actions';
+import {
+  updateAgeRange,
+  updateCity,
+  updateSex,
+  clearFields,
+  filterUser,
+} from 'actions';
 
+import {
+  renderField,
+  renderRadioGroup,
+  renderSelect,
+  renderTextArea,
+} from 'components/Form';
 
 class SearchBar extends Component {
   static propTypes = {
     minage: PropTypes.string,
     maxage: PropTypes.string,
     city: PropTypes.string,
-    updateMinAge: PropTypes.func,
-    updateMaxAge: PropTypes.func,
+    updateAgeRange: PropTypes.func,
     updateCity: PropTypes.func,
     clearFields: PropTypes.func,
     filterUser: PropTypes.func,
@@ -22,30 +36,46 @@ class SearchBar extends Component {
       city: PropTypes.string,
     }),
   }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sex: {
+        male: false,
+        female: false,
+        other: false,
+      },
+      ageRange: {
+        min: 19,
+        max: 100,
+      }
+    }
+  }
 
   componentDidUpdate() {
     // this.props.filterUser(this.props.inputs);
   }
 
-  handleChange = ({ target: { name, value } }) => {
+  handleAgeChange = (val) => {
+    this.setState({ ageRange: val });
+    this.props.updateAgeRange(val);
+  }
+
+  handleChange = (e) => {
+    const { target } = e;
+    const { name, value } = target;
     switch (name) {
-      case 'minage':
-        this.props.updateMinAge(value);
-        break;
-      case 'maxage':
-        this.props.updateMaxAge(value);
-        break;
-      case 'city':
-        this.props.updateCity(value);
-        break;
-      case 'sex':
-        this.props.updateSex(value);
+      case 'male':
+      case 'female':
+      case 'other':
+        const updatedState = { ...this.state.sex, [value]: !this.state.sex[value] }
+        this.props.updateSex(updatedState);
         break;
       default:
         return null;
     }
 
-    return null;
+    // return null;
   }
 
   handleClick = () => {
@@ -55,47 +85,67 @@ class SearchBar extends Component {
   render() {
     // const { minage, maxage, city } = this.props;
     return (
-      <div style={{ position: 'fixed', marginTop: '76px', height: '100%', fontFamily: 'Source Sans Pro' }}>
-        {/* <CardHeader
-          titleStyle={{ fontFamily: 'Source Sans Pro', fontSize: '30px' }}
-          title="Search"
-        /> */}
-        <textarea
-          floatingLabelText="Minimum Age"
-          name="minage"
-          type="number"
-          // value={minage}
-          onChange={this.handleChange}
+      <section>
+        <Form
+          onSubmit={() => {}}
+          render={() => (
+            <form className="form form__left">
+              <h2 className="form--title">Filters</h2>
+              <label>Age</label>
+              <InputRange
+                name="ageRange"
+                maxValue={100}
+                minValue={19}
+                value={this.state.ageRange}
+                onChange={this.handleAgeChange}
+              />
+              <div className="form--group">
+                <label className="form--label">Sex</label>
+                <label>
+                  <Field
+                    name="male"
+                    component="input"
+                    type="checkbox"
+                    value={this.state.sex.male}
+                  />
+                  Male
+                </label>
+                <label>
+                  <Field
+                    name="female"
+                    component="input"
+                    type="checkbox"
+                    value={this.state.sex.female}
+                  />
+                  Female
+                </label>
+                <label>
+                  <Field
+                    name="other"
+                    component="input"
+                    type="checkbox"
+                    value={this.state.sex.other}
+                  />
+                  Other
+                </label>
+              </div>
+              <button
+                className={
+                  classNames({
+                    'button': true,
+                    'button__flat': true,
+                    'button__large': true,
+                    'form--submit': true,
+                  })
+                }
+                onClick={this.handleClick}
+              >
+                Clear Fields
+              </button>
+            </form>
+          )}
         />
-        <textarea
-          floatingLabelText="Maximum Age"
-          name="maxage"
-          type="number"
-          // value={maxage}
-          onChange={this.handleChange}
-        />
-        <select
-          name="sex"
-          onChange={this.handleChange}
-        >
-          <option
-            value="Male"
-            label="Male"
-          />
-          <option
-            value="Female"
-            label="Female"
-          />
-        </select>
-        {/* <textarea
-          floatingLabelText="City"
-          type="text"
-          name="city"
-          value={city}
-          onChange={this.handleChange}
-        /> */}
-        <button labelStyle={{ fontFamily: 'Source Sans Pro' }} label="Clear Fields" onClick={this.handleClick} />
-      </div>
+      </section>
     );
   }
 }
@@ -108,4 +158,10 @@ const mapStateToProps = ({ filterInputs }) => ({
   // city: filterInputs.city,
 });
 
-export default connect(mapStateToProps, { updateMinAge, updateMaxAge, updateCity, updateSex, clearFields, filterUser })(SearchBar);
+export default connect(mapStateToProps, {
+  updateAgeRange,
+  updateCity,
+  updateSex,
+  clearFields,
+  filterUser,
+})(SearchBar);

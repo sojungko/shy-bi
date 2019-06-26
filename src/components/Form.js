@@ -14,7 +14,7 @@ export const renderRadioGroup = ({ input, label, options, ...rest }) => (
   <div className="form--group">
     <label className="form--label">{label}</label>
     {options.map(option => (
-      <label>
+      <label key={option.toLowerCase()}>
         <Field
           {...input}
           component="input"
@@ -37,6 +37,7 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
     >
       {options.map(option => (
         <option
+          key={option.toLowerCase().replace(' ', '_')}
           value={option.toLowerCase().replace(' ', '_')}
         >
           {option}

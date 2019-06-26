@@ -24,8 +24,7 @@ export {
 } from './users-actions';
 
 export {
-  updateMinAge,
-  updateMaxAge,
+  updateAgeRange,
   updateCity,
   updateSex,
   clearFields,

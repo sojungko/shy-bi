@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import App from 'components/App';
 import Profile from 'components/Profile';
 
-
 const Home = ({ currentUser }) => {
   // if auth
   if (currentUser) {
