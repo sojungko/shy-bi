@@ -4,7 +4,8 @@ import {
   SIGN_UP_USER,
   GET_MATCHES,
   GET_LIKED_USERS,
-  GET_USER,
+  GET_CURRENT_USER,
+  GET_VISITED_USER,
 } from '../constants/action-types';
 
 // const INITIAL_STATE = {
@@ -29,10 +30,19 @@ export function users(state = [], action) {
   }
 }
 
-export function currentUser(state = {}, action) {
+export function currentUser(state = null, action) {
   switch (action.type) {
-    case GET_USER:
+    case GET_CURRENT_USER:
     case SIGN_UP_USER:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export function visitedUser(state = null, action) {
+  switch (action.type) {
+    case GET_VISITED_USER:
       return action.payload;
     default:
       return state;

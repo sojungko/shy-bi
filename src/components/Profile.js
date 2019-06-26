@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import Snackbar from '@material-ui/core/Snackbar';
-// import Card from '@material-ui/core/Card';
-// import CardText from '@material-ui/core/CardText';
-// import CardHeader from '@material-ui/core/CardHeader';
-// import CardContent from '@material-ui/core/CardContent';
 import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 import { isUserAuthenticated, getUsername } from 'modules/auth';
-import { getUser, likeUser } from 'actions';
+import { getCurrentUser, likeUser } from 'actions';
 
 class Profile extends Component {
   static propTypes = {
-    getUser: PropTypes.func.isRequired,
+    getCurrentUser: PropTypes.func.isRequired,
     params: PropTypes.shape({
       username: PropTypes.string,
     }),
@@ -37,38 +33,33 @@ class Profile extends Component {
     open: PropTypes.bool,
   }
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
+  // componentDidMount() {
+  //   const visitedUser = this.props.params.username;
+  //   const username = this.props.profile.username;
 
+  //   console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
+  //   if (!isUserAuthenticated()) {
+  //     Router.push('/home');
+  //   } else if (!visitedUser) {
+  //     this.props.getCurrentUser(getUsername());
+  //   } else if (visitedUser !== username) {
+  //     this.props.getCurrentUser(visitedUser);
+  //   }
+  // }
 
-  componentDidMount() {
-    const visitedUser = this.props.params.username;
-    const username = this.props.profile.username;
-
-    console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
-    if (!isUserAuthenticated()) {
-      Router.push('/home');
-    } else if (!visitedUser) {
-      this.props.getUser(getUsername());
-    } else if (visitedUser !== username) {
-      this.props.getUser(visitedUser);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const visitedUser = this.props.params.username;
-    if (!isUserAuthenticated()) {
-      Router.push('/home');
-    } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
-      this.props.getUser(getUsername());
-    } else if (visitedUser === getUsername()) {
-      Router.push('/');
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const visitedUser = this.props.params.username;
+  //   if (!isUserAuthenticated()) {
+  //     Router.push('/home');
+  //   } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
+  //     this.props.getCurrentUser(getUsername());
+  //   } else if (visitedUser === getUsername()) {
+  //     Router.push('/');
+  //   }
+  // }
 
   handleLikeButton = () => {
-    this.props.likeUser(getUsername(), this.props.params.username);
+    // this.props.likeUser(getUsername(), this.props.params.username);
   }
 
   renderOnlineMessage = (online, isMatch, name, sex) => {
@@ -82,96 +73,50 @@ class Profile extends Component {
     }
   }
 
-  renderProfile() {
-    const { name, sex, age, city, job, edLevel, aboutMe, image_url, online, isMatch } = this.props.profile;
-    return (
-      <div>
-        {/* <CardText style={styles.cardText}> */}
-          <img role="presentation" src={image_url} />
-          <div>
-            {this.props.params.username ? this.renderOnlineMessage(online, isMatch, name, sex) : 'You are online.'}
-          </div>
-          <br />
-          <table>
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <td>{name}</td>
-              </tr>
-              <tr>
-                <th>Sex</th>
-                <td>{sex}</td>
-              </tr>
-              <tr>
-                <th>Age</th>
-                <td>{age}</td>
-              </tr>
-              <tr>
-                <th>City</th>
-                <td>{city}</td>
-              </tr>
-              <tr>
-                <th>Job</th>
-                <td>{job}</td>
-              </tr>
-              <tr>
-                <th>Education</th>
-                <td>{edLevel}</td>
-              </tr>
-              <tr>
-                <th>About Me</th>
-                <td>{aboutMe}</td>
-              </tr>
-            </tbody>
-          </table>
-        {/* </CardText> */}
-      </div>
-    );
-  }
-
   render() {
-    if (this.props.params.username) {
-      return (
-        <div>
-          {/* <CardHeader
-            title={`${this.props.profile.name}`}
-            titleStyle={cardStyle.title}
-            subtitle={`Get to know ${this.props.profile.name}!`}
-            subtitleStyle={cardStyle.subtitle}
-          /> */}
-          <div>
-            {this.renderProfile()}
-            <Checkbox
-              onClick={this.handleLikeButton}
-              checkedIcon={<ActionFavorite />}
-              uncheckedIcon={<ActionFavoriteBorder />}
-              label="Like"
-            />
-          </div>
-          <Snackbar
-            open={this.props.open || false}
-            message="You guys are a match!"
-            autoHideDuration={4000}
-          />
-        </div>
-      );
-    }
+    const { visitedUser, currentUser } = this.props;
+    var { name, aboutMe, image_url, online } = visitedUser || currentUser;
+
     return (
       <div>
-        {/* <CardHeader
-          title={`Hi, ${this.props.profile.name}`}
-          titleStyle={cardStyle.title}
-          subtitle="Good to have you back!"
-          subtitleStyle={cardStyle.subtitle}
-        /> */}
+        <img role="presentation" src={image_url} />
         <div>
-          {this.renderProfile()}
+          {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
         </div>
+        <br />
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <th>About Me</th>
+              <td>{aboutMe}</td>
+            </tr>
+          </tbody>
+        </table>
+        { visitedUser && 
+        <Fragment>
+          <Checkbox
+             onClick={this.handleLikeButton}
+             checkedIcon={<ActionFavorite />}
+             uncheckedIcon={<ActionFavoriteBorder />}
+             label="Like"
+           />
+           <Snackbar
+           open={this.props.open || false}
+           message="You guys are a match!"
+           autoHideDuration={4000}
+         />
+        </Fragment>
+        }
       </div>
+
     );
   }
 }
 
 
 const mapStateToProps = ({ profile }) => ({ profile, open: profile.isMatch });
-export default connect(mapStateToProps, { getUser, likeUser })(Profile);
+export default connect(mapStateToProps, { getCurrentUser, likeUser })(Profile);

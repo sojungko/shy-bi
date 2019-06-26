@@ -3,62 +3,55 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import classNames from 'classnames';
 
-import { leftNavUnAuth, leftNavAuth } from 'modules/left-nav-menus';
+import {
+  leftNavUnAuth,
+  leftNavAuth,
+} from 'modules/left-nav-menus';
 
-const LeftNav = ({ auth, open, handleToggle }) => {
+const LeftNav = ({ currentUser, open, handleToggle }) => {
   const renderMenuItems = menu => menu
-    .map(({ href, label }, index) =>
+    .map(({ href, label }, index) => (
       <li
         key={index}
-        className="left-nav__item"
+        className="left-nav--item"
       >
-        <button className="button button--flat button--link">
+        <button className="button button__flat button__link">
           <Link>
             <a href={href}>
               {label}
             </a>
           </Link>
         </button>
-      </li>);
+      </li>
+    ));
 
   const leftNavStyle = classNames({
     'left-nav': true,
     'left-nav__active': !!open,
   });
-  const renderDrawer = menu => (
+
+  return (
     <div className={leftNavStyle}>
-      <ul className="left-nav__list">
-        <li className="left-nav__item">
-          <button className="button button--flat button--link">
-            <Link href="/">
-            Home
-          </Link>
-          </button>
-        </li>
-        {renderMenuItems(menu)}
-        <li
-          className="left-nav__item"
-          onClick={handleToggle}
-        >
-          <button className="button button--flat button--link">
-          Close
+      <ul className="left-nav--list">
+        {renderMenuItems(currentUser ? leftNavAuth : leftNavUnAuth)}
+        <li className="left-nav--item">
+          <button
+            className="button button__flat button__link"
+            onClick={handleToggle}
+          >
+            Close
           </button>
         </li>
       </ul>
     </div>
   );
-
-  if (!auth) {
-    return renderDrawer(leftNavUnAuth);
-  }
-  return renderDrawer(leftNavAuth);
 };
 
 LeftNav.propTypes = {
-  user: PropTypes.string,
+  // user: PropTypes.string,
   open: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  auth: PropTypes.bool.isRequired,
+  // auth: PropTypes.bool.isRequired,
 };
 
 export default LeftNav;

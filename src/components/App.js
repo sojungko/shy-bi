@@ -5,9 +5,10 @@ import Router from 'next/router';
 
 import { getUsername, isUserAuthenticated } from 'modules/auth';
 import {
-  getUnviewedMatches,
   getAllMessages,
   getUnreadMessages,
+  getUnviewedMatches,
+  getCurrentUser,
   logoutUser,
   toggleLeftNav,
 } from 'actions';
@@ -16,13 +17,6 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: false,
-    }
-  }
-
   static propTypes = {
     children: PropTypes.node.isRequired,
     location: PropTypes.shape({
@@ -38,10 +32,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (isUserAuthenticated()) {
-      this.props.getUnviewedMatches(getUsername());
-      this.props.getUnreadMessages(getUsername());
-      this.setState({ auth: true });
+    let isBootstrapped = false;
+    if (!window.isLoaded) {
+      if (isBootstrapped) return;
+
+      isBootstrapped = true;
+
+      if (isUserAuthenticated()) {
+        const username = getUsername();
+        this.props.getUnviewedMatches(username);
+        this.props.getUnreadMessages(username);
+        this.props.getCurrentUser(username);
+      }
     }
   }
 
@@ -63,12 +65,10 @@ class App extends Component {
     // const auth = isUserAuthenticated();
     console.log('this.props', this.props);
     const { asPath, open } = this.props;
-    const { auth } = this.state;
 
     return (
       <div className="app">
         <Header
-          auth={auth}
           asPath={asPath}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
@@ -98,9 +98,10 @@ function mapStateToProps({ leftNav, location, messages, badges }) {
 }
 
 export default connect(mapStateToProps, {
-  toggleLeftNav,
-  getUnviewedMatches,
   getAllMessages,
-  logoutUser,
   getUnreadMessages,
+  getUnviewedMatches,
+  getCurrentUser,
+  logoutUser,
+  toggleLeftNav,
 })(App);

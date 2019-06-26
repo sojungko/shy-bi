@@ -54,7 +54,7 @@ app.prepare()
     // server.use('/api', authCheckMiddleware);
 
     // routes
-    server.use('/auth', (req, res, next) => { log('here!!'); next(); }, authRoutes);
+    server.use('/auth', authRoutes);
     server.use('/api', apiRoutes);
 
     // // Deligates all routing to routes.js
@@ -69,6 +69,10 @@ app.prepare()
 
     server.use(express.static(path.join(__dirname, '/../node_modules')));
     server.use(express.static(path.join(__dirname, '/../')));
+
+    server.get('/users/:username?',
+      (req, res) => app.render(req, res, '/users'),
+    );
 
     server.get('*', (req, res) => handle(req, res));
 

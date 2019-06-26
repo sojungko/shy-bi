@@ -41,10 +41,10 @@ const Contact = () => (
               className={
                 classNames({
                   'button': true,
-                  'button--flat': true,
-                  'button--large': true,
+                  'button__flat': true,
+                  'button__large': true,
                   'form--submit': true,
-                  'button--disabled': invalid || pristine,
+                  'button__disabled': invalid || pristine,
                 })
               }
               type="submit"

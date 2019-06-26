@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import { isUserAuthenticated } from 'modules/auth';
-import { getUser, getAllUsers } from 'actions';
+import { getCurrentUser, getAllUsers } from 'actions';
 import SearchBar from 'components/SearchBar';
 import UserListItem from 'components/UserListItem';
 
 class UserList extends Component {
   static propTypes = {
     getAllUsers: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
+    getCurrentUser: PropTypes.func.isRequired,
     users: PropTypes.arrayOf(PropTypes.object.isRequired),
   }
 
@@ -23,7 +23,7 @@ class UserList extends Component {
   }
 
   handleClick = (userName) => {
-    this.props.getUser(userName)
+    this.props.getCurrentUser(userName)
       .then(() => {
         Router.push(`/profile/${userName}`);
       });
@@ -51,4 +51,4 @@ const mapStateToProps = ({ users }) => ({
   users: users.users,
 });
 
-export default connect(mapStateToProps, { getUser, getAllUsers })(UserList);
+export default connect(mapStateToProps, { getCurrentUser, getAllUsers })(UserList);

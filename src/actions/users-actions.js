@@ -11,9 +11,17 @@ export function getAllUsers() {
     });
 }
 
-export function getUser(username) {
+export function getCurrentUser(username) {
   return dispatch => axios.get(`/api/users/${username}`)
-    .then(({ data }) => dispatch({ type: A.GET_USER, payload: data }))
+    .then(({ data }) => dispatch({ type: A.GET_CURRENT_USER, payload: data }))
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+export function getVisitedUser(username) {
+  return dispatch => axios.get(`/api/users/${username}`)
+    .then(({ data }) => dispatch({ type: A.GET_VISITED_USER, payload: data }))
     .catch((error) => {
       console.log(error);
     });

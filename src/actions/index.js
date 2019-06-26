@@ -1,6 +1,6 @@
 export {
   getAllUsers,
-  getUser,
+  getCurrentUser,
   getRecommendedUsers,
   getLikedUsers,
   getMatches,
@@ -20,6 +20,7 @@ export {
   getUnreadMessages,
   viewMatch,
   getUnviewedMatches,
+  getVisitedUser,
 } from './users-actions';
 
 export {

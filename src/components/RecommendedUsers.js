@@ -7,13 +7,13 @@ import Router from 'next/router';
 // import CardContent from '@material-ui/core/CardContent';
 import { getUsername, isUserAuthenticated } from 'modules/auth';
 import RecommendedUserList from 'components/RecommendedUserList';
-import { getRecommendedUsers, getUser } from 'actions';
+import { getRecommendedUsers, getCurrentUser } from 'actions';
 
 class RecommendedUsers extends Component {
   static propTypes = {
     recommended: PropTypes.arrayOf(PropTypes.object.isRequired),
     getRecommendedUsers: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
+    getCurrentUser: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -29,7 +29,7 @@ class RecommendedUsers extends Component {
   }
 
   handleClick = (userName) => {
-    this.props.getUser(userName)
+    this.props.getCurrentUser(userName)
       .then(() => Router.push(`/profile/${userName}`));
   }
 
@@ -52,4 +52,4 @@ const mapStateToProps = ({ users }) => ({
   recommended: users.recommended,
 });
 
-export default connect(mapStateToProps, { getUser, getRecommendedUsers })(RecommendedUsers);
+export default connect(mapStateToProps, { getCurrentUser, getRecommendedUsers })(RecommendedUsers);

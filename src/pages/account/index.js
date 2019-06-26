@@ -6,7 +6,7 @@ import Router, { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import { getUser, editBio } from 'actions';
+import { getCurrentUser, editBio } from 'actions';
 import { getUsername } from 'modules/auth';
 import {
   required,
@@ -41,7 +41,7 @@ class Account extends Component {
     }),
     handleSubmit: PropTypes.func.isRequired,
     editBio: PropTypes.func.isRequired,
-    getUser: PropTypes.func.isRequired,
+    getCurrentUser: PropTypes.func.isRequired,
     pristine: PropTypes.bool,
     submitting: PropTypes.bool,
     reset: PropTypes.func,
@@ -49,7 +49,7 @@ class Account extends Component {
   }
 
   onSubmit = (inputs) => {
-    this.props.getUser(getUsername())
+    this.props.getCurrentUser(getUsername())
       .then(() => ({ ...this.props.profile, ...inputs }))
       .then(props => this.props.editBio(props));
   }
@@ -114,10 +114,10 @@ class Account extends Component {
                     className={
                       classNames({
                         'button': true,
-                        'button--flat': true,
-                        'button--large': true,
+                        'button__flat': true,
+                        'button__large': true,
                         'form--submit': true,
-                        'button--disabled': invalid || pristine,
+                        'button__disabled': invalid || pristine,
                       })
                     }
                     type="submit"
@@ -129,10 +129,10 @@ class Account extends Component {
                     className={
                       classNames({
                         'button': true,
-                        'button--flat': true,
-                        'button--large': true,
+                        'button__flat': true,
+                        'button__large': true,
                         'form--submit': true,
-                        'button--disabled': invalid || pristine,
+                        'button__disabled': invalid || pristine,
                       })
                     }
                     disabled={pristine}>
@@ -158,4 +158,4 @@ const mapStateToProps = ({ profile }) => ({
   profile,
   isEdited: profile.isEdited,
 });
-export default connect(mapStateToProps, { getUser, editBio })(Account);
+export default connect(mapStateToProps, { getCurrentUser, editBio })(Account);

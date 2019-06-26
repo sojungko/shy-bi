@@ -1,5 +1,11 @@
-const leftNavUnAuth = [{ href: '/login', label: 'Log In' }, { href: '/signup', label: 'Sign Up' }];
+const leftNavUnAuth = [
+  { href: '/', label: 'Home' },
+  { href: '/login', label: 'Log In' },
+  { href: '/signup', label: 'Sign Up' },
+];
+
 const leftNavAuth = [
+  { href: '/', label: 'Home' },
   { href: '/search', label: 'Search' },
   { href: '/matches', label: 'Matches' },
   { href: '/messages', label: 'Messages' },

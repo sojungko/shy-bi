@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
   users,
   currentUser,
+  visitedUser,
   matches,
 } from './users-reducer';
 
@@ -29,6 +30,7 @@ const RootReducer = combineReducers({
   messages,
   profile,
   users,
+  visitedUser,
 });
 
 export default RootReducer;

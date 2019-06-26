@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Menu from '@material-ui/icons/Menu';
@@ -13,7 +14,7 @@ const Header = (props) => {
     // numberOfMessages,
     logOut,
     handleToggle,
-    auth,
+    currentUser,
     asPath,
     open,
   } = props;
@@ -33,10 +34,10 @@ const Header = (props) => {
           </a>
         </Link>
         {
-          auth ?
+          currentUser ?
             <div className="app-bar__button-container">
               <button
-                className="button button--flat"
+                className="button button__flat"
                 onClick={logOut}
               >
                 Log Out
@@ -46,7 +47,7 @@ const Header = (props) => {
             <div className="app-bar__button-container">
               <Link>
                 <a href={asPath === '/login' ? '/signup' : '/login'}>
-                  <button className="button button--flat">
+                  <button className="button button__flat">
                     {asPath === '/login' ? 'Sign Up' : 'Log In'}
                   </button>
                 </a>
@@ -62,7 +63,7 @@ const Header = (props) => {
           />
         } */}
       </div>
-      <LeftNav open={open} handleToggle={handleToggle} auth={auth} />
+      <LeftNav open={open} handleToggle={handleToggle} currentUser={currentUser} />
     </header>
   );
 };
@@ -74,4 +75,9 @@ Header.propTypes = {
   asPath: PropTypes.string.isRequired,
 };
 
-export default Header;
+
+function mapStateToProps({ currentUser }) {
+  return { currentUser };
+}
+
+export default connect(mapStateToProps)(Header);

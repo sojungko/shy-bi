@@ -29,7 +29,7 @@
   // Button Styles
   // ---------------------------------------------------------------------------
 
-  &--light {
+  &__light {
     background: $white;
     box-shadow: 0 2px 2px 0 #AAA, 0 0 2px 0 #AAA;
     color: $brand-color;
@@ -38,7 +38,7 @@
     }
   }
 
-  &--flat {
+  &__flat {
     background: transparent;
     border-radius: 0 !important;
     color: $gray-darker;
@@ -48,7 +48,7 @@
     }
   }
 
-  &--faded {
+  &__faded {
     background: $gray-lightest;
     border-radius: 0 !important;
     color: $gray-light;
@@ -57,7 +57,7 @@
     }
   }
 
-  &--danger {
+  &__danger {
     background: $error;
     &:hover {
       background: lighten($error, 2%);
@@ -67,7 +67,7 @@
     }
   }
 
-  &--warning {
+  &__warning {
     background: $warning;
     &:hover {
       background: lighten($warning, 2%);
@@ -77,7 +77,7 @@
     }
   }
 
-  &--disabled {
+  &__disabled {
     background: $gray-light;
     border: 1px solid $gray-dark;
     box-shadow: none;
@@ -88,22 +88,23 @@
     }
   }
 
-  &--link {
+  &__link {
     @include button-text-l;
     color: $brand-dark;
+    justify-content: left;
   }
 
   // Button Sizes
   // ---------------------------------------------------------------------------
 
-  &--medium {
+  &__medium {
     @include button-text-m;
     border-radius: 4px;
     height: 60px;
     padding: 0 32px;
   }
 
-  &--large {
+  &__large {
     @include button-text-m;
     border-radius: 4px;
     height: 70px;

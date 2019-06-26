@@ -8,7 +8,7 @@ import Router from 'next/router';
 // import Paper from '@material-ui/core/Paper';
 
 import Navbar from 'components/Navbar';
-import { getMatches, getLikedUsers, getUser, viewMatch } from 'actions';
+import { getMatches, getLikedUsers, getCurrentUser, viewMatch } from 'actions';
 import { isUserAuthenticated, getUsername } from 'modules/auth';
 
 class Matches extends Component {
@@ -22,7 +22,7 @@ class Matches extends Component {
     getLikedUsers: PropTypes.func,
     matches: PropTypes.arrayOf(PropTypes.object),
     likes: PropTypes.arrayOf(PropTypes.object),
-    getUser: PropTypes.func,
+    getCurrentUser: PropTypes.func,
     viewMatch: PropTypes.func,
   }
 
@@ -41,7 +41,7 @@ class Matches extends Component {
   }
 
   handleClick = (userName) => {
-    this.props.getUser(userName)
+    this.props.getCurrentUser(userName)
       .then(() => {
         Router.push(`/profile/${userName}`);
       });
@@ -85,4 +85,4 @@ const mapStateToProps = ({ users }) => ({
   likes: users.likes,
 });
 
-export default connect(mapStateToProps, { getMatches, getLikedUsers, getUser, viewMatch })(Matches);
+export default connect(mapStateToProps, { getMatches, getLikedUsers, getCurrentUser, viewMatch })(Matches);

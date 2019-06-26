@@ -16,12 +16,10 @@
     // left: -$nav-mobile-width;
     // transition: left $duration-medium;
   }
-}
-
-.left-nav__list {
-  margin: 30px;
-}
-
-.left-nav__item {
-  margin: 20px 0;
+  &--list {
+    margin: 30px;
+  }
+  &--item {
+    margin: 20px 0;
+  }
 }

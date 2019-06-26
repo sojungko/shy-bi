@@ -109,14 +109,18 @@ module.exports = {
         { username })
       .then(({ records }) => {
         db.close();
-
-        log(`${username} has been found`);
         log(records);
-        callback(records[0]);
+        if (records.length) {
+          log(`${username} has been found`);
+          callback(records[0]);
+        } else {
+          throw Error('Username does not exist');
+        }
       })
       .catch((error) => {
         err(`Could not find ${username} from database`);
-        throw error;
+        // throw error;
+        callback(null, error);
       });
   },
 

@@ -76,10 +76,10 @@ class ImageUpload extends Component {
           className={
             classNames({
               'button': true,
-              'button--flat': true,
-              'button--large': true,
+              'button__flat': true,
+              'button__large': true,
               'form--submit': true,
-              'button--disabled': !!this.state.uploadedFileCloudinaryUrl,
+              'button__disabled': !!this.state.uploadedFileCloudinaryUrl,
             })
           }
           onClick={this.onDelete}>
