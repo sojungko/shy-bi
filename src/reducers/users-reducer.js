@@ -6,15 +6,9 @@ import {
   GET_LIKED_USERS,
   GET_CURRENT_USER,
   GET_VISITED_USER,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER_SUCCESS,
 } from '../constants/action-types';
-
-// const INITIAL_STATE = {
-//   currentUser: null,
-//   users: [],
-//   recommended: [],
-//   likes: [],
-//   matches: [],
-// };
 
 // TODO: determine what this reducer is supposed to store
 export function users(state = [], action) {
@@ -33,8 +27,11 @@ export function users(state = [], action) {
 export function currentUser(state = null, action) {
   switch (action.type) {
     case GET_CURRENT_USER:
+    case LOGIN_USER_SUCCESS:
     case SIGN_UP_USER:
       return action.payload;
+    case LOGOUT_USER_SUCCESS:
+      return null;
     default:
       return state;
   }

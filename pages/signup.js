@@ -6,7 +6,7 @@ import Router, { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import { signupUser, getLocations } from 'actions';
+import { signupUser } from 'actions';
 import {
   email,
   required,
@@ -29,14 +29,9 @@ class SignUp extends Component {
   }
   static propTypes = {
     signupUser: PropTypes.func,
-    getLocations: PropTypes.func,
-    location: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.arrayOf(PropTypes.object),
-    ]),
   }
 
-  shouldComponentUpdate = nextProps => !nextProps.location
+  // TODO redirect to '/' if user is logged in
 
   onSubmit = (inputs) => {
     this.props.signupUser(inputs)
@@ -45,9 +40,9 @@ class SignUp extends Component {
       });
   }
 
-  handleUpdateInput = (inputs) => {
-    this.props.getLocations(inputs);
-  }
+//   handleUpdateInput = (inputs) => {
+//     this.props.getLocations(inputs);
+//   }
 
   render() {
     const { asPath } = this.props;
@@ -125,6 +120,5 @@ class SignUp extends Component {
   }
 }
 
-const mapStateToProps = ({ location }) => ({ location });
 
-export default connect(mapStateToProps, { signupUser, getLocations })(withRouter(SignUp));
+export default connect(null, { signupUser })(withRouter(SignUp));

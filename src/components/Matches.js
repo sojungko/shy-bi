@@ -12,10 +12,6 @@ import { getMatches, getLikedUsers, getCurrentUser, viewMatch } from 'actions';
 import { isUserAuthenticated, getUsername } from 'modules/auth';
 
 class Matches extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     children: PropTypes.node,
     getMatches: PropTypes.func,

@@ -16,10 +16,6 @@ class RecommendedUsers extends Component {
     getCurrentUser: PropTypes.func.isRequired,
   }
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   componentDidMount() {
     if (!isUserAuthenticated()) {
       Router.push('/home');

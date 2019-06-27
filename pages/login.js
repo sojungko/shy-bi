@@ -30,6 +30,8 @@ class LogIn extends Component {
     loginUser: PropTypes.func.isRequired,
   }
 
+  // TODO redirect to '/' if user is logged in
+
   onSubmit = (inputs) => {
     console.log('hello world');
     // console.log('this.props.loginUser', this.props.loginUser);

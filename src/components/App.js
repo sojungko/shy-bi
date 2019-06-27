@@ -19,9 +19,6 @@ import Footer from 'components/Footer';
 class App extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }),
     open: PropTypes.bool.isRequired,
     unviewed: PropTypes.number,
     toggleLeftNav: PropTypes.func,
@@ -87,13 +84,12 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNav, location, messages, badges }) {
+function mapStateToProps({ leftNav, messages, badges }) {
   return {
     open: leftNav.open,
     received: messages.received,
     unread: badges.unread,
     unviewed: badges.unviewed,
-    location,
   };
 }
 

@@ -12,10 +12,6 @@ import { getAllMessages, getSentMessages, getUnreadMessages, expandCard } from '
 import Navbar from 'components/Navbar';
 
 class Messages extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   static propTypes = {
     children: PropTypes.node,
     getAllMessages: PropTypes.func.isRequired,

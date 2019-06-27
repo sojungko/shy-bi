@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { authenticateUser, deauthenticateUser } from 'modules/auth';
+import { setCookie, getCookie, updateUserFromCookie } from 'modules/cookies';
 import * as A from '../constants/action-types';
 
 /* -- Fetching Users --*/
@@ -68,20 +69,23 @@ export function signupUser(props) {
 export function loginUser(props) {
   console.log('hey there');
   return dispatch => axios.post('/auth/signin', props)
-    .then(({ data }) => {
-      console.log('data', data);
-      authenticateUser(data.token, data.user.username);
-      return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: data });
-    })
-    .catch((error) => {
-      console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
-    });
+  .then(({ data }) => {
+    console.log('data', data);
+    authenticateUser(data.token, data.user.username);
+    return dispatch({ type: A.LOGIN_USER_SUCCESS });
+  })
+  .catch((error) => {
+    console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
+  });
 }
 
 export const logoutUser = (username) => {
   const request = { username };
   return dispatch => axios.post('/api/signout', request)
-    .then(({ data }) => deauthenticateUser())
+    .then(({ data }) => {
+      deauthenticateUser();
+      return dispatch({ type: A.LOGOUT_USER_SUCCESS, payload: data });
+    })
     .catch((error) => {
       console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
     });

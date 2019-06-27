@@ -25,10 +25,6 @@ const styles = {
 };
 
 class FacebookSignup extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  };
-
   static propTypes = {
     signupUser: PropTypes.func,
     handleSubmit: PropTypes.func,

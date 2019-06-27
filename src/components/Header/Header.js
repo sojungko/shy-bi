@@ -54,14 +54,6 @@ const Header = (props) => {
               </Link>
             </div>
         }
-        {/* {
-          auth &&
-          <NotificationBadge
-            numberOfMatches={numberOfMatches}
-            numberOfMessages={numberOfMessages}
-            handleClick={handleClick}
-          />
-        } */}
       </div>
       <LeftNav open={open} handleToggle={handleToggle} currentUser={currentUser} />
     </header>
@@ -71,8 +63,9 @@ const Header = (props) => {
 Header.propTypes = {
   handleToggle: PropTypes.func.isRequired,
   logOut: PropTypes.func.isRequired,
-  auth: PropTypes.bool.isRequired,
+  // currentUser: PropTypes.object,
   asPath: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 
