@@ -34,8 +34,6 @@ class Account extends Component {
       name: PropTypes.string,
       email: PropTypes.string,
       sex: PropTypes.string,
-      // city: PropTypes.string,
-      // job: PropTypes.string,
       edLevel: PropTypes.string,
       aboutMe: PropTypes.string,
       image_url: PropTypes.string,
@@ -55,7 +53,7 @@ class Account extends Component {
     }
   }
 
-  onSubmit = (inputs) => {
+  onSubmit = (inputs) => { // TODO rewrite
     this.props.getCurrentUser(getUsername())
       .then(() => ({ ...this.props.profile, ...inputs }))
       .then(props => this.props.editBio(props));
@@ -189,7 +187,8 @@ class Account extends Component {
   }
 }
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, currentUser }) => ({
+  currentUser,
   profile,
   isEdited: profile.isEdited,
 });

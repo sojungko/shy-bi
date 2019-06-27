@@ -36,8 +36,12 @@ module.exports = {
 
     return db
       .run(
+        // `MATCH (user:User)
+        // MATCH (user)-[]->(city:City)
+        // MATCH (user)-[]->(age:Age)
+        // MATCH (user)-[]->(sex:Sex)
+        // RETURN age, user, city, sex LIMIT 10`)
         `MATCH (user:User)
-        MATCH (user)-[]->(city:City)
         MATCH (user)-[]->(age:Age)
         MATCH (user)-[]->(sex:Sex)
         RETURN age, user, city, sex LIMIT 10`)
@@ -79,15 +83,22 @@ module.exports = {
 
     return db
       .run(
+        // `MATCH (user:User)
+        // MATCH (user)-[:YEARS_OLD]->(age:Age)
+        // 	WHERE toInt({minage}) < toInt(age.age) < toInt({maxage})
+        // MATCH (user)-[:LIVES_IN]->(city: City)
+        //   WHERE city.name =~ {city}
+        // MATCH (user)-[:MEMBER_OF]->(sex: Sex)
+        //   WHERE sex.sex =~ {sex}
+        // RETURN user, age, city, sex LIMIT 10`,
+        // { minage, maxage, city, sex })
         `MATCH (user:User)
         MATCH (user)-[:YEARS_OLD]->(age:Age)
         	WHERE toInt({minage}) < toInt(age.age) < toInt({maxage})
-        MATCH (user)-[:LIVES_IN]->(city: City)
-          WHERE city.name =~ {city}
         MATCH (user)-[:MEMBER_OF]->(sex: Sex)
           WHERE sex.sex =~ {sex}
-        RETURN user, age, city, sex LIMIT 10`,
-        { minage, maxage, city, sex })
+        RETURN user, age, sex LIMIT 10`,
+        { minage, maxage, sex })
       .then(({ records }) => {
         db.close();
 
@@ -108,12 +119,17 @@ module.exports = {
 
     return db
       .run(
+        // `MATCH (me:User{username: {username}})
+        // MATCH (me)-[:LIKES]->(liked:User)
+        // MATCH (liked)-[]->(city:City)
+        // MATCH (liked)-[]->(age:Age)
+        // MATCH (liked)-[]->(sex:Sex)
+        // RETURN liked, age, city, sex`,
         `MATCH (me:User{username: {username}})
         MATCH (me)-[:LIKES]->(liked:User)
-        MATCH (liked)-[]->(city:City)
         MATCH (liked)-[]->(age:Age)
         MATCH (liked)-[]->(sex:Sex)
-        RETURN liked, age, city, sex`,
+        RETURN liked, age, sex`,
         { username })
       .then(({ records }) => {
         db.close();

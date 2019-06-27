@@ -12,13 +12,19 @@ module.exports = {
 
     return db
     .run(
+      // `MATCH (me:User{username: {username}})
+      // MATCH (me)-[r:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
+      // MATCH (liked)-[]->(city:City)
+      // MATCH (liked)-[]->(age:Age)
+      // MATCH (liked)-[]->(sex:Sex)
+      // SET r.viewed = false
+      // RETURN liked, age, city, sex`,
       `MATCH (me:User{username: {username}})
       MATCH (me)-[r:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
-      MATCH (liked)-[]->(city:City)
       MATCH (liked)-[]->(age:Age)
       MATCH (liked)-[]->(sex:Sex)
       SET r.viewed = false
-      RETURN liked, age, city, sex`,
+      RETURN liked, age, sex`,
       { username })
       .then(({ records }) => {
         db.close();
@@ -62,9 +68,14 @@ module.exports = {
 
     return db
       .run(
+      // `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
+      //   WHERE (liked)-[:LIKES]->(user) AND (r.viewed = false OR r.viewed IS NULL)
+      //   MATCH (liked)-[]->(city:City)
+      //   MATCH (liked)-[]->(age:Age)
+      //   MATCH (liked)-[]->(sex:Sex)
+      //   RETURN liked, city, age, sex`,
       `MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
         WHERE (liked)-[:LIKES]->(user) AND (r.viewed = false OR r.viewed IS NULL)
-        MATCH (liked)-[]->(city:City)
         MATCH (liked)-[]->(age:Age)
         MATCH (liked)-[]->(sex:Sex)
         RETURN liked, city, age, sex`,

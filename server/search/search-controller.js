@@ -76,7 +76,7 @@ module.exports = {
           = userData.get('user');
 
         // Getting User location data
-        const city = userData.get('city').properties.name;
+        // const city = userData.get('city').properties.name;
 
         // Getting User age data
         const age = userData.get('age').properties.age;
@@ -85,7 +85,7 @@ module.exports = {
         const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, city, age, sex, image_url, online };
+        const user = { memberSince, name, username, age, sex, image_url, online };
 
         return user;
       });
@@ -148,7 +148,7 @@ module.exports = {
           = userData.get('user');
 
         // Getting User location data
-        const city = userData.get('city').properties.name;
+        // const city = userData.get('city').properties.name;
 
         // Getting User age data
         const age = userData.get('age').properties.age;
@@ -157,7 +157,7 @@ module.exports = {
         const sex = userData.get('sex').properties.sex;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, city, age, sex, image_url, online };
+        const user = { memberSince, name, username, age, sex, image_url, online };
 
         return user;
       });
@@ -174,10 +174,10 @@ module.exports = {
     getLikedUsers(params, (likedUsersData) => {
       const likedUsers = likedUsersData.map((userData) => {
         const { properties: { memberSince, name, username, image_url, online } } = userData.get('liked');
-        const city = userData.get('city').properties.name;
+        // const city = userData.get('city').properties.name;
         const age = userData.get('age').properties.age;
         const sex = userData.get('sex').properties.sex;
-        const likedUser = { memberSince, name, username, city, age, sex, image_url, online };
+        const likedUser = { memberSince, name, username, age, sex, image_url, online };
 
         return likedUser;
       });
