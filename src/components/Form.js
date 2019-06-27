@@ -47,6 +47,26 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
   </div>
 );
 
+export const renderSelectNumber = ({ input, name, label, options, ...rest }) => (
+  <div className="form--group">
+    <label className="form--label">{label}</label>
+    <Field
+      name={name}
+      component="select"
+      {...input}
+    >
+      {options.map((option) => (
+        <option
+          key={option}
+          value={option}
+        >
+          {option}
+        </option>
+      ))}
+    </Field>
+  </div>
+)
+
 export const renderTextArea = ({ input, name, label, ...rest }) => (
   <div className="form--group">
     <label className="form--label">{label}</label>

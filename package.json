@@ -37,6 +37,7 @@
     "express-session": "^1.14.2",
     "final-form": "^4.15.0",
     "jsonwebtoken": "^7.2.1",
+    "lodash.range": "^3.2.0",
     "morgan": "^1.7.0",
     "neo4j-driver": "^1.7.5",
     "next": "^8.1.0",

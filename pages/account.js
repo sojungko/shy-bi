@@ -16,7 +16,7 @@ import {
   composeValidators,
 } from 'modules/validators';
 
-import { genders, edLevels } from 'constants/form';
+import { genders, edLevels, days, months, years } from 'constants/form';
 
 import App from 'components/App';
 import ImageUpload from 'components/ImageUpload';
@@ -24,6 +24,7 @@ import {
   renderField,
   renderRadioGroup,
   renderSelect,
+  renderSelectNumber,
   renderTextArea,
 } from 'components/Form';
 
@@ -33,8 +34,8 @@ class Account extends Component {
       name: PropTypes.string,
       email: PropTypes.string,
       sex: PropTypes.string,
-      city: PropTypes.string,
-      job: PropTypes.string,
+      // city: PropTypes.string,
+      // job: PropTypes.string,
       edLevel: PropTypes.string,
       aboutMe: PropTypes.string,
       image_url: PropTypes.string,
@@ -42,10 +43,16 @@ class Account extends Component {
     handleSubmit: PropTypes.func.isRequired,
     editBio: PropTypes.func.isRequired,
     getCurrentUser: PropTypes.func.isRequired,
-    pristine: PropTypes.bool,
-    submitting: PropTypes.bool,
-    reset: PropTypes.func,
     isEdited: PropTypes.bool,
+  }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      birthDate: null,
+      birthMonth: 1,
+      birthYear: new Date().getFullYear(),
+    }
   }
 
   onSubmit = (inputs) => {
@@ -55,6 +62,10 @@ class Account extends Component {
   }
 
   render() {
+    const { birthMonth, birthYear } = this.state;
+    console.log('birthMonth', birthMonth);
+    console.log('birthYear', birthYear);
+    console.log('days(birthMonth, birthYear)', days(birthMonth, birthYear));
     return (
       <App>
         <div className="page__container">
@@ -97,6 +108,30 @@ class Account extends Component {
                   options={genders}
                   label="Sex"
                 />
+                <div className="form--group">
+                  <label className="form--label">Birthday</label>
+                  <Field
+                    name="day"
+                    label="Day"
+                    component={renderSelectNumber}
+                    options={days(birthMonth, birthYear)}
+                  />
+                  <Field
+                    name="month"
+                    label="Month"
+                    component={renderSelectNumber}
+                    options={months}
+                    value={birthMonth}
+                  />
+                  <Field
+                    name="year"
+                    label="Year"
+                    component={renderSelectNumber}
+                    options={years}
+                    value={birthYear}
+                  />
+
+                </div>
                 <Field
                   name="edLevel"
                   component={renderSelect}
