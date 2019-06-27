@@ -13,15 +13,15 @@ export const renderField = ({ input, label, meta: { touched, error, warning } })
 export const renderRadioGroup = ({ input, label, options, ...rest }) => (
   <div className="form--group">
     <label className="form--label">{label}</label>
-    {options.map(option => (
-      <label key={option.toLowerCase()}>
+    {options.map(({ label, value }) => (
+      <label key={value}>
         <Field
           {...input}
           component="input"
           type="radio"
-          value={option.toLowerCase()}
+          value={value}
         />
-        {option}
+        {label}
       </label>
     ))}
   </div>
@@ -35,12 +35,12 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
       component="select"
       {...input}
     >
-      {options.map(option => (
+      {options.map(({ label, value }) => (
         <option
-          key={option.toLowerCase().replace(' ', '_')}
-          value={option.toLowerCase().replace(' ', '_')}
+          key={value}
+          value={value}
         >
-          {option}
+          {label}
         </option>
       ))}
     </Field>

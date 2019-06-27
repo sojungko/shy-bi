@@ -12,12 +12,7 @@ import {
   clearFields,
 } from 'actions';
 
-import {
-  renderField,
-  renderRadioGroup,
-  renderSelect,
-  renderTextArea,
-} from 'components/Form';
+import { genders } from 'constants/form';
 
 class SearchBar extends Component {
   static propTypes = {
@@ -99,33 +94,17 @@ class SearchBar extends Component {
               />
               <div className="form--group">
                 <label className="form--label">Sex</label>
-                <label>
-                  <Field
-                    name="male"
-                    component="input"
-                    type="checkbox"
-                    value={this.state.sex.male}
-                  />
-                  Male
-                </label>
-                <label>
-                  <Field
-                    name="female"
-                    component="input"
-                    type="checkbox"
-                    value={this.state.sex.female}
-                  />
-                  Female
-                </label>
-                <label>
-                  <Field
-                    name="other"
-                    component="input"
-                    type="checkbox"
-                    value={this.state.sex.other}
-                  />
-                  Other
-                </label>
+                {genders.map(({ label, value }) => (
+                  <label>
+                    <Field
+                      name={value}
+                      component="input"
+                      type="checkbox"
+                      value={this.state[value]}
+                    />
+                    {label}
+                  </label>
+                ))}
               </div>
               <button
                 className={

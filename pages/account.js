@@ -16,6 +16,8 @@ import {
   composeValidators,
 } from 'modules/validators';
 
+import { genders, edLevels } from 'constants/form';
+
 import App from 'components/App';
 import ImageUpload from 'components/ImageUpload';
 import {
@@ -92,14 +94,14 @@ class Account extends Component {
                 <Field
                   name="sex"
                   component={renderRadioGroup}
-                  options={["Male", "Female", "Other"]}
+                  options={genders}
                   label="Sex"
                 />
                 <Field
                   name="edLevel"
                   component={renderSelect}
                   label="Education Level"
-                  options={["High School", "Some College", "Bachelor's", "Master's", "Ph.D.", "Other"]}
+                  options={edLevels}
                 />
                 <Field
                   name="aboutMe"
