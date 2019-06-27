@@ -10,7 +10,6 @@ import {
   updateCity,
   updateSex,
   clearFields,
-  filterUser,
 } from 'actions';
 
 import {
@@ -28,7 +27,6 @@ class SearchBar extends Component {
     updateAgeRange: PropTypes.func,
     updateCity: PropTypes.func,
     clearFields: PropTypes.func,
-    filterUser: PropTypes.func,
     updateSex: PropTypes.func,
     inputs: PropTypes.shape({
       minage: PropTypes.string,
@@ -163,5 +161,4 @@ export default connect(mapStateToProps, {
   updateCity,
   updateSex,
   clearFields,
-  filterUser,
 })(SearchBar);
