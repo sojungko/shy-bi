@@ -6,37 +6,20 @@ let log = debug('server:bio:model').bind(this);
 let err = debug('server:bio:model:error').bind(this);
 
 module.exports = {
-  postBio({ name, email, job = '', edLevel = '', aboutMe = '', username, city, age, sex }, callback) {
+  postBio({ name, email, edLevel = '', aboutMe = '', username, birthday, sex }, callback) {
     // log = log.extend('postBio');
     log(`Accessing user database with username: ${username}`);
     return db
       .run(
-        // `MATCH (user:User {username: {username}})
-        // SET user.name = {name}, user.email = {email}, user.job={job}, user.edLevel={edLevel}, user.aboutMe={aboutMe}
-        // WITH user
-        // MATCH (user)-[cityRel:LIVES_IN]->(city:City) WHERE NOT city.name = {city}
-        // MERGE (user)-[:LIVES_IN]->(newCity:City {name: {city}})
-        // DETACH DELETE cityRel
-        // WITH user
-        // MATCH (user)-[ageRel:YEARS_OLD]->(age:Age) WHERE NOT age.age = {age}
-        // MERGE (user)-[:YEARS_OLD]->(newAge:Age {age: {age}})
-        // DETACH DELETE ageRel
-        // WITH user
-        // MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = {sex}
-        // MERGE (user)-[:MEMBER_OF]->(newSex:Sex {sex: {sex}})
-        // DETACH DELETE sexRel`,
-        // { name, email, job, edLevel, aboutMe, username, city, age, sex }
         `MATCH (user:User {username: {username}})
-        SET user.name = {name}, user.email = {email}, user.job={job}, user.edLevel={edLevel}, user.aboutMe={aboutMe}
-        WITH user
-        MATCH (user)-[ageRel:YEARS_OLD]->(age:Age) WHERE NOT age.age = {age}
-        MERGE (user)-[:YEARS_OLD]->(newAge:Age {age: {age}})
-        DETACH DELETE ageRel
-        WITH user
-        MATCH (user)-[sexRel:MEMBER_OF]->(sex:Sex) WHERE NOT sex.sex = {sex}
-        MERGE (user)-[:MEMBER_OF]->(newSex:Sex {sex: {sex}})
-        DETACH DELETE sexRel`,
-        { name, email, job, edLevel, aboutMe, username, age, sex },
+        SET
+        user.name = {name},
+        user.email = {email},
+        user.birthday = date({birthday})
+        user.edLevel = {edLevel},
+        user.aboutMe = {aboutMe}
+        user.sex = {sex}`,
+        { name, email, edLevel, birthday, aboutMe, username, sex },
       )
       .then(() => {
         log('Editing user info in database:');

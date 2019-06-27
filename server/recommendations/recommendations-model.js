@@ -36,17 +36,9 @@ module.exports = {
 
     return db
       .run(
-        // `MATCH (me:User{username: {username}})
-        // MATCH (me)-[:LIKES]->(a:User)<-[:LIKES]-(b:User)-[:LIKES]->(recUsers:User)
-        // MATCH (recUsers)-[]->(city:City)
-        // MATCH (recUsers)-[]->(age:Age)
-        // MATCH (recUsers)-[]->(sex:Sex)
-        // RETURN DISTINCT recUsers, city, age, sex LIMIT 20`,
         `MATCH (me:User{username: {username}})
         MATCH (me)-[:LIKES]->(a:User)<-[:LIKES]-(b:User)-[:LIKES]->(recUsers:User)
-        MATCH (recUsers)-[]->(age:Age)
-        MATCH (recUsers)-[]->(sex:Sex)
-        RETURN DISTINCT recUsers, age, sex LIMIT 20`,
+        RETURN DISTINCT recUsers LIMIT 20`,
         { username })
       .then(({ records }) => {
         db.close();
