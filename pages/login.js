@@ -33,9 +33,6 @@ class LogIn extends Component {
   // TODO redirect to '/' if user is logged in
 
   onSubmit = (inputs) => {
-    console.log('hello world');
-    // console.log('this.props.loginUser', this.props.loginUser);
-    console.log('this.props in onSubmit', this.props);
     this.props.loginUser(inputs)
       .then(() => Router.push('/'));
   }

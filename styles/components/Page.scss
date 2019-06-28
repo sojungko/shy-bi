@@ -2,6 +2,11 @@
   width: 100%;
   min-height: calc(100vh - 120px);
 
+  &__container {
+    max-width: 80%;
+    margin: 50px auto;
+  }
+
   &__users {
     display: flex;
     height: 100vh;

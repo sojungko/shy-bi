@@ -1,0 +1,32 @@
+.profile {
+  display: grid;
+  max-width: 400px;
+  margin: auto;
+
+  &--row {
+    margin: auto;
+    margin-bottom: 37px;
+    display: grid;
+    
+    &__item {
+      border-bottom: 0.8px solid $gray-dark;
+      width: 100%;
+    }
+
+    &__no-edit {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__edit {
+      grid-template-columns: 1fr 1fr 0.2fr;
+    }
+  }
+
+  &--item-title {
+    @include headline-text-s;
+  }
+
+  &--item-content {
+
+  }
+}

@@ -10,6 +10,8 @@ import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { isUserAuthenticated, getUsername } from 'modules/auth';
 import { getCurrentUser, likeUser } from 'actions';
 
+import ProfileItem from 'components/ProfileItem';
+
 class Profile extends Component {
   static propTypes = {
     getCurrentUser: PropTypes.func.isRequired,
@@ -75,42 +77,42 @@ class Profile extends Component {
 
   render() {
     const { visitedUser, currentUser } = this.props;
-    var { name, aboutMe, image_url, online } = visitedUser || currentUser;
+    var {
+      image_url,
+      name,
+      online,
+    } = visitedUser || currentUser;
 
     return (
-      <div>
-        <img role="presentation" src={image_url} />
-        <div>
-          {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
+      <div className="page__container">
+        <div className="profile">
+          <div className="profile--row">
+            <img role="presentation" src={image_url} />
+          </div>
+          <div className="profile--row">
+            {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
+          </div>
+          <ProfileItem type="name" currentUser={currentUser} visitedUser={visitedUser} />
+          <ProfileItem type="sex" currentUser={currentUser} visitedUser={visitedUser} />
+          <ProfileItem type="age" currentUser={currentUser} visitedUser={visitedUser} />
+          <ProfileItem type="education" currentUser={currentUser} visitedUser={visitedUser} />
+          <ProfileItem type="aboutMe" currentUser={currentUser} visitedUser={visitedUser} />
+          { visitedUser && 
+          <Fragment>
+            <Checkbox
+              onClick={this.handleLikeButton}
+              checkedIcon={<ActionFavorite />}
+              uncheckedIcon={<ActionFavoriteBorder />}
+              label="Like"
+            />
+            <Snackbar
+            open={this.props.open || false}
+            message="You guys are a match!"
+            autoHideDuration={4000}
+          />
+          </Fragment>
+          }
         </div>
-        <br />
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <td>{name}</td>
-            </tr>
-            <tr>
-              <th>About Me</th>
-              <td>{aboutMe}</td>
-            </tr>
-          </tbody>
-        </table>
-        { visitedUser && 
-        <Fragment>
-          <Checkbox
-             onClick={this.handleLikeButton}
-             checkedIcon={<ActionFavorite />}
-             uncheckedIcon={<ActionFavoriteBorder />}
-             label="Like"
-           />
-           <Snackbar
-           open={this.props.open || false}
-           message="You guys are a match!"
-           autoHideDuration={4000}
-         />
-        </Fragment>
-        }
       </div>
 
     );

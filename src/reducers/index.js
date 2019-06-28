@@ -12,11 +12,9 @@ import messages from './messages-reducer';
 import badges from './badges-reducer';
 import leftNav from './left-nav-reducer';
 import filters from './filters-reducer';
-import card from './expand-card-reducer';
 
 const RootReducer = combineReducers({
   badges,
-  card,
   currentUser,
   filters,
   leftNav,

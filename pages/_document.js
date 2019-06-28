@@ -12,6 +12,7 @@ class ShyBiDocument extends Document {
       <Html>
         <Head>
           <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300|Roboto|Roboto+Condensed|Slabo+27px" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
           <link rel="stylesheet" href="/_next/static/style.css" />
         </Head>
         <body>

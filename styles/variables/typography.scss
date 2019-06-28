@@ -29,6 +29,7 @@ $font-body: $font-system;
   font-weight: 500;
   line-height: toRem(20);
   text-transform: uppercase;
+  letter-spacing: toRem(0.8);
   @include tablet {
     font-size: toRem(18);
     line-height: toRem(24);

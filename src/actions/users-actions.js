@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { authenticateUser, deauthenticateUser } from 'modules/auth';
-import { setCookie, updateUserCookie } from 'modules/cookies';
+import { setCookie, updateUserCookie, clearCookie } from 'modules/cookies';
 import * as A from '../constants/action-types';
 
 /* -- Fetching Users --*/
@@ -14,7 +14,10 @@ export function getAllUsers() {
 
 export function getCurrentUser(username) {
   return dispatch => axios.get(`/api/users/${username}`)
-    .then(({ data }) => dispatch({ type: A.GET_CURRENT_USER, payload: data }))
+    .then(({ data }) => {
+      updateUserCookie(data.user);
+      return dispatch({ type: A.GET_CURRENT_USER, payload: data });
+    })
     .catch((error) => {
       console.log(error);
     });
@@ -73,7 +76,7 @@ export function loginUser(props) {
   .then(({ data }) => {
     console.log('data', data);
     authenticateUser(data.token, data.user.username);
-    updateUserCookie('user', JSON.stringify(data.user));
+    updateUserCookie(data.user);
     return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: data.user });
   })
   .catch((error) => {
@@ -86,6 +89,7 @@ export const logoutUser = (username) => {
   return dispatch => axios.post('/api/signout', request)
     .then(({ data }) => {
       deauthenticateUser();
+      clearCookie('user');
       return dispatch({ type: A.LOGOUT_USER_SUCCESS, payload: data });
     })
     .catch((error) => {
@@ -141,7 +145,10 @@ export function unlikeUser(username, userToUnlike) {
 export function editBio(props) {
   return (dispatch) => {
     axios.post('/api/bio/edit_bio', props)
-      .then(() => dispatch({ type: A.EDIT_BIO_SUCCESS, payload: true }))
+      .then(({ data }) => {
+        updateUserCookie(data.user);
+        return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: true });
+      })
       .catch((error) => {
         console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
       });
@@ -152,7 +159,10 @@ export function deleteImage(props) {
   return (dispatch) => {
     const sending = { username: props };
     return axios.post('/api/bio/delete_image', sending)
-      .then(({ data }) => dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: data }))
+      .then(({ data }) => {
+        updateUserCookie(data.user);
+        return dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: data });
+      })
       .catch((error) => {
         console.log('     3) ACTIONS/IMAGE_DELETE FAIL', error);
       });
@@ -161,7 +171,10 @@ export function deleteImage(props) {
 
 export function uploadImage(props) {
   return dispatch => axios.post('/api/bio/upload_image', props)
-    .then(({ data }) => dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data }))
+    .then(({ data }) => {
+      updateUserCookie(data.user);
+      return dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data });
+    })
     .catch((error) => {
       console.log('     ACTIONS/IMAGE_UPLOADS FAIL | ', error);
     });

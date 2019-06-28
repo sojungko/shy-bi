@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { getCurrentUser, editBio } from 'actions';
 import { getUsername } from 'modules/auth';
+import { neo4jIntsToStrings } from 'modules/cypher';
 import {
   required,
   mustBeShorterThan,
@@ -53,6 +55,13 @@ class Account extends Component {
     }
   }
 
+  componentDidMount() {
+    const { currentUser } = this.props;
+    if (!currentUser) {
+      Router.replace('/');
+    }
+  }
+
   onSubmit = (inputs) => { // TODO rewrite
     this.props.getCurrentUser(getUsername())
       .then(() => ({ ...this.props.profile, ...inputs }))
@@ -64,6 +73,7 @@ class Account extends Component {
     const { currentUser } = this.props;
     if (currentUser) {
       const {
+        birthday,
         name,
         username,
         email,
@@ -79,10 +89,36 @@ class Account extends Component {
       return (
         <App>
           <div className="page__container">
-            <div className="account--group">
-              <div>Name</div>
-              <div>{typeof name === 'undefined' ? 'Add name': name}</div>
-  
+            <div className="account">
+              <div className="account--group">
+                {typeof image_url === 'undefined' ?
+                    <svg>
+                      <use xlinkHref="../styles/svgs/user-placeholder.svg" />
+                    </svg>
+                  :
+                  <img src={image_url} role="presentation" />
+                }
+              </div>
+              <div className="account--group">
+                <div>Name</div>
+                <div>{typeof name === 'undefined' ? 'Add name': name}</div>
+              </div>
+              <div className="account--group">
+                <div>Age</div>
+                <div>{typeof birthday === 'undefined' ? 'Add birthday' : neo4jIntsToStrings(birthday)}</div>
+              </div>
+              <div className="account--group">
+                <div>Education Level</div>
+                <div>{typeof edLevel === 'undefined' ? 'Add education level' : edLevel}</div>
+              </div>
+              <div className="account--group">
+                <div>Sex</div>
+                <div>{typeof sex === 'undefined' ? 'Add sex' : sex}</div>
+              </div>
+              <div className="account--group">
+                <div>About Me</div>
+                <div>{typeof aboutMe === 'undefined' ? 'Add about me' : aboutMe}</div>
+              </div>
             </div>
           </div>
         </App>
