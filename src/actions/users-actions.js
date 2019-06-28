@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { authenticateUser, deauthenticateUser } from 'modules/auth';
-import { setCookie, getCookie, updateUserFromCookie } from 'modules/cookies';
+import { setCookie, updateUserCookie } from 'modules/cookies';
 import * as A from '../constants/action-types';
 
 /* -- Fetching Users --*/
@@ -59,7 +59,8 @@ export function signupUser(props) {
   return dispatch => axios.post('/auth/signup', sending)
     .then(({ data }) => {
       authenticateUser(data.token, data.user.username);
-      return dispatch({ type: A.SIGN_UP_USER, payload: data });
+      setCookie('user', JSON.stringify(data.user));
+      return dispatch({ type: A.SIGN_UP_USER, payload: data.user });
     })
     .catch((error) => {
       console.log('actions/index signupUser error : ', error);
@@ -72,7 +73,8 @@ export function loginUser(props) {
   .then(({ data }) => {
     console.log('data', data);
     authenticateUser(data.token, data.user.username);
-    return dispatch({ type: A.LOGIN_USER_SUCCESS });
+    updateUserCookie('user', JSON.stringify(data.user));
+    return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: data.user });
   })
   .catch((error) => {
     console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);

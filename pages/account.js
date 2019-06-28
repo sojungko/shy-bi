@@ -60,13 +60,45 @@ class Account extends Component {
   }
 
   render() {
-    const { birthMonth, birthYear } = this.state;
-    console.log('birthMonth', birthMonth);
-    console.log('birthYear', birthYear);
-    console.log('days(birthMonth, birthYear)', days(birthMonth, birthYear));
-    return (
-      <App>
-        <div className="page__container">
+    // const { birthMonth, birthYear } = this.state;
+    const { currentUser } = this.props;
+    if (currentUser) {
+      const {
+        name,
+        username,
+        email,
+        edLevel,
+        aboutMe,
+        image_url,
+        memberSince,
+      } = currentUser;
+  
+      // console.log('birthMonth', birthMonth);
+      // console.log('birthYear', birthYear);
+      // console.log('days(birthMonth, birthYear)', days(birthMonth, birthYear));
+      return (
+        <App>
+          <div className="page__container">
+            <div className="account--group">
+              <div>Name</div>
+              <div>{typeof name === 'undefined' ? 'Add name': name}</div>
+  
+            </div>
+          </div>
+        </App>
+      );
+    }
+  }
+}
+
+const mapStateToProps = ({ profile, currentUser }) => ({
+  currentUser,
+  profile,
+  isEdited: profile.isEdited,
+});
+export default connect(mapStateToProps, { getCurrentUser, editBio })(Account);
+
+/*
           <Form
             onSubmit={this.onSubmit}
             render={({ handleSubmit, pristine, invalid }) => (
@@ -172,24 +204,7 @@ class Account extends Component {
                     Clear Fields
                   </button>
                 </div>
-                {/*<div
-                  open={this.props.isEdited || false}
-                  message="Profile successfully updated!"
-                  autoHideDuration={4000}
-                />*/}
-              </form>
-            )}
-          />
-        </div>
-
-      </App>
-    );
-  }
-}
-
-const mapStateToProps = ({ profile, currentUser }) => ({
-  currentUser,
-  profile,
-  isEdited: profile.isEdited,
-});
-export default connect(mapStateToProps, { getCurrentUser, editBio })(Account);
+                </form>
+                )}
+              />
+              */

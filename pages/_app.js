@@ -6,6 +6,16 @@ import App, { Container } from 'next/app';
 import makeStore from '../src/store';
 
 class ShyBi extends App {
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return { pageProps };
+  }
+
   render() {
     const { Component, pageProps, store } = this.props;
 

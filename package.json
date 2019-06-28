@@ -30,7 +30,7 @@
     "chokidar-cli": "^1.2.2",
     "classnames": "^2.2.6",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^2.0.0",
     "exenv": "^1.2.2",
     "express": "^4.14.0",

@@ -12,6 +12,7 @@ const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const debug = require('debug');
 
 const dbinit = require('./db/initialize');
@@ -41,6 +42,7 @@ app.prepare()
     }));
     server.use(bodyParser.json());
     server.use(morgan('dev'));
+    server.use(cookieParser());
 
     // pass the passport middleware
     server.use(passport.initialize());

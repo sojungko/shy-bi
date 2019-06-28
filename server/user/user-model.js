@@ -64,7 +64,7 @@ module.exports = {
                 password: {hash},
                 email: {email}
               })
-              ON CREATE SET newUser.memberSince = timestamp()
+              ON CREATE SET newUser.memberSince = datetime()
     
               RETURN newUser`,
                 { username, email, hash })

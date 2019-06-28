@@ -60,7 +60,6 @@ class App extends Component {
   render() {
     // const currentUser = getUsername();
     // const auth = isUserAuthenticated();
-    console.log('this.props', this.props);
     const { asPath, open } = this.props;
 
     return (
