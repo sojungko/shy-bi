@@ -27,10 +27,8 @@ const Home = ({ currentUser }) => {
   );
 };
 
-function mapStateToProps({ currentUser }) {
-  return {
-    currentUser,
-  };
-}
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser,
+});
 
 export default connect(mapStateToProps)(Home);

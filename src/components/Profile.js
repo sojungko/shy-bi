@@ -92,11 +92,11 @@ class Profile extends Component {
           <div className="profile--row">
             {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
           </div>
-          <ProfileItem type="name" currentUser={currentUser} visitedUser={visitedUser} />
-          <ProfileItem type="sex" currentUser={currentUser} visitedUser={visitedUser} />
-          <ProfileItem type="age" currentUser={currentUser} visitedUser={visitedUser} />
-          <ProfileItem type="education" currentUser={currentUser} visitedUser={visitedUser} />
-          <ProfileItem type="aboutMe" currentUser={currentUser} visitedUser={visitedUser} />
+          <ProfileItem data="name" label="Name" />
+          <ProfileItem data="sex" label="Sex"/>
+          <ProfileItem data="birthday" label="Age" />
+          <ProfileItem data="edLevel" label="Education" />
+          <ProfileItem data="aboutMe" label="About Me"/>
           { visitedUser && 
           <Fragment>
             <Checkbox
@@ -120,5 +120,8 @@ class Profile extends Component {
 }
 
 
-const mapStateToProps = ({ profile }) => ({ profile, open: profile.isMatch });
+const mapStateToProps = ({ profile }) => ({
+  profile,
+  open: profile.isMatch,
+});
 export default connect(mapStateToProps, { getCurrentUser, likeUser })(Profile);

@@ -1,12 +1,13 @@
 const debug = require('debug');
 
 const db = require('../db/config');
+const { validateBirthday } = require('../utils/validate');
 
 let log = debug('server:bio:model').bind(this);
 let err = debug('server:bio:model:error').bind(this);
 
 module.exports = {
-  postBio({ name, email, edLevel = '', aboutMe = '', username, birthday, sex }, callback) {
+  postBio({ name = '', email, edLevel = '', aboutMe = '', username, birthday = {}, sex = '' }, callback) {
     // log = log.extend('postBio');
     log(`Accessing user database with username: ${username}`);
     return db
@@ -15,9 +16,9 @@ module.exports = {
         SET
         user.name = {name},
         user.email = {email},
-        user.birthday = date({birthday})
+        ${validateBirthday(birthday) ? 'user.birthday = date({birthday}),' : ''}
         user.edLevel = {edLevel},
-        user.aboutMe = {aboutMe}
+        user.aboutMe = {aboutMe},
         user.sex = {sex}`,
         { name, email, edLevel, birthday, aboutMe, username, sex },
       )
