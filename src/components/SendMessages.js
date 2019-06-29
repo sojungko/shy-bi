@@ -1,5 +1,4 @@
 import React, { Component, createElement } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
@@ -12,8 +11,6 @@ import Router from 'next/router';
 
 import { getUsername } from 'modules/auth';
 import { sendMessage, getSentMessages, getMatches } from 'actions';
-
-const { input, select, textarea } = ReactDOM;
 
 const style = {
   fontFamily: 'Source Sans Pro',

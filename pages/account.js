@@ -90,35 +90,7 @@ class Account extends Component {
         <App>
           <div className="page__container">
             <div className="account">
-              <div className="account--group">
-                {typeof image_url === 'undefined' ?
-                    <svg>
-                      <use xlinkHref="../styles/svgs/user-placeholder.svg" />
-                    </svg>
-                  :
-                  <img src={image_url} role="presentation" />
-                }
-              </div>
-              <div className="account--group">
-                <div>Name</div>
-                <div>{typeof name === 'undefined' ? 'Add name': name}</div>
-              </div>
-              <div className="account--group">
-                <div>Age</div>
-                <div>{typeof birthday === 'undefined' ? 'Add birthday' : neo4jIntsToStrings(birthday)}</div>
-              </div>
-              <div className="account--group">
-                <div>Education Level</div>
-                <div>{typeof edLevel === 'undefined' ? 'Add education level' : edLevel}</div>
-              </div>
-              <div className="account--group">
-                <div>Sex</div>
-                <div>{typeof sex === 'undefined' ? 'Add sex' : sex}</div>
-              </div>
-              <div className="account--group">
-                <div>About Me</div>
-                <div>{typeof aboutMe === 'undefined' ? 'Add about me' : aboutMe}</div>
-              </div>
+
             </div>
           </div>
         </App>

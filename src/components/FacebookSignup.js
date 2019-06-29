@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
@@ -13,7 +12,6 @@ import Link from 'next/link';
 
 import { signupUser } from 'actions';
 
-const { input, select, textarea } = ReactDOM;
 
 const styles = {
   block: {

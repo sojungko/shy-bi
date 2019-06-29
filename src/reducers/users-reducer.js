@@ -8,6 +8,7 @@ import {
   GET_VISITED_USER,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
+  EDIT_BIO_SUCCESS,
 } from '../constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
@@ -29,6 +30,7 @@ export function currentUser(state = null, action) {
     case GET_CURRENT_USER:
     case LOGIN_USER_SUCCESS:
     case SIGN_UP_USER:
+    case EDIT_BIO_SUCCESS:
       return action.payload;
     case LOGOUT_USER_SUCCESS:
       return null;

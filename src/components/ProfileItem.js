@@ -15,18 +15,22 @@ import {
   composeValidators,
 } from 'modules/validators';
 
+import Loader from '../../styles/svgs/loader.svg';
 
 class ProfileItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEditable: false,
+      isSubmitting: false,
     };
   }
 
-  onSubmit = (val) => {
+  onSubmit = async (val) => {
     const { currentUser } = this.props;
-    this.props.editBio({...currentUser, ...val});
+    this.setState({ isSubmitting: true });
+    await this.props.editBio({...currentUser, ...val})
+    this.setState({ isSubmitting: false, isEditable: false });
   }
 
   toggleEditable = () => {
@@ -34,7 +38,7 @@ class ProfileItem extends Component {
   }
 
   renderItem = () => {
-    const { isEditable } = this.state;
+    const { isEditable, isSubmitting } = this.state;
     const {
       currentUser,
       data,
@@ -53,7 +57,7 @@ class ProfileItem extends Component {
         <Fragment>
           <p>{currentUser[data]}</p>
           <i
-            className="material-icons md-18 md-dark md-clickable"
+            className="material-icons md-18 md-dark md-inactive md-clickable"
             onClick={this.toggleEditable}
           >
             create
@@ -77,6 +81,7 @@ class ProfileItem extends Component {
           <form onSubmit={handleSubmit}>
             <Field
               component="input"
+              disabled={isSubmitting}
               name={data}
               validate={
                 composeValidators(
@@ -86,18 +91,27 @@ class ProfileItem extends Component {
                 )
               }
             />
-            <i
-              className={doneClass}
-              onClick={handleSubmit}
-            >
-              done
-            </i>
-            <i
-              className="material-icons md-18 md-dark md-clickable"
-              onClick={this.toggleEditable}
-            >
-              clear
-            </i>
+            {
+              isSubmitting ?
+              (<Loader className="svg-loader"/>)
+              :
+              (
+                <Fragment>
+                  <i
+                    className={doneClass}
+                    onClick={handleSubmit}
+                  >
+                    done
+                  </i>
+                  <i
+                    className="material-icons md-18 md-dark md-clickable"
+                    onClick={this.toggleEditable}
+                  >
+                    clear
+                  </i>
+                </Fragment>
+              )
+            }
           </form>
         )
       }}

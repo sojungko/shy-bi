@@ -144,10 +144,10 @@ export function unlikeUser(username, userToUnlike) {
 /* -- Editing Bio -- */
 export function editBio(props) {
   return (dispatch) => {
-    axios.post('/api/bio/edit_bio', props)
+    return axios.post('/api/bio/edit_bio', props)
       .then(({ data }) => {
-        updateUserCookie(data.user);
-        return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: true });
+        updateUserCookie(data);
+        return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data });
       })
       .catch((error) => {
         console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
