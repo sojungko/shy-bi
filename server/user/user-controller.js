@@ -172,12 +172,12 @@ module.exports = {
         res.status(404).send(error);
       } else {
         log('Success! Chunking data & building res object', data);
-        const { properties: { memberSince, name, email, job, edLevel, aboutMe, image_url, online } } = data.get('user');
+        const { properties: { memberSince, name, email, job, edLevel, aboutMe, sex, image_url, online } } = data.get('user');
         // const city = data.get('city').properties.name;
         // const age = data.get('age').properties.age;
         // const sex = data.get('sex').properties.sex;
 
-        const result = { memberSince, name, username, email, job, edLevel, aboutMe, image_url, online };
+        const result = { memberSince, name, username, email, job, edLevel, aboutMe, sex, image_url, online };
 
         log('Sending User data: ', result);
         res.json(result);

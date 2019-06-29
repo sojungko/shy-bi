@@ -1,9 +1,10 @@
+import React from 'react';
 import { Field } from 'react-final-form';
 
-export const renderField = ({ input, label, meta: { touched, error, warning } }) => (
+export const renderField = ({ input, label, meta: { touched, error }, placeholder, type }) => (
   <div className="form--group">
-    <label className="form--label">{label}</label>
-    <input {...input} className="form--input" />
+    {label && <label className="form--label">{label}</label>}
+    <input {...input} type={type} placeholder={placeholder} className="form--input" />
     {
       touched && error && <span className="form--warning">{error}</span>
     }
@@ -12,7 +13,7 @@ export const renderField = ({ input, label, meta: { touched, error, warning } })
 
 export const renderRadioGroup = ({ input, label, options, ...rest }) => (
   <div className="form--group">
-    <label className="form--label">{label}</label>
+    {label && <label className="form--label">{label}</label>}
     {options.map(({ label, value }) => (
       <label key={value}>
         <Field
@@ -29,7 +30,7 @@ export const renderRadioGroup = ({ input, label, options, ...rest }) => (
 
 export const renderSelect = ({ input, name, label, options, ...rest }) => (
   <div className="form--group">
-    <label className="form--label">{label}</label>
+    {label && <label className="form--label">{label}</label>}
     <Field
       name={name}
       component="select"
@@ -47,9 +48,10 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
   </div>
 );
 
+// label and value of option is the same
 export const renderSelectNumber = ({ input, name, label, options, ...rest }) => (
   <div className="form--group">
-    <label className="form--label">{label}</label>
+    {label && <label className="form--label">{label}</label>}
     <Field
       name={name}
       component="select"
@@ -65,11 +67,11 @@ export const renderSelectNumber = ({ input, name, label, options, ...rest }) => 
       ))}
     </Field>
   </div>
-)
+);
 
 export const renderTextArea = ({ input, name, label, ...rest }) => (
   <div className="form--group">
-    <label className="form--label">{label}</label>
+    {label && <label className="form--label">{label}</label>}
     <Field
       name={name}
       component="textarea"

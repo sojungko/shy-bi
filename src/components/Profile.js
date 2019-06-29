@@ -7,10 +7,27 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-import { isUserAuthenticated, getUsername } from 'modules/auth';
 import { getCurrentUser, likeUser } from 'actions';
+import {
+  required,
+  noSpecialChars,
+  mustContainLetter,
+  composeValidators,
+  validateDate,
+} from 'modules/validators';
+
+import {
+  formatDate,
+} from 'modules/formatters';
+
+import { genders, edLevels } from 'constants/form';
 
 import ProfileItem from 'components/ProfileItem';
+import {
+  renderField,
+  renderSelect,
+  renderTextArea,
+} from 'components/Form';
 
 class Profile extends Component {
   static propTypes = {
@@ -34,31 +51,6 @@ class Profile extends Component {
     likeUser: PropTypes.func,
     open: PropTypes.bool,
   }
-
-  // componentDidMount() {
-  //   const visitedUser = this.props.params.username;
-  //   const username = this.props.profile.username;
-
-  //   console.log('CONTAINERS/PROFILE this.props.open : ', this.props.open);
-  //   if (!isUserAuthenticated()) {
-  //     Router.push('/home');
-  //   } else if (!visitedUser) {
-  //     this.props.getCurrentUser(getUsername());
-  //   } else if (visitedUser !== username) {
-  //     this.props.getCurrentUser(visitedUser);
-  //   }
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   const visitedUser = this.props.params.username;
-  //   if (!isUserAuthenticated()) {
-  //     Router.push('/home');
-  //   } else if (!visitedUser && getUsername() !== nextProps.profile.username) {
-  //     this.props.getCurrentUser(getUsername());
-  //   } else if (visitedUser === getUsername()) {
-  //     Router.push('/');
-  //   }
-  // }
 
   handleLikeButton = () => {
     // this.props.likeUser(getUsername(), this.props.params.username);
@@ -92,11 +84,44 @@ class Profile extends Component {
           <div className="profile--row">
             {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
           </div>
-          <ProfileItem data="name" label="Name" />
-          <ProfileItem data="sex" label="Sex"/>
-          <ProfileItem data="birthday" label="Age" />
-          <ProfileItem data="edLevel" label="Education" />
-          <ProfileItem data="aboutMe" label="About Me"/>
+          <ProfileItem
+            data="name"
+            label="Name"
+            render={renderField}
+            validate={
+              composeValidators(
+                required,
+                noSpecialChars,
+                mustContainLetter,
+              )
+            }
+          />
+          <ProfileItem
+            data="sex"
+            label="Sex"
+            render={renderSelect}
+            options={genders}
+          />
+          <ProfileItem
+            data="birthday"
+            format={formatDate}
+            label="Birthday"
+            placeholder="DD/MM/YYYY"
+            render={renderField}
+            format={formatDate}
+            validate={validateDate}
+          />
+          <ProfileItem
+            data="edLevel"
+            label="Education"
+            render={renderSelect}
+            options={edLevels}
+          />
+          <ProfileItem
+            data="aboutMe"
+            label="About Me"
+            render={renderTextArea}
+          />
           { visitedUser && 
           <Fragment>
             <Checkbox

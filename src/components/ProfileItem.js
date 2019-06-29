@@ -4,16 +4,7 @@ import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { editBio } from 'actions';
-
-import {
-  required,
-  mustBeShorterThan,
-  mustBeLongerThan,
-  noSpecialChars,
-  mustContainNumber,
-  mustContainLetter,
-  composeValidators,
-} from 'modules/validators';
+import { formatData } from 'modules/formatters';
 
 import Loader from '../../styles/svgs/loader.svg';
 
@@ -27,6 +18,7 @@ class ProfileItem extends Component {
   }
 
   onSubmit = async (val) => {
+    console.log('val', val);
     const { currentUser } = this.props;
     this.setState({ isSubmitting: true });
     await this.props.editBio({...currentUser, ...val})
@@ -42,20 +34,23 @@ class ProfileItem extends Component {
     const {
       currentUser,
       data,
-      editBio,
-      label,
+      format,
+      options,
+      placeholder,
+      render,
       visitedUser,
+      validate,
     } = this.props;
 
     // if visited user's profile page
     if (visitedUser) {
-      return <p>{visitedUser[data]}</p>
+      return <p>{formatData(visitedUser, data)}</p>
     }
     // if current user's profile page & not editable
     if (currentUser && !isEditable) {
       return (
         <Fragment>
-          <p>{currentUser[data]}</p>
+          <p>{formatData(currentUser, data)}</p>
           <i
             className="material-icons md-18 md-dark md-inactive md-clickable"
             onClick={this.toggleEditable}
@@ -80,16 +75,13 @@ class ProfileItem extends Component {
           return (
           <form onSubmit={handleSubmit}>
             <Field
-              component="input"
               disabled={isSubmitting}
+              format={format}
               name={data}
-              validate={
-                composeValidators(
-                  required,
-                  noSpecialChars,
-                  mustContainLetter,
-                )
-              }
+              options={options}
+              placeholder={placeholder}
+              render={render}
+              validate={validate}
             />
             {
               isSubmitting ?

@@ -28,5 +28,54 @@ export const email = value =>
     ? undefined
   : 'Email looks a little weird');
 
+const isLeapYear = year => (year % 100 === 0 ? year % 400 === 0 : year % 4 === 0);
+
+const daysInMonth = year => ([
+  31, // Jan
+  isLeapYear(year) ? 29 : 28,
+  31,
+  30,
+  31,
+  30,
+  31, // Jul
+  31, // Aug
+  30,
+  31,
+  30,
+  31,
+]);
+
+export const validateDate = (date = '') => {
+  const [day, month, year] = date.split('/');
+  const numDay = Number(day);
+  const numMonth = Number(month);
+  const numYear = Number(year);
+
+  if ((day && isNaN(numDay)) || (month && isNaN(numMonth)) || (year && isNaN(numYear))) {
+    return 'Must be numbers only';
+  }
+
+  if (day && (numDay > 31 || numDay < 1)) {
+    return 'Date doesn\'t look right';
+  }
+
+  if (month && (numMonth > 12 || numMonth < 1)) {
+    return 'Month doesn\'t look right';
+  }
+
+  const currYear = new Date().getFullYear();
+
+  if (year && (numYear < currYear - 100 || numYear > currYear)) {
+    return 'Year doesn\'t look right';
+  }
+
+  if (day && month && year) {
+    const daysAvail = daysInMonth(numYear)[numMonth - 1];
+    if (numDay > daysAvail) {
+      return 'Day doesn\'t look right';
+    }
+  }
+};
+
 export const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), undefined);
