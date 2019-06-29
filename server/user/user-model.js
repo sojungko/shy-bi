@@ -105,7 +105,8 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User{username: {username}})
-        RETURN user`,
+        UNWIND [duration.inMonths(user.birthday, date())] as age
+        RETURN user, age`,
         { username })
       .then(({ records }) => {
         db.close();
@@ -131,7 +132,8 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User{email: {email}})
-        RETURN user`,
+        UNWIND [duration.inMonths(user.birthday, date())] as age
+        RETURN user, age`,
         { email })
       .then(({ records }) => {
         db.close();

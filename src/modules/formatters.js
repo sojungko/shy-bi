@@ -1,4 +1,4 @@
-export const formatDate = (value) => {
+export const formatDateForInput = (value) => {
   if (!value) return value;
   const onlyNums = value.replace(/[^\d]/g, '');
   if (onlyNums.length === 2) {
@@ -12,29 +12,11 @@ export const formatDate = (value) => {
   }
 };
 
-export const formatSex = {
-  male: 'Male',
-  female: 'Female',
-  other: 'Other',
+export const parseDate = (date) => {
+  const [day, month, year] = date.split('/');
+  return {
+    day,
+    month,
+    year,
+  };
 };
-
-export const formatEdLevel = {
-  high_school: 'High School',
-  some_college: 'Some College',
-  bachelors: 'Bachelor\'s',
-  masters: 'Master\'s',
-  phd: 'Ph.D.',
-};
-
-
-export const formatData = (obj, key) => {
-  switch (key) {
-    case 'sex':
-      return formatSex[obj[key]];
-    case 'edLevel':
-      return formatEdLevel[obj[key]];
-    default:
-      return obj[key];
-  }
-}
-

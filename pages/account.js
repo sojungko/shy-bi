@@ -7,7 +7,6 @@ import { Form, Field } from 'react-final-form';
 
 import { getCurrentUser, editBio } from 'actions';
 import { getUsername } from 'modules/auth';
-import { neo4jIntsToStrings } from 'modules/cypher';
 import {
   required,
   mustBeShorterThan,

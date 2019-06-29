@@ -14,6 +14,7 @@
 
 const debug = require('debug');
 const bcrypt = require('bcryptjs');
+const { intsToNumbers } = require('../utils/convert');
 
 let log = debug('server:user:controller').bind(this);
 // Plucks addUser methods from user/user-model.js
@@ -100,17 +101,21 @@ module.exports = {
       log(`Success!
         Checking attempted password: ${body.password} against database`);
 
-      const { properties: { username, memberSince, password, name, email, image_url } } = data.get('user');
+      const { properties = {} } = data.get('user');
+      const {
+        email,
+        image_url,
+        memberSince,
+        name,
+        password,
+        username,
+      } = properties;
 
       bcrypt.compare(body.password, password, (err, isMatch) => {
         if (err) {
           log('Wrong password!');
           callback(err);
         } else if (isMatch) {
-          // const city = data.get('city').properties.name;
-          // const age = data.get('age').properties.age;
-          // const sex = data.get('sex').properties.sex;
-
           const result = { memberSince, password, name, email, username, image_url };
 
           log('Sending User data: ', result);
@@ -172,12 +177,35 @@ module.exports = {
         res.status(404).send(error);
       } else {
         log('Success! Chunking data & building res object', data);
-        const { properties: { memberSince, name, email, job, edLevel, aboutMe, sex, image_url, online } } = data.get('user');
-        // const city = data.get('city').properties.name;
-        // const age = data.get('age').properties.age;
-        // const sex = data.get('sex').properties.sex;
+        const { properties = {} } = data.get('user');
+        const age = intsToNumbers(data.get('age'));
+        const {
+          aboutMe,
+          birthday,
+          edLevel,
+          email,
+          image_url,
+          job,
+          memberSince,
+          name,
+          online,
+          sex,
+        } = properties;
 
-        const result = { memberSince, name, username, email, job, edLevel, aboutMe, sex, image_url, online };
+        const result = {
+          aboutMe,
+          age,
+          birthday: intsToNumbers(birthday),
+          edLevel,
+          email,
+          image_url,
+          job,
+          memberSince: intsToNumbers(memberSince),
+          name,
+          online,
+          sex,
+          username,
+        };
 
         log('Sending User data: ', result);
         res.json(result);

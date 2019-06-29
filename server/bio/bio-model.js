@@ -1,7 +1,7 @@
 const debug = require('debug');
 
 const db = require('../db/config');
-const { validateBirthday } = require('../utils/validate');
+const { validateDate, formatDate } = require('../utils/validate');
 
 let log = debug('server:bio:model').bind(this);
 let err = debug('server:bio:model:error').bind(this);
@@ -10,22 +10,27 @@ module.exports = {
   postBio({ name = '', email, edLevel = '', aboutMe = '', username, birthday = {}, sex = '' }, callback) {
     // log = log.extend('postBio');
     log(`Accessing user database with username: ${username}`);
+    log('birthday', birthday);
     return db
       .run(
         `MATCH (user:User {username: {username}})
         SET
         user.name = {name},
         user.email = {email},
-        ${validateBirthday(birthday) ? 'user.birthday = date({birthday}),' : ''}
+        ${validateDate(birthday) ? 'user.birthday = date({birthday}),' : ''}
         user.edLevel = {edLevel},
         user.aboutMe = {aboutMe},
-        user.sex = {sex}`,
-        { name, email, edLevel, birthday, aboutMe, username, sex },
+        user.sex = {sex}
+        UNWIND [duration.inMonths(n.birthday, date())] as age
+        RETURN user, age
+        `
+        ,
+        { name, email, edLevel, birthday: formatDate(birthday), aboutMe, username, sex },
       )
-      .then(() => {
-        log('Editing user info in database:');
+      .then(({ records }) => {
+        log('Editing user info in database:', records);
         db.close();
-        return callback();
+        return callback(records[0]);
       })
       .catch((error) => {
         err('Could not edit user in database : ', error);

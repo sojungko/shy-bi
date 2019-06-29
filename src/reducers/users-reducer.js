@@ -1,3 +1,4 @@
+import decorateUser from 'modules/user-decorator';
 import {
   GET_ALL_USERS,
   GET_RECOMMENDED_USERS,
@@ -31,7 +32,7 @@ export function currentUser(state = null, action) {
     case LOGIN_USER_SUCCESS:
     case SIGN_UP_USER:
     case EDIT_BIO_SUCCESS:
-      return action.payload;
+      return decorateUser(action.payload);
     case LOGOUT_USER_SUCCESS:
       return null;
     default:
@@ -42,7 +43,7 @@ export function currentUser(state = null, action) {
 export function visitedUser(state = null, action) {
   switch (action.type) {
     case GET_VISITED_USER:
-      return action.payload;
+      return decorateUser(action.payload);
     default:
       return state;
   }

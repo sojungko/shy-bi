@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { editBio } from 'actions';
-import { formatData } from 'modules/formatters';
+import { parseDate } from 'modules/formatters';
 
 import Loader from '../../styles/svgs/loader.svg';
 
@@ -19,6 +19,9 @@ class ProfileItem extends Component {
 
   onSubmit = async (val) => {
     console.log('val', val);
+    if (val.birthday) {
+      val.birthday = parseDate(val.birthday);
+    }
     const { currentUser } = this.props;
     this.setState({ isSubmitting: true });
     await this.props.editBio({...currentUser, ...val})
@@ -36,6 +39,7 @@ class ProfileItem extends Component {
       data,
       format,
       options,
+      parse,
       placeholder,
       render,
       visitedUser,
@@ -44,13 +48,13 @@ class ProfileItem extends Component {
 
     // if visited user's profile page
     if (visitedUser) {
-      return <p>{formatData(visitedUser, data)}</p>
+      return <p>{visitedUser[data]}</p>
     }
     // if current user's profile page & not editable
     if (currentUser && !isEditable) {
       return (
         <Fragment>
-          <p>{formatData(currentUser, data)}</p>
+          <p>{currentUser[data]}</p>
           <i
             className="material-icons md-18 md-dark md-inactive md-clickable"
             onClick={this.toggleEditable}
@@ -79,6 +83,7 @@ class ProfileItem extends Component {
               format={format}
               name={data}
               options={options}
+              parse={parse}
               placeholder={placeholder}
               render={render}
               validate={validate}

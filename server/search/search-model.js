@@ -37,7 +37,8 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User)
-        RETURN user LIMIT 10`)
+        UNWIND [duration.inMonths(user.birthday, date())] as age
+        RETURN user, age LIMIT 10`)
       .then(({ records }) => {
         db.close();
         log('Reteriving first 10 user data');

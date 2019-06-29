@@ -17,7 +17,7 @@ import {
 } from 'modules/validators';
 
 import {
-  formatDate,
+  formatDateForInput,
 } from 'modules/formatters';
 
 import { genders, edLevels } from 'constants/form';
@@ -103,12 +103,11 @@ class Profile extends Component {
             options={genders}
           />
           <ProfileItem
-            data="birthday"
-            format={formatDate}
-            label="Birthday"
+            data="age"
+            format={formatDateForInput}
+            label="Age"
             placeholder="DD/MM/YYYY"
             render={renderField}
-            format={formatDate}
             validate={validateDate}
           />
           <ProfileItem
