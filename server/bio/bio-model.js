@@ -21,7 +21,8 @@ module.exports = {
         user.edLevel = {edLevel},
         user.aboutMe = {aboutMe},
         user.sex = {sex}
-        UNWIND [duration.inMonths(n.birthday, date())] as age
+        WITH user
+        UNWIND [duration.inMonths(user.birthday, date())] as age
         RETURN user, age
         `
         ,

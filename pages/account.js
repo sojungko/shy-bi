@@ -17,7 +17,7 @@ import {
   composeValidators,
 } from 'modules/validators';
 
-import { genders, edLevels, days, months, years } from 'constants/form';
+import { genders, edLevels } from 'constants/form';
 
 import App from 'components/App';
 import ImageUpload from 'components/ImageUpload';

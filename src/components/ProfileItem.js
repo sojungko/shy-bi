@@ -18,13 +18,12 @@ class ProfileItem extends Component {
   }
 
   onSubmit = async (val) => {
-    console.log('val', val);
     if (val.birthday) {
       val.birthday = parseDate(val.birthday);
     }
     const { currentUser } = this.props;
     this.setState({ isSubmitting: true });
-    await this.props.editBio({...currentUser, ...val})
+    await this.props.editBio({...currentUser, ...val});
     this.setState({ isSubmitting: false, isEditable: false });
   }
 

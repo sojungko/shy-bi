@@ -1,5 +1,6 @@
 const debug = require('debug');
 const { postBio, removeImage, postImage } = require('./bio-model');
+const { intsToNumbers } = require('../utils/convert');
 
 let log = debug('server:bio:controller').bind(this);
 
@@ -8,9 +9,46 @@ module.exports = {
   editBio({ body }, res) {
     // log = log.extend('editBio');
     log('Received request :', body);
-    postBio(body, () => {
-      log('Completed database query', body);
-      res.status(201).json(body);
+    postBio(body, (data, error) => {
+      if (error) {
+        log('Error!', error);
+        res.status(500).send(error);
+      }
+      log('Completed database query', data);
+      const { properties = {} } = data.get('user');
+      const age = intsToNumbers(data.get('age'));
+      const {
+        aboutMe,
+        birthday,
+        edLevel,
+        email,
+        image_url,
+        job,
+        memberSince,
+        name,
+        online,
+        sex,
+        username,
+      } = properties;
+
+      const result = {
+        aboutMe,
+        age,
+        birthday: intsToNumbers(birthday),
+        edLevel,
+        email,
+        image_url,
+        job,
+        memberSince: intsToNumbers(memberSince),
+        name,
+        online,
+        sex,
+        username,
+      };
+
+      log('Sending back updated user data', result);
+
+      res.status(201).json(result);
     });
   },
 

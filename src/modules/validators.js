@@ -1,10 +1,13 @@
 export const required = value => (value ? undefined : 'Required');
 
 export const mustBeShorterThan = length =>
-  value => (value.length < length ? undefined : `Must be fewer than ${length} characters`);
+  value => (value && value.length < length ? undefined : `Must be fewer than ${length} characters`);
 
 export const mustBeLongerThan = length =>
-  value => (value.length > length ? undefined : `Must be more than ${length} characters`);
+  value => (value && value.length > length ? undefined : `Must be more than ${length} characters`);
+
+export const mustBeLength = length =>
+  value => (value && value.length === length ? undefined : `Must be ${length} characters`);
 
 // for username
 export const noSpecialChars

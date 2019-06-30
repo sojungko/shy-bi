@@ -14,15 +14,15 @@ export const renderField = ({ input, label, meta: { touched, error }, placeholde
 export const renderRadioGroup = ({ input, label, options, ...rest }) => (
   <div className="form--group">
     {label && <label className="form--label">{label}</label>}
-    {options.map(({ label, value }) => (
-      <label key={value}>
+    {options.map(option => (
+      <label key={option}>
         <Field
           {...input}
           component="input"
           type="radio"
-          value={value}
+          value={option}
         />
-        {label}
+        {option}
       </label>
     ))}
   </div>
@@ -36,12 +36,12 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
       component="select"
       {...input}
     >
-      {options.map(({ label, value }) => (
+      {options.map(option => (
         <option
-          key={value}
-          value={value}
+          key={option}
+          value={option}
         >
-          {label}
+          {option}
         </option>
       ))}
     </Field>
@@ -57,7 +57,7 @@ export const renderSelectNumber = ({ input, name, label, options, ...rest }) => 
       component="select"
       {...input}
     >
-      {options.map((option) => (
+      {options.map(option => (
         <option
           key={option}
           value={option}

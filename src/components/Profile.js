@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Router from 'next/router';
 import Snackbar from '@material-ui/core/Snackbar';
 import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
@@ -12,6 +11,7 @@ import {
   required,
   noSpecialChars,
   mustContainLetter,
+  mustBeLength,
   composeValidators,
   validateDate,
 } from 'modules/validators';
@@ -108,7 +108,12 @@ class Profile extends Component {
             label="Age"
             placeholder="DD/MM/YYYY"
             render={renderField}
-            validate={validateDate}
+            validate={
+              composeValidators(
+                validateDate,
+                mustBeLength(10),
+              )
+            }
           />
           <ProfileItem
             data="edLevel"
