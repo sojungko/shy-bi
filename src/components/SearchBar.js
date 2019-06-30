@@ -51,6 +51,9 @@ class SearchBar extends Component {
 
   handleAgeChange = (val) => {
     this.setState({ ageRange: val });
+  }
+
+  submitAgeChange = (val) => {
     this.props.updateAgeRange(val);
   }
 
@@ -91,6 +94,7 @@ class SearchBar extends Component {
                 minValue={19}
                 value={this.state.ageRange}
                 onChange={this.handleAgeChange}
+                onChangeComplete={this.submitAgeChange}
               />
               <div className="form--group">
                 <label className="form--label">Sex</label>

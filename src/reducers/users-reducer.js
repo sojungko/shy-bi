@@ -9,12 +9,14 @@ import {
   LOGIN_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   EDIT_BIO_SUCCESS,
+  UPDATE_AGE_RANGE,
 } from '../constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
 export function users(state = [], action) {
   switch (action.type) {
     case GET_ALL_USERS:
+    case UPDATE_AGE_RANGE:
       return action.payload;
     case GET_RECOMMENDED_USERS:
       return { ...state, recommended: action.payload };

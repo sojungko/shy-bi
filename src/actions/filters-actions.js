@@ -1,7 +1,14 @@
 import axios from 'axios';
 import * as A from '../constants/action-types';
 
-export const updateAgeRange = input => ({ type: A.UPDATE_AGE_RANGE, payload: input });
+export const updateAgeRange = input => {
+  const { min, max } = input;
+  return dispatch => axios.get(`/api/search/filter?minage=${min}&maxage=${max}`)
+    .then(({ data }) => dispatch({ type: A.UPDATE_AGE_RANGE, payload: data }))
+    .catch((error) => {
+      console.error(error);
+    });
+};
 export const updateCity = input => ({ type: A.UPDATE_CITY, payload: input });
 export const updateSex = input => ({ type: A.UPDATE_SEX, payload: input });
 export const clearFields = () => ({ type: A.CLEAR_FIELDS });

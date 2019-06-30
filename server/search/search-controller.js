@@ -141,7 +141,7 @@ module.exports = {
         const { username, image_url, online } = properties;
 
         // Putting together a user data object.
-        const user = { name, username, image_url, online };
+        const user = { username, image_url, online };
 
         return user;
       });
