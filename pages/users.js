@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Router, { withRouter } from 'next/router';
 import axios from 'axios';
 
-import { GET_ALL_USERS } from 'constants/action-types';
+import { GET_ALL_USERS, GET_VISITED_USER } from 'constants/action-types';
 
 import App from 'components/App';
 import Profile from 'components/Profile';
@@ -16,33 +16,42 @@ class Users extends Component {
     const { params: { username } } = req;
     const visitedUser = username || query.username || null;
 
-    // if (visitedUser) {
-    //   try {
-    //     const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
-    //     store.dispatch({ type: 'GET_VISITED_USER', data });
-    //   } catch (err) {
-    //     console.log('err', err);
-    //   }
-    // } else {
+    if (visitedUser) {
       try {
-        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/search/all`);
-        store.dispatch({ type: GET_ALL_USERS, payload: data });
+        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
+        store.dispatch({ type: GET_VISITED_USER, data });
+        return { asPath, visitedUser: data };
       } catch (err) {
         console.log('err', err);
+        return { asPath };
       }
-    // }
+    }
+    try {
+      const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/search/all`);
+      store.dispatch({ type: GET_ALL_USERS, payload: data });
+    } catch (err) {
+      console.log('err', err);
+    }
     return { asPath };
   }
 
-  componentDidMount() {
-    const { visitedUser, asPath } = this.props;
-    if (!visitedUser && asPath.split('/').length) {
-      Router.replace('/users');
-    }
-  }
+  // componentDidMount() {
+  //   const { visitedUser, asPath } = this.props;
+  //   if (!visitedUser && asPath.split('/').length) {
+  //     Router.replace('/users');
+  //   }
+  // }
 
   render() {
-    const { users } = this.props;
+    const { visitedUser, users } = this.props;
+
+    if (visitedUser) {
+      return (
+        <App>
+          <Profile visitedUser={visitedUser} />
+        </App>
+      );
+    }
 
     return (
       <App>

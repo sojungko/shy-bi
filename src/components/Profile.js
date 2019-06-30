@@ -35,19 +35,6 @@ class Profile extends Component {
     params: PropTypes.shape({
       username: PropTypes.string,
     }),
-    profile: PropTypes.shape({
-      username: PropTypes.string,
-      name: PropTypes.string,
-      age: PropTypes.string,
-      sex: PropTypes.string,
-      city: PropTypes.string,
-      job: PropTypes.string,
-      edLevel: PropTypes.string,
-      aboutMe: PropTypes.string,
-      image_url: PropTypes.string,
-      online: PropTypes.bool,
-      isMatch: PropTypes.bool,
-    }),
     likeUser: PropTypes.func,
     open: PropTypes.bool,
   }
@@ -149,8 +136,4 @@ class Profile extends Component {
 }
 
 
-const mapStateToProps = ({ profile }) => ({
-  profile,
-  open: profile.isMatch,
-});
-export default connect(mapStateToProps, { getCurrentUser, likeUser })(Profile);
+export default connect(null, { getCurrentUser, likeUser })(Profile);

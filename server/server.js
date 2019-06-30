@@ -73,7 +73,7 @@ app.prepare()
     server.use(express.static(path.join(__dirname, '/../')));
 
     server.get('/users/:username?',
-      (req, res) => app.render(req, res, '/users'),
+      (req, res) => app.render(req, res, '/users', { ...req.params, ...req.query }),
     );
 
     server.get('*', (req, res) => handle(req, res));
