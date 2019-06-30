@@ -12,6 +12,7 @@ import {
   FILTER_USERS,
   IS_MATCH,
   IS_NOT_MATCH,
+  UNLIKE_USER,
 } from '../constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
@@ -38,7 +39,8 @@ export function currentUser(state = null, action) {
       return action.payload;
     case IS_NOT_MATCH:
     case IS_MATCH:
-      return { ...state, liked: action.liked };
+    case UNLIKE_USER:
+      return { ...state, liked: new Set(action.payload.allLiked) };
     case LOGOUT_USER_SUCCESS:
       return null;
     default:
@@ -50,6 +52,8 @@ export function visitedUser(state = null, action) {
   switch (action.type) {
     case GET_VISITED_USER:
       return action.payload;
+    case IS_MATCH:
+      return { ...state, isMatch: true }; // TODO persist isMatch data somehow
     default:
       return state;
   }

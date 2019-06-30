@@ -28,9 +28,9 @@ module.exports = {
         MERGE (user)-[:LIKES]->(liked)
         WITH user, liked
         MATCH (user)-[:LIKES]->(any:User)
-        WITH user, liked, any
+        WITH user, liked, any.username AS likedUsers
         RETURN CASE WHEN (liked)-[:LIKES]->(user) THEN true
-        ELSE false END AS isMatch, user, liked, any`,
+        ELSE false END AS isMatch, user, liked, likedUsers`,
       { username, likedUser },
     )
       .then(({ records }) => {

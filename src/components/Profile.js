@@ -40,7 +40,7 @@ class Profile extends Component {
     const { currentUser, visitedUser } = this.props;
     const { username: currentUsername } = currentUser;
     const { username: visitedUsername } = visitedUser;
-    this.props.unlikedUser(currentUsername, visitedUsername);
+    this.props.unlikeUser(currentUsername, visitedUsername);
   }
   
   like = () => {  
@@ -72,6 +72,7 @@ class Profile extends Component {
     if (!currentUser) { return null };
 
     const { liked } = currentUser;
+    console.log('in render liked', liked);
 
     return (
       <div className="page__container">
@@ -90,11 +91,11 @@ class Profile extends Component {
               : (
                 <i className="material-icons md-18 md-clickable" onClick={this.unlike}>favorite</i>
             )}
-            {/* <Snackbar
-              open={this.props.open || false}
+            <Snackbar
+              open={this.props.isMatch || false}
               message="You guys are a match!"
               autoHideDuration={4000}
-            /> */}
+            />
           </div>
           }
           <ProfileItem
@@ -150,6 +151,7 @@ function mapStateToProps ({ currentUser, visitedUser }) {
   return {
     currentUser,
     visitedUser,
+    isMatch: visitedUser && visitedUser.isMatch,
   }
 }
 

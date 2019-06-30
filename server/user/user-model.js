@@ -107,7 +107,7 @@ module.exports = {
         `MATCH (user:User{username: {username}})
         OPTIONAL MATCH (user)-[:LIKES]->(liked:User)
         UNWIND [duration.inMonths(user.birthday, date())] as age
-        RETURN user, age, liked`,
+        RETURN user, age, liked.username AS likedUsers`,
         { username })
       .then(({ records }) => {
         db.close();
