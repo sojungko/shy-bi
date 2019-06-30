@@ -6,7 +6,7 @@ const UserList = ({ users }) => {
     <ul className="users">
       {users.map(({ username, image_url }) => {
         return (
-          <Link href={`/users/${username}`}>
+          <Link href={`/users?username=${username}`} as={`/users/${username}`}>
             <a key="username">
               <li className="user">
                 <div className="user--image-container">

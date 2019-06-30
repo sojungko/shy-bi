@@ -72,6 +72,16 @@ class Profile extends Component {
           <div className="profile--row">
             You are online
           </div>
+          { visitedUser && 
+          <div className="profile--row">
+            <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
+            {/* <Snackbar
+              open={this.props.open || false}
+              message="You guys are a match!"
+              autoHideDuration={4000}
+            /> */}
+          </div>
+          }
           <ProfileItem
             data="name"
             label="Name"
@@ -114,16 +124,6 @@ class Profile extends Component {
             label="About Me"
             render={renderTextArea}
           />
-          { visitedUser && 
-          <Fragment>
-            <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
-            <Snackbar
-              open={this.props.open || false}
-              message="You guys are a match!"
-              autoHideDuration={4000}
-            />
-          </Fragment>
-          }
         </div>
       </div>
 

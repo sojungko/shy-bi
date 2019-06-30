@@ -26,8 +26,8 @@ const Header = (props) => {
           className="app-bar__menu-svg"
           onClick={handleToggle}
         />
-        <Link>
-          <a href="/" className="app-bar__logo">
+        <Link href="/">
+          <a className="app-bar__logo">
             <h1 className="app-bar__header">
               shybi
             </h1>
@@ -45,8 +45,8 @@ const Header = (props) => {
             </div>
             :
             <div className="app-bar__button-container">
-              <Link>
-                <a href={asPath === '/login' ? '/signup' : '/login'}>
+              <Link href={asPath === '/login' ? '/signup' : '/login'}>
+                <a>
                   <button className="button button__flat">
                     {asPath === '/login' ? 'Sign Up' : 'Log In'}
                   </button>

@@ -22,16 +22,16 @@ const AboutUs = () => (
       <br />
       <p>'ShyBi' provides a safe platform for anyone to explore his or her sexual orientation.</p>
       <div>
-        <Link>
-          <a href="https://github.com/jw-garrison">
+        <Link href="https://github.com/jw-garrison">
+          <a>
             JW Garrison
           </a>
         </Link>
         <p> Wife, daughter, and mom, in that order </p>
       </div>
       <div>
-        <Link>
-          <a href="https://github.com/sojungko">
+        <Link href="https://github.com/sojungko">
+          <a>
           Sojung Park
           </a>
         </Link>
@@ -39,8 +39,8 @@ const AboutUs = () => (
         <p>Regrets not having done that sooner.</p>
       </div>
       <div>
-        <Link>
-          <a href="https://github.com/peterschussheim">
+        <Link href="https://github.com/peterschussheim">
+          <a>
             Peter Schussheim
           </a>
         </Link>

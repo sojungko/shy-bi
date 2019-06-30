@@ -4,15 +4,15 @@ import Link from 'next/link';
 const Footer = () => (
   <footer className="footer">
     <div>
-      <Link>
-        <a href="/about">
+      <Link href="/about">
+        <a>
           <button className="button button__flat">
             About Us
           </button>
         </a>
       </Link>
-      <Link>
-        <a href="/contact">
+      <Link href="/contact">
+        <a>
           <button className="button button__flat">
             Contact
           </button>

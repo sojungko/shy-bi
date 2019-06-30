@@ -94,7 +94,7 @@ class LogIn extends Component {
                   Log In
                 </button>
                 <div className="form--text">
-                  Don&apos;t have an account?<Link><a href="/signup" className="form--link"> Create one</a></Link>.
+                  Don&apos;t have an account?<Link href="/signup"><a className="form--link"> Create one</a></Link>.
                 </div>
               </form>
             )}

@@ -16,8 +16,8 @@ const LeftNav = ({ currentUser, open, handleToggle }) => {
         className="left-nav--item"
       >
         <button className="button button__flat button__link">
-          <Link>
-            <a href={href}>
+          <Link href={href}>
+            <a>
               {label}
             </a>
           </Link>

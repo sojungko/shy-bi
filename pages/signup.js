@@ -110,7 +110,7 @@ class SignUp extends Component {
                 >
                   Create New Account
               </button>
-                <div className="form--text">Already have an account? <Link><a href='/login' className="form--link">Log in</a></Link></div>
+                <div className="form--text">Already have an account? <Link href='/login'><a className="form--link">Log in</a></Link></div>
               </form>
             )}
           />
