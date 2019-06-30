@@ -13,8 +13,8 @@ const bcrypt = require('bcryptjs');
 const debug = require('debug');
 const db = require('../db/config');
 
-let log = debug('server:user:model').bind(this);
-let err = debug('server:user:model:error').bind(this);
+let log = debug('server:user:model');
+let err = debug('server:user:model:error');
 
 module.exports = {
   //
@@ -99,7 +99,7 @@ module.exports = {
    * --------------------------------------------------------------- */
 
   getUser(username, callback) {
-    // log = log.extend('getUser');
+    log = log.extend('getUser');
     log(`Finding ${username} from database`);
 
     return db

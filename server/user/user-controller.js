@@ -16,7 +16,7 @@ const debug = require('debug');
 const bcrypt = require('bcryptjs');
 const { intsToNumbers } = require('../utils/convert');
 
-let log = debug('server:user:controller').bind(this);
+let log = debug('server:user:controller');
 // Plucks addUser methods from user/user-model.js
 const { addUser, getUser, toggleOnline, toggleOffline } = require('./user-model');
 

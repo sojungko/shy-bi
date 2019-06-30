@@ -2,7 +2,7 @@ const debug = require('debug');
 
 const { like, unlike } = require('./likes-model');
 
-let log = debug('server:likes:controller').bind(this);
+let log = debug('server:likes:controller');
 
 module.exports = {
   likeUser({ body }, res) {

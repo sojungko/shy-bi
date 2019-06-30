@@ -2,6 +2,7 @@ const debug = [
   'server:server',
   'server:server:error',
   'server:user:model',
+  'server:user:model:getUser',
   'server:user:model:error',
   'server:user:controller',
   'server:search:model',

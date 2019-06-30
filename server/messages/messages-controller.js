@@ -16,7 +16,7 @@ const debug = require('debug');
 // Plucks getAll methods from messages-model.js
 const { getAll, postMessage, getOutbox, toggleRead, getUnreadMsgs } = require('./messages-model');
 
-let log = debug('server:messages:controller').bind(this);
+let log = debug('server:messages:controller')
 
 module.exports = {
   //

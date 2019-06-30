@@ -2,7 +2,7 @@ const debug = require('debug');
 const { postBio, removeImage, postImage } = require('./bio-model');
 const { intsToNumbers } = require('../utils/convert');
 
-let log = debug('server:bio:controller').bind(this);
+let log = debug('server:bio:controller');
 
 module.exports = {
 

@@ -2,7 +2,7 @@ const debug = require('debug');
 
 const { getRecMatches } = require('./recommendations-model');
 
-let log = debug('server:rec:controller').bind(this);
+let log = debug('server:rec:controller');
 
 module.exports = {
   getRecommendedMatches({ params }, res) {

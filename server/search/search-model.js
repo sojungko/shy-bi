@@ -12,8 +12,8 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-let log = debug('server:search:model').bind(this);
-let err = debug('server:search:model:error').bind(this);
+let log = debug('server:search:model');
+let err = debug('server:search:model:error');
 
 module.exports = {
   //

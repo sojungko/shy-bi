@@ -13,6 +13,7 @@ import {
   IS_MATCH,
   IS_NOT_MATCH,
   UNLIKE_USER,
+  UNVISIT_USER,
 } from '../constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
@@ -54,6 +55,10 @@ export function visitedUser(state = null, action) {
       return action.payload;
     case IS_MATCH:
       return { ...state, isMatch: true }; // TODO persist isMatch data somehow
+    case UNLIKE_USER:
+      return { ...state, isMatch: false };
+    case UNVISIT_USER:
+      return null;
     default:
       return state;
   }

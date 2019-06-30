@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Router, { withRouter } from 'next/router';
 import axios from 'axios';
 
-import { GET_ALL_USERS, GET_VISITED_USER } from 'constants/action-types';
+import { GET_ALL_USERS, GET_VISITED_USER, UNVISIT_USER } from 'constants/action-types';
 import decorateUser from 'modules/user-decorator';
 
 import App from 'components/App';
@@ -30,20 +30,11 @@ class Users extends Component {
     try {
       const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/search/all`);
       store.dispatch({ type: GET_ALL_USERS, payload: data });
+      store.dispatch({ type: UNVISIT_USER });
     } catch (err) {
       console.log('err', err);
     }
     return { asPath };
-  }
-
-  componentDidMount() {
-    const { currentUser, visitedUser, asPath } = this.props;
-    if (!visitedUser && asPath.split('/').length) {
-      Router.replace('/users');
-    } else if (!currentUser) {
-    // if (!currentUser) {
-      Router.push('/');
-    }
   }
 
   render() {

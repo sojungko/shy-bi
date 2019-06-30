@@ -2,7 +2,7 @@ const debug = require('debug');
 
 const { getMatchedUsers, toggleView, getNewMatches } = require('./matches-model');
 
-let log = debug('server:matches:controller').bind(this);
+let log = debug('server:matches:controller');
 
 module.exports = {
 

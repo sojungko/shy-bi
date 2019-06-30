@@ -1,6 +1,7 @@
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const GET_VISITED_USER = 'GET_VISITED_USER';
+export const UNVISIT_USER = 'UNVISIT_USER';
 export const IS_MATCH = 'IS_MATCH';
 export const IS_NOT_MATCH = 'IS_NOT_MATCH';
 export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';

@@ -2,8 +2,8 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-let log = debug('server:matches:model').bind(this);
-let err = debug('server:matches:model:error').bind(this);
+let log = debug('server:matches:model');
+let err = debug('server:matches:model:error');
 
 module.exports = {
   getMatchedUsers({ username }, callback) {

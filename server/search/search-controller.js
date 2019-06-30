@@ -11,12 +11,12 @@
  *
  * --------------------------------------------------------------- */
 
-const { intsToNumbers } = require('../utils/convert')
+const { intsToNumbers } = require('../utils/convert');
 const debug = require('debug');
 
 const { getAll, getFilteredUsers, getLikedUsers } = require('./search-model');
 
-let log = debug('server:search:controller').bind(this);
+let log = debug('server:search:controller');
 
 module.exports = {
   //

@@ -9,8 +9,8 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-let log = debug('server:rec:model').bind(this);
-let err = debug('server:rec:model:error').bind(this);
+let log = debug('server:rec:model');
+let err = debug('server:rec:model:error');
 
 module.exports = {
     /* ------------------------- * getRecMatches * ------------

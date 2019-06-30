@@ -17,7 +17,7 @@ const db = require('../db/config');
  *
  * --------------------------------------------------------------- */
 const debug = require('debug');
-const log = debug('server:db:initialize').bind(this);
+const log = debug('server:db:initialize');
 
 const initialize = () => {
   log('Initializing Database');

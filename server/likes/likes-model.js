@@ -2,8 +2,8 @@ const debug = require('debug');
 
 const db = require('../db/config');
 
-let log = debug('server:likes:model').bind(this);
-let err = debug('server:likes:model:error').bind(this);
+let log = debug('server:likes:model');
+let err = debug('server:likes:model:error');
 
 module.exports = {
   like({ username, likedUser }, callback) {

@@ -3,8 +3,8 @@ const debug = require('debug');
 const db = require('../db/config');
 const { validateDate, formatDate } = require('../utils/validate');
 
-let log = debug('server:bio:model').bind(this);
-let err = debug('server:bio:model:error').bind(this);
+let log = debug('server:bio:model');
+let err = debug('server:bio:model:error');
 
 module.exports = {
   postBio({ name = '', email, edLevel = '', aboutMe = '', username, birthday = {}, sex = '' }, callback) {
