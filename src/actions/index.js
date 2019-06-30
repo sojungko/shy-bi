@@ -24,11 +24,8 @@ export {
 } from './users-actions';
 
 export {
-  updateAgeRange,
-  updateCity,
-  updateSex,
   clearFields,
-  filterUser,
+  filterUsers,
 } from './filters-actions';
 
 export {

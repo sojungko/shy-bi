@@ -127,7 +127,7 @@ module.exports = {
   filterUsers({ query }, res) {
     // log = log.extend('filterUsers');
     log(`Filtering users by
-      minage: ${query.minage}, maxage: ${query.maxage}, city: ${query.city}, sex: ${query.sex}`);
+      minage: ${query.minage}, maxage: ${query.maxage}, sex: ${query.sex}`);
 
     getFilteredUsers(query, (filteredUserData) => {
       log(`Success!

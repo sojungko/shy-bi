@@ -6,9 +6,7 @@ import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 
 import {
-  updateAgeRange,
-  updateCity,
-  updateSex,
+  filterUsers,
   clearFields,
 } from 'actions';
 
@@ -19,7 +17,6 @@ class SearchBar extends Component {
     minage: PropTypes.string,
     maxage: PropTypes.string,
     city: PropTypes.string,
-    updateAgeRange: PropTypes.func,
     updateCity: PropTypes.func,
     clearFields: PropTypes.func,
     updateSex: PropTypes.func,
@@ -49,29 +46,22 @@ class SearchBar extends Component {
     // this.props.filterUser(this.props.inputs);
   }
 
+  // changes display only
   handleAgeChange = (val) => {
     this.setState({ ageRange: val });
   }
 
-  submitAgeChange = (val) => {
-    this.props.updateAgeRange(val);
+  submitAgeChange = ({ min, max }) => {
+    this.props.filterUsers({ sex: this.state.sex, minage: min, maxage: max });
   }
 
-  handleChange = (e) => {
+  handleSexChange = (e) => {
     const { target } = e;
-    const { name, value } = target;
-    switch (name) {
-      case 'Male':
-      case 'Female':
-      case 'Other':
-        const updatedState = { ...this.state.sex, [value]: !this.state.sex[value] }
-        this.props.updateSex(updatedState);
-        break;
-      default:
-        return null;
-    }
-
-    // return null;
+    const { name} = target;
+    const updatedState = { ...this.state.sex, [name]: !this.state.sex[name] }
+    this.setState({ sex: updatedState });
+    const { ageRange } = this.state;
+    this.props.filterUsers({sex: updatedState, minage: ageRange.min, maxage: ageRange.max });
   }
 
   handleClick = () => {
@@ -101,10 +91,11 @@ class SearchBar extends Component {
                 {genders.map(gender => (
                   <label>
                     <Field
-                      name="sex"
+                      name={gender}
                       component="input"
                       type="checkbox"
-                      value={this.state.sex[gender]}
+                      onChange={this.handleSexChange}
+                      checked={this.state.sex[gender]}
                     />
                     {gender}
                   </label>
@@ -140,8 +131,6 @@ const mapStateToProps = ({ filterInputs }) => ({
 });
 
 export default connect(mapStateToProps, {
-  updateAgeRange,
-  updateCity,
-  updateSex,
+  filterUsers,
   clearFields,
 })(SearchBar);

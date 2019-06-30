@@ -67,13 +67,14 @@ module.exports = {
    *
    * --------------------------------------------------------------- */
 
-  getFilteredUsers({ minage = 19, maxage = 100, city = '^\\w.*', sex = '^\\w.*' }, callback) {
+  getFilteredUsers({ minage = 19, maxage = 100, sex }, callback) {
     // log = log.extend('getFilteredUsers');
     log(`Accessing user database
       age: ${minage} < age < ${maxage}
-      city: ${city},
       sex: ${sex}
     `);
+
+    const sexes = sex.split(',');
 
     return db
       .run(
@@ -82,19 +83,20 @@ module.exports = {
         UNWIND [duration.inMonths(user.birthday, date())] as age
         WITH user, age
         WHERE toInt({minage}) <= floor(age.months/12) <= toInt({maxage})
+        ${sex.length ? 'WITH * WHERE user.sex IN {sexes}' : ''}
         RETURN user, age LIMIT 10`,
-        { minage, maxage, sex })
+        { minage, maxage, sexes })
       .then(({ records }) => {
         db.close();
         log('records', records);
 
         log(`Reteriving first 10 user data that matches
-          minage: ${minage}, maxage: ${maxage} city: ${city}, sex: ${sex}`);
+          minage: ${minage}, maxage: ${maxage} sex: ${sex}`);
         return callback(records);
       })
       .catch((error) => {
         err(`Could not user with
-          ${minage}, ${maxage}, ${city}, ${sex} in database`);
+          ${minage}, ${maxage}, ${sex} in database`);
         throw error;
       });
   },
