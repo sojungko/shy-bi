@@ -2,7 +2,6 @@ const express = require('express');
 const passport = require('passport');
 const debug = require('debug');
 
-console.log = console.log.bind(this);
 const router = new express.Router();
 
 router.post('/signup', (req, res, next) => {

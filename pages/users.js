@@ -19,7 +19,7 @@ class Users extends Component {
     if (visitedUser) {
       try {
         const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
-        store.dispatch({ type: GET_VISITED_USER, data });
+        store.dispatch({ type: GET_VISITED_USER, payload: data });
         return { asPath, visitedUser: data };
       } catch (err) {
         console.log('err', err);

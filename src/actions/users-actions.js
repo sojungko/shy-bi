@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { authenticateUser, deauthenticateUser } from 'modules/auth';
 import { setCookie, updateUserCookie, clearCookie } from 'modules/cookies';
+import decorateUser from 'modules/user-decorator';
 import * as A from '../constants/action-types';
 
 /* -- Fetching Users --*/
@@ -15,8 +16,10 @@ export function getAllUsers() {
 export function getCurrentUser(username) {
   return dispatch => axios.get(`/api/users/${username}`)
     .then(({ data }) => {
-      updateUserCookie(data.user);
-      return dispatch({ type: A.GET_CURRENT_USER, payload: data });
+      const decoratedUser = decorateUser(data);
+      console.log('getCurrentUser decorated', decoratedUser);
+      updateUserCookie(decoratedUser);
+      return dispatch({ type: A.GET_CURRENT_USER, payload: decoratedUser });
     })
     .catch((error) => {
       console.log(error);
@@ -71,13 +74,12 @@ export function signupUser(props) {
 }
 
 export function loginUser(props) {
-  console.log('hey there');
   return dispatch => axios.post('/auth/signin', props)
   .then(({ data }) => {
-    console.log('data', data);
     authenticateUser(data.token, data.user.username);
-    updateUserCookie(data.user);
-    return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: data.user });
+    const decoratedUser = decorateUser(data.user);
+    updateUserCookie(decoratedUser);
+    return dispatch({ type: A.LOGIN_USER_SUCCESS, payload: decoratedUser });
   })
   .catch((error) => {
     console.log('      ACTIONS/LOGIN_USER_SUCCESS | ', error);
@@ -146,8 +148,9 @@ export function editBio(props) {
   return (dispatch) => {
     return axios.post('/api/bio/edit_bio', props)
       .then(({ data }) => {
-        updateUserCookie(data);
-        return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: data });
+        const decoratedUser = decorateUser(data);
+        updateUserCookie(decoratedUser);
+        return dispatch({ type: A.EDIT_BIO_SUCCESS, payload: decoratedUser });
       })
       .catch((error) => {
         console.log('     ACTIONS/EDIT_BIO_SUCCESS User data was not edited | ', error);
@@ -160,8 +163,9 @@ export function deleteImage(props) {
     const sending = { username: props };
     return axios.post('/api/bio/delete_image', sending)
       .then(({ data }) => {
-        updateUserCookie(data.user);
-        return dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: data });
+        const decoratedUser = decorateUser(data);
+        updateUserCookie(decoratedUser);
+        return dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: decoratedUser });
       })
       .catch((error) => {
         console.log('     3) ACTIONS/IMAGE_DELETE FAIL', error);
@@ -172,8 +176,9 @@ export function deleteImage(props) {
 export function uploadImage(props) {
   return dispatch => axios.post('/api/bio/upload_image', props)
     .then(({ data }) => {
-      updateUserCookie(data.user);
-      return dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data });
+      const decoratedUser = decorateUser(data);
+      updateUserCookie(decoratedUser);
+      return dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: decoratedUser });
     })
     .catch((error) => {
       console.log('     ACTIONS/IMAGE_UPLOADS FAIL | ', error);

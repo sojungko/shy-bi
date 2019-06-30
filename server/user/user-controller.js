@@ -178,7 +178,8 @@ module.exports = {
       } else {
         log('Success! Chunking data & building res object', data);
         const { properties = {} } = data.get('user');
-        const age = Math.floor(intsToNumbers(data.get('age')) / 12);
+        const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
+        const liked = data.get('liked');
         const {
           aboutMe,
           birthday,
@@ -205,6 +206,7 @@ module.exports = {
           online,
           sex,
           username,
+          liked: liked || [],
         };
 
         log('Sending User data: ', result);

@@ -105,8 +105,9 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User{username: {username}})
+        OPTIONAL MATCH (user)-[:LIKES]->(liked:User)
         UNWIND [duration.inMonths(user.birthday, date())] as age
-        RETURN user, age`,
+        RETURN user, age, liked`,
         { username })
       .then(({ records }) => {
         db.close();
@@ -121,6 +122,7 @@ module.exports = {
       .catch((error) => {
         err(`Could not find ${username} from database`);
         // throw error;
+        log('error', error);
         callback(null, error);
       });
   },

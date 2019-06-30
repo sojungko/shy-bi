@@ -32,15 +32,16 @@ import {
 class Profile extends Component {
   static propTypes = {
     getCurrentUser: PropTypes.func.isRequired,
-    params: PropTypes.shape({
-      username: PropTypes.string,
-    }),
     likeUser: PropTypes.func,
     open: PropTypes.bool,
   }
-
-  handleLikeButton = () => {
-    // this.props.likeUser(getUsername(), this.props.params.username);
+  
+  unlike = () => {
+    this.props.unlikedUser(this.props.currentUser, this.props.visitedUser);
+  }
+    
+  like = () => {  
+    this.props.likeUser(this.props.currentUser, this.props.visitedUser);
   }
 
   renderOnlineMessage = (online, isMatch, name, sex) => {
@@ -69,7 +70,7 @@ class Profile extends Component {
             <img role="presentation" src={image_url} />
           </div>
           <div className="profile--row">
-            {visitedUser ? this.renderOnlineMessage(online, isMatch, name) : 'You are online'}
+            You are online
           </div>
           <ProfileItem
             data="name"
@@ -115,17 +116,18 @@ class Profile extends Component {
           />
           { visitedUser && 
           <Fragment>
-            <Checkbox
-              onClick={this.handleLikeButton}
-              checkedIcon={<ActionFavorite />}
-              uncheckedIcon={<ActionFavoriteBorder />}
-              label="Like"
-            />
+            {currentUser.liked.has(visitedUser.username) ? (
+              <i className="material-icons md-18 md-clickable" onClick={this.unlike}>favorite</i>
+            )
+            : (
+              <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
+            )
+            }
             <Snackbar
-            open={this.props.open || false}
-            message="You guys are a match!"
-            autoHideDuration={4000}
-          />
+              open={this.props.open || false}
+              message="You guys are a match!"
+              autoHideDuration={4000}
+            />
           </Fragment>
           }
         </div>
@@ -135,5 +137,12 @@ class Profile extends Component {
   }
 }
 
+function mapStateToProps ({ currentUser, visitedUser }) {
+  return {
+    currentUser,
+    visitedUser,
+  }
+}
 
-export default connect(null, { getCurrentUser, likeUser })(Profile);
+
+export default connect(mapStateToProps, { getCurrentUser, likeUser })(Profile);
