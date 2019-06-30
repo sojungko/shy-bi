@@ -10,8 +10,6 @@ function intsToNumbers(object) {
     if (neo4j.isInt(value)) {
       const newVal = value.toNumber();
       newObj[key] = newVal;
-    } else if (typeof value === 'object') {
-      intsToNumbers(value);
     }
   }
   return newObj;
