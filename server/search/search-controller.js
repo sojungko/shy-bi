@@ -76,7 +76,7 @@ module.exports = {
         const { properties = {} } = data.get('user');
         const { username, image_url, online } = properties;
 
-        const age = intsToNumbers(data.get('age'));
+        const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
         // Putting together a user data object.
         const user = { age, username, image_url, online };
 

@@ -1,5 +1,5 @@
 const generateLikedFormatted = ({ liked }) => {
-  return liked.length ? new Set(liked) : new Set();
+  return liked && liked.length ? new Set(liked) : new Set();
 };
 
 export default function decorateUser(user = {}) {

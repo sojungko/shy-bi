@@ -116,13 +116,7 @@ class Profile extends Component {
           />
           { visitedUser && 
           <Fragment>
-            {currentUser.liked.has(visitedUser.username) ? (
-              <i className="material-icons md-18 md-clickable" onClick={this.unlike}>favorite</i>
-            )
-            : (
-              <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
-            )
-            }
+            <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
             <Snackbar
               open={this.props.open || false}
               message="You guys are a match!"

@@ -16,7 +16,7 @@ module.exports = {
       }
       log('Completed database query', data);
       const { properties = {} } = data.get('user');
-      const age = intsToNumbers(data.get('age'));
+      const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
       const {
         aboutMe,
         birthday,
