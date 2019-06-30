@@ -178,7 +178,7 @@ module.exports = {
       } else {
         log('Success! Chunking data & building res object', data);
         const { properties = {} } = data.get('user');
-        const age = intsToNumbers(data.get('age'));
+        const age = Math.floor(intsToNumbers(data.get('age')) / 12);
         const {
           aboutMe,
           birthday,

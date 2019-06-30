@@ -7,8 +7,8 @@
   }
 
   &__left {
-    max-width: 500px;
-    margin: auto;
+    max-width: 450px;
+    margin: 30px;
     &--group {
       grid-template-columns: 1fr 1fr;
     }
@@ -18,6 +18,10 @@
     @include headline-text-l;
     text-align: center;
     margin-bottom: 30px;
+    &__filters {
+      @include headline-text-m;
+      letter-spacing: 0.2rem;
+    }
   }
 
   &--group {

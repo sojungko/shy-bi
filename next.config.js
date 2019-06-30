@@ -11,6 +11,7 @@ module.exports = {
       modules: resolve(__dirname, 'src/modules'),
       src: resolve(__dirname, 'src'),
     };
+
     return config;
   },
 };

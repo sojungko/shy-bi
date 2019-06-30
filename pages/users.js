@@ -16,21 +16,21 @@ class Users extends Component {
     const { params: { username } } = req;
     const visitedUser = username || query.username || null;
 
-    if (visitedUser) {
+    // if (visitedUser) {
+    //   try {
+    //     const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
+    //     store.dispatch({ type: 'GET_VISITED_USER', data });
+    //   } catch (err) {
+    //     console.log('err', err);
+    //   }
+    // } else {
       try {
-        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
-        store.dispatch({ type: 'GET_VISITED_USER', data });
+        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/search/all`);
+        store.dispatch({ type: GET_ALL_USERS, payload: data });
       } catch (err) {
         console.log('err', err);
       }
-    } else {
-      try {
-        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/`);
-        store.dispatch({ type: GET_ALL_USERS, data });
-      } catch (err) {
-        console.log('err', err);
-      }
-    }
+    // }
     return { asPath };
   }
 
@@ -42,15 +42,8 @@ class Users extends Component {
   }
 
   render() {
-    const { currentUser, visitedUser, users } = this.props;
+    const { users } = this.props;
 
-    if (visitedUser) {
-      return (
-        <App>
-          <Profile currentUser={currentUser} visitedUser={visitedUser} />
-        </App>
-      );
-    }
     return (
       <App>
         <section className="page__users">

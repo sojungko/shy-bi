@@ -34,9 +34,9 @@ class SearchBar extends Component {
 
     this.state = {
       sex: {
-        male: false,
-        female: false,
-        other: false,
+        Male: false,
+        Female: false,
+        Other: false,
       },
       ageRange: {
         min: 19,
@@ -58,9 +58,9 @@ class SearchBar extends Component {
     const { target } = e;
     const { name, value } = target;
     switch (name) {
-      case 'male':
-      case 'female':
-      case 'other':
+      case 'Male':
+      case 'Female':
+      case 'Other':
         const updatedState = { ...this.state.sex, [value]: !this.state.sex[value] }
         this.props.updateSex(updatedState);
         break;
@@ -83,8 +83,8 @@ class SearchBar extends Component {
           onSubmit={() => {}}
           render={() => (
             <form className="form form__left">
-              <h2 className="form--title">Filters</h2>
-              <label>Age</label>
+              <h2 className="form--title form--title__filters">Filters</h2>
+              <label className="form--label">Age</label>
               <InputRange
                 name="ageRange"
                 maxValue={100}
@@ -94,15 +94,15 @@ class SearchBar extends Component {
               />
               <div className="form--group">
                 <label className="form--label">Sex</label>
-                {genders.map(({ label, value }) => (
+                {genders.map(gender => (
                   <label>
                     <Field
-                      name={value}
+                      name="sex"
                       component="input"
                       type="checkbox"
-                      value={this.state[value]}
+                      value={this.state.sex[gender]}
                     />
-                    {label}
+                    {gender}
                   </label>
                 ))}
               </div>

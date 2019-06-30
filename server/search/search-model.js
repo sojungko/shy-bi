@@ -78,9 +78,11 @@ module.exports = {
     return db
       .run(
         `MATCH (user:User)
-          WHERE toInt({minage}) <= date().year - user.birthday.year <= toInt({maxage})
+          WITH user
+          UNWIND [duration.inMonths(user.birthday, date())] as age
+          WHERE toInt({minage}) <= age <= toInt({maxage})
           WHERE user.sex =~ {sex}
-        RETURN user, age, sex LIMIT 10`,
+        RETURN user, age LIMIT 10`,
         { minage, maxage, sex })
       .then(({ records }) => {
         db.close();

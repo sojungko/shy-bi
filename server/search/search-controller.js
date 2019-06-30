@@ -11,6 +11,7 @@
  *
  * --------------------------------------------------------------- */
 
+const { intsToNumbers } = require('../utils/convert')
 const debug = require('debug');
 
 const { getAll, getFilteredUsers, getLikedUsers } = require('./search-model');
@@ -68,24 +69,16 @@ module.exports = {
     getAll((allUserData) => {
       log('Success! parsing data & building res object');
 
-      const allUsers = allUserData.map((userData, index) => {
+      const allUsers = allUserData.map((data, index) => {
         log(`${index}) parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, name, username, image_url, online } }
-          = userData.get('user');
+        const { properties = {} } = data.get('user');
+        const { username, image_url, online } = properties;
 
-        // Getting User location data
-        // const city = userData.get('city').properties.name;
-
-        // Getting User age data
-        const age = userData.get('age').properties.age;
-
-        // Getting User sex data
-        const sex = userData.get('sex').properties.sex;
-
+        const age = intsToNumbers(data.get('age'));
         // Putting together a user data object.
-        const user = { memberSince, name, username, age, sex, image_url, online };
+        const user = { age, username, image_url, online };
 
         return user;
       });
@@ -140,24 +133,15 @@ module.exports = {
       log(`Success!
         Chunking data & building res object`);
 
-      const filteredUsers = filteredUserData.map((userData, index) => {
+      const filteredUsers = filteredUserData.map((data, index) => {
         log(`${index}) parsing user ${index} data`);
 
         // Getting User data
-        const { properties: { memberSince, name, username, image_url, online } }
-          = userData.get('user');
-
-        // Getting User location data
-        // const city = userData.get('city').properties.name;
-
-        // Getting User age data
-        const age = userData.get('age').properties.age;
-
-        // Getting User sex data
-        const sex = userData.get('sex').properties.sex;
+        const { properties = {} } = data.get('user');
+        const { username, image_url, online } = properties;
 
         // Putting together a user data object.
-        const user = { memberSince, name, username, age, sex, image_url, online };
+        const user = { name, username, image_url, online };
 
         return user;
       });

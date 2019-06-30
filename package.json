@@ -26,6 +26,7 @@
     "@material-ui/icons": "^4.2.0",
     "axios": "^0.15.3",
     "babel-plugin-inline-react-svg": "^1.1.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "chokidar-cli": "^1.2.2",
