@@ -54,12 +54,15 @@ yarn dev
 - Logging in
 - Editing profile
 - Searching and filtering users by age and sex
+- Liking and unliking user
+- Matching
 
 This app has been significantly revamped from its previous state in the following ways
 
-1. Introduced `nextjs` to enable server-side rendering. Previously, everything was being client-side-rendered.
-2. Tore out almost all `material-ui` styling and replaced it with custom `scss`.
-3. Fixed the backend that was storing user properties as relationship data
+1. Upgraded to neo4j v4 from v1.
+2. Introduced `nextjs` to enable server-side rendering. Previously, everything was being client-side-rendered.
+3. Tore out almost all `material-ui` styling and replaced it with custom `scss`.
+4. Fixed the backend that was storing user properties as relationship data
 
 ```
 // previously
@@ -81,8 +84,8 @@ user.edLevel = {edLevel},
 user.aboutMe = {aboutMe},
 user.sex = {sex}
 ```
-4. Enables reading cookies to render authenticated pages server-side.
-5. Reconcile data type discrepancies between neo4j and JavaScript using a custom function (See [this Github issue](https://github.com/neo4j/neo4j-javascript-driver/issues/225) for details). Essentially, JS was not able to parse 64-bit integer data being stored in neo4j.
+5. Enabled reading cookies to render authenticated pages server-side.
+6. Reconciled data type discrepancies between neo4j and JavaScript using a custom function (See [this Github issue](https://github.com/neo4j/neo4j-javascript-driver/issues/225) for details). Essentially, JS was not able to parse 64-bit integer data being stored in neo4j.
 ```js
 // server/utils/convert.js
 
@@ -98,15 +101,13 @@ function intsToNumbers(object) {
   return newObj;
 }
 ```
-6. Removed a lot of dead code and no-longer-used reducers and actions.
+7. Removed a lot of dead code and no-longer-used reducers and actions.
 
 
 ## Roadmap
 
 This app is obviously still in bad shape! The following will need to be fixed.
 
-1. Routing to user profile pages
-2. Liking, unliking
-3. Matching
-4. Messaging
-5. Recommending --> this is the coolest feature about this app!
+1. `/match` page
+2. `/messages`page
+3. `/recommended` page --> this is perhaps the coolest feature about this app!
