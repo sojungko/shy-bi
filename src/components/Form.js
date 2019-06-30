@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 
-export const renderField = ({ input, label, meta: { touched, error }, placeholder, type }) => (
+export const renderField = ({ input, label, meta: { touched, error }, placeholder }) => (
   <div className="form--group">
     {label && <label className="form--label">{label}</label>}
-    <input {...input} type={type} placeholder={placeholder} className="form--input" />
+    <input {...input} placeholder={placeholder} className="form--input" />
     {
       touched && error && <span className="form--warning">{error}</span>
     }
