@@ -82,9 +82,6 @@ class Account extends Component {
         memberSince,
       } = currentUser;
   
-      // console.log('birthMonth', birthMonth);
-      // console.log('birthYear', birthYear);
-      // console.log('days(birthMonth, birthYear)', days(birthMonth, birthYear));
       return (
         <App>
           <div className="page__container">

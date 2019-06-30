@@ -3,18 +3,22 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from './reducers';
 import { userFromCookie } from 'modules/cookies';
+import decorateUser from 'modules/user-decorator';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-const makeStore = (initialState = {}, { isServer, req = {} }) => {
+const makeStore = (initialState = { }, { isServer, req = {} }) => {
   const composeEnhancers = typeof window !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
   const { cookies } = req;
-  const currentUser = initialState.currentUser || userFromCookie(cookies) || null;
+  const currentUser = (initialState.currentUser && decorateUser(initialState.currentUser))
+    || (userFromCookie(cookies) && decorateUser(userFromCookie(cookies)))
+    || null;
+  const visitedUser = initialState.visitedUser ? decorateUser(initialState.visitedUser) : null;
 
   const logger = createLogger();
   const store = createStore(
     rootReducer,
-    { ...initialState, currentUser },
+    { ...initialState, currentUser, visitedUser },
     composeEnhancers(
       applyMiddleware(thunk, logger),
     ),

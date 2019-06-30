@@ -35,10 +35,10 @@ class App extends Component {
 
       isBootstrapped = true;
 
-      if (isUserAuthenticated()) {
+      if (isUserAuthenticated() && !this.props.currentUser) {
         const username = getUsername();
-        this.props.getUnviewedMatches(username);
-        this.props.getUnreadMessages(username);
+        // this.props.getUnviewedMatches(username);
+        // this.props.getUnreadMessages(username);
         this.props.getCurrentUser(username);
       }
     }

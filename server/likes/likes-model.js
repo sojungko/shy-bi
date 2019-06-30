@@ -12,21 +12,34 @@ module.exports = {
 
     return db
       .run(
+        // `MATCH (user:User{username: {username}})
+        // MATCH (liked:User{username: {likedUser}})
+        // MERGE (user)-[:LIKES]->(liked)
+
+        // MATCH (me:User{username: {username}})
+        // MATCH (me)-[r:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
+        // SET r.viewed = false
+        // RETURN liked, CASE WHEN (liked)-[:LIKES]->(user) THEN true
+        // ELSE false
+        // END
+        // `,
         `MATCH (user:User{username: {username}})
         MATCH (liked:User{username: {likedUser}})
         MERGE (user)-[:LIKES]->(liked)
-
+        WITH user, liked
+        MATCH (user)-[:LIKES]->(any:User)
+        WITH user, liked, any
         RETURN CASE WHEN (liked)-[:LIKES]->(user) THEN true
-        ELSE false
-        END`,
+        ELSE false END AS isMatch, user, liked, any`,
       { username, likedUser },
     )
       .then(({ records }) => {
         db.close();
-        const isMatch = records[0]._fields[0];
 
-        log(`${username} liked ${likedUser} <3 : `, isMatch);
-        callback(isMatch);
+        log('records', records[0]);
+
+        log(`${username} liked ${likedUser} <3. ${records[0].get('isMatch') ? ' They are a match!' : ' But they\'re not yet a match'}`);
+        callback(records[0]);
       })
       .catch((error) => {
         err(`Could not make ${username} to like ${likedUser}`);

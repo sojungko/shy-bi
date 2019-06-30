@@ -23,7 +23,6 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/signin', (req, res, next) => {
-  console.log('req.body', req.body);
   return passport.authenticate('local-login', (err, token, userData) => {
     if (err) {
       console.log('err', err);

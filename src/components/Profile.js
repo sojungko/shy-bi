@@ -6,7 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ActionFavorite from '@material-ui/icons/Favorite';
 import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-import { getCurrentUser, likeUser } from 'actions';
+import { unlikeUser, likeUser } from 'actions';
 import {
   required,
   noSpecialChars,
@@ -31,17 +31,23 @@ import {
 
 class Profile extends Component {
   static propTypes = {
-    getCurrentUser: PropTypes.func.isRequired,
     likeUser: PropTypes.func,
+    unlikeUser: PropTypes.func,
     open: PropTypes.bool,
   }
   
   unlike = () => {
-    this.props.unlikedUser(this.props.currentUser, this.props.visitedUser);
+    const { currentUser, visitedUser } = this.props;
+    const { username: currentUsername } = currentUser;
+    const { username: visitedUsername } = visitedUser;
+    this.props.unlikedUser(currentUsername, visitedUsername);
   }
-    
+  
   like = () => {  
-    this.props.likeUser(this.props.currentUser, this.props.visitedUser);
+    const { currentUser, visitedUser } = this.props;
+    const { username: currentUsername } = currentUser;
+    const { username: visitedUsername } = visitedUser;
+    this.props.likeUser(currentUsername, visitedUsername);
   }
 
   renderOnlineMessage = (online, isMatch, name, sex) => {
@@ -63,6 +69,10 @@ class Profile extends Component {
       online,
     } = visitedUser || currentUser;
 
+    if (!currentUser) { return null };
+
+    const { liked } = currentUser;
+
     return (
       <div className="page__container">
         <div className="profile">
@@ -74,7 +84,12 @@ class Profile extends Component {
           </div>
           { visitedUser && 
           <div className="profile--row">
-            <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
+            {!liked.has(visitedUser.username) ? (
+              <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
+              )
+              : (
+                <i className="material-icons md-18 md-clickable" onClick={this.unlike}>favorite</i>
+            )}
             {/* <Snackbar
               open={this.props.open || false}
               message="You guys are a match!"
@@ -139,4 +154,4 @@ function mapStateToProps ({ currentUser, visitedUser }) {
 }
 
 
-export default connect(mapStateToProps, { getCurrentUser, likeUser })(Profile);
+export default connect(mapStateToProps, { likeUser, unlikeUser })(Profile);

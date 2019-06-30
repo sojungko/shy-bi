@@ -63,6 +63,10 @@ a {
   }
 }
 
+input {
+	@include body-text-m;
+}
+
 .app {
 	display: flex;
 	flex-direction: column;

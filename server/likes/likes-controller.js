@@ -8,9 +8,16 @@ module.exports = {
   likeUser({ body }, res) {
     // log = log.extend('likeUser');
     log(`${body.username} is liking ${body.likedUser}`);
-    like(body, (isMatch) => {
-      log('[likeUser] Success! Sending back 201 status : ', isMatch);
-      res.status(201).json(isMatch);
+    like(body, (data) => {
+      const isMatch = data.get('isMatch');
+      const allLiked = data.get('any'); // TODO process this data
+
+      const result = {
+        isMatch,
+        allLiked: allLiked ? Array.isArray(allLiked) ? allLiked : [allLiked] : null,
+      };
+      log(`[likeUser] Success! Sending back 201 status. ${isMatch ? 'They are a match!' : 'They\'re not yet a match.'}`);
+      res.status(201).json(result);
     });
   },
 

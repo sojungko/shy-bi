@@ -4,6 +4,7 @@ import Router, { withRouter } from 'next/router';
 import axios from 'axios';
 
 import { GET_ALL_USERS, GET_VISITED_USER } from 'constants/action-types';
+import decorateUser from 'modules/user-decorator';
 
 import App from 'components/App';
 import Profile from 'components/Profile';
@@ -19,7 +20,7 @@ class Users extends Component {
     if (visitedUser) {
       try {
         const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
-        store.dispatch({ type: GET_VISITED_USER, payload: data });
+        store.dispatch({ type: GET_VISITED_USER, payload: decorateUser(data) });
         return { asPath, visitedUser: data };
       } catch (err) {
         console.log('err', err);
@@ -35,12 +36,15 @@ class Users extends Component {
     return { asPath };
   }
 
-  // componentDidMount() {
-  //   const { visitedUser, asPath } = this.props;
-  //   if (!visitedUser && asPath.split('/').length) {
-  //     Router.replace('/users');
-  //   }
-  // }
+  componentDidMount() {
+    const { currentUser, visitedUser, asPath } = this.props;
+    if (!visitedUser && asPath.split('/').length) {
+      Router.replace('/users');
+    } else if (!currentUser) {
+    // if (!currentUser) {
+      Router.push('/');
+    }
+  }
 
   render() {
     const { visitedUser, users } = this.props;

@@ -78,6 +78,11 @@ app.prepare()
 
     server.get('*', (req, res) => handle(req, res));
 
+    // error handler
+    server.use((err, req, res, next) => {
+      console.warn(err);
+      res.status(500).send('Something broke!');
+    });
 
     const port = process.env.PORT || 8080;
 

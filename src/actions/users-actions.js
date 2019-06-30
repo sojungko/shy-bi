@@ -28,7 +28,7 @@ export function getCurrentUser(username) {
 
 export function getVisitedUser(username) {
   return dispatch => axios.get(`/api/users/${username}`)
-    .then(({ data }) => dispatch({ type: A.GET_VISITED_USER, payload: data }))
+    .then(({ data }) => dispatch({ type: A.GET_VISITED_USER, payload: decorateUser(data) }))
     .catch((error) => {
       console.log(error);
     });
@@ -118,7 +118,7 @@ export function sendMessage(message) {
 export function likeUser(username, likedUser) {
   return dispatch => axios.post('/api/users/like', { username, likedUser })
     .then(({ data }) => {
-      console.log(data);
+      console.log('likeUser', data);
       // const isMatch = data;
       // if (isMatch) {
       //   const request = {
@@ -128,7 +128,10 @@ export function likeUser(username, likedUser) {
       //     body: `${username} likes you back! Don't be a flake and send a message.`,
       //   };
       //   sendMessage(request);
-      return dispatch({ type: A.IS_MATCH, payload: data });
+      if (data.isMatch) {
+        return dispatch({ type: A.IS_MATCH, payload: data });
+      }
+      return dispatch({ type: A.IS_NOT_MATCH, payload: data });
     });
 }
 
