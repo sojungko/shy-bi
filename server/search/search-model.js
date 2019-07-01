@@ -8,9 +8,9 @@
  *  2) GET MATCHES : getFilteredUsers({ age = '^\\d.*', city = '^\\w.*', sex = '^\\w.*' }, callback)
  *
  * --------------------------------------------------------------- */
-const debug = require('debug');
+import debug from 'debug';
 
-const db = require('../db/config');
+import db from '../db/config';
 
 let log = debug('server:search:model');
 let err = debug('server:search:model:error');

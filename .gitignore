@@ -14,6 +14,7 @@ npm-debug.log
 ### Production ###
 public
 .next
+dist
 
 ### API keys ###
 server/db/pw.js

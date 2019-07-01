@@ -11,10 +11,10 @@
  *
  * --------------------------------------------------------------- */
 
-const { intsToNumbers } = require('../utils/convert');
-const debug = require('debug');
+import { intsToNumbers } from '../utils/convert';
+import debug from 'debug';
 
-const { getAll, getFilteredUsers, getLikedUsers } = require('./search-model');
+import { getAll, getFilteredUsers, getLikedUsers } from './search-model';
 
 let log = debug('server:search:controller');
 

@@ -6,23 +6,23 @@
  *
  * --------------------------------------------------------------- */
 
-const express = require('express');
-const next = require('next');
-const passport = require('passport');
-const path = require('path');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const cookieParser = require('cookie-parser');
-const debug = require('debug');
+import express from 'express';
+import next from 'next';
+import passport from 'passport';
+import path from 'path';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import debug from 'debug';
 
-const dbinit = require('./db/initialize');
+import dbinit from './db/initialize';
 
-const localSignupStrategy = require('./passport/local-signup');
-const localLoginStrategy = require('./passport/local-login');
+import localSignupStrategy from './passport/local-signup';
+import localLoginStrategy from './passport/local-login';
 // const facebookLoginStrategy = require('./passport/facebook');
 // const authCheckMiddleware = require('./passport/auth-check');
-const authRoutes = require('./routes/auth');
-const apiRoutes = require('./routes/api');
+import authRoutes from './routes/auth';
+import apiRoutes from './routes/api';
 
 const { NODE_ENV } = process.env;
 

@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const PassportFacebookStrategy = require('passport-facebook').Strategy;
-const User = require('../user/user-model');
+import jwt from 'jsonwebtoken';
+import PassportFacebookStrategy from 'passport-facebook';
+import User from '../user/user-model';
 
-module.exports = new PassportFacebookStrategy({
+export default new PassportFacebookStrategy.Strategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: 'http://www.bind.cool/auth/facebook/callback',

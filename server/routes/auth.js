@@ -1,6 +1,6 @@
-const express = require('express');
-const passport = require('passport');
-const debug = require('debug');
+import express from 'express';
+import passport from 'passport';
+import debug from 'debug';
 
 const router = new express.Router();
 
@@ -57,4 +57,4 @@ router.get('/facebook/callback', (req, res, next) => {
   })(req, res, next);
 });
 
-module.exports = router;
+export default router;

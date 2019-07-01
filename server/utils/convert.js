@@ -1,9 +1,9 @@
-const neo4j = require('neo4j-driver').v1;
-const debug = require('debug');
+import neo4j from 'neo4j-driver';
+import debug from 'debug';
 
-const log = debug('utils:convert')
+const log = debug('utils:convert');
 
-function intsToNumbers(object) {
+export function intsToNumbers(object) {
   const newObj = {};
   for (const key in object) {
     const value = object[key];
@@ -14,7 +14,3 @@ function intsToNumbers(object) {
   }
   return newObj;
 }
-
-module.exports = {
-  intsToNumbers,
-};

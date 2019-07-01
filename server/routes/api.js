@@ -1,14 +1,14 @@
-const express = require('express');
+import express from 'express';
 
 // Plucks signup method from user/user-controller.js
-const { findUser, signOut } = require('../user/user-controller');
-const { findAllUsers, filterUsers, findLikedUsers } = require('../search/search-controller');
-const { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } = require('../messages/messages-controller');
-const { getRecommendedMatches } = require('../recommendations/recommendations-controller');
-const { editBio, deleteImage, uploadImage } = require('../bio/bio-controller');
-const { getMatches, viewMatch, findNewMatches } = require('../matches/matches-controller');
-const { likeUser, unlikeUser } = require('../likes/likes-controller');
-const { getLocations } = require('../location/location-controller');
+import { findUser, signOut } from '../user/user-controller';
+import { findAllUsers, filterUsers, findLikedUsers } from '../search/search-controller';
+import { findAllMessages, sendMessage, sentMessages, readMsg, findUnreadMessages } from '../messages/messages-controller';
+import { getRecommendedMatches } from '../recommendations/recommendations-controller';
+import { editBio, deleteImage, uploadImage } from '../bio/bio-controller';
+import { getMatches, viewMatch, findNewMatches } from '../matches/matches-controller';
+import { likeUser, unlikeUser } from '../likes/likes-controller';
+import { getLocations } from '../location/location-controller';
 
 const router = new express.Router();
 
@@ -108,4 +108,5 @@ router.get('/matches/newmatches/:username', findNewMatches);
 
 router.post('/getlocations', getLocations);
 
-module.exports = router;
+export default router;
+

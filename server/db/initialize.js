@@ -5,7 +5,8 @@
  * --------------------------------------------------------------- */
 
 
-const db = require('../db/config');
+import debug from 'debug';
+import db from '../db/config';
 
 
 /* ------------------------- * INITIALIZE * -------------------------
@@ -16,10 +17,9 @@ const db = require('../db/config');
  *  • Username must be unique
  *
  * --------------------------------------------------------------- */
-const debug = require('debug');
 const log = debug('server:db:initialize');
 
-const initialize = () => {
+export default function initialize() {
   log('Initializing Database');
   log('Creating constraints');
   return db.run(
@@ -28,6 +28,5 @@ const initialize = () => {
     CREATE CONSTRAINT ON (users:User)
       ASSERT users.email IS UNIQUE`,
   );
-};
+}
 
-module.exports = initialize;

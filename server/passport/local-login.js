@@ -1,14 +1,14 @@
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const debug = require('debug');
+import jwt from 'jsonwebtoken';
+import debug from 'debug';
 
-const PassportLocalStrategy = require('passport-local').Strategy;
-const User = require('../user/user-controller');
+import PassportLocalStrategy from 'passport-local';
+import User from '../user/user-controller';
 
-const log = debug('server:passport:local-login')
-const err = debug('server:passport:local-login:error')
+const log = debug('server:passport:local-login');
+const err = debug('server:passport:local-login:error');
 
-module.exports = new PassportLocalStrategy({
+export default new PassportLocalStrategy.Strategy({
   usernameField: 'username',
   passwordField: 'password',
   session: false,
