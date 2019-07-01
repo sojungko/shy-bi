@@ -9,11 +9,13 @@ import {
   LOGIN_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
   EDIT_BIO_SUCCESS,
+  IMAGE_DELETE_SUCCESS,
   FILTER_USERS,
   IS_MATCH,
   IS_NOT_MATCH,
   UNLIKE_USER,
   UNVISIT_USER,
+  IMAGE_UPLOAD_SUCCESS,
 } from '../constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
@@ -38,6 +40,10 @@ export function currentUser(state = null, action) {
     case SIGN_UP_USER:
     case EDIT_BIO_SUCCESS:
       return action.payload;
+    case IMAGE_DELETE_SUCCESS:
+      return { ...state, image_url: undefined };
+    case IMAGE_UPLOAD_SUCCESS:
+      return { ...state, image_url: action.payload };
     case IS_NOT_MATCH:
     case IS_MATCH:
     case UNLIKE_USER:

@@ -65,7 +65,9 @@ module.exports = {
     log(`Sending image url ${url} for ${username}`);
     postImage(username, url, (records) => {
       log('Image successfully saved : ', records);
-      res.status(201).json(records);
+      const { properties: { image_url } } = records.get('user');
+      log('image_url', image_url);
+      res.status(201).json(image_url);
     });
   },
 };

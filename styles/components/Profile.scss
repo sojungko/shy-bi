@@ -7,7 +7,19 @@
     margin: auto;
     margin-bottom: 37px;
     display: grid;
-    
+
+    &__image {
+      display: flex;
+      position: relative;
+    }
+
+    &__image-edit {
+      text-align: center;
+      position: absolute;
+      right: -30px;
+      bottom: -20px;
+    }
+
     &__item {
       border-bottom: 0.8px solid $gray-light;
       width: 100%;

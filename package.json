@@ -4,7 +4,7 @@
   "description": "A dating app for shy bi-sexuals and bi-curious people that uses React for fast performance and Neo4j for relational data storage.",
   "main": "src/index.jsx",
   "scripts": {
-    "dev": "npm-run-all build:env build:styles build -p start:server watch:styles",
+    "dev": "npm-run-all build:env build:styles build -p start:server watch:styles watch:src",
     "build": "next build",
     "build:env": "node build-env.js",
     "build:styles": "sass styles/app.scss .next/static/style.css",

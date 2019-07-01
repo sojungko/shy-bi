@@ -23,6 +23,7 @@ import {
 import { genders, edLevels } from 'constants/form';
 
 import ProfileItem from 'components/ProfileItem';
+import ImageUpload from 'components/ImageUpload';
 import {
   renderField,
   renderSelect,
@@ -34,6 +35,14 @@ class Profile extends Component {
     likeUser: PropTypes.func,
     unlikeUser: PropTypes.func,
     open: PropTypes.bool,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageEditing: false,
+    }
   }
   
   unlike = () => {
@@ -50,6 +59,10 @@ class Profile extends Component {
     this.props.likeUser(currentUsername, visitedUsername);
   }
 
+  toggleImageEdit = () => {
+    this.setState({ imageEditing: !this.state.imageEditing });
+  }
+
   renderOnlineMessage = (online, isMatch, name, sex) => {
     if (online && isMatch) {
       return (
@@ -62,6 +75,7 @@ class Profile extends Component {
   }
 
   render() {
+    const { imageEditing } = this.state;
     const { visitedUser, currentUser } = this.props;
     var {
       image_url,
@@ -72,13 +86,24 @@ class Profile extends Component {
     if (!currentUser) { return null };
 
     const { liked } = currentUser;
-    console.log('in render liked', liked);
 
     return (
       <div className="page__container">
         <div className="profile">
-          <div className="profile--row">
-            <img role="presentation" src={image_url} />
+          <div className="profile--row profile--row__image">
+            { visitedUser && <img role="presentation" src={image_url} />}
+            { currentUser && !imageEditing && (
+              <Fragment>
+                {image_url ? <img role="presentation" src={image_url} /> : <i className="material-icons md-48 md-dark">face</i>}
+                <i
+                  onClick={this.toggleImageEdit}
+                  className="material-icons md-18 md-dark md-inactive md-clickable profile--row__image-edit"
+                >
+                  create
+                </i>
+              </Fragment>
+            )}
+            { currentUser && imageEditing && <ImageUpload toggleImageEdit={this.toggleImageEdit}/>}
           </div>
           <div className="profile--row">
             You are online

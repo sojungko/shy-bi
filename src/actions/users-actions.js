@@ -166,9 +166,7 @@ export function deleteImage(props) {
     const sending = { username: props };
     return axios.post('/api/bio/delete_image', sending)
       .then(({ data }) => {
-        const decoratedUser = decorateUser(data);
-        updateUserCookie(decoratedUser);
-        return dispatch({ type: A.IMAGE_DELETE_SUCCESS, payload: decoratedUser });
+        return dispatch({ type: A.IMAGE_DELETE_SUCCESS });
       })
       .catch((error) => {
         console.log('     3) ACTIONS/IMAGE_DELETE FAIL', error);
@@ -179,9 +177,7 @@ export function deleteImage(props) {
 export function uploadImage(props) {
   return dispatch => axios.post('/api/bio/upload_image', props)
     .then(({ data }) => {
-      const decoratedUser = decorateUser(data);
-      updateUserCookie(decoratedUser);
-      return dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: decoratedUser });
+      return dispatch({ type: A.IMAGE_UPLOAD_SUCCESS, payload: data });
     })
     .catch((error) => {
       console.log('     ACTIONS/IMAGE_UPLOADS FAIL | ', error);

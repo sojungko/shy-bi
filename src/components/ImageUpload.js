@@ -20,6 +20,7 @@ class ImageUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      uploadedFile: null,
       uploadedFileCloudinaryUrl: '',
     };
   }
@@ -28,14 +29,15 @@ class ImageUpload extends Component {
     this.setState({
       uploadedFile: files[0],
     });
-    this.handleImageUpload(files[0]);
+    this.uploadToCloudinary(files[0]);
   }
 
-  onDelete = () => {
-    this.props.deleteImage(getUsername());
+  onDelete = async () => {
+    await this.props.deleteImage(getUsername());
+    this.props.toggleImageEdit();
   }
 
-  handleImageUpload(file) {
+  uploadToCloudinary(file) {
     const upload = request.post(CLOUDINARY_UPLOAD_URL)
                         .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
                         .field('file', file);
@@ -50,17 +52,27 @@ class ImageUpload extends Component {
         this.setState({
           uploadedFileCloudinaryUrl: response.body.secure_url,
         });
-        const sending = {
-          username: getUsername(),
-          url: response.body.secure_url,
-        };
-        this.props.uploadImage(sending);
+        // const sending = {
+        //   username: getUsername(),
+        //   url: response.body.secure_url,
+        // };
+        // this.props.uploadImage(sending);
       }
     });
   }
 
+  onUpload = async () => {
+    const sending = {
+      username: getUsername(),
+      url: this.state.uploadedFileCloudinaryUrl,
+    }
+    await this.props.uploadImage(sending);
+    this.props.toggleImageEdit();
+  }
+
 
   render() {
+    const { toggleImageEdit } = this.props;
     return (
       <div>
         <div className="FileUpload">
@@ -79,17 +91,46 @@ class ImageUpload extends Component {
               'button__flat': true,
               'button__large': true,
               'form--submit': true,
-              'button__disabled': !!this.state.uploadedFileCloudinaryUrl,
+              'button__disabled': !this.state.uploadedFileCloudinaryUrl,
+            })
+          }
+          onClick={this.onUpload}>
+          Upload
+        </button>
+        <button
+          className={
+            classNames({
+              'button': true,
+              'button__flat': true,
+              'button__large': true,
+              'form--submit': true,
+              // 'button__disabled': !!this.state.uploadedFileCloudinaryUrl,
             })
           }
           onClick={this.onDelete}>
           Delete Photo
         </button>
+        <button
+          className={
+            classNames({
+              'button': true,
+              'button__flat': true,
+              'button__large': true,
+              'form--submit': true,
+            })
+          }
+          onClick={toggleImageEdit}
+        >
+          Cancel
+        </button>
         <div>
           {this.state.uploadedFileCloudinaryUrl === '' ? null :
-          <div>
+          <div clasName="image-upload--preview">
             <p>{this.state.uploadedFile.name}</p>
-            <img role="presentation" src={this.state.uploadedFileCloudinaryUrl} />
+            <img
+              role="presentation"
+              src={this.state.uploadedFileCloudinaryUrl}
+            />
           </div>}
         </div>
       </div>

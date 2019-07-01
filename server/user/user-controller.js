@@ -177,15 +177,15 @@ module.exports = {
         res.status(404).send(error);
       } else {
         log('Success! Chunking data & building res object', data);
-        const { properties: userProps = {} } = data.get('user');
+        const { properties: { password, ...rest } } = data.get('user');
         const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
         const liked = data.get('likedUsers');
 
         const result = {
-          ...userProps,
+          ...rest,
           age,
-          birthday: intsToNumbers(userProps.birthday),
-          memberSince: intsToNumbers(userProps.memberSince),
+          birthday: intsToNumbers(rest.birthday),
+          memberSince: intsToNumbers(rest.memberSince),
           liked: liked ? (Array.isArray(liked) ? liked : [liked]) : [],
         };
 

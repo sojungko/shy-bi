@@ -52,7 +52,7 @@ module.exports = {
       .then(({ records }) => {
         db.close();
         log('Successfully removed image url from database');
-        return callback(records);
+        return callback(records[0]);
       })
       .catch((error) => {
         err('Could not delete image from database');
@@ -73,7 +73,7 @@ module.exports = {
      .then(({ records }) => {
        db.close();
        log('Saving image to database:');
-       return callback(records);
+       return callback(records[0]);
      })
      .catch((error) => {
        err('[postImage] Could not save image to database');
