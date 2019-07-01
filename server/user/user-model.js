@@ -102,12 +102,14 @@ module.exports = {
     log = log.extend('getUser');
     log(`Finding ${username} from database`);
 
+    // TODO this query doesn't return separate data
+    // may have to chain queries or use Promise.all
     return db
       .run(
         `MATCH (user:User{username: {username}})
         OPTIONAL MATCH (user)-[:LIKES]->(liked:User)
         UNWIND [duration.inMonths(user.birthday, date())] as age
-        RETURN user, age, liked.username AS likedUsers`,
+        RETURN liked.username AS likedUsers, user, age`,
         { username })
       .then(({ records }) => {
         db.close();

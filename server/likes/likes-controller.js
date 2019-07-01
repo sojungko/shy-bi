@@ -11,6 +11,9 @@ module.exports = {
     like(body, (data) => {
       const isMatch = data.get('isMatch');
       const allLiked = data.get('likedUsers'); // TODO process this data
+      const liked = data.get('liked');
+      log('allLiked', allLiked);
+      log('liked', liked);
 
       const result = {
         isMatch,

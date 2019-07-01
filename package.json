@@ -8,7 +8,7 @@
     "build": "next build",
     "build:env": "node build-env.js",
     "build:styles": "sass styles/app.scss .next/static/style.css",
-    "start:server": "node -r dotenv/config server/server.js",
+    "start:server": "nodemon -r dotenv/config server/server.js",
     "watch:src": "chokidar 'src/**/*' 'pages/**' -c 'npm run build'",
     "watch:styles": "chokidar 'styles/**/*.scss' -c 'npm run build:styles'",
     "commit": "npx git-cz"

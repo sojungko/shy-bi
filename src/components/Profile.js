@@ -92,7 +92,7 @@ class Profile extends Component {
         <div className="profile">
           <div className="profile--row profile--row__image">
             { visitedUser && <img role="presentation" src={image_url} />}
-            { currentUser && !imageEditing && (
+            { !visitedUser && currentUser && !imageEditing && (
               <Fragment>
                 {image_url ? <img role="presentation" src={image_url} /> : <i className="material-icons md-48 md-dark">face</i>}
                 <i
@@ -103,7 +103,7 @@ class Profile extends Component {
                 </i>
               </Fragment>
             )}
-            { currentUser && imageEditing && <ImageUpload toggleImageEdit={this.toggleImageEdit}/>}
+            { !visitedUser && currentUser && imageEditing && <ImageUpload toggleImageEdit={this.toggleImageEdit}/>}
           </div>
           <div className="profile--row">
             You are online
