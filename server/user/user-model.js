@@ -13,6 +13,14 @@ import bcrypt from 'bcryptjs';
 import debug from 'debug';
 import db from '../db/config';
 
+import runParallel from '../queries/run';
+import {
+  queryUser,
+  queryLikedUsers,
+  queryBirthday,
+} from '../queries/users';
+
+
 let log = debug('server:user:model');
 let err = debug('server:user:model:error');
 
@@ -96,35 +104,31 @@ export function addUser(userData, callback) {
  *
  * --------------------------------------------------------------- */
 
-export function getUser(username, callback) {
+export async function getUser(username, callback) {
   log = log.extend('getUser');
   log(`Finding ${username} from database`);
 
-  // TODO this query doesn't return separate data
-  // may have to chain queries or use Promise.all
-  return db
-    .run(
-      `MATCH (user:User{username: {username}})
-      OPTIONAL MATCH (user)-[:LIKES]->(liked:User)
-      UNWIND [duration.inMonths(user.birthday, date())] as age
-      RETURN liked.username AS likedUsers, user, age`,
-      { username })
-    .then(({ records }) => {
-      db.close();
-      log(records);
-      if (records.length) {
-        log(`${username} has been found`);
-        callback(records[0]);
-      } else {
-        throw Error('Username does not exist');
-      }
-    })
-    .catch((error) => {
-      err(`Could not find ${username} from database`);
-      // throw error;
-      log('error', error);
-      callback(null, error);
+  try {
+    const records = await runParallel({
+      user: queryUser({ username }),
+      likedUsers: queryLikedUsers({ username }),
+      ageInMonths: queryBirthday({ username }),
     });
+
+    log('records', records);
+    const { user, likedUsers, ageInMonths } = records;
+
+    /* -- Consolidate into one user obj -- */
+    const userObj = {
+      ...user,
+      likedUsers,
+      age: Math.floor(ageInMonths / 12),
+    };
+
+    callback(userObj);
+  } catch (error) {
+    err('Error', error);
+  }
 }
 
 export function getUserByEmail(email, callback) {

@@ -26,6 +26,9 @@ const debug = [
   'server:bio:model',
   'server:bio:model:error',
   'server:bio:controller',
+  'server:queries:users',
+  'server:queries:users:queryUser',
+  'server:queries:users:queryLikedUsers',
 ];
 
 module.exports = debug;

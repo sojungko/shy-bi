@@ -14,7 +14,6 @@
 
 import debug from 'debug';
 import bcrypt from 'bcryptjs';
-import { intsToNumbers } from '../utils/convert';
 import { addUser, getUser, toggleOnline, toggleOffline } from './user-model';
 
 let log = debug('server:user:controller');
@@ -93,30 +92,19 @@ export function signIn({ body }, callback) {
   log(`Authenticating for user with
   username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
-  getUser(attemptedUsername, (data) => {
+  getUser(attemptedUsername, (foundUser) => {
     log(`Success!
-      Checking attempted password: ${body.password} against database`);
+      Checking attempted password: ${attemptedPassword} against database`);
 
-    const { properties = {} } = data.get('user');
-    const {
-      email,
-      image_url,
-      memberSince,
-      name,
-      password,
-      username,
-    } = properties;
-
-    bcrypt.compare(body.password, password, (err, isMatch) => {
+    const { password, ...rest } = foundUser;
+    bcrypt.compare(attemptedPassword, password, (err, isMatch) => {
       if (err) {
         log('Wrong password!');
         callback(err);
       } else if (isMatch) {
-        const result = { memberSince, password, name, email, username, image_url };
-
-        log('Sending User data: ', result);
-        callback(null, result);
-        toggleOnline(username);
+        log('Sending User data: ', rest);
+        callback(null, rest);
+        toggleOnline(foundUser.username);
       }
     });
   });
@@ -172,21 +160,11 @@ export function findUser({ params: { username } }, res) {
       log('Error!', error);
       res.status(404).send(error);
     } else {
-      log('Success! Chunking data & building res object', data);
-      const { properties: { password, ...rest } } = data.get('user');
-      const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
-      const liked = data.get('likedUsers');
+      const { password, ...rest } = data;
+      log('Success! Chunking data & building res object', rest);
 
-      const result = {
-        ...rest,
-        age,
-        birthday: intsToNumbers(rest.birthday),
-        memberSince: intsToNumbers(rest.memberSince),
-        liked: liked ? (Array.isArray(liked) ? liked : [liked]) : [],
-      };
-
-      log('Sending User data: ', result);
-      res.json(result);
+      log('Sending User data: ', rest);
+      res.json(rest);
     }
   });
 }
