@@ -1,8 +1,29 @@
 import debug from 'debug';
 import db from '../db/config';
-import { intsToNumbers } from '../utils/convert';
 
 const log = debug('server:queries:likes');
+
+export async function queryLikedUsers({ username }) {
+  const local = log.extend('queryLikedUsers');
+  try {
+    const { records } = await db.run(`
+      MATCH (user:User{username: {username}})
+      MATCH (liked:User)
+      WHERE exists((user)-[:LIKES]->(liked:User))
+      RETURN liked.username
+      `,
+      { username },
+    );
+
+    db.close();
+
+    local('liked user records', records);
+    return records.length ? records.map(record => record.get('liked.username')) : [];
+  } catch (error) {
+    local.extend('error')(error);
+    return Promise.reject(new Error(error));
+  }
+}
 
 export async function mergeLikedUser({ username, likedUser }) {
   const local = log.extend('mergeLikedUser');
@@ -28,18 +49,19 @@ export async function mergeLikedUser({ username, likedUser }) {
 export async function deleteLike({ username, unlikedUser }) {
   const local = log.extend('deleteLike');
   try {
-    const { records } = await db.run(`
+    await db.run(`
       MATCH (user:User{username: {username}})
       MATCH (unliked:User{username: {unlikedUser}})
       MATCH (user)-[likes:LIKES]->(unliked)
-      DELETE likes
-    `);
+      DELETE likes`,
+      { username, unlikedUser },
+    );
 
-    local('records', records);
-
-    return records;
+    // TODO not sure what to return here
+    // records is an empty array
+    return unlikedUser;
   } catch (error) {
-    log.extend('error')(error);
+    local.extend('error')(error);
     return Promise.reject(new Error(error));
   }
 }

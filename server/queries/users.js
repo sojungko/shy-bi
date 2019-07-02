@@ -83,28 +83,6 @@ export async function queryUser({ username }) {
   }
 }
 
-export async function queryLikedUsers({ username }) {
-  const local = log.extend('queryLikedUsers');
-  try {
-    const { records } = await db.run(`
-      MATCH (user:User{username: {username}})
-      OPTIONAL MATCH (user)-[:LIKES]->(liked:User)
-      RETURN liked.username
-      `,
-      { username },
-    );
-
-    db.close();
-
-    local('liked user records', records);
-
-    return records.map(record => record.get('liked.username'));
-  } catch (error) {
-    local.extend('error')(error);
-    return Promise.reject(new Error(error));
-  }
-}
-
 export async function queryBirthday({ username }) {
   const local = log.extend('queryBirthday');
   try {

@@ -16,9 +16,9 @@ import db from '../db/config';
 import runParallel from '../queries/run';
 import {
   queryUser,
-  queryLikedUsers,
   queryBirthday,
 } from '../queries/users';
+import { queryLikedUsers } from '../queries/likes';
 
 
 let log = debug('server:user:model');

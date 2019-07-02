@@ -125,10 +125,10 @@ export function likeUser(username, likedUser) {
     });
 }
 
-export function unlikeUser(username, userToUnlike) {
-  return dispatch => axios.post('/api/users/unlike', { username, userToUnlike })
-    .then(({ data }) => {
-      return dispatch({ type: A.UNLIKE_USER, payload: data });
+export function unlikeUser(username, unlikedUser) {
+  return dispatch => axios.post('/api/users/unlike', { username, unlikedUser })
+    .then((res) => {
+      return dispatch({ type: A.UNLIKE_USER });
     })
     .catch((error) => {
       console.log('ACTIONS/UNLIKE_USER did not alter user data! ', error);

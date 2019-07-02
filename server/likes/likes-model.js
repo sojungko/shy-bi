@@ -1,9 +1,10 @@
 import debug from 'debug';
 
-import db from '../db/config';
-import runParallel from '../queries/run';
-import { mergeLikedUser, deleteLike } from '../queries/likes';
-import { queryLikedUsers } from '../queries/users';
+import {
+  deleteLike,
+  mergeLikedUser,
+  queryLikedUsers,
+} from '../queries/likes';
 
 const log = debug('server:likes:model');
 
@@ -37,6 +38,9 @@ export async function unlike({ username, unlikedUser }, callback) {
   try {
     const deleted = await deleteLike({ username, unlikedUser });
     const liked = await queryLikedUsers({ username });
+
+    local('deleted', deleted);
+    local('liked', liked);
 
     const result = {
       deleted,
