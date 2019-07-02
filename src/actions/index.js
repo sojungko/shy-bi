@@ -1,27 +1,39 @@
 export {
+  expandCard,
   getAllUsers,
   getCurrentUser,
+  getLocations,
   getRecommendedUsers,
-  getLikedUsers,
-  getMatches,
-  signupUser,
+  getVisitedUser,
+} from './user-actions';
+
+export {
+  deleteImage,
+  editBio,
   loginUser,
   logoutUser,
+  signupUser,
+  uploadImage,
+} from './account-actions';
+
+export {
   getAllMessages,
   getSentMessages,
+  getUnreadMessages,
   sendMessage,
+} from './message-actions';
+
+export {
+  getLikedUsers,
   likeUser,
   unlikeUser,
-  editBio,
-  deleteImage,
-  uploadImage,
-  getLocations,
-  expandCard,
-  getUnreadMessages,
-  viewMatch,
+} from './like-actions';
+
+export {
+  getMatches,
   getUnviewedMatches,
-  getVisitedUser,
-} from './users-actions';
+  viewMatch,
+} from './match-actions';
 
 export {
   clearFields,
