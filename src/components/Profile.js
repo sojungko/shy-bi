@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
-import Checkbox from '@material-ui/core/Checkbox';
-import ActionFavorite from '@material-ui/icons/Favorite';
-import ActionFavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 import { unlikeUser, likeUser } from 'actions';
+import { userPropType } from 'constants/prop-types';
 import {
   required,
   noSpecialChars,
@@ -32,9 +30,10 @@ import {
 
 class Profile extends Component {
   static propTypes = {
-    likeUser: PropTypes.func,
-    unlikeUser: PropTypes.func,
-    open: PropTypes.bool,
+    likeUser: func,
+    unlikeUser: func,
+    currentUser: userPropType,
+    visitedUser: oneOfType([ userPropType, null ])
   }
 
   constructor(props) {
@@ -79,7 +78,7 @@ class Profile extends Component {
     const { visitedUser, currentUser } = this.props;
     var {
       image_url,
-      name,
+      username,
       online,
     } = visitedUser || currentUser;
 

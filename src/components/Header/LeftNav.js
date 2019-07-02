@@ -1,7 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {
+  bool,
+  func,
+} from 'prop-types';
 import Link from 'next/link';
 import classNames from 'classnames';
+import { userPropType } from 'constants/prop-types';
 
 import {
   leftNavUnAuth,
@@ -48,10 +52,9 @@ const LeftNav = ({ currentUser, open, handleToggle }) => {
 };
 
 LeftNav.propTypes = {
-  // user: PropTypes.string,
-  open: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
-  // auth: PropTypes.bool.isRequired,
+  currentUser: userPropType,
+  open: bool.isRequired,
+  handleToggle: func.isRequired,
 };
 
 export default LeftNav;

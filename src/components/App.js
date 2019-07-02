@@ -1,14 +1,18 @@
-import React, { Component, cloneElement } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import {
+  node,
+  bool,
+  number,
+  func,
+} from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-
 import { getUsername, isUserAuthenticated } from 'modules/auth';
 import {
   getAllMessages,
+  getCurrentUser,
   getUnreadMessages,
   getUnviewedMatches,
-  getCurrentUser,
   logoutUser,
   toggleLeftNav,
 } from 'actions';
@@ -18,14 +22,15 @@ import Footer from 'components/Footer';
 
 class App extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    open: PropTypes.bool.isRequired,
-    unviewed: PropTypes.number,
-    toggleLeftNav: PropTypes.func,
-    getUnviewedMatches: PropTypes.func,
-    logoutUser: PropTypes.func,
-    getUnreadMessages: PropTypes.func,
-    unread: PropTypes.number,
+    asPath: string,
+    children: node.isRequired,
+    getUnreadMessages: func,
+    getUnviewedMatches: func,
+    logoutUser: func,
+    open: bool.isRequired,
+    toggleLeftNav: func,
+    unread: number,
+    unviewed: number,
   }
 
   componentDidMount() {
@@ -51,14 +56,8 @@ class App extends Component {
 
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
-  handleClick = path => Router.push(path);
-
-  forceUpdate() {
-    this.forceUpdate();
-  }
-
   render() {
-    const { asPath, open } = this.props;
+    const { asPath, children, open } = this.props;
 
     return (
       <div className="app">
@@ -66,14 +65,12 @@ class App extends Component {
           asPath={asPath}
           logOut={this.handleLogOut}
           handleToggle={this.handleToggle}
-          numberOfMatches={this.props.unviewed}
-          numberOfMessages={this.props.unread}
-          handleClick={this.handleClick}
-          handleTitleClick={() => Router.push('/')}
+          // numberOfMatches={this.props.unviewed}
+          // numberOfMessages={this.props.unread}
           open={open}
         />
         <main className="page">
-          {this.props.children}
+          {children}
         </main>
         <Footer />
       </div>
@@ -81,10 +78,9 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ leftNav, messages, badges }) {
+function mapStateToProps({ leftNav, badges }) {
   return {
     open: leftNav.open,
-    received: messages.received,
     unread: badges.unread,
     unviewed: badges.unviewed,
   };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import { Form, Field } from 'react-final-form';
@@ -14,17 +14,8 @@ import { genders } from 'constants/form';
 
 class SearchBar extends Component {
   static propTypes = {
-    minage: PropTypes.string,
-    maxage: PropTypes.string,
-    city: PropTypes.string,
-    updateCity: PropTypes.func,
-    clearFields: PropTypes.func,
-    updateSex: PropTypes.func,
-    inputs: PropTypes.shape({
-      minage: PropTypes.string,
-      maxage: PropTypes.string,
-      city: PropTypes.string,
-    }),
+    clearFields: func.isRequired,
+    filterUsers: func.isRequired,
   }
   constructor(props) {
     super(props);
@@ -40,10 +31,6 @@ class SearchBar extends Component {
         max: 100,
       }
     }
-  }
-
-  componentDidUpdate() {
-    // this.props.filterUser(this.props.inputs);
   }
 
   // changes display only
@@ -69,7 +56,6 @@ class SearchBar extends Component {
   }
 
   render() {
-    // const { minage, maxage, city } = this.props;
     return (
       <section>
         <Form
@@ -122,15 +108,7 @@ class SearchBar extends Component {
   }
 }
 
-const mapStateToProps = ({ filterInputs }) => ({
-  inputs: filterInputs,
-  // minage: filterInputs.minage,
-  // maxage: filterInputs.maxage,
-  // sex: filterInputs.sex,
-  // city: filterInputs.city,
-});
-
-export default connect(mapStateToProps, {
-  filterUsers,
+export default connect(null, {
   clearFields,
+  filterUsers,
 })(SearchBar);

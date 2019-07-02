@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import Router, { withRouter } from 'next/router';
@@ -28,7 +28,8 @@ class SignUp extends Component {
     return { asPath };
   }
   static propTypes = {
-    signupUser: PropTypes.func,
+    asPath: string.isRequired,
+    signupUser: func.isRequired,
   }
 
   // TODO redirect to '/' if user is logged in

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, string } from 'prop-types';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import Router, { withRouter } from 'next/router';
@@ -23,11 +23,12 @@ import {
 } from 'components/Form';
 
 class LogIn extends Component {
+  static propTypes = {
+    asPath: string.isRequired,
+    loginUser: func.isRequired,
+  }
   static getInitialProps = ({ asPath }) => {
     return { asPath };
-  }
-  static propTypes = {
-    loginUser: PropTypes.func.isRequired,
   }
 
   // TODO redirect to '/' if user is logged in

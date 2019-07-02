@@ -1,4 +1,6 @@
 import React from 'react';
+import { arrayOf } from 'prop-types';
+import { userPropType } from 'constants/prop-types';
 import Link from 'next/link';
 
 const UserList = ({ users }) => {
@@ -26,5 +28,8 @@ const UserList = ({ users }) => {
   );
 };
 
+UserList.propTypes = {
+  users: arrayOf(userPropType),
+};
 
 export default UserList;

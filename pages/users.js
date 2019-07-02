@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { string, arrayOf, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
-import Router, { withRouter } from 'next/router';
+import { withRouter } from 'next/router';
 import axios from 'axios';
 
 import { GET_ALL_USERS, GET_VISITED_USER, UNVISIT_USER } from 'constants/action-types';
+import { userPropType } from 'constants/prop-types';
 import decorateUser from 'modules/user-decorator';
 
 import App from 'components/App';
@@ -12,6 +14,13 @@ import UserList from 'components/UserList';
 import SearchBar from 'components/SearchBar';
 
 class Users extends Component {
+  static propTypes = {
+    asPath: string.isRequired,
+    currentUser: userPropType,
+    users: arrayOf(userPropType),
+    visitedUser: oneOfType([userPropType, null]),
+  }
+
   static async getInitialProps({ req = { params: {} }, query = {}, store, asPath }) {
     const isServer = !!req;
     const { params: { username } } = req;

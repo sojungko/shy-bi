@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import {
+  bool,
+  func,
+  string,
+} from 'prop-types';
 import Link from 'next/link';
 import Menu from '@material-ui/icons/Menu';
-// import NotificationBadge from '../Badges';
+
+import { userPropType } from 'constants/prop-types';
 import LeftNav from './LeftNav';
 
 const Header = (props) => {
   const {
-    // handleTitleClick,
-    // handleClick,
     // numberOfMatches,
     // numberOfMessages,
     logOut,
@@ -61,11 +64,11 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  handleToggle: PropTypes.func.isRequired,
-  logOut: PropTypes.func.isRequired,
-  // currentUser: PropTypes.object,
-  asPath: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
+  asPath: string.isRequired,
+  currentUser: userPropType,
+  handleToggle: func.isRequired,
+  logOut: func,
+  open: bool.isRequired,
 };
 
 

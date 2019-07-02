@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
@@ -13,8 +13,9 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dm4fqf9nm/image/u
 class ImageUpload extends Component {
 
   static propTypes = {
-    deleteImage: PropTypes.func.isRequired,
-    uploadImage: PropTypes.func.isRequired,
+    deleteImage: func.isRequired,
+    uploadImage: func.isRequired,
+    toggleImageEdit: func.isRequired,
   }
 
   constructor(props) {
@@ -52,11 +53,6 @@ class ImageUpload extends Component {
         this.setState({
           uploadedFileCloudinaryUrl: response.body.secure_url,
         });
-        // const sending = {
-        //   username: getUsername(),
-        //   url: response.body.secure_url,
-        // };
-        // this.props.uploadImage(sending);
       }
     });
   }

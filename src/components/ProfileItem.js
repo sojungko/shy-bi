@@ -1,14 +1,29 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { array, func, oneOfType } from 'prop-types';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import { editBio } from 'actions';
 import { parseDate } from 'modules/formatters';
+import { userPropType } from 'constants/prop-types';
 
 import Loader from '../../styles/svgs/loader.svg';
 
 class ProfileItem extends Component {
+  static propTypes = {
+    currentUser: userPropType,
+    data: string,
+    editBio: func,
+    format: func,
+    options: array,
+    parse: func,
+    placeholder: string,
+    render: func,
+    visitedUser: oneOfType([userPropType, null]),
+    validate: func,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
