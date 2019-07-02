@@ -111,17 +111,17 @@ export async function getUser(username, callback) {
   try {
     const records = await runParallel({
       user: queryUser({ username }),
-      likedUsers: queryLikedUsers({ username }),
+      liked: queryLikedUsers({ username }),
       ageInMonths: queryBirthday({ username }),
     });
 
     log('records', records);
-    const { user, likedUsers, ageInMonths } = records;
+    const { user, liked, ageInMonths } = records;
 
     /* -- Consolidate into one user obj -- */
     const userObj = {
       ...user,
-      likedUsers,
+      liked,
       age: Math.floor(ageInMonths / 12),
     };
 

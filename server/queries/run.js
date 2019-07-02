@@ -2,8 +2,6 @@ export default async function runParallel (funcObj = {}) {
   const funcMap = new Map();
   const resultObj = {};
 
-  console.log('funcObj', funcObj);
-
   const unorderedKeys = Object.keys(funcObj);
 
   unorderedKeys.forEach((key) => {
