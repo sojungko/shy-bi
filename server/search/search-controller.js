@@ -11,163 +11,137 @@
  *
  * --------------------------------------------------------------- */
 
-import { intsToNumbers } from '../utils/convert';
 import debug from 'debug';
 
 import { getAll, getFilteredUsers, getLikedUsers } from './search-model';
 
-let log = debug('server:search:controller');
+const log = debug('server:search:controller');
 
-module.exports = {
-  //
-  /* -------------------------- * FIND ALL USERS* -------------------------
-   *
-   * Calls getAll method (see serach/search-model.js)
-   * Once it receives all users data,
-   *  chunks the data for each users to build a all users object for FE to use.
-   * Sends a JSON stringified all users object as a response.
-   *
-   *  Parameters:
-   *    • req | Object | request object
-   *    • res | Object | response object
-   *
-   * -Sample response object:
-   *
-      [
-       {
-         "memberSince": {
-           "low": 436259579,
-           "high": 345
-         },
-         "name": "Adam Wang",
-         "username": "adam",
-         "city": "New York",
-         "age": "25",
-         "sex": "Male"
+//
+/* -------------------------- * FIND ALL USERS* -------------------------
+ *
+ * Calls getAll method (see serach/search-model.js)
+ * Once it receives all users data,
+ *  chunks the data for each users to build a all users object for FE to use.
+ * Sends a JSON stringified all users object as a response.
+ *
+ *  Parameters:
+ *    • req | Object | request object
+ *    • res | Object | response object
+ *
+ * -Sample response object:
+ *
+    [
+     {
+       "memberSince": {
+         "low": 436259579,
+         "high": 345
        },
-       {
-         "memberSince": {
-           "low": 436259472,
-           "high": 345
-         },
-         "name": "Tim Yin",
-         "username": "tim",
-         "city": "New York",
-         "age": "24",
-         "sex": "Male"
+       "name": "Adam Wang",
+       "username": "adam",
+       "city": "New York",
+       "age": "25",
+       "sex": "Male"
+     },
+     {
+       "memberSince": {
+         "low": 436259472,
+         "high": 345
        },
-      ]
-   *
-   *  Returns:
-   *    • No explicit return
-   *
-   * --------------------------------------------------------------- */
-  findAllUsers(req, res) {
-    // log = log.extend('findAll');
-    log('Searching all user');
+       "name": "Tim Yin",
+       "username": "tim",
+       "city": "New York",
+       "age": "24",
+       "sex": "Male"
+     },
+    ]
+ *
+ *  Returns:
+ *    • No explicit return
+ *
+ * --------------------------------------------------------------- */
+export function findAllUsers(req, res) {
+  const local = log.extend('findAll');
 
-    getAll((allUserData) => {
-      log('Success! parsing data & building res object');
+  getAll((allUsers) => {
+    local('Success! parsing data & building res object');
 
-      const allUsers = allUserData.map((data, index) => {
-        log(`${index}) parsing user ${index} data`);
+    // const allUsers = allUserData.map((data, index) => {
+    //   log(`${index}) parsing user ${index} data`);
 
-        // Getting User data
-        const { properties = {} } = data.get('user');
-        const { username, image_url, online } = properties;
+    //   // Getting User data
+    //   const { properties = {} } = data.get('user');
+    //   const { username, image_url, online } = properties;
 
-        const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
-        // Putting together a user data object.
-        const user = { age, username, image_url, online };
+    //   const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
+    //   // Putting together a user data object.
+    //   const user = { age, username, image_url, online };
 
-        return user;
-      });
+    //   return user;
+    // });
 
-      log('Sending All User info: ', allUsers);
-      res.send(allUsers);
-    });
-  },
+    local('Sending All User info: ', allUsers);
+    res.send(allUsers);
+  });
+}
 
-  /* -------------------------- * FILTER USERS * -------------------------
-   *
-   * Calls getFilteredUsers method (see serach/search-model.js)
-   * Once it receives all users data,
-   *  chunks the data for each users to build a all users object for FE to use.
-   * Sends a JSON stringified all users object as a response.
-   *
-   *  Parameters:
-   *    • req | Object | request object
-   *        - destuctured to pluck query object
-   *    • res | Object | response object
-   *
-   * -Sample API Route: /api/search/filter?age=29&city=New York
-   * -Sample req.query = {age: '29', city: 'New York'}
-   * -Sample response object:
+/* -------------------------- * FILTER USERS * -------------------------
+ *
+ * Calls getFilteredUsers method (see serach/search-model.js)
+ * Once it receives all users data,
+ *  chunks the data for each users to build a all users object for FE to use.
+ * Sends a JSON stringified all users object as a response.
+ *
+ *  Parameters:
+ *    • req | Object | request object
+ *        - destuctured to pluck query object
+ *    • res | Object | response object
+ *
+ * -Sample API Route: /api/search/filter?age=29&city=New York
+ * -Sample req.query = {age: '29', city: 'New York'}
+ * -Sample response object:
 
-      [
-       {
-         "memberSince": {
-           "low": 436259579,
-           "high": 345
-         },
-         "name": "Adam Wang",
-         "username": "adam",
-         "city": "New York",
-         "age": "25",
-         "sex": "Male"
-       }
-      ]
+    [
+     {
+       "memberSince": {
+         "low": 436259579,
+         "high": 345
+       },
+       "name": "Adam Wang",
+       "username": "adam",
+       "city": "New York",
+       "age": "25",
+       "sex": "Male"
+     }
+    ]
 
-   *
-   *  Returns:
-   *    • No explicit return
-   *
-   * --------------------------------------------------------------- */
+ *
+ *  Returns:
+ *    • No explicit return
+ *
+ * --------------------------------------------------------------- */
 
-  filterUsers({ query }, res) {
-    // log = log.extend('filterUsers');
-    log(`Filtering users by
+export function filterUsers({ query }, res) {
+  const local = log.extend('filterUsers');
+  local(`Filtering users by
       minage: ${query.minage}, maxage: ${query.maxage}, sex: ${query.sex}`);
 
-    getFilteredUsers(query, (filteredUserData) => {
-      log(`Success!
+  getFilteredUsers(query, (filteredUsers) => {
+    local(`Success!
         Chunking data & building res object`);
 
-      const filteredUsers = filteredUserData.map((data, index) => {
-        log(`${index}) parsing user ${index} data`);
-
-        // Getting User data
-        const { properties = {} } = data.get('user');
-        const { username, image_url, online } = properties;
-
-        // Putting together a user data object.
-        const user = { username, image_url, online };
-
-        return user;
-      });
-
-      log('Sending User data: ', filteredUsers);
-      res.json(filteredUsers);
-    });
-  },
+    local('Sending User data: ', filteredUsers);
+    res.json(filteredUsers);
+  });
+}
 
 /* -------------------------- * FIND LIKED USERS * ------------------------- */
-  findLikedUsers({ params }, res) {
-    // log = log.extend('findLikedUsers');
-    log(`Searching ${params.username}'s liked users`);
-    getLikedUsers(params, (likedUsersData) => {
-      const likedUsers = likedUsersData.map((userData) => {
-        const { properties: { memberSince, name, username, image_url, online } } = userData.get('liked');
-        // const city = userData.get('city').properties.name;
-        const age = userData.get('age').properties.age;
-        const sex = userData.get('sex').properties.sex;
-        const likedUser = { memberSince, name, username, age, sex, image_url, online };
+export function findLikedUsers({ params }, res) {
+  const local = log.extend('findLikedUsers');
+  local(`Searching ${params.username}'s liked users`);
+  getLikedUsers(params, (likedUsers) => {
 
-        return likedUser;
-      });
-
-      log('Sending User data: ', likedUsers);
-      res.json(likedUsers);
-    });
-  },
-};
+    local('Sending User data: ', likedUsers);
+    res.json(likedUsers);
+  });
+}
