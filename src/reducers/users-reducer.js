@@ -47,7 +47,7 @@ export function currentUser(state = null, action) {
     case IS_NOT_MATCH:
     case IS_MATCH:
     case UNLIKE_USER:
-      return { ...state, liked: new Set(action.payload.allLiked) };
+      return { ...state, liked: new Set(action.payload) };
     case LOGOUT_USER_SUCCESS:
       return null;
     default:

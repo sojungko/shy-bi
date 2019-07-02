@@ -18,8 +18,8 @@ export async function queryAllUsers() {
       // don't send back people's passwords!
       local('record', record);
       const { properties: { password, ...rest } } = record.get('user');
-      const age = record.get('age');
-      return { age, ...rest };
+      const age = Math.floor(record.get('age').months / 12);
+      return intsToNumbers({ age, ...rest });
     });
   } catch (error) {
     local.extend('error')(error);

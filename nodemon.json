@@ -6,10 +6,7 @@
   "watch": [
     ".next/**/*",
     "styles/**/*",
-    "server/**/*",
-    ".env",
-    "*config.js",
-    "*.json"
+    "dist/**/*"
   ],
   "ext": "js json"
 }

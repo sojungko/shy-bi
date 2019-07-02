@@ -10,7 +10,6 @@
  * --------------------------------------------------------------- */
 import debug from 'debug';
 
-import db from '../db/config';
 import { queryAllUsers, queryFilteredUsers, queryLikedUsers } from '../queries/users';
 
 const log = debug('server:search:model');

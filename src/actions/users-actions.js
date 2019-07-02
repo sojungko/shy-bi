@@ -118,27 +118,16 @@ export function sendMessage(message) {
 export function likeUser(username, likedUser) {
   return dispatch => axios.post('/api/users/like', { username, likedUser })
     .then(({ data }) => {
-      console.log('likeUser', data);
-      // const isMatch = data;
-      // if (isMatch) {
-      //   const request = {
-      //     senderID: username,
-      //     receiverID: likedUser,
-      //     title: 'You have a match!',
-      //     body: `${username} likes you back! Don't be a flake and send a message.`,
-      //   };
-      //   sendMessage(request);
       if (data.isMatch) {
-        return dispatch({ type: A.IS_MATCH, payload: data });
+        return dispatch({ type: A.IS_MATCH, payload: data.liked });
       }
-      return dispatch({ type: A.IS_NOT_MATCH, payload: data });
+      return dispatch({ type: A.IS_NOT_MATCH, payload: data.liked });
     });
 }
 
 export function unlikeUser(username, userToUnlike) {
   return dispatch => axios.post('/api/users/unlike', { username, userToUnlike })
     .then(({ data }) => {
-      console.info('Unliking: ', data);
       return dispatch({ type: A.UNLIKE_USER, payload: data });
     })
     .catch((error) => {
