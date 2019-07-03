@@ -3,15 +3,17 @@ export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const GET_VISITED_USER = 'GET_VISITED_USER';
 export const UNVISIT_USER = 'UNVISIT_USER';
 
-export const IS_MATCH = 'IS_MATCH';
-export const IS_NOT_MATCH = 'IS_NOT_MATCH';
 export const GET_RECOMMENDED_USERS = 'GET_RECOMMENDED_USERS';
 
 export const LIKE_USER = 'LIKE_USER';
 export const GET_LIKED_USERS = 'GET_LIKED_USERS';
 export const UNLIKE_USER = 'UNLIKE_USER';
 
+export const IS_MATCH = 'IS_MATCH';
+export const IS_NOT_MATCH = 'IS_NOT_MATCH';
 export const GET_MATCHES = 'GET_MATCHES';
+export const VIEW_MATCH = 'VIEW_MATCH';
+export const GET_UNVIEWED_MATCHES = 'GET_UNVIEWED_MATCHES';
 
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
@@ -33,7 +35,6 @@ export const FILTER_USER = 'FILTER_USER';
 
 export const GET_LOCATIONS = 'GET_LOCATIONS';
 
-export const VIEW_MATCH = 'VIEW_MATCH';
-export const GET_UNVIEWED_MATCHES = 'GET_UNVIEWED_MATCHES';
+
 
 export const FILTER_USERS = 'FILTER_USERS';

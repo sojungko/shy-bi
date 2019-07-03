@@ -78,3 +78,12 @@ export function matches(state = [], action) {
       return state;
   }
 }
+
+export function recommended(state = [], action) {
+  switch (action.type) {
+    case GET_RECOMMENDED_USERS:
+      return action.payload;
+    default:
+      return state;
+  }
+}

@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 
 import {
-  users,
   currentUser,
-  visitedUser,
   matches,
+  recommended,
+  users,
+  visitedUser,
 } from './users-reducer';
 
 import messages from './messages-reducer';
@@ -17,6 +18,7 @@ const RootReducer = combineReducers({
   leftNav,
   matches,
   messages,
+  recommended,
   users,
   visitedUser,
 });

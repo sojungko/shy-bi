@@ -7,10 +7,9 @@
 */
 import debug from 'debug';
 
-import db from '../db/config';
+import { queryRecommendations } from '../queries/recommendations';
 
-let log = debug('server:rec:model');
-let err = debug('server:rec:model:error');
+const log = debug('server:rec:model');
 
 /* ------------------------- * getRecMatches * ------------
 *
@@ -29,25 +28,15 @@ let err = debug('server:rec:model:error');
 *
 * --------------------------------------------------------------- */
 
-export function getRecMatches({ username }, callback) {
-  // log = log.extend('getRecMatches');
-  log('Accessing user database');
+export async function getRecMatches({ username }, callback) {
+  const local = log.extend('getRecMatches');
+  local('Accessing user database');
 
-  return db
-    .run(
-      `MATCH (me:User{username: {username}})
-      MATCH (me)-[:LIKES]->(a:User)<-[:LIKES]-(b:User)-[:LIKES]->(recUsers:User)
-      RETURN DISTINCT recUsers LIMIT 20`,
-      { username })
-    .then(({ records }) => {
-      db.close();
-
-      log(`Fetching the recommended matches for username: ${username}`);
-      return callback(records);
-    })
-    .catch((error) => {
-      err(`Could not find any
-      recommendations for username: ${username}`);
-      throw error;
-    });
+  try {
+    const records = await queryRecommendations({ username });
+    return callback(records);
+  } catch (error) {
+    local.extend('error')(error);
+    throw error;
+  }
 }

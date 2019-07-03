@@ -76,8 +76,8 @@ export async function queryUser({ username }) {
 
       return intsToNumbers(properties);
     }
-    // TODO what if theres no match?
   } catch (error) {
+    // TODO what if theres no match?
     local.extend('error')(error);
     return Promise.reject(new Error(error));
   }
