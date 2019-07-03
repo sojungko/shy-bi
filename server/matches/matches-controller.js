@@ -2,37 +2,25 @@ import debug from 'debug';
 
 import { getMatchedUsers, toggleView, getNewMatches } from './matches-model';
 
-let log = debug('server:matches:controller');
+const log = debug('server:matches:controller');
 
 export function getMatches({ params }, res) {
-  // log = log.extend('getMatches');
-  log('Received request for ', params.username);
+  const local = log.extend('getMatches');
+  local('Received request for ', params.username);
   getMatchedUsers(params, (matches) => {
-    log('Completed database query for ', params.username);
-    const matchedUsers = matches.map((matchedUserData, index) => {
-      log(`${index}) parsing data`);
-      // Getting User data
-      const { properties: { memberSince, name, username, image_url, online } } = matchedUserData.get('liked');
-      // const city = matchedUserData.get('city').properties.name;
-      const age = matchedUserData.get('age').properties.age;
-      const sex = matchedUserData.get('sex').properties.sex;
-      const user = { memberSince, name, username, image_url, online, age, sex };
-
-      return user;
-    });
-    log('Sending matches!', matchedUsers);
-    res.json(matchedUsers);
+    local('Sending matches!', matches);
+    res.json(matches);
   });
 }
 
 export function viewMatch({ body: { username } }, res) {
-  // log = log.extend('viewMatch');
-  log(`Received request for ${username}`);
+  const local = log.extend('viewMatch');
+  local(`Received request for ${username}`);
   toggleView(username, () => res.sendStatus(201));
 }
 
 export function findNewMatches({ params }, res) {
-  // // log = log.extend('findNewMatches');
-  log(`Received request for ${params.username}`);
+  const local = log.extend('findNewMatches');
+  local(`Received request for ${params.username}`);
   getNewMatches(params.username, newMatches => res.json(newMatches));
 }

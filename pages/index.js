@@ -27,7 +27,7 @@ class Home extends Component {
         </App>
       );
     }
-    
+
     return (
       <App>
         <div className="image-container">

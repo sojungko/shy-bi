@@ -86,7 +86,18 @@ class Account extends Component {
         <App>
           <div className="page__container">
             <div className="account">
-
+              <ProfileItem
+              data="name"
+              label="Name"
+              render={renderField}
+              validate={
+                composeValidators(
+                  required,
+                  noSpecialChars,
+                  mustContainLetter,
+                )
+              }
+            />
             </div>
           </div>
         </App>
