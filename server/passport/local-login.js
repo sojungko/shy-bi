@@ -1,9 +1,10 @@
-require('dotenv').config();
 import jwt from 'jsonwebtoken';
 import debug from 'debug';
 
 import PassportLocalStrategy from 'passport-local';
-import User from '../user/user-controller';
+import { signIn } from '../user/user-controller';
+
+require('dotenv').config();
 
 const log = debug('server:passport:local-login');
 const err = debug('server:passport:local-login:error');
@@ -14,11 +15,12 @@ export default new PassportLocalStrategy.Strategy({
   session: false,
   passReqToCallback: true,
 }, (req, username, password, done) => {
-  User.signIn(req, (err, user) => {
-    if (err) {
-      done(err);
+  signIn(req, (error, user) => {
+    if (error) {
+      err(error);
+      done(error);
     }
-    log('local-login err : ', err);
+    log('local-login err : ', error);
     const payload = {
       sub: user.username,
     };

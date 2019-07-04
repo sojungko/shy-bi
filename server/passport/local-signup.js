@@ -1,9 +1,10 @@
-require('dotenv').config();
 import jwt from 'jsonwebtoken';
 import debug from 'debug';
 
-import User from '../user/user-controller';
 import PassportLocalStrategy from 'passport-local';
+import { signUp } from '../user/user-controller';
+
+require('dotenv').config();
 
 const log = debug('server:passport:local-signup');
 const err = debug('server:passport:local-signup:error');
@@ -14,7 +15,7 @@ const strategy = new PassportLocalStrategy.Strategy({
   session: false,
   passReqToCallback: true,
 }, (req, username, password, done) => {
-  User.signUp(req, (user) => {
+  signUp(req, (user) => {
     if (!user) {
       log('Username already exists');
       return done('Username already exists');
