@@ -10,7 +10,11 @@
  * --------------------------------------------------------------- */
 import debug from 'debug';
 
-import { queryAllUsers, queryFilteredUsers, queryLikedUsers } from '../queries/users';
+import {
+  queryAllUsers,
+  queryFilteredUsers,
+  queryLikedUsers,
+} from '../queries/users';
 
 const log = debug('server:search:model');
 const err = debug('server:search:model:error');
@@ -59,7 +63,10 @@ export async function getAll(callback) {
  *
  * --------------------------------------------------------------- */
 
-export async function getFilteredUsers({ minage = 19, maxage = 100, sex }, callback) {
+export async function getFilteredUsers(
+  { minage = 19, maxage = 100, sex },
+  callback
+) {
   const local = log.extend('getFilteredUsers');
   local(`Accessing user database
       age: ${minage} < age < ${maxage}

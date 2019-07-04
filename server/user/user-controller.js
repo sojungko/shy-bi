@@ -38,7 +38,7 @@ let log = debug('server:user:controller');
 export function signUp({ body: { username, email, password } }, callback) {
   // log = log.extend('signup');
   log(`Signing up ${username}`);
-  getUser(username, (user) => {
+  getUser(username, user => {
     if (user) {
       callback(null);
     } else {
@@ -92,7 +92,7 @@ export function signIn({ body }, callback) {
   log(`Authenticating for user with
   username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
-  getUser(attemptedUsername, (foundUser) => {
+  getUser(attemptedUsername, foundUser => {
     log(`Success!
       Checking attempted password: ${attemptedPassword} against database`);
 
@@ -113,7 +113,7 @@ export function signIn({ body }, callback) {
 export function signOut({ body: { username } }, res) {
   // log = log.extend('signOut');
   log(`Deauthenticating username: ${username}`);
-  toggleOffline(username, (data) => {
+  toggleOffline(username, data => {
     log('Success!', data);
     return res.send(data);
   });

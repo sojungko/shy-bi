@@ -7,7 +7,7 @@ const log = debug('server:matches:controller');
 export function getMatches({ params }, res) {
   const local = log.extend('getMatches');
   local('Received request for ', params.username);
-  getMatchedUsers(params, (matches) => {
+  getMatchedUsers(params, matches => {
     local('Sending matches!', matches);
     res.json(matches);
   });

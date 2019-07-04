@@ -24,7 +24,7 @@ class Account extends Component {
     currentUser: userPropType,
     getCurrentUser: func,
     editBio: func,
-  }
+  };
 
   componentDidMount() {
     const { currentUser } = this.props;
@@ -33,13 +33,11 @@ class Account extends Component {
     }
   }
 
-  onSubmit = (inputs) => {
-  }
+  onSubmit = inputs => {};
 
   render() {
     const { currentUser } = this.props;
     if (currentUser) {
-  
       return (
         <App>
           <div className="page__container">
@@ -49,27 +47,20 @@ class Account extends Component {
                 label="Password"
                 render={renderField}
                 type="password"
-                validate={
-                  composeValidators(
-                    required,
-                    mustBeLongerThan(8),
-                    mustBeShorterThan(16),
-                    mustContainLetter,
-                    mustContainNumber
-                  )
-                }
+                validate={composeValidators(
+                  required,
+                  mustBeLongerThan(8),
+                  mustBeShorterThan(16),
+                  mustContainLetter,
+                  mustContainNumber
+                )}
               />
               <ProfileItem
                 data="email"
                 label="Email"
                 render={renderField}
                 type="email"
-                validate={
-                  composeValidators(
-                    required,
-                    email,
-                  )
-                }
+                validate={composeValidators(required, email)}
               />
             </div>
           </div>
@@ -82,4 +73,7 @@ class Account extends Component {
 const mapStateToProps = ({ currentUser }) => ({
   currentUser,
 });
-export default connect(mapStateToProps, { getCurrentUser, editBio })(Account);
+export default connect(
+  mapStateToProps,
+  { getCurrentUser, editBio }
+)(Account);

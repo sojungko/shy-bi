@@ -14,75 +14,69 @@ import {
   validateDate,
 } from 'modules/validators';
 
-import {
-  formatDateForInput,
-} from 'modules/formatters';
+import { formatDateForInput } from 'modules/formatters';
 
 import { genders, edLevels } from 'constants/form';
 
 import ProfileItem from 'components/ProfileItem';
 import ImageUpload from 'components/ImageUpload';
-import {
-  renderField,
-  renderSelect,
-  renderTextArea,
-} from 'components/Form';
+import { renderField, renderSelect, renderTextArea } from 'components/Form';
 
 class Profile extends Component {
   static propTypes = {
     likeUser: func,
     unlikeUser: func,
     currentUser: userPropType,
-    visitedUser: oneOfType([ userPropType, null ])
-  }
+    visitedUser: oneOfType([userPropType, null]),
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       imageEditing: false,
-    }
+    };
   }
-  
+
   unlike = () => {
     const { currentUser, visitedUser } = this.props;
     const { username: currentUsername } = currentUser;
     const { username: visitedUsername } = visitedUser;
     this.props.unlikeUser(currentUsername, visitedUsername);
-  }
-  
-  like = () => {  
+  };
+
+  like = () => {
     const { currentUser, visitedUser } = this.props;
     const { username: currentUsername } = currentUser;
     const { username: visitedUsername } = visitedUser;
     this.props.likeUser(currentUsername, visitedUsername);
-  }
+  };
 
   toggleImageEdit = () => {
     this.setState({ imageEditing: !this.state.imageEditing });
-  }
+  };
 
   renderOnlineMessage = (online, isMatch, name, sex) => {
     if (online && isMatch) {
       return (
         <p>
-          {name} is online. Message {sex === 'Female' ? 'her' : 'him'} now! {' '}
-          <a href="/#/messages/send"><i className="fa fa-arrow-right" aria-hidden="true" /></a>
+          {name} is online. Message {sex === 'Female' ? 'her' : 'him'} now!{' '}
+          <a href="/#/messages/send">
+            <i className="fa fa-arrow-right" aria-hidden="true" />
+          </a>
         </p>
       );
     }
-  }
+  };
 
   render() {
     const { imageEditing } = this.state;
     const { visitedUser, currentUser } = this.props;
-    var {
-      image_url,
-      username,
-      online,
-    } = visitedUser || currentUser;
+    var { image_url, username, online } = visitedUser || currentUser;
 
-    if (!currentUser) { return null };
+    if (!currentUser) {
+      return null;
+    }
 
     const { liked } = currentUser;
 
@@ -90,10 +84,14 @@ class Profile extends Component {
       <div className="page__container">
         <div className="profile">
           <div className="profile--row profile--row__image">
-            { visitedUser && <img role="presentation" src={image_url} />}
-            { !visitedUser && currentUser && !imageEditing && (
+            {visitedUser && <img role="presentation" src={image_url} />}
+            {!visitedUser && currentUser && !imageEditing && (
               <Fragment>
-                {image_url ? <img role="presentation" src={image_url} /> : <i className="material-icons md-48 md-dark">face</i>}
+                {image_url ? (
+                  <img role="presentation" src={image_url} />
+                ) : (
+                  <i className="material-icons md-48 md-dark">face</i>
+                )}
                 <i
                   onClick={this.toggleImageEdit}
                   className="material-icons md-18 md-dark md-inactive md-clickable profile--row__image-edit"
@@ -102,37 +100,44 @@ class Profile extends Component {
                 </i>
               </Fragment>
             )}
-            { !visitedUser && currentUser && imageEditing && <ImageUpload toggleImageEdit={this.toggleImageEdit}/>}
-          </div>
-          <div className="profile--row">
-            You are online
-          </div>
-          { visitedUser && 
-          <div className="profile--row">
-            {!liked.has(visitedUser.username) ? (
-              <i className="material-icons md-18 md-clickable" onClick={this.like}>favorite_border</i>
-              )
-              : (
-                <i className="material-icons md-18 md-clickable" onClick={this.unlike}>favorite</i>
+            {!visitedUser && currentUser && imageEditing && (
+              <ImageUpload toggleImageEdit={this.toggleImageEdit} />
             )}
-            <Snackbar
-              open={this.props.isMatch || false}
-              message="You guys are a match!"
-              autoHideDuration={4000}
-            />
           </div>
-          }
+          <div className="profile--row">You are online</div>
+          {visitedUser && (
+            <div className="profile--row">
+              {!liked.has(visitedUser.username) ? (
+                <i
+                  className="material-icons md-18 md-clickable"
+                  onClick={this.like}
+                >
+                  favorite_border
+                </i>
+              ) : (
+                <i
+                  className="material-icons md-18 md-clickable"
+                  onClick={this.unlike}
+                >
+                  favorite
+                </i>
+              )}
+              <Snackbar
+                open={this.props.isMatch || false}
+                message="You guys are a match!"
+                autoHideDuration={4000}
+              />
+            </div>
+          )}
           <ProfileItem
             data="name"
             label="Name"
             render={renderField}
-            validate={
-              composeValidators(
-                required,
-                noSpecialChars,
-                mustContainLetter,
-              )
-            }
+            validate={composeValidators(
+              required,
+              noSpecialChars,
+              mustContainLetter
+            )}
           />
           <ProfileItem
             data="sex"
@@ -146,12 +151,7 @@ class Profile extends Component {
             label="Age"
             placeholder="DD/MM/YYYY"
             render={renderField}
-            validate={
-              composeValidators(
-                validateDate,
-                mustBeLength(10),
-              )
-            }
+            validate={composeValidators(validateDate, mustBeLength(10))}
           />
           <ProfileItem
             data="edLevel"
@@ -166,18 +166,19 @@ class Profile extends Component {
           />
         </div>
       </div>
-
     );
   }
 }
 
-function mapStateToProps ({ currentUser, visitedUser }) {
+function mapStateToProps({ currentUser, visitedUser }) {
   return {
     currentUser,
     visitedUser,
     isMatch: visitedUser && visitedUser.isMatch,
-  }
+  };
 }
 
-
-export default connect(mapStateToProps, { likeUser, unlikeUser })(Profile);
+export default connect(
+  mapStateToProps,
+  { likeUser, unlikeUser }
+)(Profile);

@@ -7,7 +7,7 @@ const log = debug('server:rec:controller');
 export function getRecommendedMatches({ params }, res) {
   const local = log.extend('getRecommendedMatches');
   local(`Getting recommended matches for ${params.username}`);
-  getRecMatches(params, (recs) => {
+  getRecMatches(params, recs => {
     local('Success! Building res object');
 
     local('Sending potential matches!', recs);

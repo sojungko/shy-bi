@@ -19,31 +19,28 @@ import {
 } from 'modules/validators';
 
 import App from 'components/App';
-import {
-  renderField,
-} from 'components/Form';
+import { renderField } from 'components/Form';
 
 class SignUp extends Component {
   static getInitialProps = ({ asPath }) => {
     return { asPath };
-  }
+  };
   static propTypes = {
     asPath: string.isRequired,
     signupUser: func.isRequired,
-  }
+  };
 
   // TODO redirect to '/' if user is logged in
 
-  onSubmit = (inputs) => {
-    this.props.signupUser(inputs)
-      .then(() => {
-        Router.push('/');
-      });
-  }
+  onSubmit = inputs => {
+    this.props.signupUser(inputs).then(() => {
+      Router.push('/');
+    });
+  };
 
-//   handleUpdateInput = (inputs) => {
-//     this.props.getLocations(inputs);
-//   }
+  //   handleUpdateInput = (inputs) => {
+  //     this.props.getLocations(inputs);
+  //   }
 
   render() {
     const { asPath } = this.props;
@@ -54,64 +51,61 @@ class SignUp extends Component {
             onSubmit={this.onSubmit}
             render={({ handleSubmit, pristine, invalid }) => (
               <form onSubmit={handleSubmit} className="form form__login">
-                <h2 className="form--title">
-                  Sign Up
-              </h2>
+                <h2 className="form--title">Sign Up</h2>
                 <Field
                   render={renderField}
                   name="email"
                   label="Email"
-                  validate={
-                    composeValidators(
-                      email,
-                      required,
-                      mustContainLetter,
-                    )}
+                  validate={composeValidators(
+                    email,
+                    required,
+                    mustContainLetter
+                  )}
                 />
                 <Field
                   render={renderField}
                   name="username"
                   type="username"
                   label="Username"
-                  validate={
-                    composeValidators(
-                      required,
-                      noSpecialChars,
-                      mustContainLetter,
-                      mustBeLongerThan(6),
-                      mustBeShorterThan(12)
-                    )}
+                  validate={composeValidators(
+                    required,
+                    noSpecialChars,
+                    mustContainLetter,
+                    mustBeLongerThan(6),
+                    mustBeShorterThan(12)
+                  )}
                 />
                 <Field
                   render={renderField}
                   name="password"
                   type="password"
                   label="Password"
-                  validate={
-                    composeValidators(
-                      required,
-                      mustBeLongerThan(8),
-                      mustBeShorterThan(16),
-                      mustContainLetter,
-                      mustContainNumber
-                    )
-                  }
+                  validate={composeValidators(
+                    required,
+                    mustBeLongerThan(8),
+                    mustBeShorterThan(16),
+                    mustContainLetter,
+                    mustContainNumber
+                  )}
                 />
                 <button
-                  className={
-                    classNames({
-                      'button': true,
-                      'button__flat': true,
-                      'button__large': true,
-                      'form--submit': true,
-                      'button__disabled': invalid || pristine,
-                    })
-                  }
+                  className={classNames({
+                    button: true,
+                    button__flat: true,
+                    button__large: true,
+                    'form--submit': true,
+                    button__disabled: invalid || pristine,
+                  })}
                   type="submit"
                 >
                   Create New Account
-              </button>
-                <div className="form--text">Already have an account? <Link href='/login'><a className="form--link">Log in</a></Link></div>
+                </button>
+                <div className="form--text">
+                  Already have an account?{' '}
+                  <Link href="/login">
+                    <a className="form--link">Log in</a>
+                  </Link>
+                </div>
               </form>
             )}
           />
@@ -121,5 +115,7 @@ class SignUp extends Component {
   }
 }
 
-
-export default connect(null, { signupUser })(withRouter(SignUp));
+export default connect(
+  null,
+  { signupUser }
+)(withRouter(SignUp));

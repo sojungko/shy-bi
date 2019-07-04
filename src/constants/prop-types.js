@@ -62,4 +62,3 @@ export const fieldPropType = {
   options: array,
   placeholder: string,
 };
-

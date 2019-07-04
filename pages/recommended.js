@@ -12,13 +12,17 @@ import UserList from 'components/UserList';
 class Recommended extends Component {
   static propTypes = {
     recommended: arrayOf(userPropType),
-  }
+  };
 
   static async getInitialProps({ req, store }) {
     const isServer = !!req;
     const { currentUser } = store.getState();
     const { username } = currentUser;
-    const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/recommendations/${username}`);
+    const { data } = await axios.get(
+      `${
+        isServer ? process.env.API_DOMAIN : ''
+      }/api/recommendations/${username}`
+    );
     store.dispatch({ type: GET_RECOMMENDED_USERS, payload: data });
     return {};
   }

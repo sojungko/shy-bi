@@ -26,16 +26,34 @@ import ExEnv from 'exenv';
 
 const docCookies = {
   getItem(sKey) {
-    if (!sKey) { return null; }
-    return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
+    if (!sKey) {
+      return null;
+    }
+    return (
+      decodeURIComponent(
+        document.cookie.replace(
+          new RegExp(
+            '(?:(?:^|.*;)\\s*' +
+              encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, '\\$&') +
+              '\\s*\\=\\s*([^;]*).*$)|^.*$'
+          ),
+          '$1'
+        )
+      ) || null
+    );
   },
   setItem(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+      return false;
+    }
     let sExpires = '';
     if (vEnd) {
       switch (vEnd.constructor) {
         case Number:
-          sExpires = vEnd === Infinity ? '; expires=Fri, 31 Dec 9999 23:59:59 GMT' : '; max-age=' + vEnd;
+          sExpires =
+            vEnd === Infinity
+              ? '; expires=Fri, 31 Dec 9999 23:59:59 GMT'
+              : '; max-age=' + vEnd;
           /*
           Note: Despite officially defined in RFC 6265, the use of `max-age` is not compatible with any
           version of Internet Explorer, Edge and some mobile browsers. Therefore passing a number to
@@ -54,21 +72,41 @@ const docCookies = {
           break;
       }
     }
-    document.cookie = `${encodeURIComponent(sKey)}=${encodeURIComponent(sValue)}${sExpires}${sDomain ? "; domain=" + sDomain : ""}${sPath ? "; path=" + sPath : ""}${bSecure ? "; secure" : ""}`;
+    document.cookie = `${encodeURIComponent(sKey)}=${encodeURIComponent(
+      sValue
+    )}${sExpires}${sDomain ? '; domain=' + sDomain : ''}${
+      sPath ? '; path=' + sPath : ''
+    }${bSecure ? '; secure' : ''}`;
     return true;
   },
   removeItem(sKey, sPath, sDomain) {
-    if (!this.hasItem(sKey)) { return false; }
-    document.cookie = `${encodeURIComponent(sKey)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT${sDomain ? "; domain=" + sDomain : ""}${sPath ? "; path=" + sPath : ""}`;
+    if (!this.hasItem(sKey)) {
+      return false;
+    }
+    document.cookie = `${encodeURIComponent(
+      sKey
+    )}=; expires=Thu, 01 Jan 1970 00:00:00 GMT${
+      sDomain ? '; domain=' + sDomain : ''
+    }${sPath ? '; path=' + sPath : ''}`;
     return true;
   },
   hasItem(sKey) {
-    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
-    return (new RegExp('(?:^|;\\s*)' + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=')).test(document.cookie);
+    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+      return false;
+    }
+    return new RegExp(
+      '(?:^|;\\s*)' +
+        encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, '\\$&') +
+        '\\s*\\='
+    ).test(document.cookie);
   },
   keys() {
-    const aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '').split(/\s*(?:\=[^;]*)?;\s*/);
-    for (let nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+    const aKeys = document.cookie
+      .replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, '')
+      .split(/\s*(?:\=[^;]*)?;\s*/);
+    for (let nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
+      aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
+    }
     return aKeys;
   },
 };
@@ -95,7 +133,9 @@ export function clearCookie(key) {
 }
 
 export function updateUserCookie(newUserData = {}) {
-  const oneYearFromNow = new Date(new Date().setYear(new Date().getFullYear() + 1));
+  const oneYearFromNow = new Date(
+    new Date().setYear(new Date().getFullYear() + 1)
+  );
 
   // resave cookie, merging fetched profile with exiting one
   const user = JSON.parse(getCookie('user'));

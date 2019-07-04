@@ -63,7 +63,7 @@ const log = debug('server:search:controller');
 export function findAllUsers(req, res) {
   const local = log.extend('findAll');
 
-  getAll((allUsers) => {
+  getAll(allUsers => {
     local('Success! parsing data & building res object');
 
     // const allUsers = allUserData.map((data, index) => {
@@ -126,7 +126,7 @@ export function filterUsers({ query }, res) {
   local(`Filtering users by
       minage: ${query.minage}, maxage: ${query.maxage}, sex: ${query.sex}`);
 
-  getFilteredUsers(query, (filteredUsers) => {
+  getFilteredUsers(query, filteredUsers => {
     local(`Success!
         Chunking data & building res object`);
 
@@ -139,8 +139,7 @@ export function filterUsers({ query }, res) {
 export function findLikedUsers({ params }, res) {
   const local = log.extend('findLikedUsers');
   local(`Searching ${params.username}'s liked users`);
-  getLikedUsers(params, (likedUsers) => {
-
+  getLikedUsers(params, likedUsers => {
     local('Sending User data: ', likedUsers);
     res.json(likedUsers);
   });

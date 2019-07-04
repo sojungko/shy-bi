@@ -14,12 +14,8 @@ import debug from 'debug';
 import db from '../db/config';
 
 import runParallel from '../queries/run';
-import {
-  queryUser,
-  queryBirthday,
-} from '../queries/users';
+import { queryUser, queryBirthday } from '../queries/users';
 import { queryLikedUsers } from '../queries/likes';
-
 
 let log = debug('server:user:model');
 let err = debug('server:user:model:error');
@@ -57,7 +53,7 @@ export function addUser(userData, callback) {
     if (err) {
       err('Error generating hash');
     } else {
-      bcrypt.hash(password, salt, ((err, hash) => {
+      bcrypt.hash(password, salt, (err, hash) => {
         if (err) {
           log(`Error hashing ${password}`);
         } else {
@@ -73,19 +69,20 @@ export function addUser(userData, callback) {
             ON CREATE SET newUser.memberSince = datetime()
   
             RETURN newUser`,
-              { username, email, hash })
+              { username, email, hash }
+            )
             .then(({ records }) => {
               db.close();
               log('records : ', records);
               log('user has been added');
               return callback(records[0]);
             })
-            .catch((error) => {
+            .catch(error => {
               err(`Could not add ${username} to the database`);
               throw error;
             });
         }
-      }));
+      });
     }
   });
 }
@@ -140,13 +137,14 @@ export function getUserByEmail(email, callback) {
       `MATCH (user:User{email: {email}})
       UNWIND [duration.inMonths(user.birthday, date())] as age
       RETURN user, age`,
-      { email })
+      { email }
+    )
     .then(({ records }) => {
       db.close();
       log(`${email} has been found`, records);
       return callback(records);
     })
-    .catch((error) => {
+    .catch(error => {
       err(`Could not find ${email} from database`);
       throw error;
     });
@@ -160,8 +158,9 @@ export function toggleOnline(username) {
       `MATCH (user: User{username: {username}})
       SET user.online = true
       RETURN user`,
-      { username })
-    .then((data) => {
+      { username }
+    )
+    .then(data => {
       db.close();
       log(`Toggled ${username} online`, data);
     });
@@ -175,11 +174,11 @@ export function toggleOffline(username, callback) {
       `MATCH (user: User{username: {username}})
       SET user.online = false
       RETURN user`,
-      { username })
-    .then((data) => {
+      { username }
+    )
+    .then(data => {
       db.close();
       log(`Toggled ${username} offline`, data);
       return callback(data);
     });
 }
-

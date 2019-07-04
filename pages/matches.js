@@ -12,13 +12,15 @@ import UserList from 'components/UserList';
 class Matches extends Component {
   static propTypes = {
     matches: arrayOf(userPropType),
-  }
+  };
 
   static async getInitialProps({ req, store }) {
     const isServer = !!req;
     const { currentUser } = store.getState();
     const { username } = currentUser;
-    const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/matches/${username}`);
+    const { data } = await axios.get(
+      `${isServer ? process.env.API_DOMAIN : ''}/api/matches/${username}`
+    );
     store.dispatch({ type: GET_MATCHES, payload: data });
     return {};
   }

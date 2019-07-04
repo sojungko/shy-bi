@@ -8,18 +8,21 @@ export async function queryMatchedUsers({ username }) {
   const local = log.extend('queryMatchedUsers');
 
   try {
-    const { records } = await db.run(`
+    const { records } = await db.run(
+      `
       MATCH (me:User{username: {username}})
       MATCH (me)-[r:LIKES]->(liked:User) WHERE (liked)-[:LIKES]->(me)
       RETURN liked`,
-      { username },
+      { username }
     );
 
     db.close();
-    return records.map((record) => {
+    return records.map(record => {
       // don't send back people's passwords!
       local('record', record);
-      const { properties: { password, ...rest } } = record.get('liked');
+      const {
+        properties: { password, ...rest },
+      } = record.get('liked');
       return intsToNumbers(rest);
     });
   } catch (error) {
@@ -31,12 +34,13 @@ export async function queryMatchedUsers({ username }) {
 export async function setAllMatchesAsViewed({ username }) {
   const local = log.extend('setMatchAsViewed');
   try {
-    await db.run(`
+    await db.run(
+      `
       MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
       WHERE (liked)-[:LIKES]->(user)
       SET r.viewed = true
       RETURN r`,
-    { username },
+      { username }
     );
 
     db.close();
@@ -52,19 +56,22 @@ export async function queryNewMatches({ username }) {
   const local = log.extend('queryNewMatches');
 
   try {
-    const { records } = await db.run(`
+    const { records } = await db.run(
+      `
       MATCH (user:User {username: {username}})-[r:LIKES]->(liked:User)
       WHERE (liked)-[:LIKES]->(user) AND (r.viewed = false OR r.viewed IS NULL)
       RETURN liked`,
-      { username },
+      { username }
     );
 
     db.close();
 
-    return records.map((record) => {
+    return records.map(record => {
       // don't send back people's passwords!
       local('record', record);
-      const { properties: { password, ...rest } } = record.get('liked');
+      const {
+        properties: { password, ...rest },
+      } = record.get('liked');
       return intsToNumbers(rest);
     });
   } catch (error) {

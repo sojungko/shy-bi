@@ -23,16 +23,25 @@ class Users extends Component {
     currentUser: userPropType,
     users: arrayOf(userPropType),
     visitedUser: oneOfType([userPropType, null]),
-  }
+  };
 
-  static async getInitialProps({ req = { params: {} }, query = {}, store, asPath }) {
+  static async getInitialProps({
+    req = { params: {} },
+    query = {},
+    store,
+    asPath,
+  }) {
     const isServer = !!req;
-    const { params: { username } } = req;
+    const {
+      params: { username },
+    } = req;
     const visitedUser = username || query.username || null;
 
     if (visitedUser) {
       try {
-        const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`);
+        const { data } = await axios.get(
+          `${isServer ? process.env.API_DOMAIN : ''}/api/users/${visitedUser}`
+        );
         store.dispatch({ type: GET_VISITED_USER, payload: decorateUser(data) });
         return { asPath, visitedUser: data };
       } catch (err) {
@@ -41,7 +50,9 @@ class Users extends Component {
       }
     }
     try {
-      const { data } = await axios.get(`${isServer ? process.env.API_DOMAIN : ''}/api/search/all`);
+      const { data } = await axios.get(
+        `${isServer ? process.env.API_DOMAIN : ''}/api/search/all`
+      );
       store.dispatch({ type: GET_ALL_USERS, payload: data });
       store.dispatch({ type: UNVISIT_USER });
     } catch (err) {

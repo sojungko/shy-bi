@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  node,
-  bool,
-  number,
-  func,
-} from 'prop-types';
+import { node, bool, number, func } from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
 import { getUsername, isUserAuthenticated } from 'modules/auth';
@@ -31,7 +26,7 @@ class App extends Component {
     toggleLeftNav: func,
     unread: number,
     unviewed: number,
-  }
+  };
 
   componentDidMount() {
     let isBootstrapped = false;
@@ -49,10 +44,10 @@ class App extends Component {
     }
   }
 
-  handleLogOut = () => this.props.logoutUser(getUsername())
-    .then(() => {
+  handleLogOut = () =>
+    this.props.logoutUser(getUsername()).then(() => {
       Router.push('/');
-    })
+    });
 
   handleToggle = () => this.props.toggleLeftNav(this.props.open);
 
@@ -69,9 +64,7 @@ class App extends Component {
           // numberOfMessages={this.props.unread}
           open={open}
         />
-        <main className="page">
-          {children}
-        </main>
+        <main className="page">{children}</main>
         <Footer />
       </div>
     );
@@ -86,11 +79,14 @@ function mapStateToProps({ leftNav, badges }) {
   };
 }
 
-export default connect(mapStateToProps, {
-  getAllMessages,
-  getUnreadMessages,
-  getUnviewedMatches,
-  getCurrentUser,
-  logoutUser,
-  toggleLeftNav,
-})(App);
+export default connect(
+  mapStateToProps,
+  {
+    getAllMessages,
+    getUnreadMessages,
+    getUnviewedMatches,
+    getCurrentUser,
+    logoutUser,
+    toggleLeftNav,
+  }
+)(App);

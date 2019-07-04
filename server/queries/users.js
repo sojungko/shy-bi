@@ -14,10 +14,12 @@ export async function queryAllUsers() {
 
     db.close();
 
-    return records.map((record) => {
+    return records.map(record => {
       // don't send back people's passwords!
       local('record', record);
-      const { properties: { password, ...rest } } = record.get('user');
+      const {
+        properties: { password, ...rest },
+      } = record.get('user');
       const age = Math.floor(record.get('age').months / 12);
       return intsToNumbers({ age, ...rest });
     });
@@ -32,7 +34,8 @@ export async function queryFilteredUsers(filters = {}) {
   const { minage = 19, maxage = 100, sex } = filters;
   const sexes = sex.split(',');
   try {
-    const { records } = await db.run(`
+    const { records } = await db.run(
+      `
       MATCH (user:User)
       WITH user
       UNWIND [duration.inMonths(user.birthday, date())] as age
@@ -41,12 +44,15 @@ export async function queryFilteredUsers(filters = {}) {
       ${sexes.length > 1 ? 'WITH * WHERE user.sex in {sexes}' : ''}
       RETURN user, age
       LIMIT 10`,
-      { minage, maxage, sexes });
+      { minage, maxage, sexes }
+    );
 
     db.close();
 
-    return records.map((record) => {
-      const { properties: { password, ...rest } } = record.get('user');
+    return records.map(record => {
+      const {
+        properties: { password, ...rest },
+      } = record.get('user');
       const age = record.get('age');
       return intsToNumbers({ ...rest, age });
     });
@@ -59,11 +65,12 @@ export async function queryFilteredUsers(filters = {}) {
 export async function queryUser({ username }) {
   const local = log.extend('queryUser');
   try {
-    const { records } = await db.run(`
+    const { records } = await db.run(
+      `
       MATCH (user:User{username: {username}})
       RETURN user LIMIT 1
       `,
-      { username },
+      { username }
     );
 
     db.close();
@@ -86,11 +93,12 @@ export async function queryUser({ username }) {
 export async function queryBirthday({ username }) {
   const local = log.extend('queryBirthday');
   try {
-    const { records } = await db.run(`
+    const { records } = await db.run(
+      `
       MATCH (user:User{username: {username}})
       UNWIND [duration.inMonths(user.birthday, date())] as age
       RETURN age.months`,
-      { username },
+      { username }
     );
 
     db.close();
@@ -105,4 +113,3 @@ export async function queryBirthday({ username }) {
     return Promise.reject(new Error(error));
   }
 }
-

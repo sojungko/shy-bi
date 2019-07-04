@@ -5,10 +5,7 @@ import InputRange from 'react-input-range';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 
-import {
-  filterUsers,
-  clearFields,
-} from 'actions';
+import { filterUsers, clearFields } from 'actions';
 
 import { genders } from 'constants/form';
 
@@ -16,7 +13,7 @@ class SearchBar extends Component {
   static propTypes = {
     clearFields: func.isRequired,
     filterUsers: func.isRequired,
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -29,31 +26,35 @@ class SearchBar extends Component {
       ageRange: {
         min: 19,
         max: 100,
-      }
-    }
+      },
+    };
   }
 
   // changes display only
-  handleAgeChange = (val) => {
+  handleAgeChange = val => {
     this.setState({ ageRange: val });
-  }
+  };
 
   submitAgeChange = ({ min, max }) => {
     this.props.filterUsers({ sex: this.state.sex, minage: min, maxage: max });
-  }
+  };
 
-  handleSexChange = (e) => {
+  handleSexChange = e => {
     const { target } = e;
-    const { name} = target;
-    const updatedState = { ...this.state.sex, [name]: !this.state.sex[name] }
+    const { name } = target;
+    const updatedState = { ...this.state.sex, [name]: !this.state.sex[name] };
     this.setState({ sex: updatedState });
     const { ageRange } = this.state;
-    this.props.filterUsers({sex: updatedState, minage: ageRange.min, maxage: ageRange.max });
-  }
+    this.props.filterUsers({
+      sex: updatedState,
+      minage: ageRange.min,
+      maxage: ageRange.max,
+    });
+  };
 
   handleClick = () => {
     this.props.clearFields();
-  }
+  };
 
   render() {
     return (
@@ -88,14 +89,12 @@ class SearchBar extends Component {
                 ))}
               </div>
               <button
-                className={
-                  classNames({
-                    'button': true,
-                    'button__flat': true,
-                    'button__large': true,
-                    'form--submit': true,
-                  })
-                }
+                className={classNames({
+                  button: true,
+                  button__flat: true,
+                  button__large: true,
+                  'form--submit': true,
+                })}
                 onClick={this.handleClick}
               >
                 Clear Fields
@@ -108,7 +107,10 @@ class SearchBar extends Component {
   }
 }
 
-export default connect(null, {
-  clearFields,
-  filterUsers,
-})(SearchBar);
+export default connect(
+  null,
+  {
+    clearFields,
+    filterUsers,
+  }
+)(SearchBar);

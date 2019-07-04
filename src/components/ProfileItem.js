@@ -22,7 +22,7 @@ class ProfileItem extends Component {
     render: func,
     visitedUser: oneOfType([userPropType, null]),
     validate: func,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -32,19 +32,19 @@ class ProfileItem extends Component {
     };
   }
 
-  onSubmit = async (val) => {
+  onSubmit = async val => {
     if (val.birthday) {
       val.birthday = parseDate(val.birthday);
     }
     const { currentUser } = this.props;
     this.setState({ isSubmitting: true });
-    await this.props.editBio({...currentUser, ...val});
+    await this.props.editBio({ ...currentUser, ...val });
     this.setState({ isSubmitting: false, isEditable: false });
-  }
+  };
 
   toggleEditable = () => {
     this.setState({ isEditable: !this.state.isEditable });
-  }
+  };
 
   renderItem = () => {
     const { isEditable, isSubmitting } = this.state;
@@ -62,7 +62,7 @@ class ProfileItem extends Component {
 
     // if visited user's profile page
     if (visitedUser) {
-      return <p>{visitedUser[data]}</p>
+      return <p>{visitedUser[data]}</p>;
     }
     // if current user's profile page & not editable
     if (currentUser && !isEditable) {
@@ -76,67 +76,57 @@ class ProfileItem extends Component {
             create
           </i>
         </Fragment>
-      )
+      );
     }
     // if current user's profile page & editable
     if (currentUser && isEditable) {
       return (
         <Form
-        onSubmit={this.onSubmit}
-        render={({ handleSubmit, pristine, invalid, valid }) => {
-          const doneClass = classNames({
-            'material-icons': true,
-            'md-18': true,
-            'md-dark md-inactive': pristine || invalid,
-            'md-dark md-clickable': valid,
-          });
-          return (
-          <form onSubmit={handleSubmit}>
-            <Field
-              disabled={isSubmitting}
-              format={format}
-              name={data}
-              options={options}
-              parse={parse}
-              placeholder={placeholder}
-              render={render}
-              validate={validate}
-            />
-            {
-              isSubmitting ?
-              (<Loader className="svg-loader"/>)
-              :
-              (
-                <Fragment>
-                  <i
-                    className={doneClass}
-                    onClick={handleSubmit}
-                  >
-                    done
-                  </i>
-                  <i
-                    className="material-icons md-18 md-dark md-clickable"
-                    onClick={this.toggleEditable}
-                  >
-                    clear
-                  </i>
-                </Fragment>
-              )
-            }
-          </form>
-        )
-      }}
-      />
-      )
+          onSubmit={this.onSubmit}
+          render={({ handleSubmit, pristine, invalid, valid }) => {
+            const doneClass = classNames({
+              'material-icons': true,
+              'md-18': true,
+              'md-dark md-inactive': pristine || invalid,
+              'md-dark md-clickable': valid,
+            });
+            return (
+              <form onSubmit={handleSubmit}>
+                <Field
+                  disabled={isSubmitting}
+                  format={format}
+                  name={data}
+                  options={options}
+                  parse={parse}
+                  placeholder={placeholder}
+                  render={render}
+                  validate={validate}
+                />
+                {isSubmitting ? (
+                  <Loader className="svg-loader" />
+                ) : (
+                  <Fragment>
+                    <i className={doneClass} onClick={handleSubmit}>
+                      done
+                    </i>
+                    <i
+                      className="material-icons md-18 md-dark md-clickable"
+                      onClick={this.toggleEditable}
+                    >
+                      clear
+                    </i>
+                  </Fragment>
+                )}
+              </form>
+            );
+          }}
+        />
+      );
     }
-  }
+  };
 
   render() {
-    const {
-      currentUser,
-      label,
-      visitedUser,
-    } = this.props;
+    const { currentUser, label, visitedUser } = this.props;
 
     const itemClass = classNames({
       'profile--row': true,
@@ -154,11 +144,14 @@ class ProfileItem extends Component {
   }
 }
 
-function mapStateToProps ({ currentUser, visitedUser }) {
+function mapStateToProps({ currentUser, visitedUser }) {
   return {
     currentUser,
     visitedUser,
-  }
+  };
 }
 
-export default connect(mapStateToProps, { editBio })(ProfileItem);
+export default connect(
+  mapStateToProps,
+  { editBio }
+)(ProfileItem);

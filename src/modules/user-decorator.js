@@ -8,4 +8,3 @@ export default function decorateUser(user = {}) {
     liked: generateLikedFormatted(user),
   };
 }
-

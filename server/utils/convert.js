@@ -19,4 +19,3 @@ export function intsToNumbers(object) {
   }
   return newObj;
 }
-

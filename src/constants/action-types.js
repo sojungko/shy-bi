@@ -46,4 +46,3 @@ export const FILTER_USERS = 'FILTER_USERS';
 export const CLEAR_FIELDS = 'CLEAR_FIELDS';
 
 export const GET_LOCATIONS = 'GET_LOCATIONS';
-

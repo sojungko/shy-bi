@@ -1,10 +1,6 @@
 import debug from 'debug';
 
-import {
-  deleteLike,
-  mergeLikedUser,
-  queryLikedUsers,
-} from '../queries/likes';
+import { deleteLike, mergeLikedUser, queryLikedUsers } from '../queries/likes';
 
 const log = debug('server:likes:model');
 

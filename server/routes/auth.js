@@ -41,7 +41,6 @@ router.post('/signin', (req, res, next) => {
   })(req, res, next);
 });
 
-
 router.get('/facebook', passport.authenticate('facebook-login'));
 
 router.get('/facebook/callback', (req, res, next) => {

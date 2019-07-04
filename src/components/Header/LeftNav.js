@@ -1,29 +1,18 @@
 import React from 'react';
-import {
-  bool,
-  func,
-} from 'prop-types';
+import { bool, func } from 'prop-types';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { userPropType } from 'constants/prop-types';
 
-import {
-  leftNavUnAuth,
-  leftNavAuth,
-} from 'modules/left-nav-menus';
+import { leftNavUnAuth, leftNavAuth } from 'modules/left-nav-menus';
 
 const LeftNav = ({ currentUser, open, handleToggle }) => {
-  const renderMenuItems = menu => menu
-    .map(({ href, label }, index) => (
-      <li
-        key={index}
-        className="left-nav--item"
-      >
+  const renderMenuItems = menu =>
+    menu.map(({ href, label }, index) => (
+      <li key={index} className="left-nav--item">
         <button className="button button__flat button__link">
           <Link href={href}>
-            <a>
-              {label}
-            </a>
+            <a>{label}</a>
           </Link>
         </button>
       </li>

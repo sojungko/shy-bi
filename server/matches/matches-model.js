@@ -42,7 +42,6 @@ export async function getNewMatches(username, callback) {
     return callback(records);
   } catch (error) {
     local.extend('error')(error);
-    throw (error);
+    throw error;
   }
 }
-

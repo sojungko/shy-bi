@@ -61,9 +61,11 @@ export function deleteImage(req, res) {
 export function uploadImage({ body: { username, url } }, res) {
   // log = log.extend('uploadImage');
   log(`Sending image url ${url} for ${username}`);
-  postImage(username, url, (records) => {
+  postImage(username, url, records => {
     log('Image successfully saved : ', records);
-    const { properties: { image_url } } = records.get('user');
+    const {
+      properties: { image_url },
+    } = records.get('user');
     log('image_url', image_url);
     res.status(201).json(image_url);
   });
