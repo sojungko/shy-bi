@@ -1,57 +1,29 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import classNames from 'classnames';
-import { Form, Field } from 'react-final-form';
 
 import { getCurrentUser, editBio } from 'actions';
-import { getUsername } from 'modules/auth';
+import { userPropType } from 'constants/prop-types';
 import {
+  email,
   required,
   mustBeShorterThan,
   mustBeLongerThan,
-  noSpecialChars,
   mustContainNumber,
   mustContainLetter,
   composeValidators,
 } from 'modules/validators';
 
-import { genders, edLevels } from 'constants/form';
-
 import App from 'components/App';
-import ImageUpload from 'components/ImageUpload';
-import {
-  renderField,
-  renderRadioGroup,
-  renderSelect,
-  renderSelectNumber,
-  renderTextArea,
-} from 'components/Form';
+import ProfileItem from 'components/ProfileItem';
+import { renderField } from 'components/Form';
 
 class Account extends Component {
   static propTypes = {
-    profile: PropTypes.shape({
-      name: PropTypes.string,
-      email: PropTypes.string,
-      sex: PropTypes.string,
-      edLevel: PropTypes.string,
-      aboutMe: PropTypes.string,
-      image_url: PropTypes.string,
-    }),
-    handleSubmit: PropTypes.func.isRequired,
-    editBio: PropTypes.func.isRequired,
-    getCurrentUser: PropTypes.func.isRequired,
-    isEdited: PropTypes.bool,
-  }
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      birthDate: null,
-      birthMonth: 1,
-      birthYear: new Date().getFullYear(),
-    }
+    currentUser: userPropType,
+    getCurrentUser: func,
+    editBio: func,
   }
 
   componentDidMount() {
@@ -61,43 +33,44 @@ class Account extends Component {
     }
   }
 
-  onSubmit = (inputs) => { // TODO rewrite
-    this.props.getCurrentUser(getUsername())
-      .then(() => ({ ...this.props.profile, ...inputs }))
-      .then(props => this.props.editBio(props));
+  onSubmit = (inputs) => {
   }
 
   render() {
-    // const { birthMonth, birthYear } = this.state;
     const { currentUser } = this.props;
     if (currentUser) {
-      const {
-        birthday,
-        name,
-        username,
-        email,
-        edLevel,
-        aboutMe,
-        image_url,
-        memberSince,
-      } = currentUser;
   
       return (
         <App>
           <div className="page__container">
             <div className="account">
               <ProfileItem
-              data="name"
-              label="Name"
-              render={renderField}
-              validate={
-                composeValidators(
-                  required,
-                  noSpecialChars,
-                  mustContainLetter,
-                )
-              }
-            />
+                data="password"
+                label="Password"
+                render={renderField}
+                type="password"
+                validate={
+                  composeValidators(
+                    required,
+                    mustBeLongerThan(8),
+                    mustBeShorterThan(16),
+                    mustContainLetter,
+                    mustContainNumber
+                  )
+                }
+              />
+              <ProfileItem
+                data="email"
+                label="Email"
+                render={renderField}
+                type="email"
+                validate={
+                  composeValidators(
+                    required,
+                    email,
+                  )
+                }
+              />
             </div>
           </div>
         </App>
@@ -106,120 +79,7 @@ class Account extends Component {
   }
 }
 
-const mapStateToProps = ({ profile, currentUser }) => ({
+const mapStateToProps = ({ currentUser }) => ({
   currentUser,
-  profile,
-  isEdited: profile.isEdited,
 });
 export default connect(mapStateToProps, { getCurrentUser, editBio })(Account);
-
-/*
-          <Form
-            onSubmit={this.onSubmit}
-            render={({ handleSubmit, pristine, invalid }) => (
-              <form onSubmit={handleSubmit} className="form form__left">
-                <h2 className="form--title">
-                  Edit Profile
-                </h2>
-                <Field
-                  render={renderField}
-                  name="name"
-                  label="Name"
-                />
-                <Field
-                  component={renderField}
-                  name="password"
-                  type="password"
-                  label="Password"
-                  validate={
-                    composeValidators(
-                      required,
-                      mustBeLongerThan(8),
-                      mustBeShorterThan(16),
-                      mustContainLetter,
-                      mustContainNumber
-                    )
-                  }
-                />
-                <Field
-                  name="email"
-                  type="email"
-                  component={renderField}
-                  label="Email"
-                />
-                <Field
-                  name="sex"
-                  component={renderRadioGroup}
-                  options={genders}
-                  label="Sex"
-                />
-                <div className="form--group">
-                  <label className="form--label">Birthday</label>
-                  <Field
-                    name="day"
-                    label="Day"
-                    component={renderSelectNumber}
-                    options={days(birthMonth, birthYear)}
-                  />
-                  <Field
-                    name="month"
-                    label="Month"
-                    component={renderSelectNumber}
-                    options={months}
-                    value={birthMonth}
-                  />
-                  <Field
-                    name="year"
-                    label="Year"
-                    component={renderSelectNumber}
-                    options={years}
-                    value={birthYear}
-                  />
-
-                </div>
-                <Field
-                  name="edLevel"
-                  component={renderSelect}
-                  label="Education Level"
-                  options={edLevels}
-                />
-                <Field
-                  name="aboutMe"
-                  component={renderTextArea}
-                  label="About Me"
-                />
-                <ImageUpload />
-                <div className="button-line">
-                  <button
-                    className={
-                      classNames({
-                        'button': true,
-                        'button__flat': true,
-                        'button__large': true,
-                        'form--submit': true,
-                        'button__disabled': invalid || pristine,
-                      })
-                    }
-                    type="submit"
-                    disabled={invalid || pristine}
-                  >
-                    Submit
-                  </button>
-                  <button
-                    className={
-                      classNames({
-                        'button': true,
-                        'button__flat': true,
-                        'button__large': true,
-                        'form--submit': true,
-                        'button__disabled': invalid || pristine,
-                      })
-                    }
-                    disabled={pristine}>
-                    Clear Fields
-                  </button>
-                </div>
-                </form>
-                )}
-              />
-              */

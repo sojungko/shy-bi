@@ -1,5 +1,8 @@
 import axios from 'axios';
+import debug from 'debug';
 import * as A from '../constants/action-types';
+
+const log = debug('client:messages-actions');
 
 export function getAllMessages(username) {
   return dispatch => axios.get(`api/messages/all/${username}`)
@@ -12,9 +15,9 @@ export function getSentMessages(username) {
 }
 
 export function sendMessage(message) {
-  console.log('      ACTIONS/SEND_MESSAGE | ', message);
-  return dispatch => axios.post('api/messages/send', message)
-    .then(({ data }) => console.log(data));
+  log(message);
+  return () => axios.post('api/messages/send', message)
+    .then(({ data }) => log(data));
 }
 
 export const getUnreadMessages = username => dispatch => axios.get(`api/messages/unread/${username}`)

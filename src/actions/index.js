@@ -21,7 +21,7 @@ export {
   getSentMessages,
   getUnreadMessages,
   sendMessage,
-} from './message-actions';
+} from './messages-actions';
 
 export {
   getLikedUsers,

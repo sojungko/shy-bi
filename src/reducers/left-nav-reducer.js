@@ -1,4 +1,4 @@
-import { TOGGLE_LEFT_NAV } from '../constants/action-types';
+import { TOGGLE_LEFT_NAV } from 'constants/action-types';
 
 const INITIAL_STATE = { open: false };
 

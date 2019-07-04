@@ -16,7 +16,7 @@ import {
   UNLIKE_USER,
   UNVISIT_USER,
   IMAGE_UPLOAD_SUCCESS,
-} from '../constants/action-types';
+} from 'constants/action-types';
 
 // TODO: determine what this reducer is supposed to store
 export function users(state = [], action) {

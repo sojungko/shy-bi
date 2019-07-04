@@ -13,7 +13,7 @@ export const renderField = ({ input, label, meta: { touched, error }, placeholde
 );
 renderField.PropTypes = fieldPropType;
 
-export const renderRadioGroup = ({ input, label, options, ...rest }) => (
+export const renderRadioGroup = ({ input, label, options }) => (
   <div className="form--group">
     {label && <label className="form--label">{label}</label>}
     {options.map(option => (
@@ -31,7 +31,7 @@ export const renderRadioGroup = ({ input, label, options, ...rest }) => (
 );
 renderRadioGroup.PropTypes = fieldPropType;
 
-export const renderSelect = ({ input, name, label, options, ...rest }) => (
+export const renderSelect = ({ input, name, label, options }) => (
   <div className="form--group">
     {label && <label className="form--label">{label}</label>}
     <Field
@@ -52,7 +52,7 @@ export const renderSelect = ({ input, name, label, options, ...rest }) => (
 );
 renderSelect.PropType = fieldPropType;
 
-export const renderTextArea = ({ input, name, label, ...rest }) => (
+export const renderTextArea = ({ input, name, label }) => (
   <div className="form--group">
     {label && <label className="form--label">{label}</label>}
     <Field

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { withRouter } from 'next/router';
 
 import App from 'components/App';
 
@@ -51,4 +50,4 @@ const AboutUs = () => (
   </App>
   );
 
-export default withRouter(AboutUs);
+export default AboutUs;

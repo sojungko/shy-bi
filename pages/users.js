@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import axios from 'axios';
 
-import { GET_ALL_USERS, GET_VISITED_USER, UNVISIT_USER } from 'constants/action-types';
+import {
+  GET_ALL_USERS,
+  GET_VISITED_USER,
+  UNVISIT_USER,
+} from 'constants/action-types';
 import { userPropType } from 'constants/prop-types';
 import decorateUser from 'modules/user-decorator';
 

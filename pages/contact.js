@@ -1,13 +1,10 @@
 import React from 'react';
-import { withRouter } from 'next/router';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
 import App from 'components/App';
 import {
   renderField,
-  renderRadioGroup,
-  renderSelect,
   renderTextArea,
 } from 'components/Form';
 
@@ -40,11 +37,11 @@ const Contact = () => (
             <button
               className={
                 classNames({
-                  'button': true,
-                  'button__flat': true,
-                  'button__large': true,
+                  button: true,
+                  button__disabled: invalid || pristine,
+                  button__flat: true,
+                  button__large: true,
                   'form--submit': true,
-                  'button__disabled': invalid || pristine,
                 })
               }
               type="submit"
@@ -59,4 +56,4 @@ const Contact = () => (
   </App>
 );
 
-export default withRouter(Contact);
+export default Contact;
