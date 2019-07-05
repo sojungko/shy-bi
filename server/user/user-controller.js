@@ -6,8 +6,8 @@
  *
  * Methods in this file are:
  *
- *  1) SIGN UP : signUp({ body: { name, username, email } }, res)
- *  2) SIGN IN : singIn({ body }, res)
+ *  1) SIGN UP : signUp({ body: { name, username, email } }, callback)
+ *  2) SIGN IN : singIn({ body }, callback)
  *  3) FIND USER : findUser({ params: { username } }, res)
  *
  * --------------------------------------------------------------- */
@@ -16,8 +16,7 @@ import debug from 'debug';
 import bcrypt from 'bcryptjs';
 import { addUser, getUser, toggleOnline, toggleOffline } from './user-model';
 
-let log = debug('server:user:controller');
-// Plucks addUser methods from user/user-model.js
+const log = debug('server:user:controller');
 
 //
 /* -------------------------- * SIGN UP * -------------------------
@@ -27,17 +26,17 @@ let log = debug('server:user:controller');
  *
  *  Parameters:
  *    • req | Object | request object
- *        - destuctured to pluck name, username, email, password, city, age, sex from its body
+ *        - destuctured to pluck username, email, password from its body
  *    • res | Object | response object
  *
  *  Returns:
  *    • No explicit return
  *
  * --------------------------------------------------------------- */
-// Taking in job and education because Facebook provides the info
+// TODO: take in job and education because Facebook provides the info
 export function signUp({ body: { username, email, password } }, callback) {
-  // log = log.extend('signup');
-  log(`Signing up ${username}`);
+  const local = log.extend('signup');
+  local(`Signing up ${username}`);
   getUser(username, user => {
     if (user) {
       callback(null);
@@ -70,8 +69,7 @@ export function signUp({ body: { username, email, password } }, callback) {
      "name": "Peter Schussheim",
      "email": "peter@gmail.com",
      "username": "peter",
-     "city": "New York",
-     "age": "31",
+     "age": 31,
      "sex": "Male"
     }
  *
@@ -85,24 +83,24 @@ export function signUp({ body: { username, email, password } }, callback) {
  *
  * --------------------------------------------------------------- */
 export function signIn({ body }, callback) {
-  // log = log.extend('signIn');
+  const local = log.extend('signIn');
   const attemptedPassword = body.password;
   const attemptedUsername = body.username;
 
-  log(`Authenticating for user with
+  local(`Authenticating for user with
   username: ${attemptedUsername}, password: ${attemptedPassword}`);
 
   getUser(attemptedUsername, foundUser => {
-    log(`Success!
+    local(`Success!
       Checking attempted password: ${attemptedPassword} against database`);
 
     const { password, ...rest } = foundUser;
     bcrypt.compare(attemptedPassword, password, (err, isMatch) => {
       if (err) {
-        log('Wrong password!');
+        local('Wrong password!');
         callback(err);
       } else if (isMatch) {
-        log('Sending User data: ', rest);
+        local('Sending User data: ', rest);
         callback(null, rest);
         toggleOnline(foundUser.username);
       }
@@ -111,10 +109,10 @@ export function signIn({ body }, callback) {
 }
 
 export function signOut({ body: { username } }, res) {
-  // log = log.extend('signOut');
-  log(`Deauthenticating username: ${username}`);
+  const local = log.extend('signOut');
+  local(`Deauthenticating username: ${username}`);
   toggleOffline(username, data => {
-    log('Success!', data);
+    local('Success!', data);
     return res.send(data);
   });
 }
@@ -152,18 +150,18 @@ export function signOut({ body: { username } }, res) {
  *
  * --------------------------------------------------------------- */
 export function findUser({ params: { username } }, res) {
-  // log = log.extend('findUser');
-  log(`Searching for user with username: ${username}`);
+  const local = log.extend('findUser');
+  local(`Searching for user with username: ${username}`);
 
   getUser(username, (data, error) => {
     if (error) {
-      log('Error!', error);
+      local.extend('error')(error);
       res.status(404).send(error);
     } else {
       const { password, ...rest } = data;
-      log('Success! Chunking data & building res object', rest);
+      local('Success! Chunking data & building res object', rest);
 
-      log('Sending User data: ', rest);
+      local('Sending User data: ', rest);
       res.json(rest);
     }
   });

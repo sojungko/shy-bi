@@ -14,11 +14,10 @@ import debug from 'debug';
 import db from '../db/config';
 
 import runParallel from '../queries/run';
-import { queryUser, queryBirthday } from '../queries/users';
+import { mergeUser, queryUser, queryBirthday } from '../queries/users';
 import { queryLikedUsers } from '../queries/likes';
 
-let log = debug('server:user:model');
-let err = debug('server:user:model:error');
+const log = debug('server:user:model');
 
 //
 /* ------------------------- * ADD USER * -------------------------
@@ -26,13 +25,9 @@ let err = debug('server:user:model:error');
  * creates a new User node with name, username, email as its property
  *
  *  Parameters:
- *    • name | String
  *    • username | String
  *    • email | String
  *    • password | String
- *    • city | String
- *    • age | Interger
- *    • sex | String
  *    • callback | Function | Exectued on the result of db query.
  *
  *  Returns:
@@ -42,45 +37,31 @@ let err = debug('server:user:model:error');
  * --------------------------------------------------------------- */
 export function addUser(userData, callback) {
   const { username, password, email } = userData;
-  // log = log.extend('addUser');
-  log(`Adding user
+  const local = log.extend('addUser');
+  const err = local.extend('error');
+  local(`Adding user
     username: ${username}
     password: ${password}
     email: ${email}
     to database`);
 
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) {
+  bcrypt.genSalt(10, (error, salt) => {
+    if (error) {
       err('Error generating hash');
     } else {
-      bcrypt.hash(password, salt, (err, hash) => {
-        if (err) {
-          log(`Error hashing ${password}`);
+      bcrypt.hash(password, salt, async (error, hash) => {
+        if (error) {
+          err(`Error hashing ${password}`);
         } else {
-          log(`Password successfully hashed: ${hash}`);
-          log('username : ', { username });
-          return db
-            .run(
-              `MERGE (newUser:User {
-              username: {username},
-              password: {hash},
-              email: {email}
-            })
-            ON CREATE SET newUser.memberSince = datetime()
-  
-            RETURN newUser`,
-              { username, email, hash }
-            )
-            .then(({ records }) => {
-              db.close();
-              log('records : ', records);
-              log('user has been added');
-              return callback(records[0]);
-            })
-            .catch(error => {
-              err(`Could not add ${username} to the database`);
-              throw error;
-            });
+          local(`Password successfully hashed: ${hash}`);
+          local('username : ', { username });
+          try {
+            const newUser = await mergeUser({ username, email, hash });
+            return callback(newUser);
+          } catch (error) {
+            err(`Could not add ${username} to the database`);
+            throw error;
+          }
         }
       });
     }
@@ -102,8 +83,8 @@ export function addUser(userData, callback) {
  * --------------------------------------------------------------- */
 
 export async function getUser(username, callback) {
-  log = log.extend('getUser');
-  log(`Finding ${username} from database`);
+  const local = log.extend('getUser');
+  local(`Finding ${username} from database`);
 
   try {
     const records = await runParallel({
@@ -112,7 +93,7 @@ export async function getUser(username, callback) {
       ageInMonths: queryBirthday({ username }),
     });
 
-    log('records', records);
+    local('records', records);
     const { user, liked, ageInMonths } = records;
 
     /* -- Consolidate into one user obj -- */
@@ -124,35 +105,13 @@ export async function getUser(username, callback) {
 
     callback(userObj);
   } catch (error) {
-    err('Error', error);
+    local.extend('error')(error);
   }
 }
 
-export function getUserByEmail(email, callback) {
-  // log = log.extend('getUserByEmail');
-  log(`Finding ${email} from database`);
-
-  return db
-    .run(
-      `MATCH (user:User{email: {email}})
-      UNWIND [duration.inMonths(user.birthday, date())] as age
-      RETURN user, age`,
-      { email }
-    )
-    .then(({ records }) => {
-      db.close();
-      log(`${email} has been found`, records);
-      return callback(records);
-    })
-    .catch(error => {
-      err(`Could not find ${email} from database`);
-      throw error;
-    });
-}
-
 export function toggleOnline(username) {
-  // log = log.extend('toggleOnline');
-  log(`Toggling ${username} online `);
+  const local = log.extend('toggleOnline');
+  local(`Toggling ${username} online `);
   return db
     .run(
       `MATCH (user: User{username: {username}})
@@ -162,13 +121,13 @@ export function toggleOnline(username) {
     )
     .then(data => {
       db.close();
-      log(`Toggled ${username} online`, data);
+      local(`Toggled ${username} online`, data);
     });
 }
 
 export function toggleOffline(username, callback) {
-  // log = log.extend('toggleOffline');
-  log(`Toggling ${username} online `);
+  const local = log.extend('toggleOffline');
+  local(`Toggling ${username} online `);
   return db
     .run(
       `MATCH (user: User{username: {username}})
@@ -178,7 +137,7 @@ export function toggleOffline(username, callback) {
     )
     .then(data => {
       db.close();
-      log(`Toggled ${username} offline`, data);
+      local(`Toggled ${username} offline`, data);
       return callback(data);
     });
 }

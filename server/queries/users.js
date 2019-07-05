@@ -4,6 +4,34 @@ import { intsToNumbers } from '../utils/convert';
 
 const log = debug('server:queries:users');
 
+export async function mergeUser({ username, email, hash }) {
+  const local = log.extend('mergeUser');
+  try {
+    const { records } = await db.run(
+      `MERGE (newUser:User {
+        username: {username},
+        password: {hash},
+        email: {email}
+      })
+      ON CREATE SET newUser.memberSince = datetime()
+  
+      RETURN newUser`,
+      { username, email, hash }
+    );
+
+    db.close();
+
+    // No need to return age because no birthday input at signup
+    const {
+      properties: { password, ...rest },
+    } = records.get('newUser');
+    return intsToNumbers(rest);
+  } catch (error) {
+    local.extend('error')(error);
+    return Promise.reject(new Error(error));
+  }
+}
+
 export async function queryAllUsers() {
   const local = log.extend('queryAllUsers');
   try {
@@ -78,10 +106,13 @@ export async function queryUser({ username }) {
     local('user records', records);
 
     if (records.length) {
+      // TODO remove password, add age in response
       const [firstMatch] = records; // take first match
-      const { properties = {} } = firstMatch.get('user');
+      const {
+        properties: { password, ...rest },
+      } = firstMatch.get('user');
 
-      return intsToNumbers(properties);
+      return intsToNumbers(rest);
     }
   } catch (error) {
     // TODO what if theres no match?
