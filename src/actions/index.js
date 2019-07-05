@@ -23,23 +23,10 @@ export {
   sendMessage,
 } from './messages-actions';
 
-export {
-  getLikedUsers,
-  likeUser,
-  unlikeUser,
-} from './like-actions';
+export { getLikedUsers, likeUser, unlikeUser } from './like-actions';
 
-export {
-  getMatches,
-  getUnviewedMatches,
-  viewMatch,
-} from './match-actions';
+export { getMatches, getUnviewedMatches, viewMatch } from './match-actions';
 
-export {
-  clearFields,
-  filterUsers,
-} from './filters-actions';
+export { clearFields, filterUsers } from './filters-actions';
 
-export {
-  toggleLeftNav,
-} from './left-nav-actions';
+export { toggleLeftNav } from './left-nav-actions';

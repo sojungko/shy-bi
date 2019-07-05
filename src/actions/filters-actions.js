@@ -14,11 +14,15 @@ export const filterUsers = ({ minage, maxage, sex }) => {
 
   const { Male, Female, Other } = sex;
 
-  url += `sex=${Male ? 'Male,' : ''}${Female ? 'Female,' : ''}${Other ? 'Other,' : ''}`;
+  url += `sex=${Male ? 'Male,' : ''}${Female ? 'Female,' : ''}${
+    Other ? 'Other,' : ''
+  }`;
 
-  return dispatch => axios.get(url)
-    .then(({ data }) => dispatch({ type: A.FILTER_USERS, payload: data }))
-    .catch((error) => {
-      err(error);
-    });
+  return dispatch =>
+    axios
+      .get(url)
+      .then(({ data }) => dispatch({ type: A.FILTER_USERS, payload: data }))
+      .catch(error => {
+        err(error);
+      });
 };
