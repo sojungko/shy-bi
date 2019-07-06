@@ -1,5 +1,6 @@
 import debug from 'debug';
 import db from '../db/config';
+import { formatDate, validateDate } from '../utils/validate';
 import { intsToNumbers } from '../utils/convert';
 
 const log = debug('server:queries:users');
@@ -139,6 +140,93 @@ export async function queryBirthday({ username }) {
     const [firstMatch] = records;
 
     return firstMatch && firstMatch.get('age.months');
+  } catch (error) {
+    local.extend('error')(error);
+    return Promise.reject(new Error(error));
+  }
+}
+
+export async function setUserProperties(props) {
+  const local = log.extend('setUserProperties');
+  try {
+    const { records } = await db.run(
+      `MATCH (user:User {username: {username}})
+        SET
+        user.name = {name},
+        user.email = {email},
+        ${
+          validateDate(props.birthday)
+            ? 'user.birthday = date({birthday}),'
+            : ''
+        }
+        user.edLevel = {edLevel},
+        user.aboutMe = {aboutMe},
+        user.sex = {sex}
+        WITH user
+        UNWIND [duration.inMonths(user.birthday, date())] as age
+        RETURN user, age
+        `,
+      {
+        ...props,
+        birthday: formatDate(props.birthday),
+      }
+    );
+
+    db.close();
+
+    const {
+      properties: { password, ...rest },
+    } = records.get('user');
+    const age = Math.floor(records.get('age').months / 12);
+    return intsToNumbers({ age, ...rest });
+  } catch (error) {
+    local.extend('error')(error);
+    return Promise.reject(new Error(error));
+  }
+}
+
+export async function deleteImage(username) {
+  const local = log.extend('deleteImage');
+  try {
+    const { records } = await db.run(
+      `MATCH (user:User {username: {username}})
+      REMOVE user.image_url
+      RETURN user`,
+      { username }
+    );
+
+    db.close();
+
+    local('Successfully removed image from database');
+
+    const {
+      properties: { password, ...rest },
+    } = records.get('user');
+    const age = Math.floor(records.get('age').months / 12);
+    return intsToNumbers({ age, ...rest });
+  } catch (error) {
+    log.extend('error')(error);
+    return Promise.reject(new Error(error));
+  }
+}
+
+export async function setImage({ username, url }) {
+  const local = log.extend('setImage');
+  try {
+    const { records } = await db.run(
+      `MATCH (user:User{ username: {username} })
+    SET user.image_url = {url}
+    RETURN user`,
+      { username, url }
+    );
+
+    db.close();
+
+    const {
+      properties: { password, ...rest },
+    } = records.get('user');
+    const age = Math.floor(records.get('age').months / 12);
+    return intsToNumbers({ age, ...rest });
   } catch (error) {
     local.extend('error')(error);
     return Promise.reject(new Error(error));

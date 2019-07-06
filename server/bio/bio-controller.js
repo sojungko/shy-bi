@@ -1,72 +1,36 @@
 import debug from 'debug';
 import { postBio, removeImage, postImage } from './bio-model';
-import { intsToNumbers } from '../utils/convert';
 
-let log = debug('server:bio:controller');
+const log = debug('server:bio:controller');
 
 export function editBio({ body }, res) {
-  // log = log.extend('editBio');
-  log('Received request :', body);
-  postBio(body, (data, error) => {
+  const local = log.extend('editBio');
+  const err = local.extend('error');
+  local('Received request :', body);
+  postBio(body, (result, error) => {
     if (error) {
-      log('Error!', error);
+      err('Error!', error);
       res.status(500).send(error);
     }
-    log('Completed database query', data);
-    const { properties = {} } = data.get('user');
-    const age = Math.floor(intsToNumbers(data.get('age')).months / 12);
-    const {
-      aboutMe,
-      birthday,
-      edLevel,
-      email,
-      image_url,
-      job,
-      memberSince,
-      name,
-      online,
-      sex,
-      username,
-    } = properties;
-
-    const result = {
-      aboutMe,
-      age,
-      birthday: intsToNumbers(birthday),
-      edLevel,
-      email,
-      image_url,
-      job,
-      memberSince: intsToNumbers(memberSince),
-      name,
-      online,
-      sex,
-      username,
-    };
-
-    log('Sending back updated user data', result);
+    local('Completed database query', result);
 
     res.status(201).json(result);
   });
 }
 
 export function deleteImage(req, res) {
-  // log = log.extend('deleteImage');
-  log('Received request : ', req.body);
+  const local = log.extend('deleteImage');
+  local('Received request : ', req.body);
   removeImage(req.body.username, () => {
     res.sendStatus(201);
   });
 }
 
 export function uploadImage({ body: { username, url } }, res) {
-  // log = log.extend('uploadImage');
-  log(`Sending image url ${url} for ${username}`);
-  postImage(username, url, records => {
-    log('Image successfully saved : ', records);
-    const {
-      properties: { image_url },
-    } = records.get('user');
-    log('image_url', image_url);
-    res.status(201).json(image_url);
+  const local = log.extend('uploadImage');
+  local(`Sending image url ${url} for ${username}`);
+  postImage(username, url, () => {
+    local('Image successfully saved : ', url);
+    res.status(201).json(url);
   });
 }

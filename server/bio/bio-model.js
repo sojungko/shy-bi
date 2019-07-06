@@ -1,99 +1,43 @@
 import debug from 'debug';
 
-import db from '../db/config';
-import { validateDate, formatDate } from '../utils/validate';
+import { setUserProperties, deleteImage, setImage } from '../queries/users';
 
-let log = debug('server:bio:model');
-let err = debug('server:bio:model:error');
+const log = debug('server:bio:model');
 
-export function postBio(
-  {
-    name = '',
-    email,
-    edLevel = '',
-    aboutMe = '',
-    username,
-    birthday = {},
-    sex = '',
-  },
-  callback
-) {
-  // log = log.extend('postBio');
-  log(`Accessing user database with username: ${username}`);
-  log('birthday', birthday);
-  return db
-    .run(
-      `MATCH (user:User {username: {username}})
-      SET
-      user.name = {name},
-      user.email = {email},
-      ${validateDate(birthday) ? 'user.birthday = date({birthday}),' : ''}
-      user.edLevel = {edLevel},
-      user.aboutMe = {aboutMe},
-      user.sex = {sex}
-      WITH user
-      UNWIND [duration.inMonths(user.birthday, date())] as age
-      RETURN user, age
-      `,
-      {
-        name,
-        email,
-        edLevel,
-        birthday: formatDate(birthday),
-        aboutMe,
-        username,
-        sex,
-      }
-    )
-    .then(({ records }) => {
-      log('Editing user info in database:', records);
-      db.close();
-      return callback(records[0]);
-    })
-    .catch(error => {
-      err('Could not edit user in database : ', error);
-      throw error;
-    });
+export async function postBio(user, callback) {
+  const local = log.extend('postBio');
+  local(`Accessing user database with username: ${user.username}`);
+  local('birthday', user.birthday);
+
+  try {
+    const editedUser = await setUserProperties(user);
+    return callback(editedUser);
+  } catch (error) {
+    local.extend('error')(error);
+    throw error;
+  }
 }
 
-export function removeImage(username, callback) {
-  // log = log.extend('removeImage');
-  log(`Accessing user database with ${username}`);
-  return db
-    .run(
-      `MATCH (user:User {username: {username}})
-      REMOVE user.image_url
-      RETURN user`,
-      { username }
-    )
-    .then(({ records }) => {
-      db.close();
-      log('Successfully removed image url from database');
-      return callback(records[0]);
-    })
-    .catch(error => {
-      err('Could not delete image from database');
-      throw error;
-    });
+export async function removeImage(username, callback) {
+  const local = log.extend('removeImage');
+  local(`Accessing user database with ${username}`);
+  try {
+    const editedUser = await deleteImage(username);
+    return callback(editedUser);
+  } catch (error) {
+    local.extend('error')(error);
+    throw error;
+  }
 }
 
-export function postImage(username, url, callback) {
-  // log = log.extend('postImage');
-  log(`Accessing user database with url: ${url}`);
-  return db
-    .run(
-      `MATCH (user:User{ username: {username} })
-    SET user.image_url = {url}
-    RETURN user`,
-      { username, url }
-    )
-    .then(({ records }) => {
-      db.close();
-      log('Saving image to database:');
-      return callback(records[0]);
-    })
-    .catch(error => {
-      err('[postImage] Could not save image to database');
-      throw error;
-    });
+export async function postImage(username, url, callback) {
+  const local = log.extend('postImage');
+  local(`Accessing user database with url: ${url}`);
+  try {
+    const editedUser = await setImage({ username, url });
+    return callback(editedUser);
+  } catch (error) {
+    local.extend('error')(error);
+    throw error;
+  }
 }
